@@ -1,6 +1,6 @@
 # NexaFlow Project 
 
-Projet pour l'ERP NexaFlow utilisant NestJS avec Clean Architecture
+Projet pour l'ERP NexaFlow utilisant NestJS avec Clean Architecture et SOLID principles
 
 ## Architecture
 
