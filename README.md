@@ -28,7 +28,7 @@ Projet pour l'ERP NexaFlow utilisant NestJS avec Clean Architecture
 # Structure des fichiers
 
 ```bash
-nexaflow-erp-api/
+nexa-api/
 ├── src/
 │   ├── core/                       # Code partagé et configurations globales
 │   │   ├── common/                 
