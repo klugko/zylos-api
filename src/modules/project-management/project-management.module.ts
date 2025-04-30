@@ -1,21 +1,48 @@
 import { Module } from '@nestjs/common';
-import { ProjectController } from './infrastructure/controllers/project.controller';
-import { CreateProjectUseCase } from './application/use-cases/create-project.use-case';
-import { PrismaProjectRepository } from './infrastructure/repositories/prisma-project.repository';
 import { PrismaService } from '../../core/prisma/prisma.service';
+
+import { ProjectController } from './infrastructure/controllers/project.controller';
+import { TaskController } from './infrastructure/controllers/task.controller';
+import { ChecklistController } from './infrastructure/controllers/checklist.controller';
+
+import { CreateProjectUseCase } from './application/use-cases/create-project.use-case';
+import { CreateChecklistUseCase } from './application/use-cases/create-checklist.use-case';
+import { CreateTaskUseCase } from './application/use-cases/create-task.user-case';
+
+import { PrismaProjectRepository } from './infrastructure/repositories/prisma-project.repository';
+import { PrismaTaskRepository } from './infrastructure/repositories/prisma-task.repository';
+import { PrismaChecklistRepository } from './infrastructure/repositories/prisma-checklist.repository';
+
+import { GptChecklistService } from './infrastructure/adapters/gpt-checklist.service';
 
 
 @Module({
-  controllers: [ProjectController],
+  controllers: [ProjectController, TaskController, ChecklistController],
   providers: [
     PrismaService,
+
     CreateProjectUseCase,
+    CreateTaskUseCase,
+    CreateChecklistUseCase,
+    GptChecklistService,
+
     PrismaProjectRepository,
+    PrismaTaskRepository,
+    PrismaChecklistRepository,
+
     {
       provide: 'ProjectRepository',
-      useExisting: PrismaProjectRepository,
+      useClass: PrismaProjectRepository,
+    },
+    {
+      provide: 'TaskRepository',
+      useClass: PrismaTaskRepository,
+    },
+    {
+      provide: 'ChecklistRepository',
+      useClass: PrismaChecklistRepository,
     },
   ],
-  exports: ['ProjectRepository'],
+  exports: ['ProjectRepository', 'TaskRepository', 'ChecklistRepository'],
 })
 export class ProjectManagementModule {}
