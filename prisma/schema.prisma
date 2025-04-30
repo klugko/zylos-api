@@ -8,15 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model users {
-  id    Int     @id @default(autoincrement())
-  fullname  String? @db.VarChar(255)
-  email String? @unique @db.VarChar(255)
-  password String? @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 
 model Project {
   id         String     @id @default(uuid())
@@ -55,4 +46,21 @@ enum TaskStatus {
   TODO
   IN_PROGRESS
   DONE
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  COLLABORATOR
+}
+
+model User {
+  id        String    @id @default(uuid())
+  fullname  String    @db.VarChar(255)
+  email     String    @unique @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  role      UserRole  @default(USER)
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
