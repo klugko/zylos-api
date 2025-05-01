@@ -30,13 +30,16 @@ Génère une liste de tâches essentielles (checklist) adaptées à ce projet. R
         },
       );
 
-      const raw = response.data.choices[0].message.content.trim();
+      let raw = response.data.choices[0].message.content.trim();
+
+      raw = raw.replace(/```json|```/g, '').trim();
+
       const parsed = JSON.parse(raw);
       if (!Array.isArray(parsed)) throw new Error('Invalid checklist format from GPT');
       return parsed;
     } catch (error) {
-      this.logger.error('GPT Checklist generation failed:', error);
-      return []; // fallback: no checklist
+      this.logger.error('GPT Checklist generation failed:', error.message || error);
+      return [];
     }
   }
 }
