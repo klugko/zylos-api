@@ -139,6 +139,7 @@ exports.Prisma.TaskScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   dependencies: 'dependencies',
+  assignedUserId: 'assignedUserId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -159,6 +160,9 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   isActive: 'isActive',
+  skills: 'skills',
+  availability: 'availability',
+  performanceScore: 'performanceScore',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -186,7 +190,9 @@ exports.TaskStatus = exports.$Enums.TaskStatus = {
 exports.UserRole = exports.$Enums.UserRole = {
   USER: 'USER',
   ADMIN: 'ADMIN',
-  COLLABORATOR: 'COLLABORATOR'
+  COLLABORATOR: 'COLLABORATOR',
+  MANAGER: 'MANAGER',
+  MEMBER: 'MEMBER'
 };
 
 exports.Prisma.ModelName = {

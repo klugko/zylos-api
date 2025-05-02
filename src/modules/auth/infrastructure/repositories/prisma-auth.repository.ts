@@ -18,7 +18,10 @@ export class PrismaAuthRepository implements AuthRepository {
       user.role as UserRole,
       user.isActive,
       user.createdAt,
-      user.updatedAt
+      user.updatedAt,
+      user.skills,
+      user.availability,
+      user.performanceScore
     );
   }
 
@@ -41,6 +44,9 @@ export class PrismaAuthRepository implements AuthRepository {
         password: user.password ?? '',
         role: user.role,
         isActive: user.isActive,
+        skills: user.skills,
+        availability: user.availability,
+        performanceScore: user.performanceScore,
       },
     });
     return this.toDomain(row);
@@ -54,8 +60,32 @@ export class PrismaAuthRepository implements AuthRepository {
         password: user.password,
         role: user.role,
         isActive: user.isActive,
+        skills: user.skills,
+        availability: user.availability,
+        performanceScore: user.performanceScore,
       },
     });
     return this.toDomain(row);
   }
+
+  async findAllActive(): Promise<User[]> {
+    const result = await this.prisma.user.findMany({
+      where: { isActive: true },
+    });
+  
+    return result.map(user => new User(
+      user.id,
+      user.fullname,
+      user.email,
+      undefined,
+      user.role as UserRole,
+      user.isActive,
+      user.createdAt,
+      user.updatedAt,
+      user.skills ?? [],
+      user.availability ?? 0,
+      user.performanceScore ?? 0,
+    ));
+  }
+  
 }

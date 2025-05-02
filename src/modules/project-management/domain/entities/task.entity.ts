@@ -11,7 +11,8 @@ export class Task {
     public readonly updatedAt: Date,
     public readonly startDate: Date,
     public readonly endDate: Date,
-    public readonly dependencies?: string[]
+    public readonly dependencies?: string[],
+    public assignedUserId?: string 
   ) {}
 
   updateStatus(status: TaskStatus) {

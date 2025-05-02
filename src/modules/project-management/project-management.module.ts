@@ -12,9 +12,13 @@ import { PrismaChecklistRepository } from './infrastructure/repositories/prisma-
 import { GptChecklistService } from './infrastructure/adapters/gpt-checklist.service';
 import { ProjectGateway } from './infrastructure/websocket/project.gateway';
 import { GetProjectTasksByViewUseCase } from './application/use-cases/get-project-tasks-by-view.use-case';
+import { AssignTaskToBestUserUseCase } from './application/use-cases/assign-task.use-case';
+import { OpenAIService } from './infrastructure/adapters/openapi.service';
+import { AuthModule } from '../auth/auth.module';
 
 
 @Module({
+  imports: [AuthModule],
   controllers: [ProjectController, TaskController, ChecklistController],
   
   providers: [
@@ -28,6 +32,8 @@ import { GetProjectTasksByViewUseCase } from './application/use-cases/get-projec
     PrismaChecklistRepository,
     ProjectGateway,
     GetProjectTasksByViewUseCase,
+    AssignTaskToBestUserUseCase,
+    OpenAIService,
 
     {
       provide: 'ProjectRepository',
@@ -40,7 +46,8 @@ import { GetProjectTasksByViewUseCase } from './application/use-cases/get-projec
     {
       provide: 'ChecklistRepository',
       useClass: PrismaChecklistRepository,
-    },
+    }
+
   ],
   
   exports: ['ProjectRepository', 'TaskRepository', 'ChecklistRepository'],

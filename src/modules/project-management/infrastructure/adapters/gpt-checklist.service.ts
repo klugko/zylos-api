@@ -20,7 +20,7 @@ Génère une liste de tâches essentielles (checklist) adaptées à ce projet. R
         {
           model: 'gpt-4o',
           messages: [{ role: 'user', content: prompt }],
-          temperature: 0.7,
+          temperature: 0.3,
         },
         {
           headers: {

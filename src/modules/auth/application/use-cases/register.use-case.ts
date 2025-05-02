@@ -30,7 +30,10 @@ export class RegisterUseCase {
       dto.role,
       true,
       now,
-      now
+      now,
+      dto.skills ?? [],               
+      dto.availability ?? 0,          
+      dto.performanceScore ?? 0.0 
     );
 
     const saved = await this.authRepo.create(user);
@@ -43,7 +46,10 @@ export class RegisterUseCase {
       saved.role,
       saved.isActive,
       saved.createdAt,
-      saved.updatedAt
+      saved.updatedAt,
+      saved.skills,
+      saved.availability,
+      saved.performanceScore
     );
   }
 }

@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, Param, Put, Delete, HttpException, HttpSta
 import { PrismaTaskRepository } from '../repositories/prisma-task.repository';
 import { CreateTaskDto } from '../../application/dto/create-task.dto';
 import { CreateTaskUseCase } from '../../application/use-cases/create-task.user-case';
+import { AssignTaskToBestUserUseCase } from '../../application/use-cases/assign-task.use-case';
 
 
 @Controller('api/v1/tasks')
@@ -9,6 +10,7 @@ export class TaskController {
   constructor(
     private readonly createTaskUseCase: CreateTaskUseCase,
     private readonly taskRepo: PrismaTaskRepository,
+    private readonly assignTask: AssignTaskToBestUserUseCase
   ) {}
 
   @Post()
@@ -40,5 +42,10 @@ export class TaskController {
   async remove(@Param('id') id: string) {
     await this.taskRepo.delete(id);
     return { message: 'Deleted successfully' };
+  }
+
+  @Post(':id/assign-task-ai')
+  async assign(@Param('id') id: string) {
+    return await this.assignTask.execute(id);
   }
 }

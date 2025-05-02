@@ -31,6 +31,7 @@ model Task {
   startDate   DateTime
   endDate     DateTime
   dependencies String[]
+  assignedUserId  String?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
@@ -55,6 +56,8 @@ enum UserRole {
   USER
   ADMIN
   COLLABORATOR
+  MANAGER
+  MEMBER
 }
 
 model User {
@@ -64,6 +67,9 @@ model User {
   password  String    @db.VarChar(255)
   role      UserRole  @default(USER)
   isActive  Boolean   @default(true)
+  skills    String[]   
+  availability  Int   @default(0)      
+  performanceScore Float @default(0.0)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }

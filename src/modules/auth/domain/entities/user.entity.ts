@@ -11,7 +11,10 @@ export class User {
     public role: UserRole,
     public isActive: boolean,
     public readonly createdAt: Date,
-    public readonly updatedAt: Date
+    public readonly updatedAt: Date,
+    public skills: string[],
+    public availability: number,
+    public performanceScore: number,
   ) {}
 
   activate(): void {
