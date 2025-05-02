@@ -1,5 +1,6 @@
 import {
     Body,
+    Query,
     Controller,
     Get,
     Param,
@@ -13,13 +14,15 @@ import {
   import { UpdateProjectDto } from '../../application/dto/update-project.dto';
   import { CreateProjectDto } from '../../application/dto/create-project.dto';
   import { PrismaProjectRepository } from '../repositories/prisma-project.repository';
-  
+  import { GetProjectTasksByViewUseCase } from '../../application/use-cases/get-project-tasks-by-view.use-case';
+
   
   @Controller('api/v1/projects')
   export class ProjectController {
     constructor(
       private readonly createProject: CreateProjectUseCase,
-      private readonly projectRepo: PrismaProjectRepository
+      private readonly projectRepo: PrismaProjectRepository,
+      private readonly getTasksByViews: GetProjectTasksByViewUseCase
     ) {}
   
     @Post()
@@ -63,5 +66,12 @@ import {
     async archive(@Param('id') id: string) {
       return await this.projectRepo.archive(id);
     }
-  }
+
+    @Get(':id/tasks')
+    async getTasksByView(@Param('id') projectId: string, @Query('view') view: string) {
+      const validViews = ['kanban', 'gantt', 'list'];
+      const viewType = validViews.includes(view) ? view as 'kanban' | 'gantt' | 'list' : 'list';
+      return await this.getTasksByViews.execute(projectId, viewType);
+    }
+}
   

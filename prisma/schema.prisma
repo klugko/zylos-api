@@ -28,6 +28,9 @@ model Task {
   status      TaskStatus @default(TODO)
   projectId   String
   project     Project    @relation(fields: [projectId], references: [id])
+  startDate   DateTime
+  endDate     DateTime
+  dependencies String[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }

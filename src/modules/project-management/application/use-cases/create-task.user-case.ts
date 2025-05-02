@@ -5,6 +5,7 @@ import { Task } from '../../domain/entities/task.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { TaskStatus } from '../../domain/enums/task-status.enum';
 
+
 @Injectable()
 export class CreateTaskUseCase {
   constructor(
@@ -16,11 +17,14 @@ export class CreateTaskUseCase {
     const task = new Task(
       uuidv4(),
       dto.title,
-      dto.description ?? '',
+      dto.description ?? null,
       TaskStatus.TODO,
       dto.projectId,
-      now,
-      now
+      new Date(),
+      new Date(),
+      dto.startDate,
+      dto.endDate,
+      dto.dependencies ?? [],
     );
   
     return await this.taskRepo.create(task);

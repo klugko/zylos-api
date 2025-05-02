@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { TaskRepository } from '../../domain/interfaces/task-repository.interface';
-import { Task, TaskStatus } from '../../domain/entities/task.entity';
 import { PrismaService } from 'src/core/prisma/prisma.service';
+import { TaskStatus } from '../../domain/enums/task-status.enum';
+import { Task } from '../../domain/entities/task.entity';
 
 
 @Injectable()
@@ -14,7 +15,10 @@ export class PrismaTaskRepository implements TaskRepository {
     return new Task(
       data.id, data.title, data.description,
       data.status as TaskStatus,
-      data.projectId, data.createdAt, data.updatedAt
+      data.projectId,
+      data.startDate,
+      data.endDate,
+      data.createdAt, data.updatedAt
     );
   }
 
@@ -23,25 +27,38 @@ export class PrismaTaskRepository implements TaskRepository {
     return results.map(task => new Task(
       task.id, task.title, task.description,
       task.status as TaskStatus,
-      task.projectId, task.createdAt, task.updatedAt
+      task.projectId, 
+      task.startDate,
+      task.endDate,
+      task.createdAt, task.updatedAt
     ));
   }
 
   async create(task: Task): Promise<Task> {
     const created = await this.prisma.task.create({
       data: {
-        id: task.id,
         title: task.title,
         description: task.description,
-        status: task.status,
         projectId: task.projectId,
-      }
+        status: task.status,
+        startDate: task.startDate,
+        endDate: task.endDate,
+        dependencies: task.dependencies
+      },
     });
     return new Task(
-      created.id, created.title, created.description,
+      created.id,
+      created.title,
+      created.description,
       created.status as TaskStatus,
-      created.projectId, created.createdAt, created.updatedAt
+      created.projectId,
+      created.createdAt,
+      created.updatedAt,
+      created.startDate,
+      created.endDate,
+      created.dependencies
     );
+    
   }
 
   async update(task: Task): Promise<Task> {
@@ -56,7 +73,10 @@ export class PrismaTaskRepository implements TaskRepository {
     return new Task(
       updated.id, updated.title, updated.description,
       updated.status as TaskStatus,
-      updated.projectId, updated.createdAt, updated.updatedAt
+      updated.projectId,
+      updated.startDate,
+      updated.endDate,
+      updated.createdAt, updated.updatedAt
     );
   }
 
