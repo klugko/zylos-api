@@ -29,9 +29,15 @@ export class AssignTaskToBestUserUseCase {
     const prompt = this.buildPrompt(task, users);
 
     const result = await this.openai.ask(prompt);
-
-    const bestUser = users.find(u => result.includes(u.fullname) || result.includes(u.id));
-    if (!bestUser) throw new Error('No suitable user found');
+    let bestUserId: string | null = null;
+    try {
+      const json = JSON.parse(result);
+      bestUserId = json.id;
+    } catch {
+      throw new Error('Réponse IA invalide : non JSON');
+    }
+    const bestUser = users.find(u => u.id === bestUserId);
+    if (!bestUser) throw new Error('Aucun utilisateur valide trouvé');
 
     task['assignedUserId'] = bestUser.id;
     const updated = await this.taskRepo.update(task);
