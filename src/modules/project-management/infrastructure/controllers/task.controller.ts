@@ -20,6 +20,7 @@ import { PrismaTaskRepository } from '../repositories/prisma-task.repository';
 import { CreateTaskDto } from '../../application/dto/create-task.dto';
 import { CreateTaskUseCase } from '../../application/use-cases/create-task.user-case';
 import { AssignTaskToBestUserUseCase } from '../../application/use-cases/assign-task.use-case';
+import { ProjectGateway } from '../websocket/project.gateway';
 
 
 @ApiTags('Tasks')
@@ -29,6 +30,8 @@ export class TaskController {
     private readonly createTaskUseCase: CreateTaskUseCase,
     private readonly taskRepo: PrismaTaskRepository,
     private readonly assignTask: AssignTaskToBestUserUseCase,
+    private readonly gateway: ProjectGateway,
+
   ) {}
 
   @Post()
@@ -73,7 +76,16 @@ export class TaskController {
     const task = await this.taskRepo.findById(id);
     if (!task) throw new HttpException('Task not found', HttpStatus.NOT_FOUND);
     task.updateStatus(body.status as any);
-    return await this.taskRepo.update(task);
+    const updatedTask = await this.taskRepo.update(task);
+
+    // événement WebSocket à tous les clients de ce projet
+    this.gateway.emitProjectUpdate(updatedTask.projectId, {
+      taskId: updatedTask.id,
+      status: updatedTask.status,
+      updatedAt: new Date(),
+    });
+
+    return updatedTask;
   }
 
   @Delete(':id')

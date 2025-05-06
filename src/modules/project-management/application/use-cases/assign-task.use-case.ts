@@ -45,23 +45,30 @@ export class AssignTaskToBestUserUseCase {
     return updated;
   }
 
-  private buildPrompt(task: Task, users: any[]): string {
-    return `
-Je veux attribuer la tâche suivante :
-
-- Titre : ${task.title}
-- Description : ${task.description ?? 'Aucune'}
-- Statut actuel : ${task.status}
-
-Voici les utilisateurs disponibles :
-${users.map(u => `
-  - Nom : ${u.fullname}
-    Compétences : ${u.skills.join(', ')}
-    Disponibilité : ${u.availability}
-    Score : ${u.performanceScore}
-`).join('\n')}
-
-Quel est le meilleur utilisateur pour cette tâche ? Réponds uniquement avec son nom ou ID.
+    private buildPrompt(task: Task, users: any[]): string {
+      return `
+    Tu es un assistant chargé d'assigner la tâche suivante à la personne la plus compétente.
+    
+    ### Tâche à assigner :
+    - Titre : ${task.title}
+    - Description : ${task.description ?? 'Aucune'}
+    - Statut : ${task.status}
+    
+    ### Candidats :
+    ${users.map(u => `{
+      "id": "${u.id}",
+      "fullname": "${u.fullname}",
+      "skills": ["${u.skills.join('", "')}"],
+      "availability": ${u.availability},
+      "performanceScore": ${u.performanceScore}
+    }`).join(',\n')}
+    
+    ### Instructions :
+    Analyse les compétences, la disponibilité et le score. Choisis le meilleur utilisateur **et retourne uniquement un objet JSON** comme ci-dessous :
+    
+    {
+      "id": "ID_DU_MEILLEUR_UTILISATEUR"
+    }
     `;
-  }
+    }
 }
