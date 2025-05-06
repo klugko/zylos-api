@@ -1,4 +1,17 @@
-import { Body, Controller, Post, Put, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Put,
+  Param,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiBody,
+} from '@nestjs/swagger';
 import { RegisterUseCase } from '../../application/use-cases/register.use-case';
 import { LoginUseCase } from '../../application/use-cases/login.use-case';
 import { ActivateUserUseCase } from '../../application/use-cases/activate-user.use-case';
@@ -7,6 +20,7 @@ import { RegisterDto } from '../../application/dto/register.dto';
 import { LoginDto } from '../../application/dto/login.dto';
 
 
+@ApiTags('Auth')
 @Controller('api/v1/auth')
 export class AuthController {
   constructor(
@@ -17,27 +31,40 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @ApiOperation({ summary: 'Créer un nouvel utilisateur' })
+  @ApiBody({ type: RegisterDto })
+  @ApiResponse({ status: 201, description: 'Utilisateur enregistré' })
   register(@Body() dto: RegisterDto) {
     return this.registerUC.execute(dto);
   }
 
   @Post('login')
+  @ApiOperation({ summary: 'Se connecter' })
+  @ApiBody({ type: LoginDto })
+  @ApiResponse({ status: 200, description: 'Authentification réussie' })
   login(@Body() dto: LoginDto) {
     return this.loginUC.execute(dto);
   }
 
   @Post('logout')
+  @ApiOperation({ summary: 'Se déconnecter (stateless)' })
+  @ApiResponse({ status: 200, description: 'Déconnexion réussie' })
   logout() {
-    // Stateless JWT logout, token supprimé coté client
     return { message: 'Logout success' };
   }
 
   @Put('activate/:id')
+  @ApiOperation({ summary: 'Activer un utilisateur' })
+  @ApiParam({ name: 'id', description: "ID de l'utilisateur à activer" })
+  @ApiResponse({ status: 200, description: 'Utilisateur activé' })
   activate(@Param('id') id: string) {
     return this.activateUC.execute(id);
   }
 
   @Put('deactivate/:id')
+  @ApiOperation({ summary: 'Désactiver un utilisateur' })
+  @ApiParam({ name: 'id', description: "ID de l'utilisateur à désactiver" })
+  @ApiResponse({ status: 200, description: 'Utilisateur désactivé' })
   deactivate(@Param('id') id: string) {
     return this.deactivateUC.execute(id);
   }
