@@ -184,7 +184,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\kandraFifs\\nexa\\nexa-api\\prisma\\generated\\prisma",
+      "value": "/Users/Mika/nexa/nexa-api/prisma/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -193,12 +193,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\kandraFifs\\nexa\\nexa-api\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/Mika/nexa/nexa-api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -216,7 +216,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:admin@localhost:5432/nexa"
+        "value": "postgresql://postgres:mika@localhost:5432/nexa"
       }
     }
   },
