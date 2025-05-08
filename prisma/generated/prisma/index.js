@@ -185,7 +185,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/jeanaime/NexaFlow/nexa-api/prisma/generated/prisma",
+      "value": "E:\\kandraFifs\\nexa\\nexa-api\\prisma\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -194,12 +194,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-1.1.x",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/jeanaime/NexaFlow/nexa-api/prisma/schema.prisma",
+    "sourceFilePath": "E:\\kandraFifs\\nexa\\nexa-api\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -217,7 +217,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:abcd@localhost:5432/nexa"
+        "value": "postgresql://postgres:admin@localhost:5432/nexa"
       }
     }
   },
@@ -261,8 +261,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-1.1.x.so.node");
-path.join(process.cwd(), "prisma/generated/prisma/libquery_engine-debian-openssl-1.1.x.so.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "prisma/generated/prisma/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "prisma/generated/prisma/schema.prisma")
