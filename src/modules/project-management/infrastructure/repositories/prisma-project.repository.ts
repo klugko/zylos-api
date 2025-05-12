@@ -1,83 +1,88 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from '../../../../core/prisma/prisma.service';
 import { ProjectRepository } from '../../domain/interfaces/project-repository.interface';
 import { Project } from '../../domain/entities/project.entity';
-import { PrismaService } from 'src/core/prisma/prisma.service';
+import { UpdateProjectDto } from '../../application/dto/update-project.dto';
+import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
 
 
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findById(id: string): Promise<Project | null> {
-    const data = await this.prisma.project.findUnique({ where: { id } });
-    if (!data) return null;
-
-    return new Project(
-      data.id,
-      data.name,
-      data.description,
-      data.type,
-      data.isArchived,
-      data.createdAt,
-      data.updatedAt
-    );
-  }
-
-
-  async findAll(): Promise<Project[]> {
-    const projects = await this.prisma.project.findMany();
-    return projects.map((data) => new Project(
-      data.id, data.name, data.description, data.type,
-      data.isArchived, data.createdAt, data.updatedAt
-    ));
-  }
-
-
   async create(project: Project): Promise<Project> {
-    const data = await this.prisma.project.create({
+    const created = await this.prisma.project.create({
       data: {
         id: project.id,
         name: project.name,
         description: project.description,
-        type: project.type
-      }
+        clientType: project.clientType as ProjectClientType,
+        industry: project.industry,
+        color: project.color,
+        startDate: project.startDate,
+        endDate: project.endDate,
+        budget: project.budget,
+        progress: project.progress,
+        status: project.status as ProjectStatus,
+        priority: project.priority as ProjectPriority,
+        isArchived: project.isArchived,
+        ownerId: project.ownerId,
+        templateId: project.templateId,
+        createdAt: project.createdAt,
+        updatedAt: project.updatedAt,
+      },
     });
-    return new Project(
-      data.id, data.name, data.description, data.type,
-      data.isArchived, data.createdAt, data.updatedAt
-    );
+
+    return this.mapToEntity(created);
   }
 
-
-  async update(project: Project): Promise<Project> {
-    const data = await this.prisma.project.update({
-      where: { id: project.id },
-      data: {
-        name: project.name,
-        description: project.description,
-        type: project.type
-      }
-    });
-    return new Project(
-      data.id, data.name, data.description, data.type,
-      data.isArchived, data.createdAt, data.updatedAt
-    );
-  }
-
-
-  async delete(id: string): Promise<void> {
-    await this.prisma.project.delete({ where: { id } });
-  }
-
-  
-  async archive(id: string): Promise<Project> {
-    const data = await this.prisma.project.update({
+  async update(id: string, dto: UpdateProjectDto): Promise<Project> {
+    const existing = await this.prisma.project.findUnique({
       where: { id },
-      data: { isArchived: true }
     });
+
+    if (!existing) {
+      throw new NotFoundException(`Projet avec l'id ${id} introuvable.`);
+    }
+
+    const updated = await this.prisma.project.update({
+      where: { id },
+      data: {
+        ...dto,
+        updatedAt: new Date(),
+      },
+    });
+
+    return this.mapToEntity(updated);
+  }
+
+  private mapToEntity(record: any): Project {
     return new Project(
-      data.id, data.name, data.description, data.type,
-      data.isArchived, data.createdAt, data.updatedAt
+      record.id,
+      record.name,
+      record.description,
+      record.clientType,
+      record.industry,
+      record.color,
+      record.startDate,
+      record.endDate,
+      record.budget,
+      record.progress,
+      record.status,
+      record.priority,
+      record.isArchived,
+      record.createdAt,
+      record.updatedAt,
+      record.ownerId,
+      record.templateId,
     );
+  }
+
+  async findAll(): Promise<Project[]> {
+    const records = await this.prisma.project.findMany({
+      orderBy: { createdAt: 'desc' },
+    });
+  
+    return records.map(this.mapToEntity);
   }
 }

@@ -9,8 +9,8 @@ export class Task {
     public readonly projectId: string,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public readonly startDate: Date,
-    public readonly endDate: Date,
+    public readonly startDate: Date | null,
+    public readonly endDate: Date | null,
     public readonly dependencies?: string[],
     public assignedUserId?: string 
   ) {}

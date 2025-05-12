@@ -28,13 +28,13 @@ export class ChecklistController {
     return item;
   }
 
-  @Put(':id/toggle')
-  async toggleComplete(@Param('id') id: string) {
-    const item = await this.checklistRepo.findById(id);
-    if (!item) throw new HttpException('Checklist not found', HttpStatus.NOT_FOUND);
-    item.toggle();
-    return await this.checklistRepo.update(item);
-  }
+  // @Put(':id/toggle')
+  // async toggleComplete(@Param('id') id: string) {
+  //   const item = await this.checklistRepo.findById(id);
+  //   if (!item) throw new HttpException('Checklist not found', HttpStatus.NOT_FOUND);
+  //   // item.toggle();
+  //   return await this.checklistRepo.update(item);
+  // }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {

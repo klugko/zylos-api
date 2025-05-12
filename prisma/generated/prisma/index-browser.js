@@ -124,10 +124,21 @@ exports.Prisma.ProjectScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  clientType: 'clientType',
+  industry: 'industry',
+  color: 'color',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  budget: 'budget',
+  progress: 'progress',
+  status: 'status',
+  priority: 'priority',
   isArchived: 'isArchived',
-  type: 'type',
+  aiSuggestions: 'aiSuggestions',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  ownerId: 'ownerId',
+  templateId: 'templateId'
 };
 
 exports.Prisma.TaskScalarFieldEnum = {
@@ -135,20 +146,76 @@ exports.Prisma.TaskScalarFieldEnum = {
   title: 'title',
   description: 'description',
   status: 'status',
-  projectId: 'projectId',
+  priority: 'priority',
+  dueDate: 'dueDate',
   startDate: 'startDate',
   endDate: 'endDate',
-  dependencies: 'dependencies',
+  progress: 'progress',
+  color: 'color',
+  estimatedTime: 'estimatedTime',
+  projectId: 'projectId',
+  columnId: 'columnId',
   assignedUserId: 'assignedUserId',
+  dependencies: 'dependencies',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TaskColumnScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  order: 'order',
+  projectId: 'projectId'
 };
 
 exports.Prisma.ChecklistScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  completed: 'completed',
   projectId: 'projectId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChecklistItemScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  isChecked: 'isChecked',
+  taskId: 'taskId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProjectMemberScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  projectId: 'projectId',
+  userId: 'userId'
+};
+
+exports.Prisma.ProjectTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DocumentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  url: 'url',
+  uploadedById: 'uploadedById',
+  projectId: 'projectId',
+  uploadedAt: 'uploadedAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  taskId: 'taskId',
+  authorId: 'authorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -172,33 +239,82 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.ProjectClientType = exports.$Enums.ProjectClientType = {
+  SIMPLE: 'SIMPLE',
+  CODEUR: 'CODEUR'
+};
+
+exports.ProjectStatus = exports.$Enums.ProjectStatus = {
+  NOT_STARTED: 'NOT_STARTED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  ON_HOLD: 'ON_HOLD',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.ProjectPriority = exports.$Enums.ProjectPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+};
+
 exports.TaskStatus = exports.$Enums.TaskStatus = {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
-  DONE: 'DONE'
+  DONE: 'DONE',
+  BLOCKED: 'BLOCKED'
+};
+
+exports.TaskPriority = exports.$Enums.TaskPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+};
+
+exports.ProjectRole = exports.$Enums.ProjectRole = {
+  OWNER: 'OWNER',
+  MEMBER: 'MEMBER',
+  OBSERVER: 'OBSERVER'
 };
 
 exports.UserRole = exports.$Enums.UserRole = {
   USER: 'USER',
   ADMIN: 'ADMIN',
   COLLABORATOR: 'COLLABORATOR',
-  MANAGER: 'MANAGER',
-  MEMBER: 'MEMBER'
+  MANAGER: 'MANAGER'
 };
 
 exports.Prisma.ModelName = {
   Project: 'Project',
   Task: 'Task',
+  TaskColumn: 'TaskColumn',
   Checklist: 'Checklist',
+  ChecklistItem: 'ChecklistItem',
+  ProjectMember: 'ProjectMember',
+  ProjectTemplate: 'ProjectTemplate',
+  Document: 'Document',
+  Comment: 'Comment',
   User: 'User'
 };
 

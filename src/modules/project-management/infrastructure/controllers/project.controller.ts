@@ -1,83 +1,75 @@
 import {
   Body,
-  Query,
   Controller,
-  Get,
-  Param,
   Post,
   Put,
-  Delete,
+  Param,
   HttpException,
   HttpStatus,
+  Get,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
-import { CreateProjectUseCase } from '../../application/use-cases/create-project.use-case';
-import { UpdateProjectDto } from '../../application/dto/update-project.dto';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateProjectDto } from '../../application/dto/create-project.dto';
-import { PrismaProjectRepository } from '../repositories/prisma-project.repository';
-import { GetProjectTasksByViewUseCase } from '../../application/use-cases/get-project-tasks-by-view.use-case';
+import { UpdateProjectDto } from '../../application/dto/update-project.dto';
+import { CreateProjectUseCase } from '../../application/use-cases/create-project.use-case';
+import { Project } from '../../domain/entities/project.entity';
+import { UpdateProjectUseCase } from '../../application/use-cases/update-project.use-case';
+import { GetAllProjectsUseCase } from '../../application/use-cases/get-all-projects.use-case';
 
 
 @ApiTags('Projects')
 @Controller('api/v1/projects')
 export class ProjectController {
   constructor(
-    private readonly createProject: CreateProjectUseCase,
-    private readonly projectRepo: PrismaProjectRepository,
-    private readonly getTasksByViews: GetProjectTasksByViewUseCase,
+    private readonly createProjectUseCase: CreateProjectUseCase,
+    private readonly updateProjectUseCase: UpdateProjectUseCase,
+    private readonly getAllProjectsUseCase: GetAllProjectsUseCase,
   ) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Créer un projet' })
-  @ApiBody({ type: CreateProjectDto })
-  @ApiResponse({ status: 201, description: 'Projet créé avec succès' })
-  async create(@Body() dto: CreateProjectDto) {
-    return await this.createProject.execute(dto);
-  }
-
   @Get()
-  @ApiOperation({ summary: 'Lister tous les projets' })
-  @ApiResponse({ status: 200, description: 'Liste des projets retournée avec succès' })
-  async findAll() {
-    return await this.projectRepo.findAll();
+  @ApiOperation({ summary: 'Récupérer tous les projets' })
+  @ApiResponse({ status: 200, description: 'Liste de tous les projets' })
+  async getAll() {
+    return this.getAllProjectsUseCase.execute();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Récupérer un projet par ID' })
-  @ApiParam({ name: 'id', description: 'ID du projet' })
-  @ApiResponse({ status: 200, description: 'Projet trouvé' })
-  @ApiResponse({ status: 404, description: 'Projet non trouvé' })
-  async findOne(@Param('id') id: string) {
-    const project = await this.projectRepo.findById(id);
-    if (!project) {
-      throw new HttpException('Project not found', HttpStatus.NOT_FOUND);
+  @Post()
+  @ApiOperation({ summary: 'Créer un nouveau projet' })
+  @ApiResponse({ status: 201, description: 'Projet créé avec succès.' })
+  @ApiResponse({ status: 400, description: 'Requête invalide.' })
+  async create(@Body() dto: CreateProjectDto): Promise<Project> {
+    try {
+      if (!dto.ownerId) {
+        throw new HttpException(
+          'ownerId est requis tant que le module d’authentification n’est pas activé.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      return await this.createProjectUseCase.execute(dto, dto.ownerId);
+    } catch (error) {
+      throw new HttpException(
+        error?.message || 'Erreur lors de la création du projet.',
+        error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-    return project;
   }
 
   @Put(':id')
-  @ApiOperation({ summary: 'Mettre à jour un projet' })
-  @ApiParam({ name: 'id', description: 'ID du projet à modifier' })
-  @ApiBody({ type: UpdateProjectDto })
-  @ApiResponse({ status: 200, description: 'Projet mis à jour avec succès' })
-  @ApiResponse({ status: 404, description: 'Projet non trouvé' })
-  async update(@Param('id') id: string, @Body() dto: UpdateProjectDto) {
-    const project = await this.projectRepo.findById(id);
-    if (!project) throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
-
-    project.name = dto.name ?? project.name;
-    project.description = dto.description ?? project.description;
-    project.type = dto.type ?? project.type;
-
-    return await this.projectRepo.update(project);
-  }
-
-  @Delete(':id')
-  @ApiOperation({ summary: 'Supprimer un projet' })
-  @ApiParam({ name: 'id', description: 'ID du projet à supprimer' })
-  @ApiResponse({ status: 200, description: 'Projet supprimé avec succès' })
-  async delete(@Param('id') id: string) {
-    await this.projectRepo.delete(id);
-    return { message: 'Deleted successfully' };
+  @ApiOperation({ summary: 'Mettre à jour un projet existant' })
+  @ApiResponse({ status: 200, description: 'Projet mis à jour avec succès.' })
+  @ApiResponse({ status: 404, description: 'Projet non trouvé.' })
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateProjectDto,
+  ): Promise<Project> {
+    try {
+      return await this.updateProjectUseCase.execute(id, dto);
+    } catch (error) {
+      throw new HttpException(
+        error?.message || 'Erreur lors de la mise à jour du projet.',
+        error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

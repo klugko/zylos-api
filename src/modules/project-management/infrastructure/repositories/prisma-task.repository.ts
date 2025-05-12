@@ -12,36 +12,40 @@ export class PrismaTaskRepository implements TaskRepository {
   async findById(id: string): Promise<Task | null> {
     const data = await this.prisma.task.findUnique({ where: { id } });
     if (!data) return null;
+
     return new Task(
-      data.id, 
-      data.title, 
+      data.id,
+      data.title,
       data.description,
       data.status as TaskStatus,
       data.projectId,
-      data.createdAt, 
+      data.createdAt,
       data.updatedAt,
-      data.startDate,
-      data.endDate,
+      data.startDate ?? null,
+      data.endDate ?? null,
       data.dependencies,
-      data.assignedUserId ?? ''
+      data.assignedUserId ?? '',
     );
   }
 
   async findByProject(projectId: string): Promise<Task[]> {
     const results = await this.prisma.task.findMany({ where: { projectId } });
-    return results.map(task => new Task(
-      task.id, 
-      task.title, 
-      task.description,
-      task.status as TaskStatus,
-      task.projectId,
-      task.createdAt, 
-      task.updatedAt,
-      task.startDate,
-      task.endDate,
-      task.dependencies,
-      task.assignedUserId ?? ''
-    ));
+
+    return results.map(task =>
+      new Task(
+        task.id,
+        task.title,
+        task.description,
+        task.status as TaskStatus,
+        task.projectId,
+        task.createdAt,
+        task.updatedAt,
+        task.startDate ?? null,
+        task.endDate ?? null,
+        task.dependencies,
+        task.assignedUserId ?? '',
+      ),
+    );
   }
 
   async create(task: Task): Promise<Task> {
@@ -51,26 +55,26 @@ export class PrismaTaskRepository implements TaskRepository {
         description: task.description,
         projectId: task.projectId,
         status: task.status,
-        startDate: task.startDate,
-        endDate: task.endDate,
+        startDate: task.startDate ?? undefined,
+        endDate: task.endDate ?? undefined,
         dependencies: task.dependencies,
-        assignedUserId: task.assignedUserId
+        assignedUserId: task.assignedUserId || undefined,
       },
     });
+
     return new Task(
-      created.id, 
-      created.title, 
+      created.id,
+      created.title,
       created.description,
       created.status as TaskStatus,
       created.projectId,
-      created.createdAt, 
+      created.createdAt,
       created.updatedAt,
-      created.startDate,
-      created.endDate,
+      created.startDate ?? null,
+      created.endDate ?? null,
       created.dependencies,
-      created.assignedUserId ?? ''
+      created.assignedUserId ?? '',
     );
-    
   }
 
   async update(task: Task): Promise<Task> {
@@ -80,24 +84,25 @@ export class PrismaTaskRepository implements TaskRepository {
         title: task.title,
         description: task.description,
         status: task.status,
-        startDate: task.startDate,
-        endDate: task.endDate,
+        startDate: task.startDate ?? undefined,
+        endDate: task.endDate ?? undefined,
         dependencies: task.dependencies,
-        assignedUserId: task.assignedUserId
-      }
+        assignedUserId: task.assignedUserId || undefined,
+      },
     });
+
     return new Task(
-      updated.id, 
-      updated.title, 
+      updated.id,
+      updated.title,
       updated.description,
       updated.status as TaskStatus,
       updated.projectId,
-      updated.createdAt, 
+      updated.createdAt,
       updated.updatedAt,
-      updated.startDate,
-      updated.endDate,
+      updated.startDate ?? null,
+      updated.endDate ?? null,
       updated.dependencies,
-      updated.assignedUserId ?? ''
+      updated.assignedUserId ?? '',
     );
   }
 

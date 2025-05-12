@@ -15,7 +15,7 @@ export class CreateChecklistUseCase {
     const checklist = new Checklist(
       uuidv4(),
       dto.title,
-      false,
+      // false,
       dto.projectId,
       now,
       now

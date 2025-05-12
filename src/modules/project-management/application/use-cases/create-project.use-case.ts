@@ -1,51 +1,36 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { CreateProjectDto } from '../dto/create-project.dto';
+import { Inject, Injectable } from '@nestjs/common';
 import { ProjectRepository } from '../../domain/interfaces/project-repository.interface';
-import { ChecklistRepository } from '../../domain/interfaces/checklist-repository.interface';
-import { GptChecklistService } from '../../infrastructure/adapters/gpt-checklist.service';
+import { CreateProjectDto } from '../dto/create-project.dto';
 import { Project } from '../../domain/entities/project.entity';
-import { Checklist } from '../../domain/entities/checklist.entity';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 
 @Injectable()
 export class CreateProjectUseCase {
-  constructor(
-    @Inject('ProjectRepository') private readonly projectRepo: ProjectRepository,
-    @Inject('ChecklistRepository') private readonly checklistRepo: ChecklistRepository,
-    private readonly gptService: GptChecklistService
-  ) {}
+  constructor(@Inject('ProjectRepository') private readonly projectRepository: ProjectRepository
+) {}
 
-  async execute(dto: CreateProjectDto): Promise<Project> {
-    const now = new Date();
+  async execute(dto: CreateProjectDto, ownerId: string): Promise<Project> {
     const project = new Project(
-      uuidv4(),
+      uuid(),
       dto.name,
-      dto.description ?? null,
-      dto.type,
-      false,
-      now,
-      now
+      dto.description || null,
+      dto.clientType,
+      dto.industry || null,
+      dto.color || null,
+      dto.startDate ? new Date(dto.startDate) : null,
+      dto.endDate ? new Date(dto.endDate) : null,
+      dto.budget ?? null,
+      0,
+      dto.status || 'NOT_STARTED',
+      dto.priority || 'MEDIUM',
+      dto.isArchived || false,
+      new Date(),
+      new Date(),
+      ownerId,
+      dto.templateId || null,
     );
 
-    const saved = await this.projectRepo.create(project);
-
-    const checklists = await this.gptService.generateChecklist(dto.name, dto.description ?? '');
-    await Promise.all(
-      checklists.map((title) =>
-        this.checklistRepo.create(
-          new Checklist(
-            uuidv4(),
-            title,
-            false,
-            saved.id,
-            now,
-            now
-          )
-        )
-      )
-    );
-
-    return saved;
+    return this.projectRepository.create(project);
   }
 }

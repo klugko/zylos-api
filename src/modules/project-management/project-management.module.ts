@@ -15,6 +15,8 @@ import { GetProjectTasksByViewUseCase } from './application/use-cases/get-projec
 import { AssignTaskToBestUserUseCase } from './application/use-cases/assign-task.use-case';
 import { OpenAIService } from './infrastructure/adapters/openapi.service';
 import { AuthModule } from '../auth/auth.module';
+import { UpdateProjectUseCase } from './application/use-cases/update-project.use-case';
+import { GetAllProjectsUseCase } from './application/use-cases/get-all-projects.use-case';
 
 
 @Module({
@@ -24,6 +26,8 @@ import { AuthModule } from '../auth/auth.module';
   providers: [
     PrismaService,
     CreateProjectUseCase,
+    UpdateProjectUseCase,
+    GetAllProjectsUseCase,
     CreateTaskUseCase,
     CreateChecklistUseCase,
     GptChecklistService,

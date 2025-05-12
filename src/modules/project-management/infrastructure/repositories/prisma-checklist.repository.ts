@@ -14,7 +14,7 @@ export class PrismaChecklistRepository implements ChecklistRepository {
     return new Checklist(
       data.id,
       data.title,
-      data.completed,
+      // data.completed,
       data.projectId,
       data.createdAt,
       data.updatedAt
@@ -26,7 +26,7 @@ export class PrismaChecklistRepository implements ChecklistRepository {
     return results.map(data => new Checklist(
       data.id,
       data.title,
-      data.completed,
+      // data.completed,
       data.projectId,
       data.createdAt,
       data.updatedAt
@@ -39,13 +39,13 @@ export class PrismaChecklistRepository implements ChecklistRepository {
         id: checklist.id,
         title: checklist.title,
         projectId: checklist.projectId,
-        completed: checklist.completed
+        // completed: checklist.completed
       }
     });
     return new Checklist(
       data.id,
       data.title,
-      data.completed,
+      // data.completed,
       data.projectId,
       data.createdAt,
       data.updatedAt
@@ -57,13 +57,13 @@ export class PrismaChecklistRepository implements ChecklistRepository {
       where: { id: checklist.id },
       data: {
         title: checklist.title,
-        completed: checklist.completed
+        // completed: checklist.completed
       }
     });
     return new Checklist(
       data.id,
       data.title,
-      data.completed,
+      // data.completed,
       data.projectId,
       data.createdAt,
       data.updatedAt
