@@ -17,6 +17,7 @@ import { OpenAIService } from './infrastructure/adapters/openapi.service';
 import { AuthModule } from '../auth/auth.module';
 import { UpdateProjectUseCase } from './application/use-cases/update-project.use-case';
 import { GetAllProjectsUseCase } from './application/use-cases/get-all-projects.use-case';
+import { PrismaTaskColumnRepository } from './infrastructure/repositories/prisma-task-column.repository';
 
 
 @Module({
@@ -50,7 +51,12 @@ import { GetAllProjectsUseCase } from './application/use-cases/get-all-projects.
     {
       provide: 'ChecklistRepository',
       useClass: PrismaChecklistRepository,
+    },
+    {
+      provide: 'TaskColumnRepository',
+      useClass: PrismaTaskColumnRepository,
     }
+    
 
   ],
   
