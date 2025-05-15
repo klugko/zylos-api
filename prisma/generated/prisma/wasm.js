@@ -171,6 +171,7 @@ exports.Prisma.TaskColumnScalarFieldEnum = {
 exports.Prisma.ChecklistScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  isCompleted: 'isCompleted',
   projectId: 'projectId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

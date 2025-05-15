@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { PrismaChecklistRepository } from '../repositories/prisma-checklist.repository';
 import { CreateChecklistDto } from '../../application/dto/create-checklist.dto';
@@ -57,5 +58,18 @@ export class ChecklistController {
   async delete(@Param('id') id: string) {
     await this.checklistRepo.delete(id);
     return { message: 'Deleted successfully' };
+  }
+
+  @Put(':id/toggle')
+  @ApiOperation({ summary: 'Inverser le statut de complétion de la checklist' })
+  @ApiParam({ name: 'id', description: 'ID de la checklist à mettre à jour' })
+  @ApiResponse({ status: 200, description: 'Checklist mise à jour avec succès' })
+  @ApiResponse({ status: 404, description: 'Checklist non trouvée' })
+  async toggleComplete(@Param('id') id: string) {
+    const item = await this.checklistRepo.findById(id);
+    if (!item) throw new HttpException('Checklist not found', HttpStatus.NOT_FOUND);
+
+    item.toggle();
+    return await this.checklistRepo.update(item);
   }
 }

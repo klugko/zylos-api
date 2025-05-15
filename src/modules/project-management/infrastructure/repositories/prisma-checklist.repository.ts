@@ -14,7 +14,7 @@ export class PrismaChecklistRepository implements ChecklistRepository {
     return new Checklist(
       data.id,
       data.title,
-      // data.completed,
+      data.isCompleted,
       data.projectId,
       data.createdAt,
       data.updatedAt
@@ -22,30 +22,32 @@ export class PrismaChecklistRepository implements ChecklistRepository {
   }
 
   async findByProject(projectId: string): Promise<Checklist[]> {
-    const results = await this.prisma.checklist.findMany({ where: { projectId } });
-    return results.map(data => new Checklist(
-      data.id,
-      data.title,
-      // data.completed,
-      data.projectId,
-      data.createdAt,
-      data.updatedAt
-    ));
+    const list = await this.prisma.checklist.findMany({ where: { projectId } });
+    return list.map(
+      data =>
+        new Checklist(
+          data.id,
+          data.title,
+          data.isCompleted,
+          data.projectId,
+          data.createdAt,
+          data.updatedAt
+        )
+    );
   }
 
   async create(checklist: Checklist): Promise<Checklist> {
     const data = await this.prisma.checklist.create({
       data: {
-        id: checklist.id,
         title: checklist.title,
         projectId: checklist.projectId,
-        // completed: checklist.completed
-      }
+        isCompleted: checklist.isCompleted,
+      },
     });
     return new Checklist(
       data.id,
       data.title,
-      // data.completed,
+      data.isCompleted,
       data.projectId,
       data.createdAt,
       data.updatedAt
@@ -57,13 +59,13 @@ export class PrismaChecklistRepository implements ChecklistRepository {
       where: { id: checklist.id },
       data: {
         title: checklist.title,
-        // completed: checklist.completed
-      }
+        isCompleted: checklist.isCompleted,
+      },
     });
     return new Checklist(
       data.id,
       data.title,
-      // data.completed,
+      data.isCompleted,
       data.projectId,
       data.createdAt,
       data.updatedAt

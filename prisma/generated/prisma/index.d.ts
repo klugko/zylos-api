@@ -5954,6 +5954,7 @@ export namespace Prisma {
   export type ChecklistMinAggregateOutputType = {
     id: string | null
     title: string | null
+    isCompleted: boolean | null
     projectId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5962,6 +5963,7 @@ export namespace Prisma {
   export type ChecklistMaxAggregateOutputType = {
     id: string | null
     title: string | null
+    isCompleted: boolean | null
     projectId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5970,6 +5972,7 @@ export namespace Prisma {
   export type ChecklistCountAggregateOutputType = {
     id: number
     title: number
+    isCompleted: number
     projectId: number
     createdAt: number
     updatedAt: number
@@ -5980,6 +5983,7 @@ export namespace Prisma {
   export type ChecklistMinAggregateInputType = {
     id?: true
     title?: true
+    isCompleted?: true
     projectId?: true
     createdAt?: true
     updatedAt?: true
@@ -5988,6 +5992,7 @@ export namespace Prisma {
   export type ChecklistMaxAggregateInputType = {
     id?: true
     title?: true
+    isCompleted?: true
     projectId?: true
     createdAt?: true
     updatedAt?: true
@@ -5996,6 +6001,7 @@ export namespace Prisma {
   export type ChecklistCountAggregateInputType = {
     id?: true
     title?: true
+    isCompleted?: true
     projectId?: true
     createdAt?: true
     updatedAt?: true
@@ -6077,6 +6083,7 @@ export namespace Prisma {
   export type ChecklistGroupByOutputType = {
     id: string
     title: string
+    isCompleted: boolean
     projectId: string
     createdAt: Date
     updatedAt: Date
@@ -6102,6 +6109,7 @@ export namespace Prisma {
   export type ChecklistSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    isCompleted?: boolean
     projectId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6111,6 +6119,7 @@ export namespace Prisma {
   export type ChecklistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    isCompleted?: boolean
     projectId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6120,6 +6129,7 @@ export namespace Prisma {
   export type ChecklistSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    isCompleted?: boolean
     projectId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -6129,12 +6139,13 @@ export namespace Prisma {
   export type ChecklistSelectScalar = {
     id?: boolean
     title?: boolean
+    isCompleted?: boolean
     projectId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ChecklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "projectId" | "createdAt" | "updatedAt", ExtArgs["result"]["checklist"]>
+  export type ChecklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "isCompleted" | "projectId" | "createdAt" | "updatedAt", ExtArgs["result"]["checklist"]>
   export type ChecklistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
@@ -6153,6 +6164,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
+      isCompleted: boolean
       projectId: string
       createdAt: Date
       updatedAt: Date
@@ -6582,6 +6594,7 @@ export namespace Prisma {
   interface ChecklistFieldRefs {
     readonly id: FieldRef<"Checklist", 'String'>
     readonly title: FieldRef<"Checklist", 'String'>
+    readonly isCompleted: FieldRef<"Checklist", 'Boolean'>
     readonly projectId: FieldRef<"Checklist", 'String'>
     readonly createdAt: FieldRef<"Checklist", 'DateTime'>
     readonly updatedAt: FieldRef<"Checklist", 'DateTime'>
@@ -13745,6 +13758,7 @@ export namespace Prisma {
   export const ChecklistScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    isCompleted: 'isCompleted',
     projectId: 'projectId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -14397,6 +14411,7 @@ export namespace Prisma {
     NOT?: ChecklistWhereInput | ChecklistWhereInput[]
     id?: StringFilter<"Checklist"> | string
     title?: StringFilter<"Checklist"> | string
+    isCompleted?: BoolFilter<"Checklist"> | boolean
     projectId?: StringFilter<"Checklist"> | string
     createdAt?: DateTimeFilter<"Checklist"> | Date | string
     updatedAt?: DateTimeFilter<"Checklist"> | Date | string
@@ -14406,6 +14421,7 @@ export namespace Prisma {
   export type ChecklistOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    isCompleted?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14418,6 +14434,7 @@ export namespace Prisma {
     OR?: ChecklistWhereInput[]
     NOT?: ChecklistWhereInput | ChecklistWhereInput[]
     title?: StringFilter<"Checklist"> | string
+    isCompleted?: BoolFilter<"Checklist"> | boolean
     projectId?: StringFilter<"Checklist"> | string
     createdAt?: DateTimeFilter<"Checklist"> | Date | string
     updatedAt?: DateTimeFilter<"Checklist"> | Date | string
@@ -14427,6 +14444,7 @@ export namespace Prisma {
   export type ChecklistOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    isCompleted?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -14441,6 +14459,7 @@ export namespace Prisma {
     NOT?: ChecklistScalarWhereWithAggregatesInput | ChecklistScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Checklist"> | string
     title?: StringWithAggregatesFilter<"Checklist"> | string
+    isCompleted?: BoolWithAggregatesFilter<"Checklist"> | boolean
     projectId?: StringWithAggregatesFilter<"Checklist"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Checklist"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Checklist"> | Date | string
@@ -15214,6 +15233,7 @@ export namespace Prisma {
   export type ChecklistCreateInput = {
     id?: string
     title: string
+    isCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     project: ProjectCreateNestedOneWithoutChecklistsInput
@@ -15222,6 +15242,7 @@ export namespace Prisma {
   export type ChecklistUncheckedCreateInput = {
     id?: string
     title: string
+    isCompleted?: boolean
     projectId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15230,6 +15251,7 @@ export namespace Prisma {
   export type ChecklistUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     project?: ProjectUpdateOneRequiredWithoutChecklistsNestedInput
@@ -15238,6 +15260,7 @@ export namespace Prisma {
   export type ChecklistUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
     projectId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15246,6 +15269,7 @@ export namespace Prisma {
   export type ChecklistCreateManyInput = {
     id?: string
     title: string
+    isCompleted?: boolean
     projectId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -15254,6 +15278,7 @@ export namespace Prisma {
   export type ChecklistUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15261,6 +15286,7 @@ export namespace Prisma {
   export type ChecklistUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
     projectId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16334,6 +16360,7 @@ export namespace Prisma {
   export type ChecklistCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    isCompleted?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16342,6 +16369,7 @@ export namespace Prisma {
   export type ChecklistMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    isCompleted?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16350,6 +16378,7 @@ export namespace Prisma {
   export type ChecklistMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    isCompleted?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -17985,6 +18014,7 @@ export namespace Prisma {
   export type ChecklistCreateWithoutProjectInput = {
     id?: string
     title: string
+    isCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17992,6 +18022,7 @@ export namespace Prisma {
   export type ChecklistUncheckedCreateWithoutProjectInput = {
     id?: string
     title: string
+    isCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18215,6 +18246,7 @@ export namespace Prisma {
     NOT?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
     id?: StringFilter<"Checklist"> | string
     title?: StringFilter<"Checklist"> | string
+    isCompleted?: BoolFilter<"Checklist"> | boolean
     projectId?: StringFilter<"Checklist"> | string
     createdAt?: DateTimeFilter<"Checklist"> | Date | string
     updatedAt?: DateTimeFilter<"Checklist"> | Date | string
@@ -20053,6 +20085,7 @@ export namespace Prisma {
   export type ChecklistCreateManyProjectInput = {
     id?: string
     title: string
+    isCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20155,6 +20188,7 @@ export namespace Prisma {
   export type ChecklistUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20162,6 +20196,7 @@ export namespace Prisma {
   export type ChecklistUncheckedUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20169,6 +20204,7 @@ export namespace Prisma {
   export type ChecklistUncheckedUpdateManyWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
