@@ -3,7 +3,7 @@ import { TaskRepository } from '../../domain/interfaces/task-repository.interfac
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { Task } from '../../domain/entities/task.entity';
 import { v4 as uuidv4 } from 'uuid';
-import { TaskStatus } from '../../domain/enums/task-status.enum';
+import { TaskStatus, TaskPriority } from '../../domain/enums/task.enums';
 
 
 @Injectable()
@@ -19,6 +19,7 @@ export class CreateTaskUseCase {
       dto.title,
       dto.description ?? null,
       TaskStatus.TODO,
+      TaskPriority.MEDIUM,
       dto.projectId,
       new Date(),
       new Date(),

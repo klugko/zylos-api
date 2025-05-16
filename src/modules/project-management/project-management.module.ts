@@ -18,11 +18,14 @@ import { AuthModule } from '../auth/auth.module';
 import { UpdateProjectUseCase } from './application/use-cases/update-project.use-case';
 import { GetAllProjectsUseCase } from './application/use-cases/get-all-projects.use-case';
 import { PrismaTaskColumnRepository } from './infrastructure/repositories/prisma-task-column.repository';
+import { CreateProjectFromTemplateUseCase } from './application/use-cases/create-project-from-template.use-case';
+import { PrismaProjectTemplateRepository } from './infrastructure/repositories/prisma-project-template.repository';
+import { ProjectTemplateController } from './infrastructure/controllers/project-template.controller.';
 
 
 @Module({
   imports: [AuthModule],
-  controllers: [ProjectController, TaskController, ChecklistController],
+  controllers: [ProjectController, TaskController, ChecklistController, ProjectTemplateController],
   
   providers: [
     PrismaService,
@@ -38,6 +41,7 @@ import { PrismaTaskColumnRepository } from './infrastructure/repositories/prisma
     ProjectGateway,
     GetProjectTasksByViewUseCase,
     AssignTaskToBestUserUseCase,
+    CreateProjectFromTemplateUseCase,
     OpenAIService,
 
     {
@@ -55,6 +59,10 @@ import { PrismaTaskColumnRepository } from './infrastructure/repositories/prisma
     {
       provide: 'TaskColumnRepository',
       useClass: PrismaTaskColumnRepository,
+    },
+    {
+      provide: 'ProjectTemplateRepository',
+      useClass: PrismaProjectTemplateRepository
     }
     
 

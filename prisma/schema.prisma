@@ -103,15 +103,6 @@ model ProjectMember {
   userId    String
 }
 
-model ProjectTemplate {
-  id          String    @id @default(uuid())
-  name        String
-  description String?
-  projects    Project[]
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}
-
 model Document {
   id           String   @id @default(uuid())
   name         String
@@ -160,7 +151,7 @@ enum TaskStatus {
   TODO
   IN_PROGRESS
   DONE
-  BLOCKED
+  CANCELLED
 }
 
 enum TaskPriority {
@@ -201,3 +192,38 @@ enum UserRole {
   COLLABORATOR
   MANAGER
 }
+
+
+model ProjectTemplate {
+  id          String           @id @default(uuid())
+  name        String
+  description String?
+  projects    Project[]
+  tasks       TaskTemplate[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+
+model TaskTemplate {
+  id                String           @id @default(uuid())
+  title             String
+  description       String?
+  order             Int
+  projectTemplate   ProjectTemplate  @relation(fields: [projectTemplateId], references: [id])
+  projectTemplateId String
+  checklists        ChecklistTemplate[]
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+
+model ChecklistTemplate {
+  id             String        @id @default(uuid())
+  title          String
+  taskTemplate   TaskTemplate  @relation(fields: [taskTemplateId], references: [id])
+  taskTemplateId String
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+

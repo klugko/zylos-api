@@ -37,8 +37,8 @@ priority?: ProjectPriority;
 @ApiProperty({ example: false, required: false })
 isArchived?: boolean;
 
-@ApiProperty({ example: 'd9a0f1d2-2352-4a9e-86ff-fc78b3ebfc6c' })
-ownerId: string;
+@ApiProperty({ example: 'd9a0f1d2-2352-4a9e-86ff-fc78b3ebfc6c' , required: false})
+ownerId?: string;
 
 @ApiProperty({ example: 'ea567c5e-499e-4813-bdd5-3c0ef5fcdb24', required: false })
 templateId?: string;

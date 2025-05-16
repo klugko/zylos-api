@@ -26,7 +26,7 @@ export class PrismaProjectRepository implements ProjectRepository {
         status: project.status as ProjectStatus,
         priority: project.priority as ProjectPriority,
         isArchived: project.isArchived,
-        ownerId: project.ownerId,
+        ownerId: project.ownerId ?? null,
         templateId: project.templateId,
         createdAt: project.createdAt,
         updatedAt: project.updatedAt,

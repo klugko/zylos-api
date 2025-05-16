@@ -1,4 +1,4 @@
-import { TaskStatus } from "../enums/task-status.enum";
+import { TaskStatus, TaskPriority } from "../enums/task.enums";
 
 export class Task {
   constructor(
@@ -6,6 +6,7 @@ export class Task {
     public title: string,
     public description: string | null,
     public status: TaskStatus,
+    public priority: TaskPriority,
     public readonly projectId: string,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,

@@ -27,7 +27,7 @@ export class CreateProjectUseCase {
       dto.isArchived || false,
       new Date(),
       new Date(),
-      ownerId,
+      dto.ownerId || null,
       dto.templateId || null,
     );
 

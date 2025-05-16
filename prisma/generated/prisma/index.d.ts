@@ -44,11 +44,6 @@ export type ChecklistItem = $Result.DefaultSelection<Prisma.$ChecklistItemPayloa
  */
 export type ProjectMember = $Result.DefaultSelection<Prisma.$ProjectMemberPayload>
 /**
- * Model ProjectTemplate
- * 
- */
-export type ProjectTemplate = $Result.DefaultSelection<Prisma.$ProjectTemplatePayload>
-/**
  * Model Document
  * 
  */
@@ -63,6 +58,21 @@ export type Comment = $Result.DefaultSelection<Prisma.$CommentPayload>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model ProjectTemplate
+ * 
+ */
+export type ProjectTemplate = $Result.DefaultSelection<Prisma.$ProjectTemplatePayload>
+/**
+ * Model TaskTemplate
+ * 
+ */
+export type TaskTemplate = $Result.DefaultSelection<Prisma.$TaskTemplatePayload>
+/**
+ * Model ChecklistTemplate
+ * 
+ */
+export type ChecklistTemplate = $Result.DefaultSelection<Prisma.$ChecklistTemplatePayload>
 
 /**
  * Enums
@@ -72,7 +82,7 @@ export namespace $Enums {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',
-  BLOCKED: 'BLOCKED'
+  CANCELLED: 'CANCELLED'
 };
 
 export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus]
@@ -350,16 +360,6 @@ export class PrismaClient<
   get projectMember(): Prisma.ProjectMemberDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.projectTemplate`: Exposes CRUD operations for the **ProjectTemplate** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more ProjectTemplates
-    * const projectTemplates = await prisma.projectTemplate.findMany()
-    * ```
-    */
-  get projectTemplate(): Prisma.ProjectTemplateDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.document`: Exposes CRUD operations for the **Document** model.
     * Example usage:
     * ```ts
@@ -388,6 +388,36 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.projectTemplate`: Exposes CRUD operations for the **ProjectTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProjectTemplates
+    * const projectTemplates = await prisma.projectTemplate.findMany()
+    * ```
+    */
+  get projectTemplate(): Prisma.ProjectTemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.taskTemplate`: Exposes CRUD operations for the **TaskTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TaskTemplates
+    * const taskTemplates = await prisma.taskTemplate.findMany()
+    * ```
+    */
+  get taskTemplate(): Prisma.TaskTemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.checklistTemplate`: Exposes CRUD operations for the **ChecklistTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ChecklistTemplates
+    * const checklistTemplates = await prisma.checklistTemplate.findMany()
+    * ```
+    */
+  get checklistTemplate(): Prisma.ChecklistTemplateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -834,10 +864,12 @@ export namespace Prisma {
     Checklist: 'Checklist',
     ChecklistItem: 'ChecklistItem',
     ProjectMember: 'ProjectMember',
-    ProjectTemplate: 'ProjectTemplate',
     Document: 'Document',
     Comment: 'Comment',
-    User: 'User'
+    User: 'User',
+    ProjectTemplate: 'ProjectTemplate',
+    TaskTemplate: 'TaskTemplate',
+    ChecklistTemplate: 'ChecklistTemplate'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -856,7 +888,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "projectTemplate" | "document" | "comment" | "user"
+      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1304,80 +1336,6 @@ export namespace Prisma {
           }
         }
       }
-      ProjectTemplate: {
-        payload: Prisma.$ProjectTemplatePayload<ExtArgs>
-        fields: Prisma.ProjectTemplateFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ProjectTemplateFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ProjectTemplateFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
-          }
-          findFirst: {
-            args: Prisma.ProjectTemplateFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ProjectTemplateFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
-          }
-          findMany: {
-            args: Prisma.ProjectTemplateFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>[]
-          }
-          create: {
-            args: Prisma.ProjectTemplateCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
-          }
-          createMany: {
-            args: Prisma.ProjectTemplateCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ProjectTemplateCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>[]
-          }
-          delete: {
-            args: Prisma.ProjectTemplateDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
-          }
-          update: {
-            args: Prisma.ProjectTemplateUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
-          }
-          deleteMany: {
-            args: Prisma.ProjectTemplateDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ProjectTemplateUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ProjectTemplateUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>[]
-          }
-          upsert: {
-            args: Prisma.ProjectTemplateUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
-          }
-          aggregate: {
-            args: Prisma.ProjectTemplateAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateProjectTemplate>
-          }
-          groupBy: {
-            args: Prisma.ProjectTemplateGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ProjectTemplateGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ProjectTemplateCountArgs<ExtArgs>
-            result: $Utils.Optional<ProjectTemplateCountAggregateOutputType> | number
-          }
-        }
-      }
       Document: {
         payload: Prisma.$DocumentPayload<ExtArgs>
         fields: Prisma.DocumentFieldRefs
@@ -1600,6 +1558,228 @@ export namespace Prisma {
           }
         }
       }
+      ProjectTemplate: {
+        payload: Prisma.$ProjectTemplatePayload<ExtArgs>
+        fields: Prisma.ProjectTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProjectTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProjectTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.ProjectTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProjectTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.ProjectTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.ProjectTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.ProjectTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProjectTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.ProjectTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
+          }
+          update: {
+            args: Prisma.ProjectTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.ProjectTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProjectTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProjectTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.ProjectTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.ProjectTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProjectTemplate>
+          }
+          groupBy: {
+            args: Prisma.ProjectTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProjectTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProjectTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<ProjectTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      TaskTemplate: {
+        payload: Prisma.$TaskTemplatePayload<ExtArgs>
+        fields: Prisma.TaskTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaskTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaskTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.TaskTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaskTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.TaskTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.TaskTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.TaskTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaskTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.TaskTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>
+          }
+          update: {
+            args: Prisma.TaskTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.TaskTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaskTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaskTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.TaskTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.TaskTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTaskTemplate>
+          }
+          groupBy: {
+            args: Prisma.TaskTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaskTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaskTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<TaskTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
+      ChecklistTemplate: {
+        payload: Prisma.$ChecklistTemplatePayload<ExtArgs>
+        fields: Prisma.ChecklistTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ChecklistTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ChecklistTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.ChecklistTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ChecklistTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.ChecklistTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.ChecklistTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.ChecklistTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ChecklistTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.ChecklistTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>
+          }
+          update: {
+            args: Prisma.ChecklistTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.ChecklistTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ChecklistTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ChecklistTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.ChecklistTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ChecklistTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.ChecklistTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateChecklistTemplate>
+          }
+          groupBy: {
+            args: Prisma.ChecklistTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ChecklistTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ChecklistTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<ChecklistTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1690,10 +1870,12 @@ export namespace Prisma {
     checklist?: ChecklistOmit
     checklistItem?: ChecklistItemOmit
     projectMember?: ProjectMemberOmit
-    projectTemplate?: ProjectTemplateOmit
     document?: DocumentOmit
     comment?: CommentOmit
     user?: UserOmit
+    projectTemplate?: ProjectTemplateOmit
+    taskTemplate?: TaskTemplateOmit
+    checklistTemplate?: ChecklistTemplateOmit
   }
 
   /* Types for Logging */
@@ -1922,37 +2104,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type ProjectTemplateCountOutputType
-   */
-
-  export type ProjectTemplateCountOutputType = {
-    projects: number
-  }
-
-  export type ProjectTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    projects?: boolean | ProjectTemplateCountOutputTypeCountProjectsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ProjectTemplateCountOutputType without action
-   */
-  export type ProjectTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplateCountOutputType
-     */
-    select?: ProjectTemplateCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ProjectTemplateCountOutputType without action
-   */
-  export type ProjectTemplateCountOutputTypeCountProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProjectWhereInput
-  }
-
-
-  /**
    * Count Type UserCountOutputType
    */
 
@@ -2016,6 +2167,77 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProjectMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProjectMemberWhereInput
+  }
+
+
+  /**
+   * Count Type ProjectTemplateCountOutputType
+   */
+
+  export type ProjectTemplateCountOutputType = {
+    projects: number
+    tasks: number
+  }
+
+  export type ProjectTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projects?: boolean | ProjectTemplateCountOutputTypeCountProjectsArgs
+    tasks?: boolean | ProjectTemplateCountOutputTypeCountTasksArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProjectTemplateCountOutputType without action
+   */
+  export type ProjectTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplateCountOutputType
+     */
+    select?: ProjectTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProjectTemplateCountOutputType without action
+   */
+  export type ProjectTemplateCountOutputTypeCountProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectWhereInput
+  }
+
+  /**
+   * ProjectTemplateCountOutputType without action
+   */
+  export type ProjectTemplateCountOutputTypeCountTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskTemplateWhereInput
+  }
+
+
+  /**
+   * Count Type TaskTemplateCountOutputType
+   */
+
+  export type TaskTemplateCountOutputType = {
+    checklists: number
+  }
+
+  export type TaskTemplateCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    checklists?: boolean | TaskTemplateCountOutputTypeCountChecklistsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaskTemplateCountOutputType without action
+   */
+  export type TaskTemplateCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplateCountOutputType
+     */
+    select?: TaskTemplateCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaskTemplateCountOutputType without action
+   */
+  export type TaskTemplateCountOutputTypeCountChecklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChecklistTemplateWhereInput
   }
 
 
@@ -9137,1076 +9359,6 @@ export namespace Prisma {
 
 
   /**
-   * Model ProjectTemplate
-   */
-
-  export type AggregateProjectTemplate = {
-    _count: ProjectTemplateCountAggregateOutputType | null
-    _min: ProjectTemplateMinAggregateOutputType | null
-    _max: ProjectTemplateMaxAggregateOutputType | null
-  }
-
-  export type ProjectTemplateMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type ProjectTemplateMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-    description: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type ProjectTemplateCountAggregateOutputType = {
-    id: number
-    name: number
-    description: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type ProjectTemplateMinAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type ProjectTemplateMaxAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type ProjectTemplateCountAggregateInputType = {
-    id?: true
-    name?: true
-    description?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type ProjectTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ProjectTemplate to aggregate.
-     */
-    where?: ProjectTemplateWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ProjectTemplates to fetch.
-     */
-    orderBy?: ProjectTemplateOrderByWithRelationInput | ProjectTemplateOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ProjectTemplateWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ProjectTemplates from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ProjectTemplates.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned ProjectTemplates
-    **/
-    _count?: true | ProjectTemplateCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ProjectTemplateMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ProjectTemplateMaxAggregateInputType
-  }
-
-  export type GetProjectTemplateAggregateType<T extends ProjectTemplateAggregateArgs> = {
-        [P in keyof T & keyof AggregateProjectTemplate]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateProjectTemplate[P]>
-      : GetScalarType<T[P], AggregateProjectTemplate[P]>
-  }
-
-
-
-
-  export type ProjectTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProjectTemplateWhereInput
-    orderBy?: ProjectTemplateOrderByWithAggregationInput | ProjectTemplateOrderByWithAggregationInput[]
-    by: ProjectTemplateScalarFieldEnum[] | ProjectTemplateScalarFieldEnum
-    having?: ProjectTemplateScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ProjectTemplateCountAggregateInputType | true
-    _min?: ProjectTemplateMinAggregateInputType
-    _max?: ProjectTemplateMaxAggregateInputType
-  }
-
-  export type ProjectTemplateGroupByOutputType = {
-    id: string
-    name: string
-    description: string | null
-    createdAt: Date
-    updatedAt: Date
-    _count: ProjectTemplateCountAggregateOutputType | null
-    _min: ProjectTemplateMinAggregateOutputType | null
-    _max: ProjectTemplateMaxAggregateOutputType | null
-  }
-
-  type GetProjectTemplateGroupByPayload<T extends ProjectTemplateGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ProjectTemplateGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ProjectTemplateGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ProjectTemplateGroupByOutputType[P]>
-            : GetScalarType<T[P], ProjectTemplateGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ProjectTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    projects?: boolean | ProjectTemplate$projectsArgs<ExtArgs>
-    _count?: boolean | ProjectTemplateCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["projectTemplate"]>
-
-  export type ProjectTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["projectTemplate"]>
-
-  export type ProjectTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["projectTemplate"]>
-
-  export type ProjectTemplateSelectScalar = {
-    id?: boolean
-    name?: boolean
-    description?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type ProjectTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["projectTemplate"]>
-  export type ProjectTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    projects?: boolean | ProjectTemplate$projectsArgs<ExtArgs>
-    _count?: boolean | ProjectTemplateCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type ProjectTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ProjectTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $ProjectTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ProjectTemplate"
-    objects: {
-      projects: Prisma.$ProjectPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-      description: string | null
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["projectTemplate"]>
-    composites: {}
-  }
-
-  type ProjectTemplateGetPayload<S extends boolean | null | undefined | ProjectTemplateDefaultArgs> = $Result.GetResult<Prisma.$ProjectTemplatePayload, S>
-
-  type ProjectTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ProjectTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ProjectTemplateCountAggregateInputType | true
-    }
-
-  export interface ProjectTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProjectTemplate'], meta: { name: 'ProjectTemplate' } }
-    /**
-     * Find zero or one ProjectTemplate that matches the filter.
-     * @param {ProjectTemplateFindUniqueArgs} args - Arguments to find a ProjectTemplate
-     * @example
-     * // Get one ProjectTemplate
-     * const projectTemplate = await prisma.projectTemplate.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ProjectTemplateFindUniqueArgs>(args: SelectSubset<T, ProjectTemplateFindUniqueArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one ProjectTemplate that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ProjectTemplateFindUniqueOrThrowArgs} args - Arguments to find a ProjectTemplate
-     * @example
-     * // Get one ProjectTemplate
-     * const projectTemplate = await prisma.projectTemplate.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ProjectTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, ProjectTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ProjectTemplate that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectTemplateFindFirstArgs} args - Arguments to find a ProjectTemplate
-     * @example
-     * // Get one ProjectTemplate
-     * const projectTemplate = await prisma.projectTemplate.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ProjectTemplateFindFirstArgs>(args?: SelectSubset<T, ProjectTemplateFindFirstArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ProjectTemplate that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectTemplateFindFirstOrThrowArgs} args - Arguments to find a ProjectTemplate
-     * @example
-     * // Get one ProjectTemplate
-     * const projectTemplate = await prisma.projectTemplate.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ProjectTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, ProjectTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more ProjectTemplates that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all ProjectTemplates
-     * const projectTemplates = await prisma.projectTemplate.findMany()
-     * 
-     * // Get first 10 ProjectTemplates
-     * const projectTemplates = await prisma.projectTemplate.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const projectTemplateWithIdOnly = await prisma.projectTemplate.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends ProjectTemplateFindManyArgs>(args?: SelectSubset<T, ProjectTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a ProjectTemplate.
-     * @param {ProjectTemplateCreateArgs} args - Arguments to create a ProjectTemplate.
-     * @example
-     * // Create one ProjectTemplate
-     * const ProjectTemplate = await prisma.projectTemplate.create({
-     *   data: {
-     *     // ... data to create a ProjectTemplate
-     *   }
-     * })
-     * 
-     */
-    create<T extends ProjectTemplateCreateArgs>(args: SelectSubset<T, ProjectTemplateCreateArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many ProjectTemplates.
-     * @param {ProjectTemplateCreateManyArgs} args - Arguments to create many ProjectTemplates.
-     * @example
-     * // Create many ProjectTemplates
-     * const projectTemplate = await prisma.projectTemplate.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ProjectTemplateCreateManyArgs>(args?: SelectSubset<T, ProjectTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many ProjectTemplates and returns the data saved in the database.
-     * @param {ProjectTemplateCreateManyAndReturnArgs} args - Arguments to create many ProjectTemplates.
-     * @example
-     * // Create many ProjectTemplates
-     * const projectTemplate = await prisma.projectTemplate.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many ProjectTemplates and only return the `id`
-     * const projectTemplateWithIdOnly = await prisma.projectTemplate.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ProjectTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, ProjectTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a ProjectTemplate.
-     * @param {ProjectTemplateDeleteArgs} args - Arguments to delete one ProjectTemplate.
-     * @example
-     * // Delete one ProjectTemplate
-     * const ProjectTemplate = await prisma.projectTemplate.delete({
-     *   where: {
-     *     // ... filter to delete one ProjectTemplate
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ProjectTemplateDeleteArgs>(args: SelectSubset<T, ProjectTemplateDeleteArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one ProjectTemplate.
-     * @param {ProjectTemplateUpdateArgs} args - Arguments to update one ProjectTemplate.
-     * @example
-     * // Update one ProjectTemplate
-     * const projectTemplate = await prisma.projectTemplate.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ProjectTemplateUpdateArgs>(args: SelectSubset<T, ProjectTemplateUpdateArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more ProjectTemplates.
-     * @param {ProjectTemplateDeleteManyArgs} args - Arguments to filter ProjectTemplates to delete.
-     * @example
-     * // Delete a few ProjectTemplates
-     * const { count } = await prisma.projectTemplate.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ProjectTemplateDeleteManyArgs>(args?: SelectSubset<T, ProjectTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ProjectTemplates.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectTemplateUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many ProjectTemplates
-     * const projectTemplate = await prisma.projectTemplate.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ProjectTemplateUpdateManyArgs>(args: SelectSubset<T, ProjectTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ProjectTemplates and returns the data updated in the database.
-     * @param {ProjectTemplateUpdateManyAndReturnArgs} args - Arguments to update many ProjectTemplates.
-     * @example
-     * // Update many ProjectTemplates
-     * const projectTemplate = await prisma.projectTemplate.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more ProjectTemplates and only return the `id`
-     * const projectTemplateWithIdOnly = await prisma.projectTemplate.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ProjectTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, ProjectTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one ProjectTemplate.
-     * @param {ProjectTemplateUpsertArgs} args - Arguments to update or create a ProjectTemplate.
-     * @example
-     * // Update or create a ProjectTemplate
-     * const projectTemplate = await prisma.projectTemplate.upsert({
-     *   create: {
-     *     // ... data to create a ProjectTemplate
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the ProjectTemplate we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ProjectTemplateUpsertArgs>(args: SelectSubset<T, ProjectTemplateUpsertArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of ProjectTemplates.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectTemplateCountArgs} args - Arguments to filter ProjectTemplates to count.
-     * @example
-     * // Count the number of ProjectTemplates
-     * const count = await prisma.projectTemplate.count({
-     *   where: {
-     *     // ... the filter for the ProjectTemplates we want to count
-     *   }
-     * })
-    **/
-    count<T extends ProjectTemplateCountArgs>(
-      args?: Subset<T, ProjectTemplateCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ProjectTemplateCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a ProjectTemplate.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ProjectTemplateAggregateArgs>(args: Subset<T, ProjectTemplateAggregateArgs>): Prisma.PrismaPromise<GetProjectTemplateAggregateType<T>>
-
-    /**
-     * Group by ProjectTemplate.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ProjectTemplateGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ProjectTemplateGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ProjectTemplateGroupByArgs['orderBy'] }
-        : { orderBy?: ProjectTemplateGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ProjectTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the ProjectTemplate model
-   */
-  readonly fields: ProjectTemplateFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for ProjectTemplate.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ProjectTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    projects<T extends ProjectTemplate$projectsArgs<ExtArgs> = {}>(args?: Subset<T, ProjectTemplate$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the ProjectTemplate model
-   */
-  interface ProjectTemplateFieldRefs {
-    readonly id: FieldRef<"ProjectTemplate", 'String'>
-    readonly name: FieldRef<"ProjectTemplate", 'String'>
-    readonly description: FieldRef<"ProjectTemplate", 'String'>
-    readonly createdAt: FieldRef<"ProjectTemplate", 'DateTime'>
-    readonly updatedAt: FieldRef<"ProjectTemplate", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * ProjectTemplate findUnique
-   */
-  export type ProjectTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * Filter, which ProjectTemplate to fetch.
-     */
-    where: ProjectTemplateWhereUniqueInput
-  }
-
-  /**
-   * ProjectTemplate findUniqueOrThrow
-   */
-  export type ProjectTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * Filter, which ProjectTemplate to fetch.
-     */
-    where: ProjectTemplateWhereUniqueInput
-  }
-
-  /**
-   * ProjectTemplate findFirst
-   */
-  export type ProjectTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * Filter, which ProjectTemplate to fetch.
-     */
-    where?: ProjectTemplateWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ProjectTemplates to fetch.
-     */
-    orderBy?: ProjectTemplateOrderByWithRelationInput | ProjectTemplateOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ProjectTemplates.
-     */
-    cursor?: ProjectTemplateWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ProjectTemplates from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ProjectTemplates.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ProjectTemplates.
-     */
-    distinct?: ProjectTemplateScalarFieldEnum | ProjectTemplateScalarFieldEnum[]
-  }
-
-  /**
-   * ProjectTemplate findFirstOrThrow
-   */
-  export type ProjectTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * Filter, which ProjectTemplate to fetch.
-     */
-    where?: ProjectTemplateWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ProjectTemplates to fetch.
-     */
-    orderBy?: ProjectTemplateOrderByWithRelationInput | ProjectTemplateOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ProjectTemplates.
-     */
-    cursor?: ProjectTemplateWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ProjectTemplates from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ProjectTemplates.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ProjectTemplates.
-     */
-    distinct?: ProjectTemplateScalarFieldEnum | ProjectTemplateScalarFieldEnum[]
-  }
-
-  /**
-   * ProjectTemplate findMany
-   */
-  export type ProjectTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * Filter, which ProjectTemplates to fetch.
-     */
-    where?: ProjectTemplateWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ProjectTemplates to fetch.
-     */
-    orderBy?: ProjectTemplateOrderByWithRelationInput | ProjectTemplateOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing ProjectTemplates.
-     */
-    cursor?: ProjectTemplateWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ProjectTemplates from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ProjectTemplates.
-     */
-    skip?: number
-    distinct?: ProjectTemplateScalarFieldEnum | ProjectTemplateScalarFieldEnum[]
-  }
-
-  /**
-   * ProjectTemplate create
-   */
-  export type ProjectTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * The data needed to create a ProjectTemplate.
-     */
-    data: XOR<ProjectTemplateCreateInput, ProjectTemplateUncheckedCreateInput>
-  }
-
-  /**
-   * ProjectTemplate createMany
-   */
-  export type ProjectTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many ProjectTemplates.
-     */
-    data: ProjectTemplateCreateManyInput | ProjectTemplateCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ProjectTemplate createManyAndReturn
-   */
-  export type ProjectTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * The data used to create many ProjectTemplates.
-     */
-    data: ProjectTemplateCreateManyInput | ProjectTemplateCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ProjectTemplate update
-   */
-  export type ProjectTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * The data needed to update a ProjectTemplate.
-     */
-    data: XOR<ProjectTemplateUpdateInput, ProjectTemplateUncheckedUpdateInput>
-    /**
-     * Choose, which ProjectTemplate to update.
-     */
-    where: ProjectTemplateWhereUniqueInput
-  }
-
-  /**
-   * ProjectTemplate updateMany
-   */
-  export type ProjectTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update ProjectTemplates.
-     */
-    data: XOR<ProjectTemplateUpdateManyMutationInput, ProjectTemplateUncheckedUpdateManyInput>
-    /**
-     * Filter which ProjectTemplates to update
-     */
-    where?: ProjectTemplateWhereInput
-    /**
-     * Limit how many ProjectTemplates to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ProjectTemplate updateManyAndReturn
-   */
-  export type ProjectTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * The data used to update ProjectTemplates.
-     */
-    data: XOR<ProjectTemplateUpdateManyMutationInput, ProjectTemplateUncheckedUpdateManyInput>
-    /**
-     * Filter which ProjectTemplates to update
-     */
-    where?: ProjectTemplateWhereInput
-    /**
-     * Limit how many ProjectTemplates to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ProjectTemplate upsert
-   */
-  export type ProjectTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * The filter to search for the ProjectTemplate to update in case it exists.
-     */
-    where: ProjectTemplateWhereUniqueInput
-    /**
-     * In case the ProjectTemplate found by the `where` argument doesn't exist, create a new ProjectTemplate with this data.
-     */
-    create: XOR<ProjectTemplateCreateInput, ProjectTemplateUncheckedCreateInput>
-    /**
-     * In case the ProjectTemplate was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ProjectTemplateUpdateInput, ProjectTemplateUncheckedUpdateInput>
-  }
-
-  /**
-   * ProjectTemplate delete
-   */
-  export type ProjectTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-    /**
-     * Filter which ProjectTemplate to delete.
-     */
-    where: ProjectTemplateWhereUniqueInput
-  }
-
-  /**
-   * ProjectTemplate deleteMany
-   */
-  export type ProjectTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ProjectTemplates to delete
-     */
-    where?: ProjectTemplateWhereInput
-    /**
-     * Limit how many ProjectTemplates to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * ProjectTemplate.projects
-   */
-  export type ProjectTemplate$projectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Project
-     */
-    select?: ProjectSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Project
-     */
-    omit?: ProjectOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectInclude<ExtArgs> | null
-    where?: ProjectWhereInput
-    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
-    cursor?: ProjectWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
-  }
-
-  /**
-   * ProjectTemplate without action
-   */
-  export type ProjectTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProjectTemplate
-     */
-    select?: ProjectTemplateSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ProjectTemplate
-     */
-    omit?: ProjectTemplateOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProjectTemplateInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Document
    */
 
@@ -13685,6 +12837,3310 @@ export namespace Prisma {
 
 
   /**
+   * Model ProjectTemplate
+   */
+
+  export type AggregateProjectTemplate = {
+    _count: ProjectTemplateCountAggregateOutputType | null
+    _min: ProjectTemplateMinAggregateOutputType | null
+    _max: ProjectTemplateMaxAggregateOutputType | null
+  }
+
+  export type ProjectTemplateMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectTemplateMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectTemplateCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProjectTemplateMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectTemplateMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectTemplateCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProjectTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectTemplate to aggregate.
+     */
+    where?: ProjectTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectTemplates to fetch.
+     */
+    orderBy?: ProjectTemplateOrderByWithRelationInput | ProjectTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProjectTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProjectTemplates
+    **/
+    _count?: true | ProjectTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProjectTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProjectTemplateMaxAggregateInputType
+  }
+
+  export type GetProjectTemplateAggregateType<T extends ProjectTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateProjectTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProjectTemplate[P]>
+      : GetScalarType<T[P], AggregateProjectTemplate[P]>
+  }
+
+
+
+
+  export type ProjectTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectTemplateWhereInput
+    orderBy?: ProjectTemplateOrderByWithAggregationInput | ProjectTemplateOrderByWithAggregationInput[]
+    by: ProjectTemplateScalarFieldEnum[] | ProjectTemplateScalarFieldEnum
+    having?: ProjectTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProjectTemplateCountAggregateInputType | true
+    _min?: ProjectTemplateMinAggregateInputType
+    _max?: ProjectTemplateMaxAggregateInputType
+  }
+
+  export type ProjectTemplateGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ProjectTemplateCountAggregateOutputType | null
+    _min: ProjectTemplateMinAggregateOutputType | null
+    _max: ProjectTemplateMaxAggregateOutputType | null
+  }
+
+  type GetProjectTemplateGroupByPayload<T extends ProjectTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProjectTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProjectTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProjectTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], ProjectTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProjectTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    projects?: boolean | ProjectTemplate$projectsArgs<ExtArgs>
+    tasks?: boolean | ProjectTemplate$tasksArgs<ExtArgs>
+    _count?: boolean | ProjectTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectTemplate"]>
+
+  export type ProjectTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["projectTemplate"]>
+
+  export type ProjectTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["projectTemplate"]>
+
+  export type ProjectTemplateSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProjectTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["projectTemplate"]>
+  export type ProjectTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projects?: boolean | ProjectTemplate$projectsArgs<ExtArgs>
+    tasks?: boolean | ProjectTemplate$tasksArgs<ExtArgs>
+    _count?: boolean | ProjectTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ProjectTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ProjectTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ProjectTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProjectTemplate"
+    objects: {
+      projects: Prisma.$ProjectPayload<ExtArgs>[]
+      tasks: Prisma.$TaskTemplatePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["projectTemplate"]>
+    composites: {}
+  }
+
+  type ProjectTemplateGetPayload<S extends boolean | null | undefined | ProjectTemplateDefaultArgs> = $Result.GetResult<Prisma.$ProjectTemplatePayload, S>
+
+  type ProjectTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProjectTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProjectTemplateCountAggregateInputType | true
+    }
+
+  export interface ProjectTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProjectTemplate'], meta: { name: 'ProjectTemplate' } }
+    /**
+     * Find zero or one ProjectTemplate that matches the filter.
+     * @param {ProjectTemplateFindUniqueArgs} args - Arguments to find a ProjectTemplate
+     * @example
+     * // Get one ProjectTemplate
+     * const projectTemplate = await prisma.projectTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProjectTemplateFindUniqueArgs>(args: SelectSubset<T, ProjectTemplateFindUniqueArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProjectTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProjectTemplateFindUniqueOrThrowArgs} args - Arguments to find a ProjectTemplate
+     * @example
+     * // Get one ProjectTemplate
+     * const projectTemplate = await prisma.projectTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProjectTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, ProjectTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProjectTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectTemplateFindFirstArgs} args - Arguments to find a ProjectTemplate
+     * @example
+     * // Get one ProjectTemplate
+     * const projectTemplate = await prisma.projectTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProjectTemplateFindFirstArgs>(args?: SelectSubset<T, ProjectTemplateFindFirstArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProjectTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectTemplateFindFirstOrThrowArgs} args - Arguments to find a ProjectTemplate
+     * @example
+     * // Get one ProjectTemplate
+     * const projectTemplate = await prisma.projectTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProjectTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, ProjectTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProjectTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProjectTemplates
+     * const projectTemplates = await prisma.projectTemplate.findMany()
+     * 
+     * // Get first 10 ProjectTemplates
+     * const projectTemplates = await prisma.projectTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const projectTemplateWithIdOnly = await prisma.projectTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProjectTemplateFindManyArgs>(args?: SelectSubset<T, ProjectTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProjectTemplate.
+     * @param {ProjectTemplateCreateArgs} args - Arguments to create a ProjectTemplate.
+     * @example
+     * // Create one ProjectTemplate
+     * const ProjectTemplate = await prisma.projectTemplate.create({
+     *   data: {
+     *     // ... data to create a ProjectTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProjectTemplateCreateArgs>(args: SelectSubset<T, ProjectTemplateCreateArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProjectTemplates.
+     * @param {ProjectTemplateCreateManyArgs} args - Arguments to create many ProjectTemplates.
+     * @example
+     * // Create many ProjectTemplates
+     * const projectTemplate = await prisma.projectTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProjectTemplateCreateManyArgs>(args?: SelectSubset<T, ProjectTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProjectTemplates and returns the data saved in the database.
+     * @param {ProjectTemplateCreateManyAndReturnArgs} args - Arguments to create many ProjectTemplates.
+     * @example
+     * // Create many ProjectTemplates
+     * const projectTemplate = await prisma.projectTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProjectTemplates and only return the `id`
+     * const projectTemplateWithIdOnly = await prisma.projectTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProjectTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, ProjectTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProjectTemplate.
+     * @param {ProjectTemplateDeleteArgs} args - Arguments to delete one ProjectTemplate.
+     * @example
+     * // Delete one ProjectTemplate
+     * const ProjectTemplate = await prisma.projectTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one ProjectTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProjectTemplateDeleteArgs>(args: SelectSubset<T, ProjectTemplateDeleteArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProjectTemplate.
+     * @param {ProjectTemplateUpdateArgs} args - Arguments to update one ProjectTemplate.
+     * @example
+     * // Update one ProjectTemplate
+     * const projectTemplate = await prisma.projectTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProjectTemplateUpdateArgs>(args: SelectSubset<T, ProjectTemplateUpdateArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProjectTemplates.
+     * @param {ProjectTemplateDeleteManyArgs} args - Arguments to filter ProjectTemplates to delete.
+     * @example
+     * // Delete a few ProjectTemplates
+     * const { count } = await prisma.projectTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProjectTemplateDeleteManyArgs>(args?: SelectSubset<T, ProjectTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProjectTemplates
+     * const projectTemplate = await prisma.projectTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProjectTemplateUpdateManyArgs>(args: SelectSubset<T, ProjectTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectTemplates and returns the data updated in the database.
+     * @param {ProjectTemplateUpdateManyAndReturnArgs} args - Arguments to update many ProjectTemplates.
+     * @example
+     * // Update many ProjectTemplates
+     * const projectTemplate = await prisma.projectTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProjectTemplates and only return the `id`
+     * const projectTemplateWithIdOnly = await prisma.projectTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProjectTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, ProjectTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProjectTemplate.
+     * @param {ProjectTemplateUpsertArgs} args - Arguments to update or create a ProjectTemplate.
+     * @example
+     * // Update or create a ProjectTemplate
+     * const projectTemplate = await prisma.projectTemplate.upsert({
+     *   create: {
+     *     // ... data to create a ProjectTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProjectTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProjectTemplateUpsertArgs>(args: SelectSubset<T, ProjectTemplateUpsertArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProjectTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectTemplateCountArgs} args - Arguments to filter ProjectTemplates to count.
+     * @example
+     * // Count the number of ProjectTemplates
+     * const count = await prisma.projectTemplate.count({
+     *   where: {
+     *     // ... the filter for the ProjectTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProjectTemplateCountArgs>(
+      args?: Subset<T, ProjectTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProjectTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProjectTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProjectTemplateAggregateArgs>(args: Subset<T, ProjectTemplateAggregateArgs>): Prisma.PrismaPromise<GetProjectTemplateAggregateType<T>>
+
+    /**
+     * Group by ProjectTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProjectTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProjectTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: ProjectTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProjectTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProjectTemplate model
+   */
+  readonly fields: ProjectTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProjectTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProjectTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    projects<T extends ProjectTemplate$projectsArgs<ExtArgs> = {}>(args?: Subset<T, ProjectTemplate$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tasks<T extends ProjectTemplate$tasksArgs<ExtArgs> = {}>(args?: Subset<T, ProjectTemplate$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProjectTemplate model
+   */
+  interface ProjectTemplateFieldRefs {
+    readonly id: FieldRef<"ProjectTemplate", 'String'>
+    readonly name: FieldRef<"ProjectTemplate", 'String'>
+    readonly description: FieldRef<"ProjectTemplate", 'String'>
+    readonly createdAt: FieldRef<"ProjectTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"ProjectTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProjectTemplate findUnique
+   */
+  export type ProjectTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectTemplate to fetch.
+     */
+    where: ProjectTemplateWhereUniqueInput
+  }
+
+  /**
+   * ProjectTemplate findUniqueOrThrow
+   */
+  export type ProjectTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectTemplate to fetch.
+     */
+    where: ProjectTemplateWhereUniqueInput
+  }
+
+  /**
+   * ProjectTemplate findFirst
+   */
+  export type ProjectTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectTemplate to fetch.
+     */
+    where?: ProjectTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectTemplates to fetch.
+     */
+    orderBy?: ProjectTemplateOrderByWithRelationInput | ProjectTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectTemplates.
+     */
+    cursor?: ProjectTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectTemplates.
+     */
+    distinct?: ProjectTemplateScalarFieldEnum | ProjectTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectTemplate findFirstOrThrow
+   */
+  export type ProjectTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectTemplate to fetch.
+     */
+    where?: ProjectTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectTemplates to fetch.
+     */
+    orderBy?: ProjectTemplateOrderByWithRelationInput | ProjectTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectTemplates.
+     */
+    cursor?: ProjectTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectTemplates.
+     */
+    distinct?: ProjectTemplateScalarFieldEnum | ProjectTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectTemplate findMany
+   */
+  export type ProjectTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectTemplates to fetch.
+     */
+    where?: ProjectTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectTemplates to fetch.
+     */
+    orderBy?: ProjectTemplateOrderByWithRelationInput | ProjectTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProjectTemplates.
+     */
+    cursor?: ProjectTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectTemplates.
+     */
+    skip?: number
+    distinct?: ProjectTemplateScalarFieldEnum | ProjectTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectTemplate create
+   */
+  export type ProjectTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProjectTemplate.
+     */
+    data: XOR<ProjectTemplateCreateInput, ProjectTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * ProjectTemplate createMany
+   */
+  export type ProjectTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProjectTemplates.
+     */
+    data: ProjectTemplateCreateManyInput | ProjectTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProjectTemplate createManyAndReturn
+   */
+  export type ProjectTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProjectTemplates.
+     */
+    data: ProjectTemplateCreateManyInput | ProjectTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProjectTemplate update
+   */
+  export type ProjectTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProjectTemplate.
+     */
+    data: XOR<ProjectTemplateUpdateInput, ProjectTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which ProjectTemplate to update.
+     */
+    where: ProjectTemplateWhereUniqueInput
+  }
+
+  /**
+   * ProjectTemplate updateMany
+   */
+  export type ProjectTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProjectTemplates.
+     */
+    data: XOR<ProjectTemplateUpdateManyMutationInput, ProjectTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectTemplates to update
+     */
+    where?: ProjectTemplateWhereInput
+    /**
+     * Limit how many ProjectTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectTemplate updateManyAndReturn
+   */
+  export type ProjectTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update ProjectTemplates.
+     */
+    data: XOR<ProjectTemplateUpdateManyMutationInput, ProjectTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectTemplates to update
+     */
+    where?: ProjectTemplateWhereInput
+    /**
+     * Limit how many ProjectTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectTemplate upsert
+   */
+  export type ProjectTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProjectTemplate to update in case it exists.
+     */
+    where: ProjectTemplateWhereUniqueInput
+    /**
+     * In case the ProjectTemplate found by the `where` argument doesn't exist, create a new ProjectTemplate with this data.
+     */
+    create: XOR<ProjectTemplateCreateInput, ProjectTemplateUncheckedCreateInput>
+    /**
+     * In case the ProjectTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProjectTemplateUpdateInput, ProjectTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * ProjectTemplate delete
+   */
+  export type ProjectTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which ProjectTemplate to delete.
+     */
+    where: ProjectTemplateWhereUniqueInput
+  }
+
+  /**
+   * ProjectTemplate deleteMany
+   */
+  export type ProjectTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectTemplates to delete
+     */
+    where?: ProjectTemplateWhereInput
+    /**
+     * Limit how many ProjectTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectTemplate.projects
+   */
+  export type ProjectTemplate$projectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
+    orderBy?: ProjectOrderByWithRelationInput | ProjectOrderByWithRelationInput[]
+    cursor?: ProjectWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectScalarFieldEnum | ProjectScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectTemplate.tasks
+   */
+  export type ProjectTemplate$tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    where?: TaskTemplateWhereInput
+    orderBy?: TaskTemplateOrderByWithRelationInput | TaskTemplateOrderByWithRelationInput[]
+    cursor?: TaskTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskTemplateScalarFieldEnum | TaskTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectTemplate without action
+   */
+  export type ProjectTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectTemplate
+     */
+    select?: ProjectTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectTemplate
+     */
+    omit?: ProjectTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TaskTemplate
+   */
+
+  export type AggregateTaskTemplate = {
+    _count: TaskTemplateCountAggregateOutputType | null
+    _avg: TaskTemplateAvgAggregateOutputType | null
+    _sum: TaskTemplateSumAggregateOutputType | null
+    _min: TaskTemplateMinAggregateOutputType | null
+    _max: TaskTemplateMaxAggregateOutputType | null
+  }
+
+  export type TaskTemplateAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type TaskTemplateSumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type TaskTemplateMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    order: number | null
+    projectTemplateId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TaskTemplateMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    order: number | null
+    projectTemplateId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TaskTemplateCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    order: number
+    projectTemplateId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TaskTemplateAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type TaskTemplateSumAggregateInputType = {
+    order?: true
+  }
+
+  export type TaskTemplateMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    order?: true
+    projectTemplateId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TaskTemplateMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    order?: true
+    projectTemplateId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TaskTemplateCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    order?: true
+    projectTemplateId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TaskTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaskTemplate to aggregate.
+     */
+    where?: TaskTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskTemplates to fetch.
+     */
+    orderBy?: TaskTemplateOrderByWithRelationInput | TaskTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaskTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TaskTemplates
+    **/
+    _count?: true | TaskTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TaskTemplateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TaskTemplateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaskTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaskTemplateMaxAggregateInputType
+  }
+
+  export type GetTaskTemplateAggregateType<T extends TaskTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateTaskTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTaskTemplate[P]>
+      : GetScalarType<T[P], AggregateTaskTemplate[P]>
+  }
+
+
+
+
+  export type TaskTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskTemplateWhereInput
+    orderBy?: TaskTemplateOrderByWithAggregationInput | TaskTemplateOrderByWithAggregationInput[]
+    by: TaskTemplateScalarFieldEnum[] | TaskTemplateScalarFieldEnum
+    having?: TaskTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaskTemplateCountAggregateInputType | true
+    _avg?: TaskTemplateAvgAggregateInputType
+    _sum?: TaskTemplateSumAggregateInputType
+    _min?: TaskTemplateMinAggregateInputType
+    _max?: TaskTemplateMaxAggregateInputType
+  }
+
+  export type TaskTemplateGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    order: number
+    projectTemplateId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TaskTemplateCountAggregateOutputType | null
+    _avg: TaskTemplateAvgAggregateOutputType | null
+    _sum: TaskTemplateSumAggregateOutputType | null
+    _min: TaskTemplateMinAggregateOutputType | null
+    _max: TaskTemplateMaxAggregateOutputType | null
+  }
+
+  type GetTaskTemplateGroupByPayload<T extends TaskTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaskTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaskTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaskTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], TaskTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaskTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
+    projectTemplateId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    projectTemplate?: boolean | ProjectTemplateDefaultArgs<ExtArgs>
+    checklists?: boolean | TaskTemplate$checklistsArgs<ExtArgs>
+    _count?: boolean | TaskTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskTemplate"]>
+
+  export type TaskTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
+    projectTemplateId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    projectTemplate?: boolean | ProjectTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskTemplate"]>
+
+  export type TaskTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
+    projectTemplateId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    projectTemplate?: boolean | ProjectTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskTemplate"]>
+
+  export type TaskTemplateSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    order?: boolean
+    projectTemplateId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TaskTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "order" | "projectTemplateId" | "createdAt" | "updatedAt", ExtArgs["result"]["taskTemplate"]>
+  export type TaskTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projectTemplate?: boolean | ProjectTemplateDefaultArgs<ExtArgs>
+    checklists?: boolean | TaskTemplate$checklistsArgs<ExtArgs>
+    _count?: boolean | TaskTemplateCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TaskTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projectTemplate?: boolean | ProjectTemplateDefaultArgs<ExtArgs>
+  }
+  export type TaskTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    projectTemplate?: boolean | ProjectTemplateDefaultArgs<ExtArgs>
+  }
+
+  export type $TaskTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TaskTemplate"
+    objects: {
+      projectTemplate: Prisma.$ProjectTemplatePayload<ExtArgs>
+      checklists: Prisma.$ChecklistTemplatePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      order: number
+      projectTemplateId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["taskTemplate"]>
+    composites: {}
+  }
+
+  type TaskTemplateGetPayload<S extends boolean | null | undefined | TaskTemplateDefaultArgs> = $Result.GetResult<Prisma.$TaskTemplatePayload, S>
+
+  type TaskTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaskTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaskTemplateCountAggregateInputType | true
+    }
+
+  export interface TaskTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TaskTemplate'], meta: { name: 'TaskTemplate' } }
+    /**
+     * Find zero or one TaskTemplate that matches the filter.
+     * @param {TaskTemplateFindUniqueArgs} args - Arguments to find a TaskTemplate
+     * @example
+     * // Get one TaskTemplate
+     * const taskTemplate = await prisma.taskTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaskTemplateFindUniqueArgs>(args: SelectSubset<T, TaskTemplateFindUniqueArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TaskTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaskTemplateFindUniqueOrThrowArgs} args - Arguments to find a TaskTemplate
+     * @example
+     * // Get one TaskTemplate
+     * const taskTemplate = await prisma.taskTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaskTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, TaskTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaskTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskTemplateFindFirstArgs} args - Arguments to find a TaskTemplate
+     * @example
+     * // Get one TaskTemplate
+     * const taskTemplate = await prisma.taskTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaskTemplateFindFirstArgs>(args?: SelectSubset<T, TaskTemplateFindFirstArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaskTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskTemplateFindFirstOrThrowArgs} args - Arguments to find a TaskTemplate
+     * @example
+     * // Get one TaskTemplate
+     * const taskTemplate = await prisma.taskTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaskTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, TaskTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TaskTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TaskTemplates
+     * const taskTemplates = await prisma.taskTemplate.findMany()
+     * 
+     * // Get first 10 TaskTemplates
+     * const taskTemplates = await prisma.taskTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const taskTemplateWithIdOnly = await prisma.taskTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TaskTemplateFindManyArgs>(args?: SelectSubset<T, TaskTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TaskTemplate.
+     * @param {TaskTemplateCreateArgs} args - Arguments to create a TaskTemplate.
+     * @example
+     * // Create one TaskTemplate
+     * const TaskTemplate = await prisma.taskTemplate.create({
+     *   data: {
+     *     // ... data to create a TaskTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaskTemplateCreateArgs>(args: SelectSubset<T, TaskTemplateCreateArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TaskTemplates.
+     * @param {TaskTemplateCreateManyArgs} args - Arguments to create many TaskTemplates.
+     * @example
+     * // Create many TaskTemplates
+     * const taskTemplate = await prisma.taskTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaskTemplateCreateManyArgs>(args?: SelectSubset<T, TaskTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TaskTemplates and returns the data saved in the database.
+     * @param {TaskTemplateCreateManyAndReturnArgs} args - Arguments to create many TaskTemplates.
+     * @example
+     * // Create many TaskTemplates
+     * const taskTemplate = await prisma.taskTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TaskTemplates and only return the `id`
+     * const taskTemplateWithIdOnly = await prisma.taskTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaskTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, TaskTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TaskTemplate.
+     * @param {TaskTemplateDeleteArgs} args - Arguments to delete one TaskTemplate.
+     * @example
+     * // Delete one TaskTemplate
+     * const TaskTemplate = await prisma.taskTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one TaskTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaskTemplateDeleteArgs>(args: SelectSubset<T, TaskTemplateDeleteArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TaskTemplate.
+     * @param {TaskTemplateUpdateArgs} args - Arguments to update one TaskTemplate.
+     * @example
+     * // Update one TaskTemplate
+     * const taskTemplate = await prisma.taskTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaskTemplateUpdateArgs>(args: SelectSubset<T, TaskTemplateUpdateArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TaskTemplates.
+     * @param {TaskTemplateDeleteManyArgs} args - Arguments to filter TaskTemplates to delete.
+     * @example
+     * // Delete a few TaskTemplates
+     * const { count } = await prisma.taskTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaskTemplateDeleteManyArgs>(args?: SelectSubset<T, TaskTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaskTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TaskTemplates
+     * const taskTemplate = await prisma.taskTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaskTemplateUpdateManyArgs>(args: SelectSubset<T, TaskTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaskTemplates and returns the data updated in the database.
+     * @param {TaskTemplateUpdateManyAndReturnArgs} args - Arguments to update many TaskTemplates.
+     * @example
+     * // Update many TaskTemplates
+     * const taskTemplate = await prisma.taskTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TaskTemplates and only return the `id`
+     * const taskTemplateWithIdOnly = await prisma.taskTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaskTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, TaskTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TaskTemplate.
+     * @param {TaskTemplateUpsertArgs} args - Arguments to update or create a TaskTemplate.
+     * @example
+     * // Update or create a TaskTemplate
+     * const taskTemplate = await prisma.taskTemplate.upsert({
+     *   create: {
+     *     // ... data to create a TaskTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TaskTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaskTemplateUpsertArgs>(args: SelectSubset<T, TaskTemplateUpsertArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TaskTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskTemplateCountArgs} args - Arguments to filter TaskTemplates to count.
+     * @example
+     * // Count the number of TaskTemplates
+     * const count = await prisma.taskTemplate.count({
+     *   where: {
+     *     // ... the filter for the TaskTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaskTemplateCountArgs>(
+      args?: Subset<T, TaskTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaskTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TaskTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaskTemplateAggregateArgs>(args: Subset<T, TaskTemplateAggregateArgs>): Prisma.PrismaPromise<GetTaskTemplateAggregateType<T>>
+
+    /**
+     * Group by TaskTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaskTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaskTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: TaskTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaskTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaskTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TaskTemplate model
+   */
+  readonly fields: TaskTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TaskTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaskTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    projectTemplate<T extends ProjectTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectTemplateDefaultArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    checklists<T extends TaskTemplate$checklistsArgs<ExtArgs> = {}>(args?: Subset<T, TaskTemplate$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TaskTemplate model
+   */
+  interface TaskTemplateFieldRefs {
+    readonly id: FieldRef<"TaskTemplate", 'String'>
+    readonly title: FieldRef<"TaskTemplate", 'String'>
+    readonly description: FieldRef<"TaskTemplate", 'String'>
+    readonly order: FieldRef<"TaskTemplate", 'Int'>
+    readonly projectTemplateId: FieldRef<"TaskTemplate", 'String'>
+    readonly createdAt: FieldRef<"TaskTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"TaskTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TaskTemplate findUnique
+   */
+  export type TaskTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskTemplate to fetch.
+     */
+    where: TaskTemplateWhereUniqueInput
+  }
+
+  /**
+   * TaskTemplate findUniqueOrThrow
+   */
+  export type TaskTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskTemplate to fetch.
+     */
+    where: TaskTemplateWhereUniqueInput
+  }
+
+  /**
+   * TaskTemplate findFirst
+   */
+  export type TaskTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskTemplate to fetch.
+     */
+    where?: TaskTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskTemplates to fetch.
+     */
+    orderBy?: TaskTemplateOrderByWithRelationInput | TaskTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaskTemplates.
+     */
+    cursor?: TaskTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaskTemplates.
+     */
+    distinct?: TaskTemplateScalarFieldEnum | TaskTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * TaskTemplate findFirstOrThrow
+   */
+  export type TaskTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskTemplate to fetch.
+     */
+    where?: TaskTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskTemplates to fetch.
+     */
+    orderBy?: TaskTemplateOrderByWithRelationInput | TaskTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaskTemplates.
+     */
+    cursor?: TaskTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaskTemplates.
+     */
+    distinct?: TaskTemplateScalarFieldEnum | TaskTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * TaskTemplate findMany
+   */
+  export type TaskTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskTemplates to fetch.
+     */
+    where?: TaskTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskTemplates to fetch.
+     */
+    orderBy?: TaskTemplateOrderByWithRelationInput | TaskTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TaskTemplates.
+     */
+    cursor?: TaskTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskTemplates.
+     */
+    skip?: number
+    distinct?: TaskTemplateScalarFieldEnum | TaskTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * TaskTemplate create
+   */
+  export type TaskTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TaskTemplate.
+     */
+    data: XOR<TaskTemplateCreateInput, TaskTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * TaskTemplate createMany
+   */
+  export type TaskTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TaskTemplates.
+     */
+    data: TaskTemplateCreateManyInput | TaskTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TaskTemplate createManyAndReturn
+   */
+  export type TaskTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many TaskTemplates.
+     */
+    data: TaskTemplateCreateManyInput | TaskTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaskTemplate update
+   */
+  export type TaskTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TaskTemplate.
+     */
+    data: XOR<TaskTemplateUpdateInput, TaskTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which TaskTemplate to update.
+     */
+    where: TaskTemplateWhereUniqueInput
+  }
+
+  /**
+   * TaskTemplate updateMany
+   */
+  export type TaskTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TaskTemplates.
+     */
+    data: XOR<TaskTemplateUpdateManyMutationInput, TaskTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which TaskTemplates to update
+     */
+    where?: TaskTemplateWhereInput
+    /**
+     * Limit how many TaskTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaskTemplate updateManyAndReturn
+   */
+  export type TaskTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update TaskTemplates.
+     */
+    data: XOR<TaskTemplateUpdateManyMutationInput, TaskTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which TaskTemplates to update
+     */
+    where?: TaskTemplateWhereInput
+    /**
+     * Limit how many TaskTemplates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaskTemplate upsert
+   */
+  export type TaskTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TaskTemplate to update in case it exists.
+     */
+    where: TaskTemplateWhereUniqueInput
+    /**
+     * In case the TaskTemplate found by the `where` argument doesn't exist, create a new TaskTemplate with this data.
+     */
+    create: XOR<TaskTemplateCreateInput, TaskTemplateUncheckedCreateInput>
+    /**
+     * In case the TaskTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaskTemplateUpdateInput, TaskTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * TaskTemplate delete
+   */
+  export type TaskTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which TaskTemplate to delete.
+     */
+    where: TaskTemplateWhereUniqueInput
+  }
+
+  /**
+   * TaskTemplate deleteMany
+   */
+  export type TaskTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaskTemplates to delete
+     */
+    where?: TaskTemplateWhereInput
+    /**
+     * Limit how many TaskTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaskTemplate.checklists
+   */
+  export type TaskTemplate$checklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    where?: ChecklistTemplateWhereInput
+    orderBy?: ChecklistTemplateOrderByWithRelationInput | ChecklistTemplateOrderByWithRelationInput[]
+    cursor?: ChecklistTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChecklistTemplateScalarFieldEnum | ChecklistTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * TaskTemplate without action
+   */
+  export type TaskTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskTemplate
+     */
+    select?: TaskTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskTemplate
+     */
+    omit?: TaskTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ChecklistTemplate
+   */
+
+  export type AggregateChecklistTemplate = {
+    _count: ChecklistTemplateCountAggregateOutputType | null
+    _min: ChecklistTemplateMinAggregateOutputType | null
+    _max: ChecklistTemplateMaxAggregateOutputType | null
+  }
+
+  export type ChecklistTemplateMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    taskTemplateId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChecklistTemplateMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    taskTemplateId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ChecklistTemplateCountAggregateOutputType = {
+    id: number
+    title: number
+    taskTemplateId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ChecklistTemplateMinAggregateInputType = {
+    id?: true
+    title?: true
+    taskTemplateId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChecklistTemplateMaxAggregateInputType = {
+    id?: true
+    title?: true
+    taskTemplateId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ChecklistTemplateCountAggregateInputType = {
+    id?: true
+    title?: true
+    taskTemplateId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ChecklistTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChecklistTemplate to aggregate.
+     */
+    where?: ChecklistTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChecklistTemplates to fetch.
+     */
+    orderBy?: ChecklistTemplateOrderByWithRelationInput | ChecklistTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ChecklistTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChecklistTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChecklistTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ChecklistTemplates
+    **/
+    _count?: true | ChecklistTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ChecklistTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ChecklistTemplateMaxAggregateInputType
+  }
+
+  export type GetChecklistTemplateAggregateType<T extends ChecklistTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateChecklistTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateChecklistTemplate[P]>
+      : GetScalarType<T[P], AggregateChecklistTemplate[P]>
+  }
+
+
+
+
+  export type ChecklistTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChecklistTemplateWhereInput
+    orderBy?: ChecklistTemplateOrderByWithAggregationInput | ChecklistTemplateOrderByWithAggregationInput[]
+    by: ChecklistTemplateScalarFieldEnum[] | ChecklistTemplateScalarFieldEnum
+    having?: ChecklistTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ChecklistTemplateCountAggregateInputType | true
+    _min?: ChecklistTemplateMinAggregateInputType
+    _max?: ChecklistTemplateMaxAggregateInputType
+  }
+
+  export type ChecklistTemplateGroupByOutputType = {
+    id: string
+    title: string
+    taskTemplateId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ChecklistTemplateCountAggregateOutputType | null
+    _min: ChecklistTemplateMinAggregateOutputType | null
+    _max: ChecklistTemplateMaxAggregateOutputType | null
+  }
+
+  type GetChecklistTemplateGroupByPayload<T extends ChecklistTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ChecklistTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ChecklistTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ChecklistTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], ChecklistTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ChecklistTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    taskTemplateId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    taskTemplate?: boolean | TaskTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["checklistTemplate"]>
+
+  export type ChecklistTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    taskTemplateId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    taskTemplate?: boolean | TaskTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["checklistTemplate"]>
+
+  export type ChecklistTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    taskTemplateId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    taskTemplate?: boolean | TaskTemplateDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["checklistTemplate"]>
+
+  export type ChecklistTemplateSelectScalar = {
+    id?: boolean
+    title?: boolean
+    taskTemplateId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ChecklistTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "taskTemplateId" | "createdAt" | "updatedAt", ExtArgs["result"]["checklistTemplate"]>
+  export type ChecklistTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taskTemplate?: boolean | TaskTemplateDefaultArgs<ExtArgs>
+  }
+  export type ChecklistTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taskTemplate?: boolean | TaskTemplateDefaultArgs<ExtArgs>
+  }
+  export type ChecklistTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    taskTemplate?: boolean | TaskTemplateDefaultArgs<ExtArgs>
+  }
+
+  export type $ChecklistTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ChecklistTemplate"
+    objects: {
+      taskTemplate: Prisma.$TaskTemplatePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      taskTemplateId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["checklistTemplate"]>
+    composites: {}
+  }
+
+  type ChecklistTemplateGetPayload<S extends boolean | null | undefined | ChecklistTemplateDefaultArgs> = $Result.GetResult<Prisma.$ChecklistTemplatePayload, S>
+
+  type ChecklistTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ChecklistTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ChecklistTemplateCountAggregateInputType | true
+    }
+
+  export interface ChecklistTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ChecklistTemplate'], meta: { name: 'ChecklistTemplate' } }
+    /**
+     * Find zero or one ChecklistTemplate that matches the filter.
+     * @param {ChecklistTemplateFindUniqueArgs} args - Arguments to find a ChecklistTemplate
+     * @example
+     * // Get one ChecklistTemplate
+     * const checklistTemplate = await prisma.checklistTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ChecklistTemplateFindUniqueArgs>(args: SelectSubset<T, ChecklistTemplateFindUniqueArgs<ExtArgs>>): Prisma__ChecklistTemplateClient<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ChecklistTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ChecklistTemplateFindUniqueOrThrowArgs} args - Arguments to find a ChecklistTemplate
+     * @example
+     * // Get one ChecklistTemplate
+     * const checklistTemplate = await prisma.checklistTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ChecklistTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, ChecklistTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ChecklistTemplateClient<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChecklistTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistTemplateFindFirstArgs} args - Arguments to find a ChecklistTemplate
+     * @example
+     * // Get one ChecklistTemplate
+     * const checklistTemplate = await prisma.checklistTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ChecklistTemplateFindFirstArgs>(args?: SelectSubset<T, ChecklistTemplateFindFirstArgs<ExtArgs>>): Prisma__ChecklistTemplateClient<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ChecklistTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistTemplateFindFirstOrThrowArgs} args - Arguments to find a ChecklistTemplate
+     * @example
+     * // Get one ChecklistTemplate
+     * const checklistTemplate = await prisma.checklistTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ChecklistTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, ChecklistTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__ChecklistTemplateClient<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ChecklistTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ChecklistTemplates
+     * const checklistTemplates = await prisma.checklistTemplate.findMany()
+     * 
+     * // Get first 10 ChecklistTemplates
+     * const checklistTemplates = await prisma.checklistTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const checklistTemplateWithIdOnly = await prisma.checklistTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ChecklistTemplateFindManyArgs>(args?: SelectSubset<T, ChecklistTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ChecklistTemplate.
+     * @param {ChecklistTemplateCreateArgs} args - Arguments to create a ChecklistTemplate.
+     * @example
+     * // Create one ChecklistTemplate
+     * const ChecklistTemplate = await prisma.checklistTemplate.create({
+     *   data: {
+     *     // ... data to create a ChecklistTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends ChecklistTemplateCreateArgs>(args: SelectSubset<T, ChecklistTemplateCreateArgs<ExtArgs>>): Prisma__ChecklistTemplateClient<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ChecklistTemplates.
+     * @param {ChecklistTemplateCreateManyArgs} args - Arguments to create many ChecklistTemplates.
+     * @example
+     * // Create many ChecklistTemplates
+     * const checklistTemplate = await prisma.checklistTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ChecklistTemplateCreateManyArgs>(args?: SelectSubset<T, ChecklistTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ChecklistTemplates and returns the data saved in the database.
+     * @param {ChecklistTemplateCreateManyAndReturnArgs} args - Arguments to create many ChecklistTemplates.
+     * @example
+     * // Create many ChecklistTemplates
+     * const checklistTemplate = await prisma.checklistTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ChecklistTemplates and only return the `id`
+     * const checklistTemplateWithIdOnly = await prisma.checklistTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ChecklistTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, ChecklistTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ChecklistTemplate.
+     * @param {ChecklistTemplateDeleteArgs} args - Arguments to delete one ChecklistTemplate.
+     * @example
+     * // Delete one ChecklistTemplate
+     * const ChecklistTemplate = await prisma.checklistTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one ChecklistTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ChecklistTemplateDeleteArgs>(args: SelectSubset<T, ChecklistTemplateDeleteArgs<ExtArgs>>): Prisma__ChecklistTemplateClient<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ChecklistTemplate.
+     * @param {ChecklistTemplateUpdateArgs} args - Arguments to update one ChecklistTemplate.
+     * @example
+     * // Update one ChecklistTemplate
+     * const checklistTemplate = await prisma.checklistTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ChecklistTemplateUpdateArgs>(args: SelectSubset<T, ChecklistTemplateUpdateArgs<ExtArgs>>): Prisma__ChecklistTemplateClient<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ChecklistTemplates.
+     * @param {ChecklistTemplateDeleteManyArgs} args - Arguments to filter ChecklistTemplates to delete.
+     * @example
+     * // Delete a few ChecklistTemplates
+     * const { count } = await prisma.checklistTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ChecklistTemplateDeleteManyArgs>(args?: SelectSubset<T, ChecklistTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChecklistTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ChecklistTemplates
+     * const checklistTemplate = await prisma.checklistTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ChecklistTemplateUpdateManyArgs>(args: SelectSubset<T, ChecklistTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ChecklistTemplates and returns the data updated in the database.
+     * @param {ChecklistTemplateUpdateManyAndReturnArgs} args - Arguments to update many ChecklistTemplates.
+     * @example
+     * // Update many ChecklistTemplates
+     * const checklistTemplate = await prisma.checklistTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ChecklistTemplates and only return the `id`
+     * const checklistTemplateWithIdOnly = await prisma.checklistTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ChecklistTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, ChecklistTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ChecklistTemplate.
+     * @param {ChecklistTemplateUpsertArgs} args - Arguments to update or create a ChecklistTemplate.
+     * @example
+     * // Update or create a ChecklistTemplate
+     * const checklistTemplate = await prisma.checklistTemplate.upsert({
+     *   create: {
+     *     // ... data to create a ChecklistTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ChecklistTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ChecklistTemplateUpsertArgs>(args: SelectSubset<T, ChecklistTemplateUpsertArgs<ExtArgs>>): Prisma__ChecklistTemplateClient<$Result.GetResult<Prisma.$ChecklistTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ChecklistTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistTemplateCountArgs} args - Arguments to filter ChecklistTemplates to count.
+     * @example
+     * // Count the number of ChecklistTemplates
+     * const count = await prisma.checklistTemplate.count({
+     *   where: {
+     *     // ... the filter for the ChecklistTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends ChecklistTemplateCountArgs>(
+      args?: Subset<T, ChecklistTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ChecklistTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ChecklistTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ChecklistTemplateAggregateArgs>(args: Subset<T, ChecklistTemplateAggregateArgs>): Prisma.PrismaPromise<GetChecklistTemplateAggregateType<T>>
+
+    /**
+     * Group by ChecklistTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ChecklistTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ChecklistTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ChecklistTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: ChecklistTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ChecklistTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetChecklistTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ChecklistTemplate model
+   */
+  readonly fields: ChecklistTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ChecklistTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ChecklistTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    taskTemplate<T extends TaskTemplateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskTemplateDefaultArgs<ExtArgs>>): Prisma__TaskTemplateClient<$Result.GetResult<Prisma.$TaskTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ChecklistTemplate model
+   */
+  interface ChecklistTemplateFieldRefs {
+    readonly id: FieldRef<"ChecklistTemplate", 'String'>
+    readonly title: FieldRef<"ChecklistTemplate", 'String'>
+    readonly taskTemplateId: FieldRef<"ChecklistTemplate", 'String'>
+    readonly createdAt: FieldRef<"ChecklistTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"ChecklistTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ChecklistTemplate findUnique
+   */
+  export type ChecklistTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ChecklistTemplate to fetch.
+     */
+    where: ChecklistTemplateWhereUniqueInput
+  }
+
+  /**
+   * ChecklistTemplate findUniqueOrThrow
+   */
+  export type ChecklistTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ChecklistTemplate to fetch.
+     */
+    where: ChecklistTemplateWhereUniqueInput
+  }
+
+  /**
+   * ChecklistTemplate findFirst
+   */
+  export type ChecklistTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ChecklistTemplate to fetch.
+     */
+    where?: ChecklistTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChecklistTemplates to fetch.
+     */
+    orderBy?: ChecklistTemplateOrderByWithRelationInput | ChecklistTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChecklistTemplates.
+     */
+    cursor?: ChecklistTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChecklistTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChecklistTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChecklistTemplates.
+     */
+    distinct?: ChecklistTemplateScalarFieldEnum | ChecklistTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * ChecklistTemplate findFirstOrThrow
+   */
+  export type ChecklistTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ChecklistTemplate to fetch.
+     */
+    where?: ChecklistTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChecklistTemplates to fetch.
+     */
+    orderBy?: ChecklistTemplateOrderByWithRelationInput | ChecklistTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ChecklistTemplates.
+     */
+    cursor?: ChecklistTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChecklistTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChecklistTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ChecklistTemplates.
+     */
+    distinct?: ChecklistTemplateScalarFieldEnum | ChecklistTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * ChecklistTemplate findMany
+   */
+  export type ChecklistTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which ChecklistTemplates to fetch.
+     */
+    where?: ChecklistTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ChecklistTemplates to fetch.
+     */
+    orderBy?: ChecklistTemplateOrderByWithRelationInput | ChecklistTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ChecklistTemplates.
+     */
+    cursor?: ChecklistTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ChecklistTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ChecklistTemplates.
+     */
+    skip?: number
+    distinct?: ChecklistTemplateScalarFieldEnum | ChecklistTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * ChecklistTemplate create
+   */
+  export type ChecklistTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ChecklistTemplate.
+     */
+    data: XOR<ChecklistTemplateCreateInput, ChecklistTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * ChecklistTemplate createMany
+   */
+  export type ChecklistTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ChecklistTemplates.
+     */
+    data: ChecklistTemplateCreateManyInput | ChecklistTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ChecklistTemplate createManyAndReturn
+   */
+  export type ChecklistTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many ChecklistTemplates.
+     */
+    data: ChecklistTemplateCreateManyInput | ChecklistTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChecklistTemplate update
+   */
+  export type ChecklistTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ChecklistTemplate.
+     */
+    data: XOR<ChecklistTemplateUpdateInput, ChecklistTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which ChecklistTemplate to update.
+     */
+    where: ChecklistTemplateWhereUniqueInput
+  }
+
+  /**
+   * ChecklistTemplate updateMany
+   */
+  export type ChecklistTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ChecklistTemplates.
+     */
+    data: XOR<ChecklistTemplateUpdateManyMutationInput, ChecklistTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which ChecklistTemplates to update
+     */
+    where?: ChecklistTemplateWhereInput
+    /**
+     * Limit how many ChecklistTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChecklistTemplate updateManyAndReturn
+   */
+  export type ChecklistTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update ChecklistTemplates.
+     */
+    data: XOR<ChecklistTemplateUpdateManyMutationInput, ChecklistTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which ChecklistTemplates to update
+     */
+    where?: ChecklistTemplateWhereInput
+    /**
+     * Limit how many ChecklistTemplates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ChecklistTemplate upsert
+   */
+  export type ChecklistTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ChecklistTemplate to update in case it exists.
+     */
+    where: ChecklistTemplateWhereUniqueInput
+    /**
+     * In case the ChecklistTemplate found by the `where` argument doesn't exist, create a new ChecklistTemplate with this data.
+     */
+    create: XOR<ChecklistTemplateCreateInput, ChecklistTemplateUncheckedCreateInput>
+    /**
+     * In case the ChecklistTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ChecklistTemplateUpdateInput, ChecklistTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * ChecklistTemplate delete
+   */
+  export type ChecklistTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which ChecklistTemplate to delete.
+     */
+    where: ChecklistTemplateWhereUniqueInput
+  }
+
+  /**
+   * ChecklistTemplate deleteMany
+   */
+  export type ChecklistTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ChecklistTemplates to delete
+     */
+    where?: ChecklistTemplateWhereInput
+    /**
+     * Limit how many ChecklistTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ChecklistTemplate without action
+   */
+  export type ChecklistTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistTemplate
+     */
+    select?: ChecklistTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistTemplate
+     */
+    omit?: ChecklistTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13789,17 +16245,6 @@ export namespace Prisma {
   export type ProjectMemberScalarFieldEnum = (typeof ProjectMemberScalarFieldEnum)[keyof typeof ProjectMemberScalarFieldEnum]
 
 
-  export const ProjectTemplateScalarFieldEnum: {
-    id: 'id',
-    name: 'name',
-    description: 'description',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type ProjectTemplateScalarFieldEnum = (typeof ProjectTemplateScalarFieldEnum)[keyof typeof ProjectTemplateScalarFieldEnum]
-
-
   export const DocumentScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -13841,6 +16286,41 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const ProjectTemplateScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProjectTemplateScalarFieldEnum = (typeof ProjectTemplateScalarFieldEnum)[keyof typeof ProjectTemplateScalarFieldEnum]
+
+
+  export const TaskTemplateScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    order: 'order',
+    projectTemplateId: 'projectTemplateId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TaskTemplateScalarFieldEnum = (typeof TaskTemplateScalarFieldEnum)[keyof typeof TaskTemplateScalarFieldEnum]
+
+
+  export const ChecklistTemplateScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    taskTemplateId: 'taskTemplateId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ChecklistTemplateScalarFieldEnum = (typeof ChecklistTemplateScalarFieldEnum)[keyof typeof ChecklistTemplateScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14578,61 +17058,6 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"ProjectMember"> | string
   }
 
-  export type ProjectTemplateWhereInput = {
-    AND?: ProjectTemplateWhereInput | ProjectTemplateWhereInput[]
-    OR?: ProjectTemplateWhereInput[]
-    NOT?: ProjectTemplateWhereInput | ProjectTemplateWhereInput[]
-    id?: StringFilter<"ProjectTemplate"> | string
-    name?: StringFilter<"ProjectTemplate"> | string
-    description?: StringNullableFilter<"ProjectTemplate"> | string | null
-    createdAt?: DateTimeFilter<"ProjectTemplate"> | Date | string
-    updatedAt?: DateTimeFilter<"ProjectTemplate"> | Date | string
-    projects?: ProjectListRelationFilter
-  }
-
-  export type ProjectTemplateOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    projects?: ProjectOrderByRelationAggregateInput
-  }
-
-  export type ProjectTemplateWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: ProjectTemplateWhereInput | ProjectTemplateWhereInput[]
-    OR?: ProjectTemplateWhereInput[]
-    NOT?: ProjectTemplateWhereInput | ProjectTemplateWhereInput[]
-    name?: StringFilter<"ProjectTemplate"> | string
-    description?: StringNullableFilter<"ProjectTemplate"> | string | null
-    createdAt?: DateTimeFilter<"ProjectTemplate"> | Date | string
-    updatedAt?: DateTimeFilter<"ProjectTemplate"> | Date | string
-    projects?: ProjectListRelationFilter
-  }, "id">
-
-  export type ProjectTemplateOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: ProjectTemplateCountOrderByAggregateInput
-    _max?: ProjectTemplateMaxOrderByAggregateInput
-    _min?: ProjectTemplateMinOrderByAggregateInput
-  }
-
-  export type ProjectTemplateScalarWhereWithAggregatesInput = {
-    AND?: ProjectTemplateScalarWhereWithAggregatesInput | ProjectTemplateScalarWhereWithAggregatesInput[]
-    OR?: ProjectTemplateScalarWhereWithAggregatesInput[]
-    NOT?: ProjectTemplateScalarWhereWithAggregatesInput | ProjectTemplateScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"ProjectTemplate"> | string
-    name?: StringWithAggregatesFilter<"ProjectTemplate"> | string
-    description?: StringNullableWithAggregatesFilter<"ProjectTemplate"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"ProjectTemplate"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"ProjectTemplate"> | Date | string
-  }
-
   export type DocumentWhereInput = {
     AND?: DocumentWhereInput | DocumentWhereInput[]
     OR?: DocumentWhereInput[]
@@ -14866,6 +17291,189 @@ export namespace Prisma {
     performanceScore?: FloatWithAggregatesFilter<"User"> | number
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+  }
+
+  export type ProjectTemplateWhereInput = {
+    AND?: ProjectTemplateWhereInput | ProjectTemplateWhereInput[]
+    OR?: ProjectTemplateWhereInput[]
+    NOT?: ProjectTemplateWhereInput | ProjectTemplateWhereInput[]
+    id?: StringFilter<"ProjectTemplate"> | string
+    name?: StringFilter<"ProjectTemplate"> | string
+    description?: StringNullableFilter<"ProjectTemplate"> | string | null
+    createdAt?: DateTimeFilter<"ProjectTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectTemplate"> | Date | string
+    projects?: ProjectListRelationFilter
+    tasks?: TaskTemplateListRelationFilter
+  }
+
+  export type ProjectTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    projects?: ProjectOrderByRelationAggregateInput
+    tasks?: TaskTemplateOrderByRelationAggregateInput
+  }
+
+  export type ProjectTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProjectTemplateWhereInput | ProjectTemplateWhereInput[]
+    OR?: ProjectTemplateWhereInput[]
+    NOT?: ProjectTemplateWhereInput | ProjectTemplateWhereInput[]
+    name?: StringFilter<"ProjectTemplate"> | string
+    description?: StringNullableFilter<"ProjectTemplate"> | string | null
+    createdAt?: DateTimeFilter<"ProjectTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectTemplate"> | Date | string
+    projects?: ProjectListRelationFilter
+    tasks?: TaskTemplateListRelationFilter
+  }, "id">
+
+  export type ProjectTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProjectTemplateCountOrderByAggregateInput
+    _max?: ProjectTemplateMaxOrderByAggregateInput
+    _min?: ProjectTemplateMinOrderByAggregateInput
+  }
+
+  export type ProjectTemplateScalarWhereWithAggregatesInput = {
+    AND?: ProjectTemplateScalarWhereWithAggregatesInput | ProjectTemplateScalarWhereWithAggregatesInput[]
+    OR?: ProjectTemplateScalarWhereWithAggregatesInput[]
+    NOT?: ProjectTemplateScalarWhereWithAggregatesInput | ProjectTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ProjectTemplate"> | string
+    name?: StringWithAggregatesFilter<"ProjectTemplate"> | string
+    description?: StringNullableWithAggregatesFilter<"ProjectTemplate"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ProjectTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ProjectTemplate"> | Date | string
+  }
+
+  export type TaskTemplateWhereInput = {
+    AND?: TaskTemplateWhereInput | TaskTemplateWhereInput[]
+    OR?: TaskTemplateWhereInput[]
+    NOT?: TaskTemplateWhereInput | TaskTemplateWhereInput[]
+    id?: StringFilter<"TaskTemplate"> | string
+    title?: StringFilter<"TaskTemplate"> | string
+    description?: StringNullableFilter<"TaskTemplate"> | string | null
+    order?: IntFilter<"TaskTemplate"> | number
+    projectTemplateId?: StringFilter<"TaskTemplate"> | string
+    createdAt?: DateTimeFilter<"TaskTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"TaskTemplate"> | Date | string
+    projectTemplate?: XOR<ProjectTemplateScalarRelationFilter, ProjectTemplateWhereInput>
+    checklists?: ChecklistTemplateListRelationFilter
+  }
+
+  export type TaskTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    order?: SortOrder
+    projectTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    projectTemplate?: ProjectTemplateOrderByWithRelationInput
+    checklists?: ChecklistTemplateOrderByRelationAggregateInput
+  }
+
+  export type TaskTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TaskTemplateWhereInput | TaskTemplateWhereInput[]
+    OR?: TaskTemplateWhereInput[]
+    NOT?: TaskTemplateWhereInput | TaskTemplateWhereInput[]
+    title?: StringFilter<"TaskTemplate"> | string
+    description?: StringNullableFilter<"TaskTemplate"> | string | null
+    order?: IntFilter<"TaskTemplate"> | number
+    projectTemplateId?: StringFilter<"TaskTemplate"> | string
+    createdAt?: DateTimeFilter<"TaskTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"TaskTemplate"> | Date | string
+    projectTemplate?: XOR<ProjectTemplateScalarRelationFilter, ProjectTemplateWhereInput>
+    checklists?: ChecklistTemplateListRelationFilter
+  }, "id">
+
+  export type TaskTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    order?: SortOrder
+    projectTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TaskTemplateCountOrderByAggregateInput
+    _avg?: TaskTemplateAvgOrderByAggregateInput
+    _max?: TaskTemplateMaxOrderByAggregateInput
+    _min?: TaskTemplateMinOrderByAggregateInput
+    _sum?: TaskTemplateSumOrderByAggregateInput
+  }
+
+  export type TaskTemplateScalarWhereWithAggregatesInput = {
+    AND?: TaskTemplateScalarWhereWithAggregatesInput | TaskTemplateScalarWhereWithAggregatesInput[]
+    OR?: TaskTemplateScalarWhereWithAggregatesInput[]
+    NOT?: TaskTemplateScalarWhereWithAggregatesInput | TaskTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TaskTemplate"> | string
+    title?: StringWithAggregatesFilter<"TaskTemplate"> | string
+    description?: StringNullableWithAggregatesFilter<"TaskTemplate"> | string | null
+    order?: IntWithAggregatesFilter<"TaskTemplate"> | number
+    projectTemplateId?: StringWithAggregatesFilter<"TaskTemplate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TaskTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TaskTemplate"> | Date | string
+  }
+
+  export type ChecklistTemplateWhereInput = {
+    AND?: ChecklistTemplateWhereInput | ChecklistTemplateWhereInput[]
+    OR?: ChecklistTemplateWhereInput[]
+    NOT?: ChecklistTemplateWhereInput | ChecklistTemplateWhereInput[]
+    id?: StringFilter<"ChecklistTemplate"> | string
+    title?: StringFilter<"ChecklistTemplate"> | string
+    taskTemplateId?: StringFilter<"ChecklistTemplate"> | string
+    createdAt?: DateTimeFilter<"ChecklistTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"ChecklistTemplate"> | Date | string
+    taskTemplate?: XOR<TaskTemplateScalarRelationFilter, TaskTemplateWhereInput>
+  }
+
+  export type ChecklistTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    taskTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    taskTemplate?: TaskTemplateOrderByWithRelationInput
+  }
+
+  export type ChecklistTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ChecklistTemplateWhereInput | ChecklistTemplateWhereInput[]
+    OR?: ChecklistTemplateWhereInput[]
+    NOT?: ChecklistTemplateWhereInput | ChecklistTemplateWhereInput[]
+    title?: StringFilter<"ChecklistTemplate"> | string
+    taskTemplateId?: StringFilter<"ChecklistTemplate"> | string
+    createdAt?: DateTimeFilter<"ChecklistTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"ChecklistTemplate"> | Date | string
+    taskTemplate?: XOR<TaskTemplateScalarRelationFilter, TaskTemplateWhereInput>
+  }, "id">
+
+  export type ChecklistTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    taskTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ChecklistTemplateCountOrderByAggregateInput
+    _max?: ChecklistTemplateMaxOrderByAggregateInput
+    _min?: ChecklistTemplateMinOrderByAggregateInput
+  }
+
+  export type ChecklistTemplateScalarWhereWithAggregatesInput = {
+    AND?: ChecklistTemplateScalarWhereWithAggregatesInput | ChecklistTemplateScalarWhereWithAggregatesInput[]
+    OR?: ChecklistTemplateScalarWhereWithAggregatesInput[]
+    NOT?: ChecklistTemplateScalarWhereWithAggregatesInput | ChecklistTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ChecklistTemplate"> | string
+    title?: StringWithAggregatesFilter<"ChecklistTemplate"> | string
+    taskTemplateId?: StringWithAggregatesFilter<"ChecklistTemplate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ChecklistTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ChecklistTemplate"> | Date | string
   }
 
   export type ProjectCreateInput = {
@@ -15401,66 +18009,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type ProjectTemplateCreateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projects?: ProjectCreateNestedManyWithoutTemplateInput
-  }
-
-  export type ProjectTemplateUncheckedCreateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projects?: ProjectUncheckedCreateNestedManyWithoutTemplateInput
-  }
-
-  export type ProjectTemplateUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projects?: ProjectUpdateManyWithoutTemplateNestedInput
-  }
-
-  export type ProjectTemplateUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projects?: ProjectUncheckedUpdateManyWithoutTemplateNestedInput
-  }
-
-  export type ProjectTemplateCreateManyInput = {
-    id?: string
-    name: string
-    description?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ProjectTemplateUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ProjectTemplateUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type DocumentCreateInput = {
     id?: string
     name: string
@@ -15711,6 +18259,198 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectTemplateCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projects?: ProjectCreateNestedManyWithoutTemplateInput
+    tasks?: TaskTemplateCreateNestedManyWithoutProjectTemplateInput
+  }
+
+  export type ProjectTemplateUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projects?: ProjectUncheckedCreateNestedManyWithoutTemplateInput
+    tasks?: TaskTemplateUncheckedCreateNestedManyWithoutProjectTemplateInput
+  }
+
+  export type ProjectTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUpdateManyWithoutTemplateNestedInput
+    tasks?: TaskTemplateUpdateManyWithoutProjectTemplateNestedInput
+  }
+
+  export type ProjectTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUncheckedUpdateManyWithoutTemplateNestedInput
+    tasks?: TaskTemplateUncheckedUpdateManyWithoutProjectTemplateNestedInput
+  }
+
+  export type ProjectTemplateCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskTemplateCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectTemplate: ProjectTemplateCreateNestedOneWithoutTasksInput
+    checklists?: ChecklistTemplateCreateNestedManyWithoutTaskTemplateInput
+  }
+
+  export type TaskTemplateUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    order: number
+    projectTemplateId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    checklists?: ChecklistTemplateUncheckedCreateNestedManyWithoutTaskTemplateInput
+  }
+
+  export type TaskTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectTemplate?: ProjectTemplateUpdateOneRequiredWithoutTasksNestedInput
+    checklists?: ChecklistTemplateUpdateManyWithoutTaskTemplateNestedInput
+  }
+
+  export type TaskTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    projectTemplateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checklists?: ChecklistTemplateUncheckedUpdateManyWithoutTaskTemplateNestedInput
+  }
+
+  export type TaskTemplateCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    order: number
+    projectTemplateId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TaskTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    projectTemplateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistTemplateCreateInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    taskTemplate: TaskTemplateCreateNestedOneWithoutChecklistsInput
+  }
+
+  export type ChecklistTemplateUncheckedCreateInput = {
+    id?: string
+    title: string
+    taskTemplateId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskTemplate?: TaskTemplateUpdateOneRequiredWithoutChecklistsNestedInput
+  }
+
+  export type ChecklistTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    taskTemplateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistTemplateCreateManyInput = {
+    id?: string
+    title: string
+    taskTemplateId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    taskTemplateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16459,40 +19199,6 @@ export namespace Prisma {
     _max?: NestedEnumProjectRoleFilter<$PrismaModel>
   }
 
-  export type ProjectListRelationFilter = {
-    every?: ProjectWhereInput
-    some?: ProjectWhereInput
-    none?: ProjectWhereInput
-  }
-
-  export type ProjectOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ProjectTemplateCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ProjectTemplateMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ProjectTemplateMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    description?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
   export type DocumentCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -16560,6 +19266,16 @@ export namespace Prisma {
     not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
   }
 
+  export type ProjectListRelationFilter = {
+    every?: ProjectWhereInput
+    some?: ProjectWhereInput
+    none?: ProjectWhereInput
+  }
+
+  export type ProjectOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     fullname?: SortOrder
@@ -16618,6 +19334,122 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumUserRoleFilter<$PrismaModel>
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
+  }
+
+  export type TaskTemplateListRelationFilter = {
+    every?: TaskTemplateWhereInput
+    some?: TaskTemplateWhereInput
+    none?: TaskTemplateWhereInput
+  }
+
+  export type TaskTemplateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProjectTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectTemplateScalarRelationFilter = {
+    is?: ProjectTemplateWhereInput
+    isNot?: ProjectTemplateWhereInput
+  }
+
+  export type ChecklistTemplateListRelationFilter = {
+    every?: ChecklistTemplateWhereInput
+    some?: ChecklistTemplateWhereInput
+    none?: ChecklistTemplateWhereInput
+  }
+
+  export type ChecklistTemplateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TaskTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    projectTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TaskTemplateAvgOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type TaskTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    projectTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TaskTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    order?: SortOrder
+    projectTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TaskTemplateSumOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type TaskTemplateScalarRelationFilter = {
+    is?: TaskTemplateWhereInput
+    isNot?: TaskTemplateWhereInput
+  }
+
+  export type ChecklistTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    taskTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChecklistTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    taskTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ChecklistTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    taskTemplateId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutProjectsOwnedInput = {
@@ -17189,48 +20021,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProjectMemberInput, UserUpdateWithoutProjectMemberInput>, UserUncheckedUpdateWithoutProjectMemberInput>
   }
 
-  export type ProjectCreateNestedManyWithoutTemplateInput = {
-    create?: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput> | ProjectCreateWithoutTemplateInput[] | ProjectUncheckedCreateWithoutTemplateInput[]
-    connectOrCreate?: ProjectCreateOrConnectWithoutTemplateInput | ProjectCreateOrConnectWithoutTemplateInput[]
-    createMany?: ProjectCreateManyTemplateInputEnvelope
-    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-  }
-
-  export type ProjectUncheckedCreateNestedManyWithoutTemplateInput = {
-    create?: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput> | ProjectCreateWithoutTemplateInput[] | ProjectUncheckedCreateWithoutTemplateInput[]
-    connectOrCreate?: ProjectCreateOrConnectWithoutTemplateInput | ProjectCreateOrConnectWithoutTemplateInput[]
-    createMany?: ProjectCreateManyTemplateInputEnvelope
-    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-  }
-
-  export type ProjectUpdateManyWithoutTemplateNestedInput = {
-    create?: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput> | ProjectCreateWithoutTemplateInput[] | ProjectUncheckedCreateWithoutTemplateInput[]
-    connectOrCreate?: ProjectCreateOrConnectWithoutTemplateInput | ProjectCreateOrConnectWithoutTemplateInput[]
-    upsert?: ProjectUpsertWithWhereUniqueWithoutTemplateInput | ProjectUpsertWithWhereUniqueWithoutTemplateInput[]
-    createMany?: ProjectCreateManyTemplateInputEnvelope
-    set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    update?: ProjectUpdateWithWhereUniqueWithoutTemplateInput | ProjectUpdateWithWhereUniqueWithoutTemplateInput[]
-    updateMany?: ProjectUpdateManyWithWhereWithoutTemplateInput | ProjectUpdateManyWithWhereWithoutTemplateInput[]
-    deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
-  }
-
-  export type ProjectUncheckedUpdateManyWithoutTemplateNestedInput = {
-    create?: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput> | ProjectCreateWithoutTemplateInput[] | ProjectUncheckedCreateWithoutTemplateInput[]
-    connectOrCreate?: ProjectCreateOrConnectWithoutTemplateInput | ProjectCreateOrConnectWithoutTemplateInput[]
-    upsert?: ProjectUpsertWithWhereUniqueWithoutTemplateInput | ProjectUpsertWithWhereUniqueWithoutTemplateInput[]
-    createMany?: ProjectCreateManyTemplateInputEnvelope
-    set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
-    update?: ProjectUpdateWithWhereUniqueWithoutTemplateInput | ProjectUpdateWithWhereUniqueWithoutTemplateInput[]
-    updateMany?: ProjectUpdateManyWithWhereWithoutTemplateInput | ProjectUpdateManyWithWhereWithoutTemplateInput[]
-    deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
-  }
-
   export type UserCreateNestedOneWithoutDocumentsInput = {
     create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
@@ -17508,6 +20298,160 @@ export namespace Prisma {
     update?: ProjectMemberUpdateWithWhereUniqueWithoutUserInput | ProjectMemberUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProjectMemberUpdateManyWithWhereWithoutUserInput | ProjectMemberUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
+  }
+
+  export type ProjectCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput> | ProjectCreateWithoutTemplateInput[] | ProjectUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutTemplateInput | ProjectCreateOrConnectWithoutTemplateInput[]
+    createMany?: ProjectCreateManyTemplateInputEnvelope
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+  }
+
+  export type TaskTemplateCreateNestedManyWithoutProjectTemplateInput = {
+    create?: XOR<TaskTemplateCreateWithoutProjectTemplateInput, TaskTemplateUncheckedCreateWithoutProjectTemplateInput> | TaskTemplateCreateWithoutProjectTemplateInput[] | TaskTemplateUncheckedCreateWithoutProjectTemplateInput[]
+    connectOrCreate?: TaskTemplateCreateOrConnectWithoutProjectTemplateInput | TaskTemplateCreateOrConnectWithoutProjectTemplateInput[]
+    createMany?: TaskTemplateCreateManyProjectTemplateInputEnvelope
+    connect?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+  }
+
+  export type ProjectUncheckedCreateNestedManyWithoutTemplateInput = {
+    create?: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput> | ProjectCreateWithoutTemplateInput[] | ProjectUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutTemplateInput | ProjectCreateOrConnectWithoutTemplateInput[]
+    createMany?: ProjectCreateManyTemplateInputEnvelope
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+  }
+
+  export type TaskTemplateUncheckedCreateNestedManyWithoutProjectTemplateInput = {
+    create?: XOR<TaskTemplateCreateWithoutProjectTemplateInput, TaskTemplateUncheckedCreateWithoutProjectTemplateInput> | TaskTemplateCreateWithoutProjectTemplateInput[] | TaskTemplateUncheckedCreateWithoutProjectTemplateInput[]
+    connectOrCreate?: TaskTemplateCreateOrConnectWithoutProjectTemplateInput | TaskTemplateCreateOrConnectWithoutProjectTemplateInput[]
+    createMany?: TaskTemplateCreateManyProjectTemplateInputEnvelope
+    connect?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+  }
+
+  export type ProjectUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput> | ProjectCreateWithoutTemplateInput[] | ProjectUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutTemplateInput | ProjectCreateOrConnectWithoutTemplateInput[]
+    upsert?: ProjectUpsertWithWhereUniqueWithoutTemplateInput | ProjectUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: ProjectCreateManyTemplateInputEnvelope
+    set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    update?: ProjectUpdateWithWhereUniqueWithoutTemplateInput | ProjectUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: ProjectUpdateManyWithWhereWithoutTemplateInput | ProjectUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+  }
+
+  export type TaskTemplateUpdateManyWithoutProjectTemplateNestedInput = {
+    create?: XOR<TaskTemplateCreateWithoutProjectTemplateInput, TaskTemplateUncheckedCreateWithoutProjectTemplateInput> | TaskTemplateCreateWithoutProjectTemplateInput[] | TaskTemplateUncheckedCreateWithoutProjectTemplateInput[]
+    connectOrCreate?: TaskTemplateCreateOrConnectWithoutProjectTemplateInput | TaskTemplateCreateOrConnectWithoutProjectTemplateInput[]
+    upsert?: TaskTemplateUpsertWithWhereUniqueWithoutProjectTemplateInput | TaskTemplateUpsertWithWhereUniqueWithoutProjectTemplateInput[]
+    createMany?: TaskTemplateCreateManyProjectTemplateInputEnvelope
+    set?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+    disconnect?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+    delete?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+    connect?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+    update?: TaskTemplateUpdateWithWhereUniqueWithoutProjectTemplateInput | TaskTemplateUpdateWithWhereUniqueWithoutProjectTemplateInput[]
+    updateMany?: TaskTemplateUpdateManyWithWhereWithoutProjectTemplateInput | TaskTemplateUpdateManyWithWhereWithoutProjectTemplateInput[]
+    deleteMany?: TaskTemplateScalarWhereInput | TaskTemplateScalarWhereInput[]
+  }
+
+  export type ProjectUncheckedUpdateManyWithoutTemplateNestedInput = {
+    create?: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput> | ProjectCreateWithoutTemplateInput[] | ProjectUncheckedCreateWithoutTemplateInput[]
+    connectOrCreate?: ProjectCreateOrConnectWithoutTemplateInput | ProjectCreateOrConnectWithoutTemplateInput[]
+    upsert?: ProjectUpsertWithWhereUniqueWithoutTemplateInput | ProjectUpsertWithWhereUniqueWithoutTemplateInput[]
+    createMany?: ProjectCreateManyTemplateInputEnvelope
+    set?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    disconnect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    delete?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    connect?: ProjectWhereUniqueInput | ProjectWhereUniqueInput[]
+    update?: ProjectUpdateWithWhereUniqueWithoutTemplateInput | ProjectUpdateWithWhereUniqueWithoutTemplateInput[]
+    updateMany?: ProjectUpdateManyWithWhereWithoutTemplateInput | ProjectUpdateManyWithWhereWithoutTemplateInput[]
+    deleteMany?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+  }
+
+  export type TaskTemplateUncheckedUpdateManyWithoutProjectTemplateNestedInput = {
+    create?: XOR<TaskTemplateCreateWithoutProjectTemplateInput, TaskTemplateUncheckedCreateWithoutProjectTemplateInput> | TaskTemplateCreateWithoutProjectTemplateInput[] | TaskTemplateUncheckedCreateWithoutProjectTemplateInput[]
+    connectOrCreate?: TaskTemplateCreateOrConnectWithoutProjectTemplateInput | TaskTemplateCreateOrConnectWithoutProjectTemplateInput[]
+    upsert?: TaskTemplateUpsertWithWhereUniqueWithoutProjectTemplateInput | TaskTemplateUpsertWithWhereUniqueWithoutProjectTemplateInput[]
+    createMany?: TaskTemplateCreateManyProjectTemplateInputEnvelope
+    set?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+    disconnect?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+    delete?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+    connect?: TaskTemplateWhereUniqueInput | TaskTemplateWhereUniqueInput[]
+    update?: TaskTemplateUpdateWithWhereUniqueWithoutProjectTemplateInput | TaskTemplateUpdateWithWhereUniqueWithoutProjectTemplateInput[]
+    updateMany?: TaskTemplateUpdateManyWithWhereWithoutProjectTemplateInput | TaskTemplateUpdateManyWithWhereWithoutProjectTemplateInput[]
+    deleteMany?: TaskTemplateScalarWhereInput | TaskTemplateScalarWhereInput[]
+  }
+
+  export type ProjectTemplateCreateNestedOneWithoutTasksInput = {
+    create?: XOR<ProjectTemplateCreateWithoutTasksInput, ProjectTemplateUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: ProjectTemplateCreateOrConnectWithoutTasksInput
+    connect?: ProjectTemplateWhereUniqueInput
+  }
+
+  export type ChecklistTemplateCreateNestedManyWithoutTaskTemplateInput = {
+    create?: XOR<ChecklistTemplateCreateWithoutTaskTemplateInput, ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput> | ChecklistTemplateCreateWithoutTaskTemplateInput[] | ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput[]
+    connectOrCreate?: ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput | ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput[]
+    createMany?: ChecklistTemplateCreateManyTaskTemplateInputEnvelope
+    connect?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+  }
+
+  export type ChecklistTemplateUncheckedCreateNestedManyWithoutTaskTemplateInput = {
+    create?: XOR<ChecklistTemplateCreateWithoutTaskTemplateInput, ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput> | ChecklistTemplateCreateWithoutTaskTemplateInput[] | ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput[]
+    connectOrCreate?: ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput | ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput[]
+    createMany?: ChecklistTemplateCreateManyTaskTemplateInputEnvelope
+    connect?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+  }
+
+  export type ProjectTemplateUpdateOneRequiredWithoutTasksNestedInput = {
+    create?: XOR<ProjectTemplateCreateWithoutTasksInput, ProjectTemplateUncheckedCreateWithoutTasksInput>
+    connectOrCreate?: ProjectTemplateCreateOrConnectWithoutTasksInput
+    upsert?: ProjectTemplateUpsertWithoutTasksInput
+    connect?: ProjectTemplateWhereUniqueInput
+    update?: XOR<XOR<ProjectTemplateUpdateToOneWithWhereWithoutTasksInput, ProjectTemplateUpdateWithoutTasksInput>, ProjectTemplateUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type ChecklistTemplateUpdateManyWithoutTaskTemplateNestedInput = {
+    create?: XOR<ChecklistTemplateCreateWithoutTaskTemplateInput, ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput> | ChecklistTemplateCreateWithoutTaskTemplateInput[] | ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput[]
+    connectOrCreate?: ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput | ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput[]
+    upsert?: ChecklistTemplateUpsertWithWhereUniqueWithoutTaskTemplateInput | ChecklistTemplateUpsertWithWhereUniqueWithoutTaskTemplateInput[]
+    createMany?: ChecklistTemplateCreateManyTaskTemplateInputEnvelope
+    set?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+    disconnect?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+    delete?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+    connect?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+    update?: ChecklistTemplateUpdateWithWhereUniqueWithoutTaskTemplateInput | ChecklistTemplateUpdateWithWhereUniqueWithoutTaskTemplateInput[]
+    updateMany?: ChecklistTemplateUpdateManyWithWhereWithoutTaskTemplateInput | ChecklistTemplateUpdateManyWithWhereWithoutTaskTemplateInput[]
+    deleteMany?: ChecklistTemplateScalarWhereInput | ChecklistTemplateScalarWhereInput[]
+  }
+
+  export type ChecklistTemplateUncheckedUpdateManyWithoutTaskTemplateNestedInput = {
+    create?: XOR<ChecklistTemplateCreateWithoutTaskTemplateInput, ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput> | ChecklistTemplateCreateWithoutTaskTemplateInput[] | ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput[]
+    connectOrCreate?: ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput | ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput[]
+    upsert?: ChecklistTemplateUpsertWithWhereUniqueWithoutTaskTemplateInput | ChecklistTemplateUpsertWithWhereUniqueWithoutTaskTemplateInput[]
+    createMany?: ChecklistTemplateCreateManyTaskTemplateInputEnvelope
+    set?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+    disconnect?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+    delete?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+    connect?: ChecklistTemplateWhereUniqueInput | ChecklistTemplateWhereUniqueInput[]
+    update?: ChecklistTemplateUpdateWithWhereUniqueWithoutTaskTemplateInput | ChecklistTemplateUpdateWithWhereUniqueWithoutTaskTemplateInput[]
+    updateMany?: ChecklistTemplateUpdateManyWithWhereWithoutTaskTemplateInput | ChecklistTemplateUpdateManyWithWhereWithoutTaskTemplateInput[]
+    deleteMany?: ChecklistTemplateScalarWhereInput | ChecklistTemplateScalarWhereInput[]
+  }
+
+  export type TaskTemplateCreateNestedOneWithoutChecklistsInput = {
+    create?: XOR<TaskTemplateCreateWithoutChecklistsInput, TaskTemplateUncheckedCreateWithoutChecklistsInput>
+    connectOrCreate?: TaskTemplateCreateOrConnectWithoutChecklistsInput
+    connect?: TaskTemplateWhereUniqueInput
+  }
+
+  export type TaskTemplateUpdateOneRequiredWithoutChecklistsNestedInput = {
+    create?: XOR<TaskTemplateCreateWithoutChecklistsInput, TaskTemplateUncheckedCreateWithoutChecklistsInput>
+    connectOrCreate?: TaskTemplateCreateOrConnectWithoutChecklistsInput
+    upsert?: TaskTemplateUpsertWithoutChecklistsInput
+    connect?: TaskTemplateWhereUniqueInput
+    update?: XOR<XOR<TaskTemplateUpdateToOneWithWhereWithoutChecklistsInput, TaskTemplateUpdateWithoutChecklistsInput>, TaskTemplateUncheckedUpdateWithoutChecklistsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -18097,6 +21041,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tasks?: TaskTemplateCreateNestedManyWithoutProjectTemplateInput
   }
 
   export type ProjectTemplateUncheckedCreateWithoutProjectsInput = {
@@ -18105,6 +21050,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    tasks?: TaskTemplateUncheckedCreateNestedManyWithoutProjectTemplateInput
   }
 
   export type ProjectTemplateCreateOrConnectWithoutProjectsInput = {
@@ -18325,6 +21271,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tasks?: TaskTemplateUpdateManyWithoutProjectTemplateNestedInput
   }
 
   export type ProjectTemplateUncheckedUpdateWithoutProjectsInput = {
@@ -18333,6 +21280,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tasks?: TaskTemplateUncheckedUpdateManyWithoutProjectTemplateNestedInput
   }
 
   export type ProjectCreateWithoutTasksInput = {
@@ -19295,106 +22243,6 @@ export namespace Prisma {
     Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
-  export type ProjectCreateWithoutTemplateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    clientType?: $Enums.ProjectClientType | null
-    industry?: string | null
-    color?: string | null
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    budget?: Decimal | DecimalJsLike | number | string | null
-    progress?: number
-    status?: $Enums.ProjectStatus
-    priority?: $Enums.ProjectPriority
-    isArchived?: boolean
-    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    owner?: UserCreateNestedOneWithoutProjectsOwnedInput
-    members?: ProjectMemberCreateNestedManyWithoutProjectInput
-    tasks?: TaskCreateNestedManyWithoutProjectInput
-    checklists?: ChecklistCreateNestedManyWithoutProjectInput
-    columns?: TaskColumnCreateNestedManyWithoutProjectInput
-    documents?: DocumentCreateNestedManyWithoutProjectInput
-  }
-
-  export type ProjectUncheckedCreateWithoutTemplateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    clientType?: $Enums.ProjectClientType | null
-    industry?: string | null
-    color?: string | null
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    budget?: Decimal | DecimalJsLike | number | string | null
-    progress?: number
-    status?: $Enums.ProjectStatus
-    priority?: $Enums.ProjectPriority
-    isArchived?: boolean
-    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    ownerId?: string | null
-    members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
-    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
-    checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
-    columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
-  }
-
-  export type ProjectCreateOrConnectWithoutTemplateInput = {
-    where: ProjectWhereUniqueInput
-    create: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput>
-  }
-
-  export type ProjectCreateManyTemplateInputEnvelope = {
-    data: ProjectCreateManyTemplateInput | ProjectCreateManyTemplateInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ProjectUpsertWithWhereUniqueWithoutTemplateInput = {
-    where: ProjectWhereUniqueInput
-    update: XOR<ProjectUpdateWithoutTemplateInput, ProjectUncheckedUpdateWithoutTemplateInput>
-    create: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput>
-  }
-
-  export type ProjectUpdateWithWhereUniqueWithoutTemplateInput = {
-    where: ProjectWhereUniqueInput
-    data: XOR<ProjectUpdateWithoutTemplateInput, ProjectUncheckedUpdateWithoutTemplateInput>
-  }
-
-  export type ProjectUpdateManyWithWhereWithoutTemplateInput = {
-    where: ProjectScalarWhereInput
-    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutTemplateInput>
-  }
-
-  export type ProjectScalarWhereInput = {
-    AND?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
-    OR?: ProjectScalarWhereInput[]
-    NOT?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
-    id?: StringFilter<"Project"> | string
-    name?: StringFilter<"Project"> | string
-    description?: StringNullableFilter<"Project"> | string | null
-    clientType?: EnumProjectClientTypeNullableFilter<"Project"> | $Enums.ProjectClientType | null
-    industry?: StringNullableFilter<"Project"> | string | null
-    color?: StringNullableFilter<"Project"> | string | null
-    startDate?: DateTimeNullableFilter<"Project"> | Date | string | null
-    endDate?: DateTimeNullableFilter<"Project"> | Date | string | null
-    budget?: DecimalNullableFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
-    progress?: FloatFilter<"Project"> | number
-    status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
-    priority?: EnumProjectPriorityFilter<"Project"> | $Enums.ProjectPriority
-    isArchived?: BoolFilter<"Project"> | boolean
-    aiSuggestions?: JsonNullableFilter<"Project">
-    createdAt?: DateTimeFilter<"Project"> | Date | string
-    updatedAt?: DateTimeFilter<"Project"> | Date | string
-    ownerId?: StringNullableFilter<"Project"> | string | null
-    templateId?: StringNullableFilter<"Project"> | string | null
-  }
-
   export type UserCreateWithoutDocumentsInput = {
     id?: string
     fullname: string
@@ -19993,6 +22841,30 @@ export namespace Prisma {
     data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutOwnerInput>
   }
 
+  export type ProjectScalarWhereInput = {
+    AND?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+    OR?: ProjectScalarWhereInput[]
+    NOT?: ProjectScalarWhereInput | ProjectScalarWhereInput[]
+    id?: StringFilter<"Project"> | string
+    name?: StringFilter<"Project"> | string
+    description?: StringNullableFilter<"Project"> | string | null
+    clientType?: EnumProjectClientTypeNullableFilter<"Project"> | $Enums.ProjectClientType | null
+    industry?: StringNullableFilter<"Project"> | string | null
+    color?: StringNullableFilter<"Project"> | string | null
+    startDate?: DateTimeNullableFilter<"Project"> | Date | string | null
+    endDate?: DateTimeNullableFilter<"Project"> | Date | string | null
+    budget?: DecimalNullableFilter<"Project"> | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFilter<"Project"> | number
+    status?: EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFilter<"Project"> | $Enums.ProjectPriority
+    isArchived?: BoolFilter<"Project"> | boolean
+    aiSuggestions?: JsonNullableFilter<"Project">
+    createdAt?: DateTimeFilter<"Project"> | Date | string
+    updatedAt?: DateTimeFilter<"Project"> | Date | string
+    ownerId?: StringNullableFilter<"Project"> | string | null
+    templateId?: StringNullableFilter<"Project"> | string | null
+  }
+
   export type DocumentUpsertWithWhereUniqueWithoutUploadedByInput = {
     where: DocumentWhereUniqueInput
     update: XOR<DocumentUpdateWithoutUploadedByInput, DocumentUncheckedUpdateWithoutUploadedByInput>
@@ -20055,6 +22927,300 @@ export namespace Prisma {
   export type ProjectMemberUpdateManyWithWhereWithoutUserInput = {
     where: ProjectMemberScalarWhereInput
     data: XOR<ProjectMemberUpdateManyMutationInput, ProjectMemberUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ProjectCreateWithoutTemplateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutProjectsOwnedInput
+    members?: ProjectMemberCreateNestedManyWithoutProjectInput
+    tasks?: TaskCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnCreateNestedManyWithoutProjectInput
+    documents?: DocumentCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutTemplateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId?: string | null
+    members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutTemplateInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type ProjectCreateManyTemplateInputEnvelope = {
+    data: ProjectCreateManyTemplateInput | ProjectCreateManyTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TaskTemplateCreateWithoutProjectTemplateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    checklists?: ChecklistTemplateCreateNestedManyWithoutTaskTemplateInput
+  }
+
+  export type TaskTemplateUncheckedCreateWithoutProjectTemplateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    checklists?: ChecklistTemplateUncheckedCreateNestedManyWithoutTaskTemplateInput
+  }
+
+  export type TaskTemplateCreateOrConnectWithoutProjectTemplateInput = {
+    where: TaskTemplateWhereUniqueInput
+    create: XOR<TaskTemplateCreateWithoutProjectTemplateInput, TaskTemplateUncheckedCreateWithoutProjectTemplateInput>
+  }
+
+  export type TaskTemplateCreateManyProjectTemplateInputEnvelope = {
+    data: TaskTemplateCreateManyProjectTemplateInput | TaskTemplateCreateManyProjectTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProjectUpsertWithWhereUniqueWithoutTemplateInput = {
+    where: ProjectWhereUniqueInput
+    update: XOR<ProjectUpdateWithoutTemplateInput, ProjectUncheckedUpdateWithoutTemplateInput>
+    create: XOR<ProjectCreateWithoutTemplateInput, ProjectUncheckedCreateWithoutTemplateInput>
+  }
+
+  export type ProjectUpdateWithWhereUniqueWithoutTemplateInput = {
+    where: ProjectWhereUniqueInput
+    data: XOR<ProjectUpdateWithoutTemplateInput, ProjectUncheckedUpdateWithoutTemplateInput>
+  }
+
+  export type ProjectUpdateManyWithWhereWithoutTemplateInput = {
+    where: ProjectScalarWhereInput
+    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutTemplateInput>
+  }
+
+  export type TaskTemplateUpsertWithWhereUniqueWithoutProjectTemplateInput = {
+    where: TaskTemplateWhereUniqueInput
+    update: XOR<TaskTemplateUpdateWithoutProjectTemplateInput, TaskTemplateUncheckedUpdateWithoutProjectTemplateInput>
+    create: XOR<TaskTemplateCreateWithoutProjectTemplateInput, TaskTemplateUncheckedCreateWithoutProjectTemplateInput>
+  }
+
+  export type TaskTemplateUpdateWithWhereUniqueWithoutProjectTemplateInput = {
+    where: TaskTemplateWhereUniqueInput
+    data: XOR<TaskTemplateUpdateWithoutProjectTemplateInput, TaskTemplateUncheckedUpdateWithoutProjectTemplateInput>
+  }
+
+  export type TaskTemplateUpdateManyWithWhereWithoutProjectTemplateInput = {
+    where: TaskTemplateScalarWhereInput
+    data: XOR<TaskTemplateUpdateManyMutationInput, TaskTemplateUncheckedUpdateManyWithoutProjectTemplateInput>
+  }
+
+  export type TaskTemplateScalarWhereInput = {
+    AND?: TaskTemplateScalarWhereInput | TaskTemplateScalarWhereInput[]
+    OR?: TaskTemplateScalarWhereInput[]
+    NOT?: TaskTemplateScalarWhereInput | TaskTemplateScalarWhereInput[]
+    id?: StringFilter<"TaskTemplate"> | string
+    title?: StringFilter<"TaskTemplate"> | string
+    description?: StringNullableFilter<"TaskTemplate"> | string | null
+    order?: IntFilter<"TaskTemplate"> | number
+    projectTemplateId?: StringFilter<"TaskTemplate"> | string
+    createdAt?: DateTimeFilter<"TaskTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"TaskTemplate"> | Date | string
+  }
+
+  export type ProjectTemplateCreateWithoutTasksInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projects?: ProjectCreateNestedManyWithoutTemplateInput
+  }
+
+  export type ProjectTemplateUncheckedCreateWithoutTasksInput = {
+    id?: string
+    name: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projects?: ProjectUncheckedCreateNestedManyWithoutTemplateInput
+  }
+
+  export type ProjectTemplateCreateOrConnectWithoutTasksInput = {
+    where: ProjectTemplateWhereUniqueInput
+    create: XOR<ProjectTemplateCreateWithoutTasksInput, ProjectTemplateUncheckedCreateWithoutTasksInput>
+  }
+
+  export type ChecklistTemplateCreateWithoutTaskTemplateInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistTemplateCreateOrConnectWithoutTaskTemplateInput = {
+    where: ChecklistTemplateWhereUniqueInput
+    create: XOR<ChecklistTemplateCreateWithoutTaskTemplateInput, ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput>
+  }
+
+  export type ChecklistTemplateCreateManyTaskTemplateInputEnvelope = {
+    data: ChecklistTemplateCreateManyTaskTemplateInput | ChecklistTemplateCreateManyTaskTemplateInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProjectTemplateUpsertWithoutTasksInput = {
+    update: XOR<ProjectTemplateUpdateWithoutTasksInput, ProjectTemplateUncheckedUpdateWithoutTasksInput>
+    create: XOR<ProjectTemplateCreateWithoutTasksInput, ProjectTemplateUncheckedCreateWithoutTasksInput>
+    where?: ProjectTemplateWhereInput
+  }
+
+  export type ProjectTemplateUpdateToOneWithWhereWithoutTasksInput = {
+    where?: ProjectTemplateWhereInput
+    data: XOR<ProjectTemplateUpdateWithoutTasksInput, ProjectTemplateUncheckedUpdateWithoutTasksInput>
+  }
+
+  export type ProjectTemplateUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type ProjectTemplateUncheckedUpdateWithoutTasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projects?: ProjectUncheckedUpdateManyWithoutTemplateNestedInput
+  }
+
+  export type ChecklistTemplateUpsertWithWhereUniqueWithoutTaskTemplateInput = {
+    where: ChecklistTemplateWhereUniqueInput
+    update: XOR<ChecklistTemplateUpdateWithoutTaskTemplateInput, ChecklistTemplateUncheckedUpdateWithoutTaskTemplateInput>
+    create: XOR<ChecklistTemplateCreateWithoutTaskTemplateInput, ChecklistTemplateUncheckedCreateWithoutTaskTemplateInput>
+  }
+
+  export type ChecklistTemplateUpdateWithWhereUniqueWithoutTaskTemplateInput = {
+    where: ChecklistTemplateWhereUniqueInput
+    data: XOR<ChecklistTemplateUpdateWithoutTaskTemplateInput, ChecklistTemplateUncheckedUpdateWithoutTaskTemplateInput>
+  }
+
+  export type ChecklistTemplateUpdateManyWithWhereWithoutTaskTemplateInput = {
+    where: ChecklistTemplateScalarWhereInput
+    data: XOR<ChecklistTemplateUpdateManyMutationInput, ChecklistTemplateUncheckedUpdateManyWithoutTaskTemplateInput>
+  }
+
+  export type ChecklistTemplateScalarWhereInput = {
+    AND?: ChecklistTemplateScalarWhereInput | ChecklistTemplateScalarWhereInput[]
+    OR?: ChecklistTemplateScalarWhereInput[]
+    NOT?: ChecklistTemplateScalarWhereInput | ChecklistTemplateScalarWhereInput[]
+    id?: StringFilter<"ChecklistTemplate"> | string
+    title?: StringFilter<"ChecklistTemplate"> | string
+    taskTemplateId?: StringFilter<"ChecklistTemplate"> | string
+    createdAt?: DateTimeFilter<"ChecklistTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"ChecklistTemplate"> | Date | string
+  }
+
+  export type TaskTemplateCreateWithoutChecklistsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectTemplate: ProjectTemplateCreateNestedOneWithoutTasksInput
+  }
+
+  export type TaskTemplateUncheckedCreateWithoutChecklistsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    order: number
+    projectTemplateId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TaskTemplateCreateOrConnectWithoutChecklistsInput = {
+    where: TaskTemplateWhereUniqueInput
+    create: XOR<TaskTemplateCreateWithoutChecklistsInput, TaskTemplateUncheckedCreateWithoutChecklistsInput>
+  }
+
+  export type TaskTemplateUpsertWithoutChecklistsInput = {
+    update: XOR<TaskTemplateUpdateWithoutChecklistsInput, TaskTemplateUncheckedUpdateWithoutChecklistsInput>
+    create: XOR<TaskTemplateCreateWithoutChecklistsInput, TaskTemplateUncheckedCreateWithoutChecklistsInput>
+    where?: TaskTemplateWhereInput
+  }
+
+  export type TaskTemplateUpdateToOneWithWhereWithoutChecklistsInput = {
+    where?: TaskTemplateWhereInput
+    data: XOR<TaskTemplateUpdateWithoutChecklistsInput, TaskTemplateUncheckedUpdateWithoutChecklistsInput>
+  }
+
+  export type TaskTemplateUpdateWithoutChecklistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectTemplate?: ProjectTemplateUpdateOneRequiredWithoutTasksNestedInput
+  }
+
+  export type TaskTemplateUncheckedUpdateWithoutChecklistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    projectTemplateId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProjectMemberCreateManyProjectInput = {
@@ -20403,96 +23569,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ProjectCreateManyTemplateInput = {
-    id?: string
-    name: string
-    description?: string | null
-    clientType?: $Enums.ProjectClientType | null
-    industry?: string | null
-    color?: string | null
-    startDate?: Date | string | null
-    endDate?: Date | string | null
-    budget?: Decimal | DecimalJsLike | number | string | null
-    progress?: number
-    status?: $Enums.ProjectStatus
-    priority?: $Enums.ProjectPriority
-    isArchived?: boolean
-    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    ownerId?: string | null
-  }
-
-  export type ProjectUpdateWithoutTemplateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    color?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    progress?: FloatFieldUpdateOperationsInput | number
-    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
-    isArchived?: BoolFieldUpdateOperationsInput | boolean
-    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
-    members?: ProjectMemberUpdateManyWithoutProjectNestedInput
-    tasks?: TaskUpdateManyWithoutProjectNestedInput
-    checklists?: ChecklistUpdateManyWithoutProjectNestedInput
-    columns?: TaskColumnUpdateManyWithoutProjectNestedInput
-    documents?: DocumentUpdateManyWithoutProjectNestedInput
-  }
-
-  export type ProjectUncheckedUpdateWithoutTemplateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    color?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    progress?: FloatFieldUpdateOperationsInput | number
-    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
-    isArchived?: BoolFieldUpdateOperationsInput | boolean
-    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
-    members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
-    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
-    checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
-    columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
-  }
-
-  export type ProjectUncheckedUpdateManyWithoutTemplateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
-    industry?: NullableStringFieldUpdateOperationsInput | string | null
-    color?: NullableStringFieldUpdateOperationsInput | string | null
-    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    progress?: FloatFieldUpdateOperationsInput | number
-    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
-    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
-    isArchived?: BoolFieldUpdateOperationsInput | boolean
-    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
   export type ProjectCreateManyOwnerInput = {
     id?: string
     name: string
@@ -20757,6 +23833,162 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
     projectId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProjectCreateManyTemplateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId?: string | null
+  }
+
+  export type TaskTemplateCreateManyProjectTemplateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    order: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
+    members?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateManyWithoutTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TaskTemplateUpdateWithoutProjectTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checklists?: ChecklistTemplateUpdateManyWithoutTaskTemplateNestedInput
+  }
+
+  export type TaskTemplateUncheckedUpdateWithoutProjectTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checklists?: ChecklistTemplateUncheckedUpdateManyWithoutTaskTemplateNestedInput
+  }
+
+  export type TaskTemplateUncheckedUpdateManyWithoutProjectTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    order?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistTemplateCreateManyTaskTemplateInput = {
+    id?: string
+    title: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistTemplateUpdateWithoutTaskTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistTemplateUncheckedUpdateWithoutTaskTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistTemplateUncheckedUpdateManyWithoutTaskTemplateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -193,14 +193,6 @@ exports.Prisma.ProjectMemberScalarFieldEnum = {
   userId: 'userId'
 };
 
-exports.Prisma.ProjectTemplateScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.DocumentScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -231,6 +223,32 @@ exports.Prisma.UserScalarFieldEnum = {
   skills: 'skills',
   availability: 'availability',
   performanceScore: 'performanceScore',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProjectTemplateScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TaskTemplateScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  order: 'order',
+  projectTemplateId: 'projectTemplateId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ChecklistTemplateScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  taskTemplateId: 'taskTemplateId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -283,7 +301,7 @@ exports.TaskStatus = exports.$Enums.TaskStatus = {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',
-  BLOCKED: 'BLOCKED'
+  CANCELLED: 'CANCELLED'
 };
 
 exports.TaskPriority = exports.$Enums.TaskPriority = {
@@ -313,10 +331,12 @@ exports.Prisma.ModelName = {
   Checklist: 'Checklist',
   ChecklistItem: 'ChecklistItem',
   ProjectMember: 'ProjectMember',
-  ProjectTemplate: 'ProjectTemplate',
   Document: 'Document',
   Comment: 'Comment',
-  User: 'User'
+  User: 'User',
+  ProjectTemplate: 'ProjectTemplate',
+  TaskTemplate: 'TaskTemplate',
+  ChecklistTemplate: 'ChecklistTemplate'
 };
 
 /**
