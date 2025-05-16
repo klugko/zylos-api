@@ -10,7 +10,7 @@ export class CreateProjectUseCase {
   constructor(@Inject('ProjectRepository') private readonly projectRepository: ProjectRepository
 ) {}
 
-  async execute(dto: CreateProjectDto, ownerId: string): Promise<Project> {
+  async execute(dto: CreateProjectDto): Promise<Project> {
     const project = new Project(
       uuid(),
       dto.name,
