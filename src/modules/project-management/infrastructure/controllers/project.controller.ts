@@ -39,18 +39,18 @@ export class ProjectController {
   @ApiResponse({ status: 400, description: 'Requête invalide.' })
   async create(@Body() dto: CreateProjectDto): Promise<Project> {
     try {
-      if (!dto.ownerId) {
+      if (!dto.id) {
         throw new HttpException(
-          'ownerId est requis tant que le module d’authentification n’est pas activé.',
+          'Id est obligatoire (générer un uuid).',
           HttpStatus.BAD_REQUEST,
         );
       }
 
-      return await this.createProjectUseCase.execute(dto, dto.ownerId);
+      return await this.createProjectUseCase.execute(dto);
     } catch (error) {
       throw new HttpException(
-        error?.message || 'Erreur lors de la création du projet.',
-        error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+        error?.message ?? 'Erreur lors de la création du projet.',
+        error?.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
@@ -67,8 +67,8 @@ export class ProjectController {
       return await this.updateProjectUseCase.execute(id, dto);
     } catch (error) {
       throw new HttpException(
-        error?.message || 'Erreur lors de la mise à jour du projet.',
-        error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+        error?.message ?? 'Erreur lors de la mise à jour du projet.',
+        error?.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }

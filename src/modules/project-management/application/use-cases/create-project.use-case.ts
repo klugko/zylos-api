@@ -10,25 +10,25 @@ export class CreateProjectUseCase {
   constructor(@Inject('ProjectRepository') private readonly projectRepository: ProjectRepository
 ) {}
 
-  async execute(dto: CreateProjectDto, ownerId: string): Promise<Project> {
+  async execute(dto: CreateProjectDto): Promise<Project> {
     const project = new Project(
-      uuid(),
+      dto.id,
       dto.name,
-      dto.description || null,
+      dto.description ?? null,
       dto.clientType,
-      dto.industry || null,
-      dto.color || null,
+      dto.industry ?? null,
+      dto.color ?? null,
       dto.startDate ? new Date(dto.startDate) : null,
       dto.endDate ? new Date(dto.endDate) : null,
       dto.budget ?? null,
       0,
-      dto.status || 'NOT_STARTED',
-      dto.priority || 'MEDIUM',
-      dto.isArchived || false,
+      dto.status ?? 'NOT_STARTED',
+      dto.priority ?? 'MEDIUM',
+      dto.isArchived ?? false,
       new Date(),
       new Date(),
-      ownerId,
-      dto.templateId || null,
+      dto.ownerId ?? null,
+      dto.templateId ?? null,
     );
 
     return this.projectRepository.create(project);
