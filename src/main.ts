@@ -13,7 +13,7 @@ async function bootstrap() {
     .addTag('Nexa endpoints')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, documentFactory);
+  SwaggerModule.setup('', app, documentFactory);
   app.enableCors();
   await app.listen(process.env.PORT ?? 3000);
 }
