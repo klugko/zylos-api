@@ -4,6 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+COPY .env.example .env
 RUN npm run build
 
 FROM node:20-alpine AS runner
