@@ -51,4 +51,14 @@ export class RegisterDto {
   @Max(100)
   @IsOptional()
   performanceScore?: number;
+
+@IsOptional()
+@IsString()
+@ApiProperty({
+  example: '123456FKG7890',
+  required: false,
+  description: 'ID Google si inscription via OAuth2',
+})
+googleId?: string;
+
 }

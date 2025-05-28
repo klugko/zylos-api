@@ -15,6 +15,7 @@ export class User {
     public skills: string[],
     public availability: number,
     public performanceScore: number,
+    public googleId?: string,
   ) {}
 
   activate(): void {

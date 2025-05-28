@@ -1,0 +1,51 @@
+import { Inject, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { PrismaAuthRepository } from '../../infrastructure/repositories/prisma-auth.repository';
+import { User } from '../../domain/entities/user.entity';
+import { UserRole } from '../../domain/enums/user-role.enum';
+import { AuthRepository } from '../../domain/interfaces/auth-repository.interface';
+
+@Injectable()
+export class GoogleAuthUseCase {
+  constructor(
+    // private readonly repository: PrismaAuthRepository,
+    private readonly jwtService: JwtService,
+    @Inject('AuthRepository') private readonly repository: PrismaAuthRepository
+  ) {}
+
+  async execute(profile: {
+    email: string;
+    fullname: string;
+    googleId: string;
+    avatar?: string;
+  }): Promise<{ user: User; accessToken: string }> {
+    let user = await this.repository.findByEmail(profile.email);
+
+    if (!user) {
+      user = await this.repository.create(
+        new User(
+          crypto.randomUUID(),
+          profile.fullname,
+          profile.email,
+          undefined,
+          UserRole.USER,
+          true,
+          new Date(),
+          new Date(),
+          [],
+          0,
+          0,
+          profile.googleId,
+        ),
+      );
+    }
+
+    const token = this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+    });
+
+    return { user, accessToken: token };
+  }
+}

@@ -11573,6 +11573,7 @@ export namespace Prisma {
     isActive: boolean | null
     availability: number | null
     performanceScore: number | null
+    googleId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -11586,6 +11587,7 @@ export namespace Prisma {
     isActive: boolean | null
     availability: number | null
     performanceScore: number | null
+    googleId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -11600,6 +11602,7 @@ export namespace Prisma {
     skills: number
     availability: number
     performanceScore: number
+    googleId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -11625,6 +11628,7 @@ export namespace Prisma {
     isActive?: true
     availability?: true
     performanceScore?: true
+    googleId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -11638,6 +11642,7 @@ export namespace Prisma {
     isActive?: true
     availability?: true
     performanceScore?: true
+    googleId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -11652,6 +11657,7 @@ export namespace Prisma {
     skills?: true
     availability?: true
     performanceScore?: true
+    googleId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -11753,6 +11759,7 @@ export namespace Prisma {
     skills: string[]
     availability: number
     performanceScore: number
+    googleId: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -11786,6 +11793,7 @@ export namespace Prisma {
     skills?: boolean
     availability?: boolean
     performanceScore?: boolean
+    googleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     projectsOwned?: boolean | User$projectsOwnedArgs<ExtArgs>
@@ -11806,6 +11814,7 @@ export namespace Prisma {
     skills?: boolean
     availability?: boolean
     performanceScore?: boolean
+    googleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -11820,6 +11829,7 @@ export namespace Prisma {
     skills?: boolean
     availability?: boolean
     performanceScore?: boolean
+    googleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -11834,11 +11844,12 @@ export namespace Prisma {
     skills?: boolean
     availability?: boolean
     performanceScore?: boolean
+    googleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "email" | "password" | "role" | "isActive" | "skills" | "availability" | "performanceScore" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "email" | "password" | "role" | "isActive" | "skills" | "availability" | "performanceScore" | "googleId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projectsOwned?: boolean | User$projectsOwnedArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
@@ -11869,6 +11880,7 @@ export namespace Prisma {
       skills: string[]
       availability: number
       performanceScore: number
+      googleId: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -12308,6 +12320,7 @@ export namespace Prisma {
     readonly skills: FieldRef<"User", 'String[]'>
     readonly availability: FieldRef<"User", 'Int'>
     readonly performanceScore: FieldRef<"User", 'Float'>
+    readonly googleId: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -16281,6 +16294,7 @@ export namespace Prisma {
     skills: 'skills',
     availability: 'availability',
     performanceScore: 'performanceScore',
+    googleId: 'googleId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -17207,6 +17221,7 @@ export namespace Prisma {
     skills?: StringNullableListFilter<"User">
     availability?: IntFilter<"User"> | number
     performanceScore?: FloatFilter<"User"> | number
+    googleId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     projectsOwned?: ProjectListRelationFilter
@@ -17226,6 +17241,7 @@ export namespace Prisma {
     skills?: SortOrder
     availability?: SortOrder
     performanceScore?: SortOrder
+    googleId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     projectsOwned?: ProjectOrderByRelationAggregateInput
@@ -17238,6 +17254,7 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    googleId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -17255,7 +17272,7 @@ export namespace Prisma {
     comments?: CommentListRelationFilter
     Task?: TaskListRelationFilter
     ProjectMember?: ProjectMemberListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "googleId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -17267,6 +17284,7 @@ export namespace Prisma {
     skills?: SortOrder
     availability?: SortOrder
     performanceScore?: SortOrder
+    googleId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -17289,6 +17307,7 @@ export namespace Prisma {
     skills?: StringNullableListFilter<"User">
     availability?: IntWithAggregatesFilter<"User"> | number
     performanceScore?: FloatWithAggregatesFilter<"User"> | number
+    googleId?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -18155,6 +18174,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
@@ -18174,6 +18194,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
@@ -18193,6 +18214,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
@@ -18212,6 +18234,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
@@ -18231,6 +18254,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18245,6 +18269,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18259,6 +18284,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19286,6 +19312,7 @@ export namespace Prisma {
     skills?: SortOrder
     availability?: SortOrder
     performanceScore?: SortOrder
+    googleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19304,6 +19331,7 @@ export namespace Prisma {
     isActive?: SortOrder
     availability?: SortOrder
     performanceScore?: SortOrder
+    googleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19317,6 +19345,7 @@ export namespace Prisma {
     isActive?: SortOrder
     availability?: SortOrder
     performanceScore?: SortOrder
+    googleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20850,6 +20879,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
@@ -20868,6 +20898,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
@@ -21079,6 +21110,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
@@ -21097,6 +21129,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
@@ -21367,6 +21400,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
@@ -21385,6 +21419,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
@@ -21557,6 +21592,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
@@ -21575,6 +21611,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
@@ -22104,6 +22141,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
@@ -22122,6 +22160,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
@@ -22217,6 +22256,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
@@ -22235,6 +22275,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
@@ -22253,6 +22294,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
@@ -22271,6 +22313,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
@@ -22360,6 +22403,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
@@ -22378,6 +22422,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
@@ -22504,6 +22549,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
@@ -22522,6 +22568,7 @@ export namespace Prisma {
     skills?: UserCreateskillsInput | string[]
     availability?: number
     performanceScore?: number
+    googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
@@ -22609,6 +22656,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
@@ -22627,6 +22675,7 @@ export namespace Prisma {
     skills?: UserUpdateskillsInput | string[]
     availability?: IntFieldUpdateOperationsInput | number
     performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput

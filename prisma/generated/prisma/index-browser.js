@@ -223,6 +223,7 @@ exports.Prisma.UserScalarFieldEnum = {
   skills: 'skills',
   availability: 'availability',
   performanceScore: 'performanceScore',
+  googleId: 'googleId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

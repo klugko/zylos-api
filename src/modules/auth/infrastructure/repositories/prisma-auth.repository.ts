@@ -21,7 +21,8 @@ export class PrismaAuthRepository implements AuthRepository {
       user.updatedAt,
       user.skills,
       user.availability,
-      user.performanceScore
+      user.performanceScore,
+      user.googleId ?? undefined,
     );
   }
 
@@ -47,6 +48,7 @@ export class PrismaAuthRepository implements AuthRepository {
         skills: user.skills,
         availability: user.availability,
         performanceScore: user.performanceScore,
+        googleId: user.googleId ?? null,
       },
     });
     return this.toDomain(row);
@@ -63,6 +65,7 @@ export class PrismaAuthRepository implements AuthRepository {
         skills: user.skills,
         availability: user.availability,
         performanceScore: user.performanceScore,
+        googleId: user.googleId ?? null,
       },
     });
     return this.toDomain(row);
@@ -85,6 +88,7 @@ export class PrismaAuthRepository implements AuthRepository {
       user.skills ?? [],
       user.availability ?? 0,
       user.performanceScore ?? 0,
+      user.googleId ?? undefined,
     ));
   }
   

@@ -4,6 +4,9 @@ import {
   Post,
   Put,
   Param,
+  UseGuards,
+  Get,
+  Req,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -18,6 +21,7 @@ import { ActivateUserUseCase } from '../../application/use-cases/activate-user.u
 import { DeactivateUserUseCase } from '../../application/use-cases/deactivate-user.use-case';
 import { RegisterDto } from '../../application/dto/register.dto';
 import { LoginDto } from '../../application/dto/login.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @ApiTags('Auth')
@@ -68,4 +72,22 @@ export class AuthController {
   deactivate(@Param('id') id: string) {
     return this.deactivateUC.execute(id);
   }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  @ApiOperation({ summary: 'Connexion Google OAuth' })
+  googleLogin() {
+    // redirection automatique vers Google
+  }
+
+  @Get('google/redirect')
+  @UseGuards(AuthGuard('google'))
+  @ApiOperation({ summary: 'Callback Google OAuth' })
+  async googleCallback(@Req() req: any) {
+    return {
+      user: req.user.user,
+      accessToken: req.user.accessToken,
+    };
+  }
+
 }
