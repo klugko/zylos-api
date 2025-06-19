@@ -14,6 +14,7 @@ import {
   ApiResponse,
   ApiParam,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { RegisterUseCase } from '../../application/use-cases/register.use-case';
 import { LoginUseCase } from '../../application/use-cases/login.use-case';
@@ -22,6 +23,7 @@ import { DeactivateUserUseCase } from '../../application/use-cases/deactivate-us
 import { RegisterDto } from '../../application/dto/register.dto';
 import { LoginDto } from '../../application/dto/login.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../strategies/jwt-auth.guard';
 
 
 @ApiTags('Auth')
@@ -51,6 +53,8 @@ export class AuthController {
   }
 
   @Post('logout')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Se déconnecter (stateless)' })
   @ApiResponse({ status: 200, description: 'Déconnexion réussie' })
   logout() {
@@ -58,6 +62,8 @@ export class AuthController {
   }
 
   @Put('activate/:id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Activer un utilisateur' })
   @ApiParam({ name: 'id', description: "ID de l'utilisateur à activer" })
   @ApiResponse({ status: 200, description: 'Utilisateur activé' })
@@ -66,6 +72,8 @@ export class AuthController {
   }
 
   @Put('deactivate/:id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Désactiver un utilisateur' })
   @ApiParam({ name: 'id', description: "ID de l'utilisateur à désactiver" })
   @ApiResponse({ status: 200, description: 'Utilisateur désactivé' })

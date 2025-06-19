@@ -8,6 +8,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -15,12 +16,14 @@ import {
   ApiResponse,
   ApiParam,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { PrismaTaskRepository } from '../repositories/prisma-task.repository';
 import { CreateTaskDto } from '../../application/dto/create-task.dto';
 import { CreateTaskUseCase } from '../../application/use-cases/create-task.user-case';
 import { AssignTaskToBestUserUseCase } from '../../application/use-cases/assign-task.use-case';
 import { ProjectGateway } from '../websocket/project.gateway';
+import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
 
 
 @ApiTags('Tasks')
@@ -35,6 +38,8 @@ export class TaskController {
   ) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Créer une tâche' })
   @ApiBody({ type: CreateTaskDto })
   @ApiResponse({ status: 201, description: 'Tâche créée avec succès' })
@@ -43,6 +48,8 @@ export class TaskController {
   }
 
   @Get('project/:projectId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Lister les tâches d’un projet' })
   @ApiParam({ name: 'projectId', description: 'ID du projet' })
   @ApiResponse({ status: 200, description: 'Liste des tâches retournée' })
@@ -51,6 +58,8 @@ export class TaskController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Récupérer une tâche par ID' })
   @ApiParam({ name: 'id', description: 'ID de la tâche' })
   @ApiResponse({ status: 200, description: 'Tâche trouvée' })
@@ -62,6 +71,8 @@ export class TaskController {
   }
 
   @Put(':id/status')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Changer le statut d’une tâche' })
   @ApiParam({ name: 'id', description: 'ID de la tâche' })
   @ApiBody({
@@ -89,6 +100,8 @@ export class TaskController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Supprimer une tâche' })
   @ApiParam({ name: 'id', description: 'ID de la tâche' })
   @ApiResponse({ status: 200, description: 'Tâche supprimée' })

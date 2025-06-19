@@ -8,11 +8,13 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { PrismaChecklistRepository } from '../repositories/prisma-checklist.repository';
 import { CreateChecklistDto } from '../../application/dto/create-checklist.dto';
 import { CreateChecklistUseCase } from '../../application/use-cases/create-checklist.use-case';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
 
 @ApiTags('Checklists')
 @Controller('api/v1/checklists')
@@ -23,6 +25,8 @@ export class ChecklistController {
   ) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Créer une nouvelle checklist' })
   @ApiBody({ type: CreateChecklistDto })
   @ApiResponse({ status: 201, description: 'Checklist créée avec succès' })
@@ -32,6 +36,8 @@ export class ChecklistController {
   }
 
   @Get('project/:projectId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Récupérer toutes les checklists liées à un projet' })
   @ApiParam({ name: 'projectId', description: 'ID du projet concerné' })
   @ApiResponse({ status: 200, description: 'Liste des checklists du projet retournée' })
@@ -40,6 +46,8 @@ export class ChecklistController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Récupérer une checklist par son ID' })
   @ApiParam({ name: 'id', description: 'ID de la checklist' })
   @ApiResponse({ status: 200, description: 'Checklist trouvée' })
@@ -51,6 +59,8 @@ export class ChecklistController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Supprimer une checklist par son ID' })
   @ApiParam({ name: 'id', description: 'ID de la checklist à supprimer' })
   @ApiResponse({ status: 200, description: 'Checklist supprimée avec succès' })
@@ -61,6 +71,8 @@ export class ChecklistController {
   }
 
   @Put(':id/toggle')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Inverser le statut de complétion de la checklist' })
   @ApiParam({ name: 'id', description: 'ID de la checklist à mettre à jour' })
   @ApiResponse({ status: 200, description: 'Checklist mise à jour avec succès' })
