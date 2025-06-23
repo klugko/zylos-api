@@ -1,20 +1,30 @@
+# Build stage
 FROM node:20-alpine AS builder
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+COPY package-lock.json ./
+COPY prisma ./prisma
+
+RUN npm ci
 COPY . .
-# COPY .env.example .env
 RUN npm run build
 
+RUN cp -r prisma /tmp/prisma-backup
+
+# Runtime stage
 FROM node:20-alpine AS runner
 WORKDIR /app
 
+# Copy dependencies and Prisma files
 COPY package*.json ./
-RUN npm install --only=production
+COPY package-lock.json ./
+COPY --from=builder /tmp/prisma-backup ./prisma
 
+RUN npm ci --omit=dev
+
+# Copy built application
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 3000
-CMD ["node", "dist/main.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
