@@ -41,8 +41,8 @@ export class ProjectController {
   @ApiOperation({ summary: 'Récupérer tous les projets' })
   @ApiResponse({ status: 200, description: 'Liste de tous les projets' })
   @ApiResponse({ status: 401, description: 'Non autorisé.' })
-  async getAll(): Promise<Project[]> {
-    return this.getAllProjectsUseCase.execute();
+  async getAll(@CurrentUser() user: User): Promise<Project[]> {
+    return this.getAllProjectsUseCase.execute(user.id);
   }
 
   @Post()
@@ -87,13 +87,13 @@ export class ProjectController {
     @CurrentUser() user: User,
   ): Promise<Project> {
     try {
-      return await this.updateProjectUseCase.execute(id, dto);
+      return await this.updateProjectUseCase.execute(id, dto, user.id);
     } catch (error) {
-      console.error('Erreur lors de la mise à jour du projet:', error.message, error.stack);
       throw new HttpException(
         error?.message ?? 'Erreur inattendue lors de la mise à jour du projet.',
         error?.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
+
 }

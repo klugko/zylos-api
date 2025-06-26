@@ -5,7 +5,7 @@ import { TaskController } from './infrastructure/controllers/task.controller';
 import { ChecklistController } from './infrastructure/controllers/checklist.controller';
 import { CreateProjectUseCase } from './application/use-cases/create-project.use-case';
 import { CreateChecklistUseCase } from './application/use-cases/create-checklist.use-case';
-import { CreateTaskUseCase } from './application/use-cases/create-task.user-case';
+import { CreateTaskUseCase } from './application/use-cases/create-task.use-case';
 import { PrismaProjectRepository } from './infrastructure/repositories/prisma-project.repository';
 import { PrismaTaskRepository } from './infrastructure/repositories/prisma-task.repository';
 import { PrismaChecklistRepository } from './infrastructure/repositories/prisma-checklist.repository';

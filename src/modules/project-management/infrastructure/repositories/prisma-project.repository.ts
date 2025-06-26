@@ -85,4 +85,21 @@ export class PrismaProjectRepository implements ProjectRepository {
   
     return records.map(this.mapToEntity);
   }
+
+  async findAllByOwner(ownerId: string): Promise<Project[]> {
+    const records = await this.prisma.project.findMany({
+      where: { ownerId },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return records.map(this.mapToEntity);
+  }
+
+  async findById(id: string): Promise<Project | null> {
+    const record = await this.prisma.project.findUnique({
+      where: { id },
+    });
+
+    return record ? this.mapToEntity(record) : null;
+  }
 }

@@ -20,7 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { PrismaTaskRepository } from '../repositories/prisma-task.repository';
 import { CreateTaskDto } from '../../application/dto/create-task.dto';
-import { CreateTaskUseCase } from '../../application/use-cases/create-task.user-case';
+import { CreateTaskUseCase } from '../../application/use-cases/create-task.use-case';
 import { AssignTaskToBestUserUseCase } from '../../application/use-cases/assign-task.use-case';
 import { ProjectGateway } from '../websocket/project.gateway';
 import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';

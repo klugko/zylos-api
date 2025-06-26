@@ -23,4 +23,18 @@ export class CreateTaskDto {
     description: 'ID des tâches dont dépend cette tâche',
   })
   dependencies?: string[];
+
+  @ApiProperty({
+    example: 'assignedUserId1234',
+    required: false,
+    description: 'ID de l’utilisateur assigné à la tâche',
+  })
+  assignedUserId?: string;
+
+  @ApiProperty({
+    example: 'columnId1234',
+    required: false,
+    description: 'ID de la colonne à laquelle la tâche est associée',
+  })
+  columnId?: string;
 }

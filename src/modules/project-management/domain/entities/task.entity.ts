@@ -13,7 +13,8 @@ export class Task {
     public readonly startDate: Date | null,
     public readonly endDate: Date | null,
     public readonly dependencies?: string[],
-    public assignedUserId?: string 
+    public assignedUserId?: string, 
+    public columnId?: string
   ) {}
 
   updateStatus(status: TaskStatus) {

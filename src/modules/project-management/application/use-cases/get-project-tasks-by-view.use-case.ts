@@ -1,20 +1,20 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { TaskRepository } from '../../domain/interfaces/task-repository.interface';
-import { Task } from '../../domain/entities/task.entity';
-
+import { TaskColumnRepository } from '../../domain/interfaces/task-column-repository.interface';
 
 @Injectable()
 export class GetProjectTasksByViewUseCase {
-   constructor(
-      @Inject('TaskRepository') private readonly taskRepo: TaskRepository
-    ) {}
+  constructor(
+    @Inject('TaskRepository') private readonly taskRepo: TaskRepository,
+    @Inject('TaskColumnRepository') private readonly columnRepo: TaskColumnRepository,
+  ) {}
 
   async execute(projectId: string, view: 'kanban' | 'gantt' | 'list' = 'list'): Promise<any> {
     const tasks = await this.taskRepo.findByProject(projectId);
 
     switch (view) {
       case 'kanban':
-        return this.formatKanban(tasks);
+        return this.formatKanban(projectId, tasks);
       case 'gantt':
         return this.formatGantt(tasks);
       case 'list':
@@ -23,24 +23,31 @@ export class GetProjectTasksByViewUseCase {
     }
   }
 
-  private formatKanban(tasks: Task[]) {
-    return {
-      TODO: tasks.filter(t => t.status === 'TODO'),
-      IN_PROGRESS: tasks.filter(t => t.status === 'IN_PROGRESS'),
-      DONE: tasks.filter(t => t.status === 'DONE'),
-    };
+  private async formatKanban(projectId: string, tasks: any[]) {
+    const columns = await this.columnRepo.findByProjectId(projectId);
+    const grouped = {};
+
+    for (const col of columns) {
+      grouped[col.id] = {
+        columnId: col.id,
+        name: col.name,
+        tasks: tasks.filter(t => t.columnId === col.id)
+      };
+    }
+
+    return grouped;
   }
 
-  private formatGantt(tasks: Task[]) {
+  private formatGantt(tasks: any[]) {
     return tasks.map(t => ({
       id: t.id,
       title: t.title,
-      start: t['startDate'] || t['createdAt'], 
-      end: t['endDate'] || t['updatedAt'],
+      start: t.startDate || t.createdAt,
+      end: t.endDate || t.updatedAt,
     }));
   }
 
-  private formatList(tasks: Task[]) {
+  private formatList(tasks: any[]) {
     return tasks.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
   }
 }

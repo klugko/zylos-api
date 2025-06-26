@@ -6,6 +6,7 @@ export class Checklist {
     public readonly projectId: string,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
+    public readonly taskId?: string
   ) {}
 
   toggle(): void {
