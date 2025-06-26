@@ -34,10 +34,23 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.enableCors({
-    origin: 'http://localhost:3000', 
-    allowedHeaders: ['Content-Type', 'Authorization'], 
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        /^https?:\/\/localhost(:\d+)?$/, 
+        'https://nexa-ui.monambassadeur.com',
+      ];
+  
+      if (!origin || allowedOrigins.some(o => typeof o === 'string' ? o === origin : o.test(origin))) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Authorization'],
   });
+  
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

@@ -355,7 +355,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:abcd@localhost:5432/nexa"
+        "value": "postgres://jeanaime:helloNexa@147.93.90.223:5433/nexaFlow"
       }
     }
   },

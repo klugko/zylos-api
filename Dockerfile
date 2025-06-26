@@ -1,30 +1,42 @@
-# Build stage
+# Étape de construction
 FROM node:20-alpine AS builder
-WORKDIR /app
 
+WORKDIR /usr/src/app
+
+# Copier les fichiers nécessaires pour les dépendances
 COPY package*.json ./
-COPY package-lock.json ./
-COPY prisma ./prisma
+COPY prisma ./prisma/
 
-RUN npm ci
+# Installer les dépendances et outils de construction
+RUN apk add --no-cache python3 make g++ openssl && \
+    npm ci && \
+    npx prisma generate
+
+# Copier le reste du code
 COPY . .
+
+# Construire l'application
 RUN npm run build
 
-RUN cp -r prisma /tmp/prisma-backup
+# Étape d'exécution finale
+FROM node:18-alpine
 
-# Runtime stage
-FROM node:20-alpine AS runner
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Copy dependencies and Prisma files
-COPY package*.json ./
-COPY package-lock.json ./
-COPY --from=builder /tmp/prisma-backup ./prisma
+# Installer les dépendances nécessaires
+RUN apk add --no-cache openssl
 
-RUN npm ci --omit=dev
+# Copier depuis l'étape de construction
+COPY --from=builder /usr/src/app/node_modules ./node_modules
+COPY --from=builder /usr/src/app/package*.json ./
+COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /usr/src/app/prisma ./prisma
 
-# Copy built application
-COPY --from=builder /app/dist ./dist
+# Copier le script d'entrée
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-EXPOSE 3000
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main.js"]
+
+EXPOSE ${PORT}
+
+ENTRYPOINT ["/entrypoint.sh"]
