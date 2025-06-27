@@ -6,4 +6,5 @@ export interface AuthRepository {
   create(user: User): Promise<User>;
   update(user: User): Promise<User>;
   findAllActive(): Promise<User[]>;
+  validateUser(email: string, password: string): Promise<User | null>;
 }

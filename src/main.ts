@@ -6,11 +6,13 @@ import { ValidationPipe } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,
-    whitelist: true,
-    forbidNonWhitelisted: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Nexa API')
@@ -22,35 +24,47 @@ async function bootstrap() {
         type: 'http',
         scheme: 'bearer',
         bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Entrez le token JWT',
+        name: 'Authorization',
+        description: 'Entrez le token JWT (format : Bearer <token>)',
         in: 'header',
       },
-      'JWT-auth'
+      'JWT-auth', 
     )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 
   app.enableCors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        /^https?:\/\/localhost(:\d+)?$/, 
+        /^https?:\/\/localhost(:\d+)?$/,
         'https://nexa-ui.monambassadeur.com',
       ];
-  
-      if (!origin || allowedOrigins.some(o => typeof o === 'string' ? o === origin : o.test(origin))) {
+
+      if (
+        !origin ||
+        allowedOrigins.some((o) =>
+          typeof o === 'string' ? o === origin : o.test(origin),
+        )
+      ) {
         callback(null, true);
       } else {
         callback(new Error('Not allowed by CORS'));
       }
     },
     credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    exposedHeaders: ['Authorization'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: '*',
+    exposedHeaders: '*',
   });
-  
+
   await app.listen(process.env.PORT ?? 3000);
 }
+
 bootstrap();

@@ -37,7 +37,7 @@ export class ProjectController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Récupérer tous les projets' })
   @ApiResponse({ status: 200, description: 'Liste de tous les projets' })
   @ApiResponse({ status: 401, description: 'Non autorisé.' })
@@ -47,7 +47,6 @@ export class ProjectController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Créer un nouveau projet' })
   @ApiResponse({ status: 201, description: 'Projet créé avec succès.' })
   @ApiResponse({ status: 400, description: 'Requête invalide.' })
@@ -75,7 +74,6 @@ export class ProjectController {
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Mettre à jour un projet existant' })
   @ApiResponse({ status: 200, description: 'Projet mis à jour avec succès.' })
   @ApiResponse({ status: 404, description: 'Projet non trouvé.' })

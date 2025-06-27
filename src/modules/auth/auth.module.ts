@@ -11,6 +11,7 @@ import { DeactivateUserUseCase } from './application/use-cases/deactivate-user.u
 import { PrismaAuthRepository } from './infrastructure/repositories/prisma-auth.repository';
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { GoogleStrategy } from './infrastructure/strategies/google.stategy';
+import { JwtAuthGuard } from './infrastructure/strategies/jwt-auth.guard';
 
 /**
  * @module AuthModule
@@ -28,6 +29,7 @@ import { GoogleStrategy } from './infrastructure/strategies/google.stategy';
   ],
   controllers: [AuthController],
   providers: [
+    JwtAuthGuard,
     JwtStrategy,
     GoogleStrategy,
     GoogleAuthUseCase,

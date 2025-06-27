@@ -20,7 +20,6 @@ export class TaskColumnController {
 
   @Get(':projectId')
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Liste des colonnes pour un projet donné' })
   async getColumnsByProject(@Param('projectId') projectId: string) {
     return this.getColumns.execute(projectId);
@@ -28,7 +27,6 @@ export class TaskColumnController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Créer une colonne' })
   async create(@Body() dto: CreateTaskColumnDto) {
     return this.createColumn.execute(dto);
@@ -36,7 +34,6 @@ export class TaskColumnController {
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Modifier une colonne' })
   async update(@Param('id') id: string, @Body() dto: UpdateTaskColumnDto) {
     return this.updateColumn.execute(id, dto);
@@ -44,7 +41,6 @@ export class TaskColumnController {
 
   @Patch(':id/order')
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Mettre à jour l\'ordre d\'une colonne' })
   async updateOrderColumn(@Param('id') id: string, @Body() body: { order: number }) {
     return this.updateOrder.execute(id, body.order);

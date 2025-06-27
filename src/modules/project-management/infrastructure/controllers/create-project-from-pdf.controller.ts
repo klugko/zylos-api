@@ -10,7 +10,7 @@ import {
   import { FileInterceptor } from '@nestjs/platform-express';
   import { diskStorage } from 'multer';
   import { extname } from 'path';
-  import { ApiBearerAuth, ApiConsumes, ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
+  import { ApiConsumes, ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
   import { JwtAuthGuard } from 'src/modules/auth/infrastructure/strategies/jwt-auth.guard';
   import { CreateProjectFromPdfUseCase } from '../../application/use-cases/create-project-from-pdf.use-case';
   import { UploadPdfDto } from '../../application/dto/upload-pdf.dto';
@@ -24,7 +24,6 @@ import {
   
     @Post('from-pdf')
     @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
     @ApiConsumes('multipart/form-data')
     @ApiBody({ type: UploadPdfDto })
     @ApiOperation({ summary: 'Créer un projet automatiquement à partir d’un document PDF' })

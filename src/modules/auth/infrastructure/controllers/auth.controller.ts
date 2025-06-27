@@ -24,6 +24,8 @@ import { RegisterDto } from '../../application/dto/register.dto';
 import { LoginDto } from '../../application/dto/login.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from '../strategies/jwt-auth.guard';
+import { CurrentUser } from '@core/common/current-user.decorator';
+import { User } from '@modules/auth/domain/entities/user.entity';
 
 
 @ApiTags('Auth')
@@ -50,6 +52,13 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Authentification réussie' })
   login(@Body() dto: LoginDto) {
     return this.loginUC.execute(dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @Get('me')
+  getProfile(@CurrentUser() user: User) {
+    return user;
   }
 
   @Post('logout')
@@ -98,4 +107,12 @@ export class AuthController {
     };
   }
 
+  @Get('debug-token')
+  debugToken(@Req() req: Request) {
+    console.log('Received Headers:', req.headers); 
+    return {
+      headers: req.headers,
+      authorization: req.headers['authorization'] || 'Aucun token reçu',
+    };
+  }
 }

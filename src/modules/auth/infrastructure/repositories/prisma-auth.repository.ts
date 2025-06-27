@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { compare } from 'bcrypt';
 import { PrismaService } from '../../../../core/prisma/prisma.service';
 import { AuthRepository } from '../../domain/interfaces/auth-repository.interface';
 import { User } from '../../domain/entities/user.entity';
@@ -90,6 +91,16 @@ export class PrismaAuthRepository implements AuthRepository {
       user.performanceScore ?? 0,
       user.googleId ?? undefined,
     ));
+  }
+
+  async validateUser(email: string, password: string): Promise<User | null> {
+    const row = await this.prisma.user.findUnique({ where: { email } });
+    if (!row) return null;
+  
+    const isPasswordValid = await compare(password, row.password);
+    if (!isPasswordValid) return null;
+  
+    return this.toDomain(row);
   }
   
 }

@@ -28,6 +28,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: JwtPayload): Promise<User> {
+    console.log('JWT payload:', payload);
     if (!(payload?.sub && payload?.email && payload?.role)) {
       throw new UnauthorizedException('Payload JWT invalide.');
     }
