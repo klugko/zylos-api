@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put, Patch, Param, Body, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { CreateTaskColumnUseCase } from '../../application/use-cases/create-task-column.use-case';
 import { GetTaskColumnsUseCase } from '../../application/use-cases/get-task-columns.use-case';
 import { UpdateTaskColumnUseCase } from '../../application/use-cases/update-task-column.use-case';
@@ -26,7 +26,7 @@ export class TaskColumnController {
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Créer une colonne' })
   async create(@Body() dto: CreateTaskColumnDto) {
     return this.createColumn.execute(dto);
@@ -40,7 +40,7 @@ export class TaskColumnController {
   }
 
   @Patch(':id/order')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Mettre à jour l\'ordre d\'une colonne' })
   async updateOrderColumn(@Param('id') id: string, @Body() body: { order: number }) {
     return this.updateOrder.execute(id, body.order);

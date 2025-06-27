@@ -16,7 +16,7 @@ export class CreateProjectUseCase {
    * @description Crée une nouvelle entité Project à partir du DTO et de l'ownerId fourni,
    * puis la persiste via le ProjectRepository.
    */
-  async execute(dto: CreateProjectDto, ownerId: string): Promise<Project> {
+  async execute(dto: CreateProjectDto): Promise<Project> {
     const project = new Project(
       dto.id,
       dto.name,
@@ -33,7 +33,7 @@ export class CreateProjectUseCase {
       dto.isArchived ?? false,
       new Date(),
       new Date(), 
-      ownerId,    
+      null,    
       dto.templateId ?? null,
     );
 

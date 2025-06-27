@@ -7,13 +7,13 @@ import {
   HttpException,
   HttpStatus,
   Get,
-  UseGuards,
+  // UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
-  ApiBearerAuth,
+  // ApiBearerAuth,
 } from '@nestjs/swagger';
 import { CreateProjectDto } from '../../application/dto/create-project.dto';
 import { UpdateProjectDto } from '../../application/dto/update-project.dto';
@@ -21,10 +21,11 @@ import { CreateProjectUseCase } from '../../application/use-cases/create-project
 import { Project } from '../../domain/entities/project.entity';
 import { UpdateProjectUseCase } from '../../application/use-cases/update-project.use-case';
 import { GetAllProjectsUseCase } from '../../application/use-cases/get-all-projects.use-case';
-import { JwtAuthGuard } from 'src/modules/auth/infrastructure/strategies/jwt-auth.guard';
-import { CurrentUser } from 'src/modules/auth/application/decorators/current-user.decorator';
-import { User } from 'src/modules/auth/domain/entities/user.entity';
-
+// import { JwtAuthGuard } from 'src/modules/auth/infrastructure/strategies/jwt-auth.guard';
+// import { CurrentUser } from 'src/modules/auth/application/decorators/current-user.decorator';
+// import { User } from 'src/modules/auth/domain/entities/user.entity';
+import { ProjectWithDetails } from '@modules/project-management/domain/entities/project-with-details.entity';
+import { GetAllProjectsWithDetailsUseCase } from '@modules/project-management/application/use-cases/get-all-projects-with-details.use-case';
 
 @ApiTags('Projects')
 @Controller('api/v1/projects')
@@ -33,28 +34,25 @@ export class ProjectController {
     private readonly createProjectUseCase: CreateProjectUseCase,
     private readonly updateProjectUseCase: UpdateProjectUseCase,
     private readonly getAllProjectsUseCase: GetAllProjectsUseCase,
+    private readonly getAllProjectsWithDetailsUseCase: GetAllProjectsWithDetailsUseCase,
   ) {}
 
   @Get()
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth('JWT-auth')
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Récupérer tous les projets' })
   @ApiResponse({ status: 200, description: 'Liste de tous les projets' })
   @ApiResponse({ status: 401, description: 'Non autorisé.' })
-  async getAll(@CurrentUser() user: User): Promise<Project[]> {
-    return this.getAllProjectsUseCase.execute(user.id);
+  async getAll(): Promise<Project[]> {
+    return this.getAllProjectsUseCase.execute(); // méthode modifiée sans paramètre
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Créer un nouveau projet' })
   @ApiResponse({ status: 201, description: 'Projet créé avec succès.' })
   @ApiResponse({ status: 400, description: 'Requête invalide.' })
   @ApiResponse({ status: 401, description: 'Non autorisé.' })
-  async create(
-    @Body() dto: CreateProjectDto,
-    @CurrentUser() user: User,
-  ): Promise<Project> {
+  async create(@Body() dto: CreateProjectDto): Promise<Project> {
     try {
       if (!dto.id) {
         throw new HttpException(
@@ -62,7 +60,7 @@ export class ProjectController {
           HttpStatus.BAD_REQUEST,
         );
       }
-      return await this.createProjectUseCase.execute(dto, user.id);
+      return await this.createProjectUseCase.execute(dto); // sans userId
     } catch (error) {
       console.error('Erreur lors de la création du projet:', error.message, error.stack);
       throw new HttpException(
@@ -73,7 +71,7 @@ export class ProjectController {
   }
 
   @Put(':id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Mettre à jour un projet existant' })
   @ApiResponse({ status: 200, description: 'Projet mis à jour avec succès.' })
   @ApiResponse({ status: 404, description: 'Projet non trouvé.' })
@@ -82,10 +80,9 @@ export class ProjectController {
   async update(
     @Param('id') id: string,
     @Body() dto: UpdateProjectDto,
-    @CurrentUser() user: User,
   ): Promise<Project> {
     try {
-      return await this.updateProjectUseCase.execute(id, dto, user.id);
+      return await this.updateProjectUseCase.execute(id, dto); // sans userId
     } catch (error) {
       throw new HttpException(
         error?.message ?? 'Erreur inattendue lors de la mise à jour du projet.',
@@ -94,4 +91,15 @@ export class ProjectController {
     }
   }
 
+  @Get('details')
+  @ApiOperation({ summary: 'Get all projects with their tasks and checklists' })
+  @ApiResponse({
+    status: 200,
+    description: 'All projects including their tasks and checklists',
+    type: [ProjectWithDetails],
+  })
+  async getAllProjectsWithDetails(): Promise<{ data: ProjectWithDetails[] }> {
+    const projects = await this.getAllProjectsWithDetailsUseCase.execute();
+    return { data: projects };
+  }
 }

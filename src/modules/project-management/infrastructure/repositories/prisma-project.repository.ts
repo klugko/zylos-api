@@ -4,6 +4,7 @@ import { ProjectRepository } from '../../domain/interfaces/project-repository.in
 import { Project } from '../../domain/entities/project.entity';
 import { UpdateProjectDto } from '../../application/dto/update-project.dto';
 import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
+import { ChecklistDetails, ProjectWithDetails, TaskDetails } from '@modules/project-management/domain/entities/project-with-details.entity';
 
 
 @Injectable()
@@ -102,4 +103,39 @@ export class PrismaProjectRepository implements ProjectRepository {
 
     return record ? this.mapToEntity(record) : null;
   }
+
+  async findAllWithDetails(): Promise<ProjectWithDetails[]> {
+    const projects = await this.prisma.project.findMany({
+      include: {
+        tasks: true,
+        checklists: true,
+      },
+    });
+
+    return projects.map((p) => {
+      const base = new Project(
+        p.id, p.name, p.description, p.clientType, p.industry,
+        p.color, p.startDate, p.endDate, p.budget?.toNumber() ?? null,
+        p.progress, p.status, p.priority, p.isArchived,
+        p.createdAt, p.updatedAt, p.ownerId, p.templateId
+      );
+
+      const tasks = p.tasks.map((t) =>
+        new TaskDetails(
+          t.id, t.title, t.description, t.status, t.priority,
+          t.dueDate, t.startDate, t.endDate, t.progress,
+          t.color, t.estimatedTime, t.assignedUserId, t.projectId
+        )
+      );
+
+      const checklists = p.checklists.map((c) =>
+        new ChecklistDetails(
+          c.id, c.title, c.isCompleted, c.projectId, c.createdAt, c.updatedAt
+        )
+      );
+
+      return new ProjectWithDetails(base, tasks, checklists);
+    });
+  }
+  
 }

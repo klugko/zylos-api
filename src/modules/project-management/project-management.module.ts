@@ -23,6 +23,7 @@ import { PrismaProjectTemplateRepository } from './infrastructure/repositories/p
 import { ProjectTemplateController } from './infrastructure/controllers/project-template.controller.';
 import { CreateProjectFromPdfController } from './infrastructure/controllers/create-project-from-pdf.controller';
 import { CreateProjectFromPdfUseCase } from './application/use-cases/create-project-from-pdf.use-case';
+import { GetAllProjectsWithDetailsUseCase } from './application/use-cases/get-all-projects-with-details.use-case';
 
 
 @Module({
@@ -50,6 +51,7 @@ import { CreateProjectFromPdfUseCase } from './application/use-cases/create-proj
     CreateProjectFromTemplateUseCase,
     OpenAIService,
     CreateProjectFromPdfUseCase,
+    GetAllProjectsWithDetailsUseCase,
 
     {
       provide: 'ProjectRepository',

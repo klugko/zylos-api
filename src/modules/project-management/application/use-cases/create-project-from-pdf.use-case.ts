@@ -20,7 +20,7 @@ export class CreateProjectFromPdfUseCase {
     private readonly openai: OpenAIService
   ) {}
 
-  async execute(filePath: string, userId: string): Promise<{ project: Project; checklistCount: number }> {
+  async execute(filePath: string): Promise<{ project: Project; checklistCount: number }> {
     try {
       const buffer = await fs.readFile(filePath);
       const data = await pdfParse(buffer);
@@ -70,7 +70,7 @@ export class CreateProjectFromPdfUseCase {
         false,
         now,
         now,
-        userId,
+        "userId-placeholder", 
         null
       );
 

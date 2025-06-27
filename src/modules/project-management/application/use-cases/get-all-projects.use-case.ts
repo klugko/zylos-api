@@ -7,7 +7,7 @@ export class GetAllProjectsUseCase {
    constructor(@Inject('ProjectRepository') private readonly projectRepository: ProjectRepository
   ) {}
 
-  async execute(ownerId: string): Promise<Project[]> {
-    return this.projectRepository.findAllByOwner(ownerId);
+  async execute(): Promise<Project[]> {
+    return this.projectRepository.findAll();
   }
 }

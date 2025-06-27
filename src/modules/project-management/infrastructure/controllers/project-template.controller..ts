@@ -1,9 +1,15 @@
-import { Controller, Post, Body, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+  // UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { CreateProjectFromTemplateUseCase } from '../../application/use-cases/create-project-from-template.use-case';
 import { CreateProjectFromTemplateDto } from '../../application/dto/create-project-from-template.dto';
-import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
-
+// import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
 
 @ApiTags('Project Templates')
 @Controller('api/v1/project-templates')
@@ -13,7 +19,7 @@ export class ProjectTemplateController {
   ) {}
 
   @Post('create-project')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Créer un projet à partir d’un modèle (template)' })
   @ApiResponse({ status: 201, description: 'Projet créé avec succès' })
   @ApiResponse({ status: 404, description: 'Template introuvable' })
