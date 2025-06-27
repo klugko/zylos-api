@@ -40,24 +40,32 @@ async function bootstrap() {
     },
   });
 
-  app.enableCors({
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        /^https?:\/\/localhost(:\d+)?$/,
-        'https://nexa-ui.monambassadeur.com',
-      ];
+  // app.enableCors({
+  //   origin: (origin, callback) => {
+  //     const allowedOrigins = [
+  //       /^https?:\/\/localhost(:\d+)?$/,
+  //       'https://nexa-ui.monambassadeur.com',
+  //     ];
 
-      if (
-        !origin ||
-        allowedOrigins.some((o) =>
-          typeof o === 'string' ? o === origin : o.test(origin),
-        )
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+  //     if (
+  //       !origin ||
+  //       allowedOrigins.some((o) =>
+  //         typeof o === 'string' ? o === origin : o.test(origin),
+  //       )
+  //     ) {
+  //       callback(null, true);
+  //     } else {
+  //       callback(new Error('Not allowed by CORS'));
+  //     }
+  //   },
+  //   credentials: true,
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  //   allowedHeaders: '*',
+  //   exposedHeaders: '*',
+  // });
+
+  app.enableCors({
+    origin: true, 
     credentials: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: '*',

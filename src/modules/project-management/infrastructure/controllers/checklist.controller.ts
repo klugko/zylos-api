@@ -48,6 +48,13 @@ export class ChecklistController {
   @ApiParam({ name: 'projectId', description: 'ID du projet concerné' })
   @ApiResponse({ status: 200, description: 'Liste des checklists du projet retournée' })
   async findByProject(@Param('projectId') projectId: string) {
+    try {
+      if (!projectId) {
+        throw new HttpException('Project ID is required', HttpStatus.BAD_REQUEST);
+      }
+    } catch (error) {
+      throw new HttpException(error.message, error.status);
+    }
     return await this.checklistRepo.findByProject(projectId);
   }
 

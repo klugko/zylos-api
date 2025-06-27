@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ProjectRepository } from '../../domain/interfaces/project-repository.interface';
 import { CreateProjectDto } from '../dto/create-project.dto';
 import { Project } from '../../domain/entities/project.entity';
+import { dot } from 'node:test/reporters';
 
 @Injectable()
 export class CreateProjectUseCase {
@@ -33,7 +34,7 @@ export class CreateProjectUseCase {
       dto.isArchived ?? false,
       new Date(),
       new Date(), 
-      null,    
+      dto.ownerId ?? null, 
       dto.templateId ?? null,
     );
 

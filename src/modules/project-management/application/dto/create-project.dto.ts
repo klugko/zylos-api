@@ -65,6 +65,11 @@ priority?: ProjectPriority;
 @IsOptional()
 isArchived?: boolean;
 
+@ApiProperty({example: 'ea567c5e-499e-4813-bdd5-3c0ef5fcdb24', required: false })
+@IsString()
+@MaxLength(36)
+ownerId?: string;
+
 @ApiProperty({ example: 'ea567c5e-499e-4813-bdd5-3c0ef5fcdb24', required: false })
 @IsString()
 @MaxLength(36)
