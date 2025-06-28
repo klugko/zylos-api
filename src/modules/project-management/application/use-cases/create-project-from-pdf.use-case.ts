@@ -1,14 +1,19 @@
-import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger, Inject } from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as pdfParse from 'pdf-parse';
 import { OpenAIService } from '../../infrastructure/adapters/openapi.service';
 import { ProjectRepository } from '../../domain/interfaces/project-repository.interface';
-import { ChecklistRepository } from '../../domain/interfaces/checklist-repository.interface';
+import { TaskRepository } from '../../domain/interfaces/task-repository.interface';
+
 import { Project } from '../../domain/entities/project.entity';
-import { Checklist } from '../../domain/entities/checklist.entity';
+import { Task } from '../../domain/entities/task.entity';
+
 import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
+import { TaskPriority, TaskStatus } from '../../domain/enums/task.enums';
+
 import { v4 as uuidv4 } from 'uuid';
-import { Inject } from '@nestjs/common';
+import { ChecklistItemRepository } from '@modules/project-management/domain/interfaces/checklist-item-repository.interface';
+import { ChecklistItem } from '@modules/project-management/domain/entities/checklist-item.entity';
 
 @Injectable()
 export class CreateProjectFromPdfUseCase {
@@ -16,11 +21,12 @@ export class CreateProjectFromPdfUseCase {
 
   constructor(
     @Inject('ProjectRepository') private readonly projectRepo: ProjectRepository,
-    @Inject('ChecklistRepository') private readonly checklistRepo: ChecklistRepository,
+    @Inject('TaskRepository') private readonly taskRepo: TaskRepository,
+    @Inject('ChecklistItemRepository') private readonly checklistItemRepo: ChecklistItemRepository,
     private readonly openai: OpenAIService
   ) {}
 
-  async execute(filePath: string): Promise<{ project: Project; checklistCount: number }> {
+  async execute(filePath: string): Promise<{ project: Project; taskCount: number }> {
     try {
       const buffer = await fs.readFile(filePath);
       const data = await pdfParse(buffer);
@@ -47,7 +53,7 @@ export class CreateProjectFromPdfUseCase {
         throw new InternalServerErrorException('Réponse IA invalide (non JSON)');
       }
 
-      if (!result.project || !Array.isArray(result.checklists)) {
+      if (!result.project || !Array.isArray(result.tasks)) {
         throw new InternalServerErrorException('Structure de réponse IA incomplète ou invalide.');
       }
 
@@ -70,29 +76,46 @@ export class CreateProjectFromPdfUseCase {
         false,
         now,
         now,
-        "userId-placeholder", 
+        null,
         null
       );
 
-      const created = await this.projectRepo.create(project);
+      const createdProject = await this.projectRepo.create(project);
 
-      let checklistCount = 0;
-      for (const item of result.checklists ?? []) {
-        const checklist = new Checklist(
+      let taskCount = 0;
+
+      for (const t of result.tasks) {
+        const task = new Task(
           uuidv4(),
-          item.title,
-          false,
-          created.id,
+          t.title,
+          t.description ?? null,
+          TaskStatus.TODO,
+          TaskPriority.MEDIUM,
+          createdProject.id,
           now,
-          now
+          now,
+          null,
+          null
         );
-        await this.checklistRepo.create(checklist);
-        checklistCount++;
+        const createdTask = await this.taskRepo.create(task);
+        taskCount++;
+
+        for (const c of t.checklists ?? []) {
+          const checklistItem = new ChecklistItem(
+            uuidv4(),
+            c.title,
+            false,
+            createdTask.id,
+            now,
+            now
+          );
+          await this.checklistItemRepo.create(checklistItem);
+        }
       }
 
       return {
-        project: created,
-        checklistCount,
+        project: createdProject,
+        taskCount,
       };
     } catch (error) {
       this.logger.error(`Erreur analyse PDF : ${error.message}`, error.stack);
@@ -102,29 +125,38 @@ export class CreateProjectFromPdfUseCase {
 
   private buildPrompt(text: string): string {
     return `
-    Tu es un assistant intelligent. À partir du contenu suivant extrait d’un cahier des charges, tu dois générer :
+  Tu es un assistant intelligent. À partir du contenu suivant extrait d’un cahier des charges, génère :
 
-    - Un objet JSON "project" avec les champs : name, description (texte court), clientType (SIMPLE/CODEUR), priority (LOW/MEDIUM/HIGH).
-    - Un tableau "checklists" avec des objets contenant : title (libellé de la tâche ou étape à vérifier).
+  - Un objet "project" avec : name, description, clientType (SIMPLE / CODEUR), priority (LOW / MEDIUM / HIGH).
+  - Un tableau "tasks" contenant :
+    - title
+    - description (optionnelle)
+    - checklists : tableau avec des objets { title }
 
-    ### Contenu du document :
-    """
-    ${text.slice(0, 3500)}
-    """
+  ### Cahier des charges :
+  """
+  ${text.slice(0, 3500)}
+  """
 
-    Retourne UNIQUEMENT ce JSON :
-    {
-      "project": {
-        "name": "...",
+  Retourne UNIQUEMENT ce JSON :
+  {
+    "project": {
+      "name": "...",
+      "description": "...",
+      "clientType": "SIMPLE",
+      "priority": "HIGH"
+    },
+    "tasks": [
+      {
+        "title": "...",
         "description": "...",
-        "clientType": "SIMPLE",
-        "priority": "HIGH"
-      },
-      "checklists": [
-        { "title": "..." },
-        { "title": "..." }
-      ]
-    }
-    `;
+        "checklists": [
+          { "title": "..." },
+          { "title": "..." }
+        ]
+      }
+    ]
   }
-}
+      `.trim();
+    }
+  }

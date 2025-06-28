@@ -21,9 +21,10 @@ import { PrismaTaskColumnRepository } from './infrastructure/repositories/prisma
 import { CreateProjectFromTemplateUseCase } from './application/use-cases/create-project-from-template.use-case';
 import { PrismaProjectTemplateRepository } from './infrastructure/repositories/prisma-project-template.repository';
 import { ProjectTemplateController } from './infrastructure/controllers/project-template.controller.';
-import { CreateProjectFromPdfController } from './infrastructure/controllers/create-project-from-pdf.controller';
 import { CreateProjectFromPdfUseCase } from './application/use-cases/create-project-from-pdf.use-case';
 import { GetAllProjectsWithDetailsUseCase } from './application/use-cases/get-all-projects-with-details.use-case';
+import { CreateProjectFromPdfController } from './infrastructure/controllers/create-project-from-pdf.controller';
+import { PrismaChecklistItemRepository } from './infrastructure/repositories/prisma-checklist-item.repository';
 
 
 @Module({
@@ -72,8 +73,11 @@ import { GetAllProjectsWithDetailsUseCase } from './application/use-cases/get-al
     {
       provide: 'ProjectTemplateRepository',
       useClass: PrismaProjectTemplateRepository
+    },
+    {
+      provide: 'ChecklistItemRepository',
+      useClass: PrismaChecklistItemRepository,
     }
-    
 
   ],
   

@@ -7,12 +7,14 @@ import {
   HttpException,
   HttpStatus,
   Get,
+  Inject,
   // UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
+  ApiParam,
   // ApiBearerAuth,
 } from '@nestjs/swagger';
 import { CreateProjectDto } from '../../application/dto/create-project.dto';
@@ -26,6 +28,7 @@ import { GetAllProjectsUseCase } from '../../application/use-cases/get-all-proje
 // import { User } from 'src/modules/auth/domain/entities/user.entity';
 import { ProjectWithDetails } from '@modules/project-management/domain/entities/project-with-details.entity';
 import { GetAllProjectsWithDetailsUseCase } from '@modules/project-management/application/use-cases/get-all-projects-with-details.use-case';
+import { ProjectRepository } from '@modules/project-management/domain/interfaces/project-repository.interface';
 
 @ApiTags('Projects')
 @Controller('api/v1/projects')
@@ -35,8 +38,34 @@ export class ProjectController {
     private readonly updateProjectUseCase: UpdateProjectUseCase,
     private readonly getAllProjectsUseCase: GetAllProjectsUseCase,
     private readonly getAllProjectsWithDetailsUseCase: GetAllProjectsWithDetailsUseCase,
+    @Inject('ProjectRepository') 
+    private readonly projectRepository: ProjectRepository,
   ) {}
 
+  @Get(':id')
+  @ApiOperation({ summary: 'Récupérer un projet par son ID' })
+  @ApiParam({ name: 'id', type: 'string', description: 'ID du projet' })
+  @ApiResponse({ status: 200, description: 'Projet trouvé', type: Project })
+  @ApiResponse({ status: 404, description: 'Projet non trouvé' })
+  async getById(@Param('id') id: string): Promise<Project> {
+    try {
+      const project = await this.projectRepository.findById(id);
+      if (!project) {
+        throw new HttpException(
+          `Projet avec l'ID ${id} introuvable.`,
+          HttpStatus.NOT_FOUND,
+        );
+      }
+      return project;
+    } catch (error) {
+      console.error(`Erreur lors de la récupération du projet ${id}:`, error);
+      throw new HttpException(
+        error?.message || 'Erreur inattendue.',
+        error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  
   @Get()
   // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Récupérer tous les projets' })

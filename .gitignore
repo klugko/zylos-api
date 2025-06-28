@@ -69,3 +69,5 @@ dump.rdb
 *.zip
 /ssl
 *.pem
+
+*.pdf
