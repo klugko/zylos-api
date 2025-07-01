@@ -26,6 +26,9 @@ import { GetAllProjectsWithDetailsUseCase } from './application/use-cases/get-al
 import { CreateProjectFromPdfController } from './infrastructure/controllers/create-project-from-pdf.controller';
 import { PrismaChecklistItemRepository } from './infrastructure/repositories/prisma-checklist-item.repository';
 import { ProjectStructureGenerator } from './infrastructure/adapters/project-generator';
+import { CommentController } from './infrastructure/controllers/comment.controller';
+import { CreateCommentUseCase } from './application/use-cases/create-comment.use-case';
+import { PrismaCommentRepository } from './infrastructure/repositories/prisma-comment.repository';
 
 @Module({
   imports: [AuthModule],
@@ -33,7 +36,8 @@ import { ProjectStructureGenerator } from './infrastructure/adapters/project-gen
                                   TaskController, 
                                   ChecklistController, 
                                   ProjectTemplateController,
-                                  CreateProjectFromPdfController],
+                                  CreateProjectFromPdfController,
+                                  CommentController],
   
   providers: [
     PrismaService,
@@ -54,7 +58,8 @@ import { ProjectStructureGenerator } from './infrastructure/adapters/project-gen
     CreateProjectFromPdfUseCase,
     GetAllProjectsWithDetailsUseCase,
     ProjectStructureGenerator,
-
+    CreateCommentUseCase,
+    PrismaCommentRepository,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,
@@ -78,7 +83,12 @@ import { ProjectStructureGenerator } from './infrastructure/adapters/project-gen
     {
       provide: 'ChecklistItemRepository',
       useClass: PrismaChecklistItemRepository,
-    }
+    },
+    {
+      provide: 'CommentRepository',
+      useClass: PrismaCommentRepository,
+    },
+
 
   ],
   

@@ -1,6 +1,8 @@
 import { TaskStatus, TaskPriority } from "../enums/task.enums";
 
 export class Task {
+  progress: number;
+  estimatedTime: any;
   constructor(
     public readonly id: string,
     public title: string,

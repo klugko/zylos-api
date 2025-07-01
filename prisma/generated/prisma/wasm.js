@@ -210,10 +210,11 @@ exports.Prisma.DocumentScalarFieldEnum = {
 exports.Prisma.CommentScalarFieldEnum = {
   id: 'id',
   content: 'content',
-  taskId: 'taskId',
+  targetType: 'targetType',
+  targetId: 'targetId',
   authorId: 'authorId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  taskId: 'taskId'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -319,6 +320,12 @@ exports.ProjectRole = exports.$Enums.ProjectRole = {
   OWNER: 'OWNER',
   MEMBER: 'MEMBER',
   OBSERVER: 'OBSERVER'
+};
+
+exports.CommentTargetType = exports.$Enums.CommentTargetType = {
+  PROJECT: 'PROJECT',
+  TASK: 'TASK',
+  CHECKLIST: 'CHECKLIST'
 };
 
 exports.UserRole = exports.$Enums.UserRole = {

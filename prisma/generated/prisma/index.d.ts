@@ -78,7 +78,16 @@ export type ChecklistTemplate = $Result.DefaultSelection<Prisma.$ChecklistTempla
  * Enums
  */
 export namespace $Enums {
-  export const TaskStatus: {
+  export const CommentTargetType: {
+  PROJECT: 'PROJECT',
+  TASK: 'TASK',
+  CHECKLIST: 'CHECKLIST'
+};
+
+export type CommentTargetType = (typeof CommentTargetType)[keyof typeof CommentTargetType]
+
+
+export const TaskStatus: {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',
@@ -145,6 +154,10 @@ export const UserRole: {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 }
+
+export type CommentTargetType = $Enums.CommentTargetType
+
+export const CommentTargetType: typeof $Enums.CommentTargetType
 
 export type TaskStatus = $Enums.TaskStatus
 
@@ -10667,28 +10680,31 @@ export namespace Prisma {
   export type CommentMinAggregateOutputType = {
     id: string | null
     content: string | null
-    taskId: string | null
+    targetType: $Enums.CommentTargetType | null
+    targetId: string | null
     authorId: string | null
     createdAt: Date | null
-    updatedAt: Date | null
+    taskId: string | null
   }
 
   export type CommentMaxAggregateOutputType = {
     id: string | null
     content: string | null
-    taskId: string | null
+    targetType: $Enums.CommentTargetType | null
+    targetId: string | null
     authorId: string | null
     createdAt: Date | null
-    updatedAt: Date | null
+    taskId: string | null
   }
 
   export type CommentCountAggregateOutputType = {
     id: number
     content: number
-    taskId: number
+    targetType: number
+    targetId: number
     authorId: number
     createdAt: number
-    updatedAt: number
+    taskId: number
     _all: number
   }
 
@@ -10696,28 +10712,31 @@ export namespace Prisma {
   export type CommentMinAggregateInputType = {
     id?: true
     content?: true
-    taskId?: true
+    targetType?: true
+    targetId?: true
     authorId?: true
     createdAt?: true
-    updatedAt?: true
+    taskId?: true
   }
 
   export type CommentMaxAggregateInputType = {
     id?: true
     content?: true
-    taskId?: true
+    targetType?: true
+    targetId?: true
     authorId?: true
     createdAt?: true
-    updatedAt?: true
+    taskId?: true
   }
 
   export type CommentCountAggregateInputType = {
     id?: true
     content?: true
-    taskId?: true
+    targetType?: true
+    targetId?: true
     authorId?: true
     createdAt?: true
-    updatedAt?: true
+    taskId?: true
     _all?: true
   }
 
@@ -10796,10 +10815,11 @@ export namespace Prisma {
   export type CommentGroupByOutputType = {
     id: string
     content: string
-    taskId: string
-    authorId: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
+    authorId: string | null
     createdAt: Date
-    updatedAt: Date
+    taskId: string | null
     _count: CommentCountAggregateOutputType | null
     _min: CommentMinAggregateOutputType | null
     _max: CommentMaxAggregateOutputType | null
@@ -10822,72 +10842,77 @@ export namespace Prisma {
   export type CommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
-    taskId?: boolean
+    targetType?: boolean
+    targetId?: boolean
     authorId?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
-    task?: boolean | TaskDefaultArgs<ExtArgs>
-    author?: boolean | UserDefaultArgs<ExtArgs>
+    taskId?: boolean
+    author?: boolean | Comment$authorArgs<ExtArgs>
+    Task?: boolean | Comment$TaskArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
-    taskId?: boolean
+    targetType?: boolean
+    targetId?: boolean
     authorId?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
-    task?: boolean | TaskDefaultArgs<ExtArgs>
-    author?: boolean | UserDefaultArgs<ExtArgs>
+    taskId?: boolean
+    author?: boolean | Comment$authorArgs<ExtArgs>
+    Task?: boolean | Comment$TaskArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     content?: boolean
-    taskId?: boolean
+    targetType?: boolean
+    targetId?: boolean
     authorId?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
-    task?: boolean | TaskDefaultArgs<ExtArgs>
-    author?: boolean | UserDefaultArgs<ExtArgs>
+    taskId?: boolean
+    author?: boolean | Comment$authorArgs<ExtArgs>
+    Task?: boolean | Comment$TaskArgs<ExtArgs>
   }, ExtArgs["result"]["comment"]>
 
   export type CommentSelectScalar = {
     id?: boolean
     content?: boolean
-    taskId?: boolean
+    targetType?: boolean
+    targetId?: boolean
     authorId?: boolean
     createdAt?: boolean
-    updatedAt?: boolean
+    taskId?: boolean
   }
 
-  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "taskId" | "authorId" | "createdAt" | "updatedAt", ExtArgs["result"]["comment"]>
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "targetType" | "targetId" | "authorId" | "createdAt" | "taskId", ExtArgs["result"]["comment"]>
   export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    task?: boolean | TaskDefaultArgs<ExtArgs>
-    author?: boolean | UserDefaultArgs<ExtArgs>
+    author?: boolean | Comment$authorArgs<ExtArgs>
+    Task?: boolean | Comment$TaskArgs<ExtArgs>
   }
   export type CommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    task?: boolean | TaskDefaultArgs<ExtArgs>
-    author?: boolean | UserDefaultArgs<ExtArgs>
+    author?: boolean | Comment$authorArgs<ExtArgs>
+    Task?: boolean | Comment$TaskArgs<ExtArgs>
   }
   export type CommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    task?: boolean | TaskDefaultArgs<ExtArgs>
-    author?: boolean | UserDefaultArgs<ExtArgs>
+    author?: boolean | Comment$authorArgs<ExtArgs>
+    Task?: boolean | Comment$TaskArgs<ExtArgs>
   }
 
   export type $CommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Comment"
     objects: {
-      task: Prisma.$TaskPayload<ExtArgs>
-      author: Prisma.$UserPayload<ExtArgs>
+      author: Prisma.$UserPayload<ExtArgs> | null
+      Task: Prisma.$TaskPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       content: string
-      taskId: string
-      authorId: string
+      targetType: $Enums.CommentTargetType
+      targetId: string
+      authorId: string | null
       createdAt: Date
-      updatedAt: Date
+      taskId: string | null
     }, ExtArgs["result"]["comment"]>
     composites: {}
   }
@@ -11282,8 +11307,8 @@ export namespace Prisma {
    */
   export interface Prisma__CommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    author<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    author<T extends Comment$authorArgs<ExtArgs> = {}>(args?: Subset<T, Comment$authorArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Task<T extends Comment$TaskArgs<ExtArgs> = {}>(args?: Subset<T, Comment$TaskArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11315,10 +11340,11 @@ export namespace Prisma {
   interface CommentFieldRefs {
     readonly id: FieldRef<"Comment", 'String'>
     readonly content: FieldRef<"Comment", 'String'>
-    readonly taskId: FieldRef<"Comment", 'String'>
+    readonly targetType: FieldRef<"Comment", 'CommentTargetType'>
+    readonly targetId: FieldRef<"Comment", 'String'>
     readonly authorId: FieldRef<"Comment", 'String'>
     readonly createdAt: FieldRef<"Comment", 'DateTime'>
-    readonly updatedAt: FieldRef<"Comment", 'DateTime'>
+    readonly taskId: FieldRef<"Comment", 'String'>
   }
     
 
@@ -11712,6 +11738,44 @@ export namespace Prisma {
      * Limit how many Comments to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Comment.author
+   */
+  export type Comment$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Comment.Task
+   */
+  export type Comment$TaskArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Task
+     */
+    select?: TaskSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Task
+     */
+    omit?: TaskOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskInclude<ExtArgs> | null
+    where?: TaskWhereInput
   }
 
   /**
@@ -16469,10 +16533,11 @@ export namespace Prisma {
   export const CommentScalarFieldEnum: {
     id: 'id',
     content: 'content',
-    taskId: 'taskId',
+    targetType: 'targetType',
+    targetId: 'targetId',
     authorId: 'authorId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    taskId: 'taskId'
   };
 
   export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
@@ -16749,6 +16814,20 @@ export namespace Prisma {
    * Reference to a field of type 'ProjectRole[]'
    */
   export type ListEnumProjectRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProjectRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommentTargetType'
+   */
+  export type EnumCommentTargetTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommentTargetType'>
+    
+
+
+  /**
+   * Reference to a field of type 'CommentTargetType[]'
+   */
+  export type ListEnumCommentTargetTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommentTargetType[]'>
     
 
 
@@ -17372,23 +17451,25 @@ export namespace Prisma {
     NOT?: CommentWhereInput | CommentWhereInput[]
     id?: StringFilter<"Comment"> | string
     content?: StringFilter<"Comment"> | string
-    taskId?: StringFilter<"Comment"> | string
-    authorId?: StringFilter<"Comment"> | string
+    targetType?: EnumCommentTargetTypeFilter<"Comment"> | $Enums.CommentTargetType
+    targetId?: StringFilter<"Comment"> | string
+    authorId?: StringNullableFilter<"Comment"> | string | null
     createdAt?: DateTimeFilter<"Comment"> | Date | string
-    updatedAt?: DateTimeFilter<"Comment"> | Date | string
-    task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
-    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    taskId?: StringNullableFilter<"Comment"> | string | null
+    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Task?: XOR<TaskNullableScalarRelationFilter, TaskWhereInput> | null
   }
 
   export type CommentOrderByWithRelationInput = {
     id?: SortOrder
     content?: SortOrder
-    taskId?: SortOrder
-    authorId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    authorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
-    task?: TaskOrderByWithRelationInput
+    taskId?: SortOrderInput | SortOrder
     author?: UserOrderByWithRelationInput
+    Task?: TaskOrderByWithRelationInput
   }
 
   export type CommentWhereUniqueInput = Prisma.AtLeast<{
@@ -17397,21 +17478,23 @@ export namespace Prisma {
     OR?: CommentWhereInput[]
     NOT?: CommentWhereInput | CommentWhereInput[]
     content?: StringFilter<"Comment"> | string
-    taskId?: StringFilter<"Comment"> | string
-    authorId?: StringFilter<"Comment"> | string
+    targetType?: EnumCommentTargetTypeFilter<"Comment"> | $Enums.CommentTargetType
+    targetId?: StringFilter<"Comment"> | string
+    authorId?: StringNullableFilter<"Comment"> | string | null
     createdAt?: DateTimeFilter<"Comment"> | Date | string
-    updatedAt?: DateTimeFilter<"Comment"> | Date | string
-    task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
-    author?: XOR<UserScalarRelationFilter, UserWhereInput>
+    taskId?: StringNullableFilter<"Comment"> | string | null
+    author?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Task?: XOR<TaskNullableScalarRelationFilter, TaskWhereInput> | null
   }, "id">
 
   export type CommentOrderByWithAggregationInput = {
     id?: SortOrder
     content?: SortOrder
-    taskId?: SortOrder
-    authorId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
+    authorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    taskId?: SortOrderInput | SortOrder
     _count?: CommentCountOrderByAggregateInput
     _max?: CommentMaxOrderByAggregateInput
     _min?: CommentMinOrderByAggregateInput
@@ -17423,10 +17506,11 @@ export namespace Prisma {
     NOT?: CommentScalarWhereWithAggregatesInput | CommentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Comment"> | string
     content?: StringWithAggregatesFilter<"Comment"> | string
-    taskId?: StringWithAggregatesFilter<"Comment"> | string
-    authorId?: StringWithAggregatesFilter<"Comment"> | string
+    targetType?: EnumCommentTargetTypeWithAggregatesFilter<"Comment"> | $Enums.CommentTargetType
+    targetId?: StringWithAggregatesFilter<"Comment"> | string
+    authorId?: StringNullableWithAggregatesFilter<"Comment"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
+    taskId?: StringNullableWithAggregatesFilter<"Comment"> | string | null
   }
 
   export type UserWhereInput = {
@@ -18354,62 +18438,69 @@ export namespace Prisma {
   export type CommentCreateInput = {
     id?: string
     content: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    task: TaskCreateNestedOneWithoutCommentsInput
-    author: UserCreateNestedOneWithoutCommentsInput
+    author?: UserCreateNestedOneWithoutCommentsInput
+    Task?: TaskCreateNestedOneWithoutCommentsInput
   }
 
   export type CommentUncheckedCreateInput = {
     id?: string
     content: string
-    taskId: string
-    authorId: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
+    authorId?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
+    taskId?: string | null
   }
 
   export type CommentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    task?: TaskUpdateOneRequiredWithoutCommentsNestedInput
-    author?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneWithoutCommentsNestedInput
+    Task?: TaskUpdateOneWithoutCommentsNestedInput
   }
 
   export type CommentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    taskId?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentCreateManyInput = {
     id?: string
     content: string
-    taskId: string
-    authorId: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
+    authorId?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
+    taskId?: string | null
   }
 
   export type CommentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    taskId?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateInput = {
@@ -19525,31 +19616,56 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EnumCommentTargetTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommentTargetType | EnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommentTargetType[] | ListEnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommentTargetType[] | ListEnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommentTargetTypeFilter<$PrismaModel> | $Enums.CommentTargetType
+  }
+
+  export type TaskNullableScalarRelationFilter = {
+    is?: TaskWhereInput | null
+    isNot?: TaskWhereInput | null
+  }
+
   export type CommentCountOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    taskId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    taskId?: SortOrder
   }
 
   export type CommentMaxOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    taskId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    taskId?: SortOrder
   }
 
   export type CommentMinOrderByAggregateInput = {
     id?: SortOrder
     content?: SortOrder
-    taskId?: SortOrder
+    targetType?: SortOrder
+    targetId?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    taskId?: SortOrder
+  }
+
+  export type EnumCommentTargetTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommentTargetType | EnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommentTargetType[] | ListEnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommentTargetType[] | ListEnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommentTargetTypeWithAggregatesFilter<$PrismaModel> | $Enums.CommentTargetType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommentTargetTypeFilter<$PrismaModel>
+    _max?: NestedEnumCommentTargetTypeFilter<$PrismaModel>
   }
 
   export type EnumUserRoleFilter<$PrismaModel = never> = {
@@ -20461,32 +20577,40 @@ export namespace Prisma {
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutDocumentsInput, ProjectUpdateWithoutDocumentsInput>, ProjectUncheckedUpdateWithoutDocumentsInput>
   }
 
-  export type TaskCreateNestedOneWithoutCommentsInput = {
-    create?: XOR<TaskCreateWithoutCommentsInput, TaskUncheckedCreateWithoutCommentsInput>
-    connectOrCreate?: TaskCreateOrConnectWithoutCommentsInput
-    connect?: TaskWhereUniqueInput
-  }
-
   export type UserCreateNestedOneWithoutCommentsInput = {
     create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
     connect?: UserWhereUniqueInput
   }
 
-  export type TaskUpdateOneRequiredWithoutCommentsNestedInput = {
+  export type TaskCreateNestedOneWithoutCommentsInput = {
     create?: XOR<TaskCreateWithoutCommentsInput, TaskUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: TaskCreateOrConnectWithoutCommentsInput
-    upsert?: TaskUpsertWithoutCommentsInput
     connect?: TaskWhereUniqueInput
-    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutCommentsInput, TaskUpdateWithoutCommentsInput>, TaskUncheckedUpdateWithoutCommentsInput>
   }
 
-  export type UserUpdateOneRequiredWithoutCommentsNestedInput = {
+  export type EnumCommentTargetTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CommentTargetType
+  }
+
+  export type UserUpdateOneWithoutCommentsNestedInput = {
     create?: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutCommentsInput
     upsert?: UserUpsertWithoutCommentsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCommentsInput, UserUpdateWithoutCommentsInput>, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type TaskUpdateOneWithoutCommentsNestedInput = {
+    create?: XOR<TaskCreateWithoutCommentsInput, TaskUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutCommentsInput
+    upsert?: TaskUpsertWithoutCommentsInput
+    disconnect?: TaskWhereInput | boolean
+    delete?: TaskWhereInput | boolean
+    connect?: TaskWhereUniqueInput
+    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutCommentsInput, TaskUpdateWithoutCommentsInput>, TaskUncheckedUpdateWithoutCommentsInput>
   }
 
   export type UserCreateskillsInput = {
@@ -21235,6 +21359,23 @@ export namespace Prisma {
     _max?: NestedEnumProjectRoleFilter<$PrismaModel>
   }
 
+  export type NestedEnumCommentTargetTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommentTargetType | EnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommentTargetType[] | ListEnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommentTargetType[] | ListEnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommentTargetTypeFilter<$PrismaModel> | $Enums.CommentTargetType
+  }
+
+  export type NestedEnumCommentTargetTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CommentTargetType | EnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CommentTargetType[] | ListEnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CommentTargetType[] | ListEnumCommentTargetTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCommentTargetTypeWithAggregatesFilter<$PrismaModel> | $Enums.CommentTargetType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCommentTargetTypeFilter<$PrismaModel>
+    _max?: NestedEnumCommentTargetTypeFilter<$PrismaModel>
+  }
+
   export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
     in?: $Enums.UserRole[] | ListEnumUserRoleFieldRefInput<$PrismaModel>
@@ -21828,17 +21969,19 @@ export namespace Prisma {
   export type CommentCreateWithoutTaskInput = {
     id?: string
     content: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    author: UserCreateNestedOneWithoutCommentsInput
+    author?: UserCreateNestedOneWithoutCommentsInput
   }
 
   export type CommentUncheckedCreateWithoutTaskInput = {
     id?: string
     content: string
-    authorId: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
+    authorId?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type CommentCreateOrConnectWithoutTaskInput = {
@@ -22068,10 +22211,11 @@ export namespace Prisma {
     NOT?: CommentScalarWhereInput | CommentScalarWhereInput[]
     id?: StringFilter<"Comment"> | string
     content?: StringFilter<"Comment"> | string
-    taskId?: StringFilter<"Comment"> | string
-    authorId?: StringFilter<"Comment"> | string
+    targetType?: EnumCommentTargetTypeFilter<"Comment"> | $Enums.CommentTargetType
+    targetId?: StringFilter<"Comment"> | string
+    authorId?: StringNullableFilter<"Comment"> | string | null
     createdAt?: DateTimeFilter<"Comment"> | Date | string
-    updatedAt?: DateTimeFilter<"Comment"> | Date | string
+    taskId?: StringNullableFilter<"Comment"> | string | null
   }
 
   export type ChecklistItemUpsertWithWhereUniqueWithoutTaskInput = {
@@ -23161,6 +23305,49 @@ export namespace Prisma {
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
   }
 
+  export type UserCreateWithoutCommentsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutCommentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+  }
+
   export type TaskCreateWithoutCommentsInput = {
     id?: string
     title: string
@@ -23210,47 +23397,53 @@ export namespace Prisma {
     create: XOR<TaskCreateWithoutCommentsInput, TaskUncheckedCreateWithoutCommentsInput>
   }
 
-  export type UserCreateWithoutCommentsInput = {
-    id?: string
-    fullname: string
-    email: string
-    password: string
-    role?: $Enums.UserRole
-    isActive?: boolean
-    skills?: UserCreateskillsInput | string[]
-    availability?: number
-    performanceScore?: number
-    googleId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
-    documents?: DocumentCreateNestedManyWithoutUploadedByInput
-    Task?: TaskCreateNestedManyWithoutAssigneeInput
-    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutCommentsInput = {
-    id?: string
-    fullname: string
-    email: string
-    password: string
-    role?: $Enums.UserRole
-    isActive?: boolean
-    skills?: UserCreateskillsInput | string[]
-    availability?: number
-    performanceScore?: number
-    googleId?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
-    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
-    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
-    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutCommentsInput = {
-    where: UserWhereUniqueInput
+  export type UserUpsertWithoutCommentsInput = {
+    update: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
     create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type UserUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TaskUpsertWithoutCommentsInput = {
@@ -23306,55 +23499,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
-  }
-
-  export type UserUpsertWithoutCommentsInput = {
-    update: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
-    create: XOR<UserCreateWithoutCommentsInput, UserUncheckedCreateWithoutCommentsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutCommentsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutCommentsInput, UserUncheckedUpdateWithoutCommentsInput>
-  }
-
-  export type UserUpdateWithoutCommentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    skills?: UserUpdateskillsInput | string[]
-    availability?: IntFieldUpdateOperationsInput | number
-    performanceScore?: FloatFieldUpdateOperationsInput | number
-    googleId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
-    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
-    Task?: TaskUpdateManyWithoutAssigneeNestedInput
-    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutCommentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    fullname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    skills?: UserUpdateskillsInput | string[]
-    availability?: IntFieldUpdateOperationsInput | number
-    performanceScore?: FloatFieldUpdateOperationsInput | number
-    googleId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
-    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
-    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
-    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectCreateWithoutOwnerInput = {
@@ -23452,17 +23596,19 @@ export namespace Prisma {
   export type CommentCreateWithoutAuthorInput = {
     id?: string
     content: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
-    task: TaskCreateNestedOneWithoutCommentsInput
+    Task?: TaskCreateNestedOneWithoutCommentsInput
   }
 
   export type CommentUncheckedCreateWithoutAuthorInput = {
     id?: string
     content: string
-    taskId: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
+    taskId?: string | null
   }
 
   export type CommentCreateOrConnectWithoutAuthorInput = {
@@ -24165,9 +24311,10 @@ export namespace Prisma {
   export type CommentCreateManyTaskInput = {
     id?: string
     content: string
-    authorId: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
+    authorId?: string | null
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
   export type ChecklistItemCreateManyTaskInput = {
@@ -24191,25 +24338,28 @@ export namespace Prisma {
   export type CommentUpdateWithoutTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    author?: UserUpdateOneRequiredWithoutCommentsNestedInput
+    author?: UserUpdateOneWithoutCommentsNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentUncheckedUpdateManyWithoutTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    authorId?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
+    authorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChecklistItemUpdateWithoutTaskInput = {
@@ -24420,9 +24570,10 @@ export namespace Prisma {
   export type CommentCreateManyAuthorInput = {
     id?: string
     content: string
-    taskId: string
+    targetType: $Enums.CommentTargetType
+    targetId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
+    taskId?: string | null
   }
 
   export type TaskCreateManyAssigneeInput = {
@@ -24556,25 +24707,28 @@ export namespace Prisma {
   export type CommentUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    task?: TaskUpdateOneRequiredWithoutCommentsNestedInput
+    Task?: TaskUpdateOneWithoutCommentsNestedInput
   }
 
   export type CommentUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    taskId?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommentUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    taskId?: StringFieldUpdateOperationsInput | string
+    targetType?: EnumCommentTargetTypeFieldUpdateOperationsInput | $Enums.CommentTargetType
+    targetId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    taskId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskUpdateWithoutAssigneeInput = {

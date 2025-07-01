@@ -131,15 +131,24 @@ model Document {
   updatedAt    DateTime @default(now())
 }
 
+enum CommentTargetType {
+  PROJECT
+  TASK
+  CHECKLIST
+}
+
 model Comment {
-  id        String   @id @default(uuid())
-  content   String
-  task      Task     @relation(fields: [taskId], references: [id])
-  taskId    String
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
+  id         String            @id @default(uuid())
+  content    String
+  targetType CommentTargetType
+  targetId   String
+
+  authorId String?
+  author   User?   @relation(fields: [authorId], references: [id])
+
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  Task      Task?    @relation(fields: [taskId], references: [id])
+  taskId    String?
 }
 
 model User {
