@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/core/prisma/prisma.service';
+import { PrismaService } from '@core/prisma/prisma.service';
+import { ChecklistItem } from '../../domain/entities/checklist-item.entity';
 import { ChecklistItemRepository } from '../../domain/interfaces/checklist-item-repository.interface';
-import { ChecklistItem } from '@modules/project-management/domain/entities/checklist-item.entity';
 
 @Injectable()
 export class PrismaChecklistItemRepository implements ChecklistItemRepository {
@@ -44,7 +44,9 @@ export class PrismaChecklistItemRepository implements ChecklistItemRepository {
         title: item.title,
         isChecked: item.isChecked,
         taskId: item.taskId,
-        checklistId: item.checklistId ?? null,
+        checklistId: item.checklistId,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
       },
     });
     return new ChecklistItem(
@@ -58,12 +60,29 @@ export class PrismaChecklistItemRepository implements ChecklistItemRepository {
     );
   }
 
+  async bulkCreate(items: ChecklistItem[]): Promise<void> {
+    if (!items.length) return;
+    await this.prisma.checklistItem.createMany({
+      data: items.map((item) => ({
+        id: item.id,
+        title: item.title,
+        isChecked: item.isChecked,
+        taskId: item.taskId,
+        checklistId: item.checklistId,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      })),
+      skipDuplicates: true,
+    });
+  }
+
   async update(item: ChecklistItem): Promise<ChecklistItem> {
     const data = await this.prisma.checklistItem.update({
       where: { id: item.id },
       data: {
         title: item.title,
         isChecked: item.isChecked,
+        checklistId: item.checklistId,
       },
     });
     return new ChecklistItem(

@@ -6,4 +6,5 @@ export interface ChecklistItemRepository {
   create(item: ChecklistItem): Promise<ChecklistItem>;
   update(item: ChecklistItem): Promise<ChecklistItem>;
   delete(id: string): Promise<void>;
+  bulkCreate(items: ChecklistItem[]): Promise<void>;
 }
