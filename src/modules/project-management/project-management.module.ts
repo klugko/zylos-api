@@ -29,6 +29,7 @@ import { ProjectStructureGenerator } from './infrastructure/adapters/project-gen
 import { CommentController } from './infrastructure/controllers/comment.controller';
 import { CreateCommentUseCase } from './application/use-cases/create-comment.use-case';
 import { PrismaCommentRepository } from './infrastructure/repositories/prisma-comment.repository';
+import { GetProjectProgressUseCase } from './application/use-cases/get-project-progress.use-case';
 
 @Module({
   imports: [AuthModule],
@@ -60,6 +61,7 @@ import { PrismaCommentRepository } from './infrastructure/repositories/prisma-co
     ProjectStructureGenerator,
     CreateCommentUseCase,
     PrismaCommentRepository,
+    GetProjectProgressUseCase,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,

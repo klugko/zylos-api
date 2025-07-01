@@ -29,6 +29,7 @@ import { GetAllProjectsUseCase } from '../../application/use-cases/get-all-proje
 import { ProjectWithDetails } from '@modules/project-management/domain/entities/project-with-details.entity';
 import { GetAllProjectsWithDetailsUseCase } from '@modules/project-management/application/use-cases/get-all-projects-with-details.use-case';
 import { ProjectRepository } from '@modules/project-management/domain/interfaces/project-repository.interface';
+import { GetProjectProgressUseCase } from '@modules/project-management/application/use-cases/get-project-progress.use-case';
 
 @ApiTags('Projects')
 @Controller('api/v1/projects')
@@ -38,6 +39,7 @@ export class ProjectController {
     private readonly updateProjectUseCase: UpdateProjectUseCase,
     private readonly getAllProjectsUseCase: GetAllProjectsUseCase,
     private readonly getAllProjectsWithDetailsUseCase: GetAllProjectsWithDetailsUseCase,
+    private readonly getProjectProgressUseCase: GetProjectProgressUseCase,
     @Inject('ProjectRepository') 
     private readonly projectRepository: ProjectRepository,
   ) {}
@@ -98,6 +100,12 @@ export class ProjectController {
   async create(@Body() dto: CreateProjectDto): Promise<{ id: string; title: string; description: string | null }> {
     const project = await this.createProjectUseCase.execute(dto);
     return { id: project.id, title: project.name, description: project.description };
+  }
+
+  @Get(':id/progress')
+  @ApiOperation({ summary: 'Récupérer l’avancement du projet (en %)' })
+  async getProgress(@Param('id') id: string) {
+    return this.getProjectProgressUseCase.execute(id);
   }
 
   @Put(':id')

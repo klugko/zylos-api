@@ -9,4 +9,7 @@ export interface TaskRepository {
   update(task: Task): Promise<Task>;
   delete(id: string): Promise<void>;
   exists(taskId: string): Promise<boolean>;
+  countByProject(projectId: string): Promise<number>;
+  countByProjectAndStatus(projectId: string, status: string): Promise<number>;
+
 }

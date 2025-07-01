@@ -144,4 +144,18 @@ export class PrismaTaskRepository implements TaskRepository {
       skipDuplicates: true,
     });
   }
+  
+  async countByProject(projectId: string): Promise<number> {
+    return this.prisma.task.count({ where: { projectId } });
+  }
+  
+  async countByProjectAndStatus(projectId: string, status: string): Promise<number> {
+    return this.prisma.task.count({
+      where: {
+        projectId,
+        status: status as TaskStatus,
+      },
+    });
+  }
+  
 }
