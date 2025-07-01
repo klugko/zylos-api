@@ -19,7 +19,7 @@ COPY . .
 RUN npm run build
 
 # Étape d'exécution finale
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
