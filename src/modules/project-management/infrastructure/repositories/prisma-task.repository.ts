@@ -157,5 +157,98 @@ export class PrismaTaskRepository implements TaskRepository {
       },
     });
   }
+
+  async findByStatusAndEndDateBefore(statuses: TaskStatus[], date: Date): Promise<Task[]> {
+    const data = await this.prisma.task.findMany({
+      where: {
+        status: { in: statuses },
+        endDate: { lt: date },
+      },
+    });
+    return data.map(this.toEntity);
+  }
+
+  async findByStatusAndEndDateBetween(statuses: TaskStatus[], from: Date, to: Date): Promise<Task[]> {
+    const data = await this.prisma.task.findMany({
+      where: {
+        status: { in: statuses },
+        endDate: { gte: from, lte: to },
+      },
+    });
+    return data.map(this.toEntity);
+  }
+
+  async findIdleTasksWithoutStartDate(before: Date): Promise<Task[]> {
+    const data = await this.prisma.task.findMany({
+      where: {
+        startDate: null,
+        status: TaskStatus.TODO,
+        createdAt: { lt: before },
+      },
+    });
+    return data.map(this.toEntity);
+  }
   
+ // ⏰ Tâches en retard
+ async findByUserAndEndDateBefore(userId: string, before: Date): Promise<Task[]> {
+  const records = await this.prisma.task.findMany({
+    where: {
+      assignedUserId: userId,
+      endDate: { lt: before },
+      status: { not: 'DONE' },
+    },
+  });
+
+  return records.map(this.toEntity);
+}
+
+// 📅 Tâches à échéance proche
+  async findByUserAndEndDateBetween(userId: string, start: Date, end: Date): Promise<Task[]> {
+    const records = await this.prisma.task.findMany({
+      where: {
+        assignedUserId: userId,
+        endDate: {
+          gte: start,
+          lte: end,
+        },
+        status: { not: 'DONE' },
+      },
+    });
+
+    return records.map(this.toEntity);
+  }
+
+  // 💤 Tâches sans date de fin et toujours en attente
+  async findUserIdleTasks(userId: string, referenceDate: Date): Promise<Task[]> {
+    const records = await this.prisma.task.findMany({
+      where: {
+        assignedUserId: userId,
+        endDate: null,
+        createdAt: { lt: referenceDate },
+        status: {
+          in: ['TODO', 'IN_PROGRESS'],
+        },
+      },
+    });
+
+    return records.map(this.toEntity);
+  }
+
+  private toEntity(record: any): Task {
+    return new Task(
+      record.id,
+      record.title,
+      record.description ?? null,
+      record.status as TaskStatus,
+      record.priority as TaskPriority,
+      record.projectId,
+      record.createdAt,
+      record.updatedAt,
+      record.startDate,
+      record.endDate,
+      record.dependencies ?? [],
+      record.assignedUserId,
+      record.columnId,
+    );
+  }
 }

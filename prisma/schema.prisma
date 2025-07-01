@@ -204,6 +204,15 @@ model ChecklistTemplate {
   updatedAt      DateTime     @default(now())
 }
 
+model ReminderNotification {
+  id        String   @id @default(uuid())
+  title     String
+  message   String
+  userId    String
+  taskId    String
+  createdAt DateTime @default(now())
+}
+
 enum TaskStatus {
   TODO
   IN_PROGRESS

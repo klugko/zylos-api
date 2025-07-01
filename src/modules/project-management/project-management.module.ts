@@ -32,6 +32,9 @@ import { PrismaCommentRepository } from './infrastructure/repositories/prisma-co
 import { GetProjectProgressUseCase } from './application/use-cases/get-project-progress.use-case';
 import { TrackingGateway } from './infrastructure/websocket/socket-getway';
 import { TrackingService } from './application/use-cases/tracking-progress';
+import { SmartReminderService } from './application/use-cases/smart-reminder';
+import { PrismaReminderNotificationRepository } from './infrastructure/repositories/prisma-reminder-notification.repository';
+import { ReminderController } from './infrastructure/controllers/reminder.controller';
 
 @Module({
   imports: [AuthModule],
@@ -40,7 +43,8 @@ import { TrackingService } from './application/use-cases/tracking-progress';
                                   ChecklistController, 
                                   ProjectTemplateController,
                                   CreateProjectFromPdfController,
-                                  CommentController],
+                                  CommentController,
+                                ReminderController],
   
   providers: [
     PrismaService,
@@ -66,6 +70,8 @@ import { TrackingService } from './application/use-cases/tracking-progress';
     GetProjectProgressUseCase,
     TrackingGateway,
     TrackingService,
+    SmartReminderService,
+    PrismaReminderNotificationRepository,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,
@@ -94,8 +100,10 @@ import { TrackingService } from './application/use-cases/tracking-progress';
       provide: 'CommentRepository',
       useClass: PrismaCommentRepository,
     },
-
-
+    {
+      provide: 'ReminderNotificationRepository',
+      useClass: PrismaReminderNotificationRepository,
+    },
   ],
   
   exports: ['ProjectRepository', 'TaskRepository', 'ChecklistRepository'],

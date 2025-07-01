@@ -258,6 +258,15 @@ exports.Prisma.ChecklistTemplateScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ReminderNotificationScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  message: 'message',
+  userId: 'userId',
+  taskId: 'taskId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -347,7 +356,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   ProjectTemplate: 'ProjectTemplate',
   TaskTemplate: 'TaskTemplate',
-  ChecklistTemplate: 'ChecklistTemplate'
+  ChecklistTemplate: 'ChecklistTemplate',
+  ReminderNotification: 'ReminderNotification'
 };
 
 /**
