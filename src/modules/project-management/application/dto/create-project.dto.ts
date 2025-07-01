@@ -80,4 +80,9 @@ templateId?: string;
 @IsOptional()
 @IsBoolean()
 aiGenerateStructure?: boolean = true;
+
+@ApiProperty({ example: 45.5, required: false, description: 'Progression du projet (0 à 100%)' })
+@IsNumber()
+@IsOptional()
+progress?: number;
 }

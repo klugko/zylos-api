@@ -30,6 +30,8 @@ import { CommentController } from './infrastructure/controllers/comment.controll
 import { CreateCommentUseCase } from './application/use-cases/create-comment.use-case';
 import { PrismaCommentRepository } from './infrastructure/repositories/prisma-comment.repository';
 import { GetProjectProgressUseCase } from './application/use-cases/get-project-progress.use-case';
+import { TrackingGateway } from './infrastructure/websocket/socket-getway';
+import { TrackingService } from './application/use-cases/tracking-progress';
 
 @Module({
   imports: [AuthModule],
@@ -62,6 +64,8 @@ import { GetProjectProgressUseCase } from './application/use-cases/get-project-p
     CreateCommentUseCase,
     PrismaCommentRepository,
     GetProjectProgressUseCase,
+    TrackingGateway,
+    TrackingService,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,
