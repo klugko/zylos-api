@@ -15,6 +15,7 @@ export class PrismaChecklistItemRepository implements ChecklistItemRepository {
       data.title,
       data.isChecked,
       data.taskId,
+      data.checklistId,
       data.createdAt,
       data.updatedAt
     );
@@ -29,6 +30,7 @@ export class PrismaChecklistItemRepository implements ChecklistItemRepository {
           data.title,
           data.isChecked,
           data.taskId,
+          data.checklistId,
           data.createdAt,
           data.updatedAt
         )
@@ -42,6 +44,7 @@ export class PrismaChecklistItemRepository implements ChecklistItemRepository {
         title: item.title,
         isChecked: item.isChecked,
         taskId: item.taskId,
+        checklistId: item.checklistId,
       },
     });
     return new ChecklistItem(
@@ -49,6 +52,7 @@ export class PrismaChecklistItemRepository implements ChecklistItemRepository {
       data.title,
       data.isChecked,
       data.taskId,
+      data.checklistId,
       data.createdAt,
       data.updatedAt
     );
@@ -67,6 +71,7 @@ export class PrismaChecklistItemRepository implements ChecklistItemRepository {
       data.title,
       data.isChecked,
       data.taskId,
+      data.checklistId,
       data.createdAt,
       data.updatedAt
     );

@@ -121,4 +121,27 @@ export class PrismaTaskRepository implements TaskRepository {
     const count = await this.prisma.task.count({ where: { id: taskId } });
     return count > 0;
   }
+
+
+  async bulkCreate(tasks: Task[]): Promise<void> {
+    if (!tasks.length) return;
+    await this.prisma.task.createMany({
+      data: tasks.map(t => ({
+        id: t.id,
+        title: t.title,
+        description: t.description,
+        status: t.status,
+        priority: t.priority,
+        projectId: t.projectId,
+        startDate: t.startDate,
+        endDate: t.endDate,
+        dependencies: t.dependencies,
+        assignedUserId: t.assignedUserId,
+        columnId: t.columnId,
+        createdAt: t.createdAt,
+        updatedAt: t.updatedAt,
+      })),
+      skipDuplicates: true,
+    });
+  }
 }

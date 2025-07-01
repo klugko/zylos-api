@@ -106,6 +106,7 @@ export class CreateProjectFromPdfUseCase {
             c.title,
             false,
             createdTask.id,
+            c.checklistId,
             now,
             now
           );
@@ -130,7 +131,7 @@ export class CreateProjectFromPdfUseCase {
   - Un objet "project" avec : name, description, clientType (SIMPLE / CODEUR), priority (LOW / MEDIUM / HIGH).
   - Un tableau "tasks" contenant :
     - title
-    - description (optionnelle)
+    - description 
     - checklists : tableau avec des objets { title }
 
   ### Cahier des charges :

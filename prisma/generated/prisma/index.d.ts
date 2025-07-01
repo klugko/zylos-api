@@ -2039,11 +2039,13 @@ export namespace Prisma {
   export type TaskCountOutputType = {
     comments: number
     checklistItems: number
+    checklists: number
   }
 
   export type TaskCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | TaskCountOutputTypeCountCommentsArgs
     checklistItems?: boolean | TaskCountOutputTypeCountChecklistItemsArgs
+    checklists?: boolean | TaskCountOutputTypeCountChecklistsArgs
   }
 
   // Custom InputTypes
@@ -2069,6 +2071,13 @@ export namespace Prisma {
    */
   export type TaskCountOutputTypeCountChecklistItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChecklistItemWhereInput
+  }
+
+  /**
+   * TaskCountOutputType without action
+   */
+  export type TaskCountOutputTypeCountChecklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChecklistWhereInput
   }
 
 
@@ -2100,6 +2109,37 @@ export namespace Prisma {
    */
   export type TaskColumnCountOutputTypeCountTasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TaskWhereInput
+  }
+
+
+  /**
+   * Count Type ChecklistCountOutputType
+   */
+
+  export type ChecklistCountOutputType = {
+    items: number
+  }
+
+  export type ChecklistCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    items?: boolean | ChecklistCountOutputTypeCountItemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ChecklistCountOutputType without action
+   */
+  export type ChecklistCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistCountOutputType
+     */
+    select?: ChecklistCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ChecklistCountOutputType without action
+   */
+  export type ChecklistCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChecklistItemWhereInput
   }
 
 
@@ -2281,6 +2321,7 @@ export namespace Prisma {
     status: $Enums.ProjectStatus | null
     priority: $Enums.ProjectPriority | null
     isArchived: boolean | null
+    aiGenerateStructure: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     ownerId: string | null
@@ -2301,6 +2342,7 @@ export namespace Prisma {
     status: $Enums.ProjectStatus | null
     priority: $Enums.ProjectPriority | null
     isArchived: boolean | null
+    aiGenerateStructure: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     ownerId: string | null
@@ -2322,6 +2364,7 @@ export namespace Prisma {
     priority: number
     isArchived: number
     aiSuggestions: number
+    aiGenerateStructure: number
     createdAt: number
     updatedAt: number
     ownerId: number
@@ -2354,6 +2397,7 @@ export namespace Prisma {
     status?: true
     priority?: true
     isArchived?: true
+    aiGenerateStructure?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -2374,6 +2418,7 @@ export namespace Prisma {
     status?: true
     priority?: true
     isArchived?: true
+    aiGenerateStructure?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -2395,6 +2440,7 @@ export namespace Prisma {
     priority?: true
     isArchived?: true
     aiSuggestions?: true
+    aiGenerateStructure?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -2503,6 +2549,7 @@ export namespace Prisma {
     priority: $Enums.ProjectPriority
     isArchived: boolean
     aiSuggestions: JsonValue | null
+    aiGenerateStructure: boolean
     createdAt: Date
     updatedAt: Date
     ownerId: string | null
@@ -2543,6 +2590,7 @@ export namespace Prisma {
     priority?: boolean
     isArchived?: boolean
     aiSuggestions?: boolean
+    aiGenerateStructure?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
@@ -2572,6 +2620,7 @@ export namespace Prisma {
     priority?: boolean
     isArchived?: boolean
     aiSuggestions?: boolean
+    aiGenerateStructure?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
@@ -2595,6 +2644,7 @@ export namespace Prisma {
     priority?: boolean
     isArchived?: boolean
     aiSuggestions?: boolean
+    aiGenerateStructure?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
@@ -2618,13 +2668,14 @@ export namespace Prisma {
     priority?: boolean
     isArchived?: boolean
     aiSuggestions?: boolean
+    aiGenerateStructure?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
     templateId?: boolean
   }
 
-  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "clientType" | "industry" | "color" | "startDate" | "endDate" | "budget" | "progress" | "status" | "priority" | "isArchived" | "aiSuggestions" | "createdAt" | "updatedAt" | "ownerId" | "templateId", ExtArgs["result"]["project"]>
+  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "clientType" | "industry" | "color" | "startDate" | "endDate" | "budget" | "progress" | "status" | "priority" | "isArchived" | "aiSuggestions" | "aiGenerateStructure" | "createdAt" | "updatedAt" | "ownerId" | "templateId", ExtArgs["result"]["project"]>
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | Project$ownerArgs<ExtArgs>
     members?: boolean | Project$membersArgs<ExtArgs>
@@ -2670,6 +2721,7 @@ export namespace Prisma {
       priority: $Enums.ProjectPriority
       isArchived: boolean
       aiSuggestions: Prisma.JsonValue | null
+      aiGenerateStructure: boolean
       createdAt: Date
       updatedAt: Date
       ownerId: string | null
@@ -3118,6 +3170,7 @@ export namespace Prisma {
     readonly priority: FieldRef<"Project", 'ProjectPriority'>
     readonly isArchived: FieldRef<"Project", 'Boolean'>
     readonly aiSuggestions: FieldRef<"Project", 'Json'>
+    readonly aiGenerateStructure: FieldRef<"Project", 'Boolean'>
     readonly createdAt: FieldRef<"Project", 'DateTime'>
     readonly updatedAt: FieldRef<"Project", 'DateTime'>
     readonly ownerId: FieldRef<"Project", 'String'>
@@ -3943,7 +3996,7 @@ export namespace Prisma {
     progress: number
     color: string | null
     estimatedTime: number | null
-    projectId: string
+    projectId: string | null
     columnId: string | null
     assignedUserId: string | null
     dependencies: string[]
@@ -3988,11 +4041,12 @@ export namespace Prisma {
     dependencies?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    project?: boolean | Task$projectArgs<ExtArgs>
     column?: boolean | Task$columnArgs<ExtArgs>
     assignee?: boolean | Task$assigneeArgs<ExtArgs>
     comments?: boolean | Task$commentsArgs<ExtArgs>
     checklistItems?: boolean | Task$checklistItemsArgs<ExtArgs>
+    checklists?: boolean | Task$checklistsArgs<ExtArgs>
     _count?: boolean | TaskCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
 
@@ -4014,7 +4068,7 @@ export namespace Prisma {
     dependencies?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    project?: boolean | Task$projectArgs<ExtArgs>
     column?: boolean | Task$columnArgs<ExtArgs>
     assignee?: boolean | Task$assigneeArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
@@ -4037,7 +4091,7 @@ export namespace Prisma {
     dependencies?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    project?: boolean | Task$projectArgs<ExtArgs>
     column?: boolean | Task$columnArgs<ExtArgs>
     assignee?: boolean | Task$assigneeArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
@@ -4064,20 +4118,21 @@ export namespace Prisma {
 
   export type TaskOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "status" | "priority" | "dueDate" | "startDate" | "endDate" | "progress" | "color" | "estimatedTime" | "projectId" | "columnId" | "assignedUserId" | "dependencies" | "createdAt" | "updatedAt", ExtArgs["result"]["task"]>
   export type TaskInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    project?: boolean | Task$projectArgs<ExtArgs>
     column?: boolean | Task$columnArgs<ExtArgs>
     assignee?: boolean | Task$assigneeArgs<ExtArgs>
     comments?: boolean | Task$commentsArgs<ExtArgs>
     checklistItems?: boolean | Task$checklistItemsArgs<ExtArgs>
+    checklists?: boolean | Task$checklistsArgs<ExtArgs>
     _count?: boolean | TaskCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    project?: boolean | Task$projectArgs<ExtArgs>
     column?: boolean | Task$columnArgs<ExtArgs>
     assignee?: boolean | Task$assigneeArgs<ExtArgs>
   }
   export type TaskIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    project?: boolean | Task$projectArgs<ExtArgs>
     column?: boolean | Task$columnArgs<ExtArgs>
     assignee?: boolean | Task$assigneeArgs<ExtArgs>
   }
@@ -4085,11 +4140,12 @@ export namespace Prisma {
   export type $TaskPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Task"
     objects: {
-      project: Prisma.$ProjectPayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs> | null
       column: Prisma.$TaskColumnPayload<ExtArgs> | null
       assignee: Prisma.$UserPayload<ExtArgs> | null
       comments: Prisma.$CommentPayload<ExtArgs>[]
       checklistItems: Prisma.$ChecklistItemPayload<ExtArgs>[]
+      checklists: Prisma.$ChecklistPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4103,7 +4159,7 @@ export namespace Prisma {
       progress: number
       color: string | null
       estimatedTime: number | null
-      projectId: string
+      projectId: string | null
       columnId: string | null
       assignedUserId: string | null
       dependencies: string[]
@@ -4503,11 +4559,12 @@ export namespace Prisma {
    */
   export interface Prisma__TaskClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    project<T extends Task$projectArgs<ExtArgs> = {}>(args?: Subset<T, Task$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     column<T extends Task$columnArgs<ExtArgs> = {}>(args?: Subset<T, Task$columnArgs<ExtArgs>>): Prisma__TaskColumnClient<$Result.GetResult<Prisma.$TaskColumnPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     assignee<T extends Task$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, Task$assigneeArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     comments<T extends Task$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Task$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     checklistItems<T extends Task$checklistItemsArgs<ExtArgs> = {}>(args?: Subset<T, Task$checklistItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    checklists<T extends Task$checklistsArgs<ExtArgs> = {}>(args?: Subset<T, Task$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4950,6 +5007,25 @@ export namespace Prisma {
   }
 
   /**
+   * Task.project
+   */
+  export type Task$projectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
+  }
+
+  /**
    * Task.column
    */
   export type Task$columnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5033,6 +5109,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChecklistItemScalarFieldEnum | ChecklistItemScalarFieldEnum[]
+  }
+
+  /**
+   * Task.checklists
+   */
+  export type Task$checklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Checklist
+     */
+    select?: ChecklistSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Checklist
+     */
+    omit?: ChecklistOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistInclude<ExtArgs> | null
+    where?: ChecklistWhereInput
+    orderBy?: ChecklistOrderByWithRelationInput | ChecklistOrderByWithRelationInput[]
+    cursor?: ChecklistWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChecklistScalarFieldEnum | ChecklistScalarFieldEnum[]
   }
 
   /**
@@ -6177,6 +6277,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     isCompleted: boolean | null
+    taskId: string | null
     projectId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6186,6 +6287,7 @@ export namespace Prisma {
     id: string | null
     title: string | null
     isCompleted: boolean | null
+    taskId: string | null
     projectId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6195,6 +6297,7 @@ export namespace Prisma {
     id: number
     title: number
     isCompleted: number
+    taskId: number
     projectId: number
     createdAt: number
     updatedAt: number
@@ -6206,6 +6309,7 @@ export namespace Prisma {
     id?: true
     title?: true
     isCompleted?: true
+    taskId?: true
     projectId?: true
     createdAt?: true
     updatedAt?: true
@@ -6215,6 +6319,7 @@ export namespace Prisma {
     id?: true
     title?: true
     isCompleted?: true
+    taskId?: true
     projectId?: true
     createdAt?: true
     updatedAt?: true
@@ -6224,6 +6329,7 @@ export namespace Prisma {
     id?: true
     title?: true
     isCompleted?: true
+    taskId?: true
     projectId?: true
     createdAt?: true
     updatedAt?: true
@@ -6306,6 +6412,7 @@ export namespace Prisma {
     id: string
     title: string
     isCompleted: boolean
+    taskId: string
     projectId: string
     createdAt: Date
     updatedAt: Date
@@ -6332,19 +6439,25 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     isCompleted?: boolean
+    taskId?: boolean
     projectId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    task?: boolean | TaskDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
+    items?: boolean | Checklist$itemsArgs<ExtArgs>
+    _count?: boolean | ChecklistCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["checklist"]>
 
   export type ChecklistSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
     isCompleted?: boolean
+    taskId?: boolean
     projectId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    task?: boolean | TaskDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["checklist"]>
 
@@ -6352,9 +6465,11 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     isCompleted?: boolean
+    taskId?: boolean
     projectId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    task?: boolean | TaskDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["checklist"]>
 
@@ -6362,31 +6477,40 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     isCompleted?: boolean
+    taskId?: boolean
     projectId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ChecklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "isCompleted" | "projectId" | "createdAt" | "updatedAt", ExtArgs["result"]["checklist"]>
+  export type ChecklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "isCompleted" | "taskId" | "projectId" | "createdAt" | "updatedAt", ExtArgs["result"]["checklist"]>
   export type ChecklistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | TaskDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
+    items?: boolean | Checklist$itemsArgs<ExtArgs>
+    _count?: boolean | ChecklistCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChecklistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | TaskDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
   export type ChecklistIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | TaskDefaultArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
 
   export type $ChecklistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Checklist"
     objects: {
+      task: Prisma.$TaskPayload<ExtArgs>
       project: Prisma.$ProjectPayload<ExtArgs>
+      items: Prisma.$ChecklistItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       isCompleted: boolean
+      taskId: string
       projectId: string
       createdAt: Date
       updatedAt: Date
@@ -6784,7 +6908,9 @@ export namespace Prisma {
    */
   export interface Prisma__ChecklistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    items<T extends Checklist$itemsArgs<ExtArgs> = {}>(args?: Subset<T, Checklist$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6817,6 +6943,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Checklist", 'String'>
     readonly title: FieldRef<"Checklist", 'String'>
     readonly isCompleted: FieldRef<"Checklist", 'Boolean'>
+    readonly taskId: FieldRef<"Checklist", 'String'>
     readonly projectId: FieldRef<"Checklist", 'String'>
     readonly createdAt: FieldRef<"Checklist", 'DateTime'>
     readonly updatedAt: FieldRef<"Checklist", 'DateTime'>
@@ -7216,6 +7343,30 @@ export namespace Prisma {
   }
 
   /**
+   * Checklist.items
+   */
+  export type Checklist$itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ChecklistItem
+     */
+    select?: ChecklistItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ChecklistItem
+     */
+    omit?: ChecklistItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChecklistItemInclude<ExtArgs> | null
+    where?: ChecklistItemWhereInput
+    orderBy?: ChecklistItemOrderByWithRelationInput | ChecklistItemOrderByWithRelationInput[]
+    cursor?: ChecklistItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChecklistItemScalarFieldEnum | ChecklistItemScalarFieldEnum[]
+  }
+
+  /**
    * Checklist without action
    */
   export type ChecklistDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7249,6 +7400,7 @@ export namespace Prisma {
     title: string | null
     isChecked: boolean | null
     taskId: string | null
+    checklistId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7258,6 +7410,7 @@ export namespace Prisma {
     title: string | null
     isChecked: boolean | null
     taskId: string | null
+    checklistId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7267,6 +7420,7 @@ export namespace Prisma {
     title: number
     isChecked: number
     taskId: number
+    checklistId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7278,6 +7432,7 @@ export namespace Prisma {
     title?: true
     isChecked?: true
     taskId?: true
+    checklistId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7287,6 +7442,7 @@ export namespace Prisma {
     title?: true
     isChecked?: true
     taskId?: true
+    checklistId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7296,6 +7452,7 @@ export namespace Prisma {
     title?: true
     isChecked?: true
     taskId?: true
+    checklistId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7378,6 +7535,7 @@ export namespace Prisma {
     title: string
     isChecked: boolean
     taskId: string
+    checklistId: string
     createdAt: Date
     updatedAt: Date
     _count: ChecklistItemCountAggregateOutputType | null
@@ -7404,9 +7562,11 @@ export namespace Prisma {
     title?: boolean
     isChecked?: boolean
     taskId?: boolean
+    checklistId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    checklist?: boolean | ChecklistDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["checklistItem"]>
 
   export type ChecklistItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7414,9 +7574,11 @@ export namespace Prisma {
     title?: boolean
     isChecked?: boolean
     taskId?: boolean
+    checklistId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    checklist?: boolean | ChecklistDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["checklistItem"]>
 
   export type ChecklistItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7424,9 +7586,11 @@ export namespace Prisma {
     title?: boolean
     isChecked?: boolean
     taskId?: boolean
+    checklistId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    checklist?: boolean | ChecklistDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["checklistItem"]>
 
   export type ChecklistItemSelectScalar = {
@@ -7434,31 +7598,37 @@ export namespace Prisma {
     title?: boolean
     isChecked?: boolean
     taskId?: boolean
+    checklistId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ChecklistItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "isChecked" | "taskId" | "createdAt" | "updatedAt", ExtArgs["result"]["checklistItem"]>
+  export type ChecklistItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "isChecked" | "taskId" | "checklistId" | "createdAt" | "updatedAt", ExtArgs["result"]["checklistItem"]>
   export type ChecklistItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    checklist?: boolean | ChecklistDefaultArgs<ExtArgs>
   }
   export type ChecklistItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    checklist?: boolean | ChecklistDefaultArgs<ExtArgs>
   }
   export type ChecklistItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    checklist?: boolean | ChecklistDefaultArgs<ExtArgs>
   }
 
   export type $ChecklistItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ChecklistItem"
     objects: {
       task: Prisma.$TaskPayload<ExtArgs>
+      checklist: Prisma.$ChecklistPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       isChecked: boolean
       taskId: string
+      checklistId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["checklistItem"]>
@@ -7856,6 +8026,7 @@ export namespace Prisma {
   export interface Prisma__ChecklistItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    checklist<T extends ChecklistDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChecklistDefaultArgs<ExtArgs>>): Prisma__ChecklistClient<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7889,6 +8060,7 @@ export namespace Prisma {
     readonly title: FieldRef<"ChecklistItem", 'String'>
     readonly isChecked: FieldRef<"ChecklistItem", 'Boolean'>
     readonly taskId: FieldRef<"ChecklistItem", 'String'>
+    readonly checklistId: FieldRef<"ChecklistItem", 'String'>
     readonly createdAt: FieldRef<"ChecklistItem", 'DateTime'>
     readonly updatedAt: FieldRef<"ChecklistItem", 'DateTime'>
   }
@@ -16182,6 +16354,7 @@ export namespace Prisma {
     priority: 'priority',
     isArchived: 'isArchived',
     aiSuggestions: 'aiSuggestions',
+    aiGenerateStructure: 'aiGenerateStructure',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     ownerId: 'ownerId',
@@ -16228,6 +16401,7 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     isCompleted: 'isCompleted',
+    taskId: 'taskId',
     projectId: 'projectId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -16241,6 +16415,7 @@ export namespace Prisma {
     title: 'title',
     isChecked: 'isChecked',
     taskId: 'taskId',
+    checklistId: 'checklistId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -16593,6 +16768,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFilter<"Project"> | $Enums.ProjectPriority
     isArchived?: BoolFilter<"Project"> | boolean
     aiSuggestions?: JsonNullableFilter<"Project">
+    aiGenerateStructure?: BoolFilter<"Project"> | boolean
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     ownerId?: StringNullableFilter<"Project"> | string | null
@@ -16621,6 +16797,7 @@ export namespace Prisma {
     priority?: SortOrder
     isArchived?: SortOrder
     aiSuggestions?: SortOrderInput | SortOrder
+    aiGenerateStructure?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrderInput | SortOrder
@@ -16652,6 +16829,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFilter<"Project"> | $Enums.ProjectPriority
     isArchived?: BoolFilter<"Project"> | boolean
     aiSuggestions?: JsonNullableFilter<"Project">
+    aiGenerateStructure?: BoolFilter<"Project"> | boolean
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     ownerId?: StringNullableFilter<"Project"> | string | null
@@ -16680,6 +16858,7 @@ export namespace Prisma {
     priority?: SortOrder
     isArchived?: SortOrder
     aiSuggestions?: SortOrderInput | SortOrder
+    aiGenerateStructure?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrderInput | SortOrder
@@ -16709,6 +16888,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityWithAggregatesFilter<"Project"> | $Enums.ProjectPriority
     isArchived?: BoolWithAggregatesFilter<"Project"> | boolean
     aiSuggestions?: JsonNullableWithAggregatesFilter<"Project">
+    aiGenerateStructure?: BoolWithAggregatesFilter<"Project"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     ownerId?: StringNullableWithAggregatesFilter<"Project"> | string | null
@@ -16730,17 +16910,18 @@ export namespace Prisma {
     progress?: FloatFilter<"Task"> | number
     color?: StringNullableFilter<"Task"> | string | null
     estimatedTime?: IntNullableFilter<"Task"> | number | null
-    projectId?: StringFilter<"Task"> | string
+    projectId?: StringNullableFilter<"Task"> | string | null
     columnId?: StringNullableFilter<"Task"> | string | null
     assignedUserId?: StringNullableFilter<"Task"> | string | null
     dependencies?: StringNullableListFilter<"Task">
     createdAt?: DateTimeFilter<"Task"> | Date | string
     updatedAt?: DateTimeFilter<"Task"> | Date | string
-    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
     column?: XOR<TaskColumnNullableScalarRelationFilter, TaskColumnWhereInput> | null
     assignee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     comments?: CommentListRelationFilter
     checklistItems?: ChecklistItemListRelationFilter
+    checklists?: ChecklistListRelationFilter
   }
 
   export type TaskOrderByWithRelationInput = {
@@ -16755,7 +16936,7 @@ export namespace Prisma {
     progress?: SortOrder
     color?: SortOrderInput | SortOrder
     estimatedTime?: SortOrderInput | SortOrder
-    projectId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
     columnId?: SortOrderInput | SortOrder
     assignedUserId?: SortOrderInput | SortOrder
     dependencies?: SortOrder
@@ -16766,6 +16947,7 @@ export namespace Prisma {
     assignee?: UserOrderByWithRelationInput
     comments?: CommentOrderByRelationAggregateInput
     checklistItems?: ChecklistItemOrderByRelationAggregateInput
+    checklists?: ChecklistOrderByRelationAggregateInput
   }
 
   export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -16783,17 +16965,18 @@ export namespace Prisma {
     progress?: FloatFilter<"Task"> | number
     color?: StringNullableFilter<"Task"> | string | null
     estimatedTime?: IntNullableFilter<"Task"> | number | null
-    projectId?: StringFilter<"Task"> | string
+    projectId?: StringNullableFilter<"Task"> | string | null
     columnId?: StringNullableFilter<"Task"> | string | null
     assignedUserId?: StringNullableFilter<"Task"> | string | null
     dependencies?: StringNullableListFilter<"Task">
     createdAt?: DateTimeFilter<"Task"> | Date | string
     updatedAt?: DateTimeFilter<"Task"> | Date | string
-    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
     column?: XOR<TaskColumnNullableScalarRelationFilter, TaskColumnWhereInput> | null
     assignee?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     comments?: CommentListRelationFilter
     checklistItems?: ChecklistItemListRelationFilter
+    checklists?: ChecklistListRelationFilter
   }, "id">
 
   export type TaskOrderByWithAggregationInput = {
@@ -16808,7 +16991,7 @@ export namespace Prisma {
     progress?: SortOrder
     color?: SortOrderInput | SortOrder
     estimatedTime?: SortOrderInput | SortOrder
-    projectId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
     columnId?: SortOrderInput | SortOrder
     assignedUserId?: SortOrderInput | SortOrder
     dependencies?: SortOrder
@@ -16836,7 +17019,7 @@ export namespace Prisma {
     progress?: FloatWithAggregatesFilter<"Task"> | number
     color?: StringNullableWithAggregatesFilter<"Task"> | string | null
     estimatedTime?: IntNullableWithAggregatesFilter<"Task"> | number | null
-    projectId?: StringWithAggregatesFilter<"Task"> | string
+    projectId?: StringNullableWithAggregatesFilter<"Task"> | string | null
     columnId?: StringNullableWithAggregatesFilter<"Task"> | string | null
     assignedUserId?: StringNullableWithAggregatesFilter<"Task"> | string | null
     dependencies?: StringNullableListFilter<"Task">
@@ -16906,20 +17089,26 @@ export namespace Prisma {
     id?: StringFilter<"Checklist"> | string
     title?: StringFilter<"Checklist"> | string
     isCompleted?: BoolFilter<"Checklist"> | boolean
+    taskId?: StringFilter<"Checklist"> | string
     projectId?: StringFilter<"Checklist"> | string
     createdAt?: DateTimeFilter<"Checklist"> | Date | string
     updatedAt?: DateTimeFilter<"Checklist"> | Date | string
+    task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    items?: ChecklistItemListRelationFilter
   }
 
   export type ChecklistOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     isCompleted?: SortOrder
+    taskId?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    task?: TaskOrderByWithRelationInput
     project?: ProjectOrderByWithRelationInput
+    items?: ChecklistItemOrderByRelationAggregateInput
   }
 
   export type ChecklistWhereUniqueInput = Prisma.AtLeast<{
@@ -16929,16 +17118,20 @@ export namespace Prisma {
     NOT?: ChecklistWhereInput | ChecklistWhereInput[]
     title?: StringFilter<"Checklist"> | string
     isCompleted?: BoolFilter<"Checklist"> | boolean
+    taskId?: StringFilter<"Checklist"> | string
     projectId?: StringFilter<"Checklist"> | string
     createdAt?: DateTimeFilter<"Checklist"> | Date | string
     updatedAt?: DateTimeFilter<"Checklist"> | Date | string
+    task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    items?: ChecklistItemListRelationFilter
   }, "id">
 
   export type ChecklistOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     isCompleted?: SortOrder
+    taskId?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -16954,6 +17147,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Checklist"> | string
     title?: StringWithAggregatesFilter<"Checklist"> | string
     isCompleted?: BoolWithAggregatesFilter<"Checklist"> | boolean
+    taskId?: StringWithAggregatesFilter<"Checklist"> | string
     projectId?: StringWithAggregatesFilter<"Checklist"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Checklist"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Checklist"> | Date | string
@@ -16967,9 +17161,11 @@ export namespace Prisma {
     title?: StringFilter<"ChecklistItem"> | string
     isChecked?: BoolFilter<"ChecklistItem"> | boolean
     taskId?: StringFilter<"ChecklistItem"> | string
+    checklistId?: StringFilter<"ChecklistItem"> | string
     createdAt?: DateTimeFilter<"ChecklistItem"> | Date | string
     updatedAt?: DateTimeFilter<"ChecklistItem"> | Date | string
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
+    checklist?: XOR<ChecklistScalarRelationFilter, ChecklistWhereInput>
   }
 
   export type ChecklistItemOrderByWithRelationInput = {
@@ -16977,9 +17173,11 @@ export namespace Prisma {
     title?: SortOrder
     isChecked?: SortOrder
     taskId?: SortOrder
+    checklistId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     task?: TaskOrderByWithRelationInput
+    checklist?: ChecklistOrderByWithRelationInput
   }
 
   export type ChecklistItemWhereUniqueInput = Prisma.AtLeast<{
@@ -16990,9 +17188,11 @@ export namespace Prisma {
     title?: StringFilter<"ChecklistItem"> | string
     isChecked?: BoolFilter<"ChecklistItem"> | boolean
     taskId?: StringFilter<"ChecklistItem"> | string
+    checklistId?: StringFilter<"ChecklistItem"> | string
     createdAt?: DateTimeFilter<"ChecklistItem"> | Date | string
     updatedAt?: DateTimeFilter<"ChecklistItem"> | Date | string
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
+    checklist?: XOR<ChecklistScalarRelationFilter, ChecklistWhereInput>
   }, "id">
 
   export type ChecklistItemOrderByWithAggregationInput = {
@@ -17000,6 +17200,7 @@ export namespace Prisma {
     title?: SortOrder
     isChecked?: SortOrder
     taskId?: SortOrder
+    checklistId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ChecklistItemCountOrderByAggregateInput
@@ -17015,6 +17216,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"ChecklistItem"> | string
     isChecked?: BoolWithAggregatesFilter<"ChecklistItem"> | boolean
     taskId?: StringWithAggregatesFilter<"ChecklistItem"> | string
+    checklistId?: StringWithAggregatesFilter<"ChecklistItem"> | string
     createdAt?: DateTimeWithAggregatesFilter<"ChecklistItem"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ChecklistItem"> | Date | string
   }
@@ -17510,6 +17712,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -17536,6 +17739,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -17562,6 +17766,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -17588,6 +17793,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17614,6 +17820,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -17635,6 +17842,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17654,6 +17862,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17675,11 +17884,12 @@ export namespace Prisma {
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    project: ProjectCreateNestedOneWithoutTasksInput
+    project?: ProjectCreateNestedOneWithoutTasksInput
     column?: TaskColumnCreateNestedOneWithoutTasksInput
     assignee?: UserCreateNestedOneWithoutTaskInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateInput = {
@@ -17694,7 +17904,7 @@ export namespace Prisma {
     progress?: number
     color?: string | null
     estimatedTime?: number | null
-    projectId: string
+    projectId?: string | null
     columnId?: string | null
     assignedUserId?: string | null
     dependencies?: TaskCreatedependenciesInput | string[]
@@ -17702,6 +17912,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUpdateInput = {
@@ -17719,11 +17930,12 @@ export namespace Prisma {
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    project?: ProjectUpdateOneRequiredWithoutTasksNestedInput
+    project?: ProjectUpdateOneWithoutTasksNestedInput
     column?: TaskColumnUpdateOneWithoutTasksNestedInput
     assignee?: UserUpdateOneWithoutTaskNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateInput = {
@@ -17738,7 +17950,7 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     color?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
-    projectId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     columnId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     dependencies?: TaskUpdatedependenciesInput | string[]
@@ -17746,6 +17958,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskCreateManyInput = {
@@ -17760,7 +17973,7 @@ export namespace Prisma {
     progress?: number
     color?: string | null
     estimatedTime?: number | null
-    projectId: string
+    projectId?: string | null
     columnId?: string | null
     assignedUserId?: string | null
     dependencies?: TaskCreatedependenciesInput | string[]
@@ -17797,7 +18010,7 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     color?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
-    projectId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     columnId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     dependencies?: TaskUpdatedependenciesInput | string[]
@@ -17863,16 +18076,20 @@ export namespace Prisma {
     isCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    task: TaskCreateNestedOneWithoutChecklistsInput
     project: ProjectCreateNestedOneWithoutChecklistsInput
+    items?: ChecklistItemCreateNestedManyWithoutChecklistInput
   }
 
   export type ChecklistUncheckedCreateInput = {
     id?: string
     title: string
     isCompleted?: boolean
+    taskId: string
     projectId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    items?: ChecklistItemUncheckedCreateNestedManyWithoutChecklistInput
   }
 
   export type ChecklistUpdateInput = {
@@ -17881,22 +18098,27 @@ export namespace Prisma {
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    task?: TaskUpdateOneRequiredWithoutChecklistsNestedInput
     project?: ProjectUpdateOneRequiredWithoutChecklistsNestedInput
+    items?: ChecklistItemUpdateManyWithoutChecklistNestedInput
   }
 
   export type ChecklistUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    taskId?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: ChecklistItemUncheckedUpdateManyWithoutChecklistNestedInput
   }
 
   export type ChecklistCreateManyInput = {
     id?: string
     title: string
     isCompleted?: boolean
+    taskId: string
     projectId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17914,6 +18136,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    taskId?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17926,6 +18149,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     task: TaskCreateNestedOneWithoutChecklistItemsInput
+    checklist: ChecklistCreateNestedOneWithoutItemsInput
   }
 
   export type ChecklistItemUncheckedCreateInput = {
@@ -17933,6 +18157,7 @@ export namespace Prisma {
     title: string
     isChecked?: boolean
     taskId: string
+    checklistId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17944,6 +18169,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     task?: TaskUpdateOneRequiredWithoutChecklistItemsNestedInput
+    checklist?: ChecklistUpdateOneRequiredWithoutItemsNestedInput
   }
 
   export type ChecklistItemUncheckedUpdateInput = {
@@ -17951,6 +18177,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isChecked?: BoolFieldUpdateOperationsInput | boolean
     taskId?: StringFieldUpdateOperationsInput | string
+    checklistId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17960,6 +18187,7 @@ export namespace Prisma {
     title: string
     isChecked?: boolean
     taskId: string
+    checklistId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17977,6 +18205,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     isChecked?: BoolFieldUpdateOperationsInput | boolean
     taskId?: StringFieldUpdateOperationsInput | string
+    checklistId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18684,6 +18913,7 @@ export namespace Prisma {
     priority?: SortOrder
     isArchived?: SortOrder
     aiSuggestions?: SortOrder
+    aiGenerateStructure?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -18709,6 +18939,7 @@ export namespace Prisma {
     status?: SortOrder
     priority?: SortOrder
     isArchived?: SortOrder
+    aiGenerateStructure?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -18729,6 +18960,7 @@ export namespace Prisma {
     status?: SortOrder
     priority?: SortOrder
     isArchived?: SortOrder
+    aiGenerateStructure?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -18933,9 +19165,9 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type ProjectScalarRelationFilter = {
-    is?: ProjectWhereInput
-    isNot?: ProjectWhereInput
+  export type ProjectNullableScalarRelationFilter = {
+    is?: ProjectWhereInput | null
+    isNot?: ProjectWhereInput | null
   }
 
   export type TaskColumnNullableScalarRelationFilter = {
@@ -19078,6 +19310,11 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type ProjectScalarRelationFilter = {
+    is?: ProjectWhereInput
+    isNot?: ProjectWhereInput
+  }
+
   export type TaskColumnCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -19123,10 +19360,16 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type TaskScalarRelationFilter = {
+    is?: TaskWhereInput
+    isNot?: TaskWhereInput
+  }
+
   export type ChecklistCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     isCompleted?: SortOrder
+    taskId?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -19136,6 +19379,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     isCompleted?: SortOrder
+    taskId?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -19145,14 +19389,15 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     isCompleted?: SortOrder
+    taskId?: SortOrder
     projectId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type TaskScalarRelationFilter = {
-    is?: TaskWhereInput
-    isNot?: TaskWhereInput
+  export type ChecklistScalarRelationFilter = {
+    is?: ChecklistWhereInput
+    isNot?: ChecklistWhereInput
   }
 
   export type ChecklistItemCountOrderByAggregateInput = {
@@ -19160,6 +19405,7 @@ export namespace Prisma {
     title?: SortOrder
     isChecked?: SortOrder
     taskId?: SortOrder
+    checklistId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19169,6 +19415,7 @@ export namespace Prisma {
     title?: SortOrder
     isChecked?: SortOrder
     taskId?: SortOrder
+    checklistId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19178,6 +19425,7 @@ export namespace Prisma {
     title?: SortOrder
     isChecked?: SortOrder
     taskId?: SortOrder
+    checklistId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -19807,6 +20055,13 @@ export namespace Prisma {
     connect?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
   }
 
+  export type ChecklistCreateNestedManyWithoutTaskInput = {
+    create?: XOR<ChecklistCreateWithoutTaskInput, ChecklistUncheckedCreateWithoutTaskInput> | ChecklistCreateWithoutTaskInput[] | ChecklistUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: ChecklistCreateOrConnectWithoutTaskInput | ChecklistCreateOrConnectWithoutTaskInput[]
+    createMany?: ChecklistCreateManyTaskInputEnvelope
+    connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+  }
+
   export type CommentUncheckedCreateNestedManyWithoutTaskInput = {
     create?: XOR<CommentCreateWithoutTaskInput, CommentUncheckedCreateWithoutTaskInput> | CommentCreateWithoutTaskInput[] | CommentUncheckedCreateWithoutTaskInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutTaskInput | CommentCreateOrConnectWithoutTaskInput[]
@@ -19819,6 +20074,13 @@ export namespace Prisma {
     connectOrCreate?: ChecklistItemCreateOrConnectWithoutTaskInput | ChecklistItemCreateOrConnectWithoutTaskInput[]
     createMany?: ChecklistItemCreateManyTaskInputEnvelope
     connect?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+  }
+
+  export type ChecklistUncheckedCreateNestedManyWithoutTaskInput = {
+    create?: XOR<ChecklistCreateWithoutTaskInput, ChecklistUncheckedCreateWithoutTaskInput> | ChecklistCreateWithoutTaskInput[] | ChecklistUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: ChecklistCreateOrConnectWithoutTaskInput | ChecklistCreateOrConnectWithoutTaskInput[]
+    createMany?: ChecklistCreateManyTaskInputEnvelope
+    connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
   }
 
   export type EnumTaskStatusFieldUpdateOperationsInput = {
@@ -19842,10 +20104,12 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type ProjectUpdateOneRequiredWithoutTasksNestedInput = {
+  export type ProjectUpdateOneWithoutTasksNestedInput = {
     create?: XOR<ProjectCreateWithoutTasksInput, ProjectUncheckedCreateWithoutTasksInput>
     connectOrCreate?: ProjectCreateOrConnectWithoutTasksInput
     upsert?: ProjectUpsertWithoutTasksInput
+    disconnect?: ProjectWhereInput | boolean
+    delete?: ProjectWhereInput | boolean
     connect?: ProjectWhereUniqueInput
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutTasksInput, ProjectUpdateWithoutTasksInput>, ProjectUncheckedUpdateWithoutTasksInput>
   }
@@ -19898,6 +20162,20 @@ export namespace Prisma {
     deleteMany?: ChecklistItemScalarWhereInput | ChecklistItemScalarWhereInput[]
   }
 
+  export type ChecklistUpdateManyWithoutTaskNestedInput = {
+    create?: XOR<ChecklistCreateWithoutTaskInput, ChecklistUncheckedCreateWithoutTaskInput> | ChecklistCreateWithoutTaskInput[] | ChecklistUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: ChecklistCreateOrConnectWithoutTaskInput | ChecklistCreateOrConnectWithoutTaskInput[]
+    upsert?: ChecklistUpsertWithWhereUniqueWithoutTaskInput | ChecklistUpsertWithWhereUniqueWithoutTaskInput[]
+    createMany?: ChecklistCreateManyTaskInputEnvelope
+    set?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    disconnect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    delete?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    update?: ChecklistUpdateWithWhereUniqueWithoutTaskInput | ChecklistUpdateWithWhereUniqueWithoutTaskInput[]
+    updateMany?: ChecklistUpdateManyWithWhereWithoutTaskInput | ChecklistUpdateManyWithWhereWithoutTaskInput[]
+    deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
+  }
+
   export type CommentUncheckedUpdateManyWithoutTaskNestedInput = {
     create?: XOR<CommentCreateWithoutTaskInput, CommentUncheckedCreateWithoutTaskInput> | CommentCreateWithoutTaskInput[] | CommentUncheckedCreateWithoutTaskInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutTaskInput | CommentCreateOrConnectWithoutTaskInput[]
@@ -19924,6 +20202,20 @@ export namespace Prisma {
     update?: ChecklistItemUpdateWithWhereUniqueWithoutTaskInput | ChecklistItemUpdateWithWhereUniqueWithoutTaskInput[]
     updateMany?: ChecklistItemUpdateManyWithWhereWithoutTaskInput | ChecklistItemUpdateManyWithWhereWithoutTaskInput[]
     deleteMany?: ChecklistItemScalarWhereInput | ChecklistItemScalarWhereInput[]
+  }
+
+  export type ChecklistUncheckedUpdateManyWithoutTaskNestedInput = {
+    create?: XOR<ChecklistCreateWithoutTaskInput, ChecklistUncheckedCreateWithoutTaskInput> | ChecklistCreateWithoutTaskInput[] | ChecklistUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: ChecklistCreateOrConnectWithoutTaskInput | ChecklistCreateOrConnectWithoutTaskInput[]
+    upsert?: ChecklistUpsertWithWhereUniqueWithoutTaskInput | ChecklistUpsertWithWhereUniqueWithoutTaskInput[]
+    createMany?: ChecklistCreateManyTaskInputEnvelope
+    set?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    disconnect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    delete?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+    update?: ChecklistUpdateWithWhereUniqueWithoutTaskInput | ChecklistUpdateWithWhereUniqueWithoutTaskInput[]
+    updateMany?: ChecklistUpdateManyWithWhereWithoutTaskInput | ChecklistUpdateManyWithWhereWithoutTaskInput[]
+    deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
   }
 
   export type ProjectCreateNestedOneWithoutColumnsInput = {
@@ -19990,10 +20282,38 @@ export namespace Prisma {
     deleteMany?: TaskScalarWhereInput | TaskScalarWhereInput[]
   }
 
+  export type TaskCreateNestedOneWithoutChecklistsInput = {
+    create?: XOR<TaskCreateWithoutChecklistsInput, TaskUncheckedCreateWithoutChecklistsInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutChecklistsInput
+    connect?: TaskWhereUniqueInput
+  }
+
   export type ProjectCreateNestedOneWithoutChecklistsInput = {
     create?: XOR<ProjectCreateWithoutChecklistsInput, ProjectUncheckedCreateWithoutChecklistsInput>
     connectOrCreate?: ProjectCreateOrConnectWithoutChecklistsInput
     connect?: ProjectWhereUniqueInput
+  }
+
+  export type ChecklistItemCreateNestedManyWithoutChecklistInput = {
+    create?: XOR<ChecklistItemCreateWithoutChecklistInput, ChecklistItemUncheckedCreateWithoutChecklistInput> | ChecklistItemCreateWithoutChecklistInput[] | ChecklistItemUncheckedCreateWithoutChecklistInput[]
+    connectOrCreate?: ChecklistItemCreateOrConnectWithoutChecklistInput | ChecklistItemCreateOrConnectWithoutChecklistInput[]
+    createMany?: ChecklistItemCreateManyChecklistInputEnvelope
+    connect?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+  }
+
+  export type ChecklistItemUncheckedCreateNestedManyWithoutChecklistInput = {
+    create?: XOR<ChecklistItemCreateWithoutChecklistInput, ChecklistItemUncheckedCreateWithoutChecklistInput> | ChecklistItemCreateWithoutChecklistInput[] | ChecklistItemUncheckedCreateWithoutChecklistInput[]
+    connectOrCreate?: ChecklistItemCreateOrConnectWithoutChecklistInput | ChecklistItemCreateOrConnectWithoutChecklistInput[]
+    createMany?: ChecklistItemCreateManyChecklistInputEnvelope
+    connect?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+  }
+
+  export type TaskUpdateOneRequiredWithoutChecklistsNestedInput = {
+    create?: XOR<TaskCreateWithoutChecklistsInput, TaskUncheckedCreateWithoutChecklistsInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutChecklistsInput
+    upsert?: TaskUpsertWithoutChecklistsInput
+    connect?: TaskWhereUniqueInput
+    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutChecklistsInput, TaskUpdateWithoutChecklistsInput>, TaskUncheckedUpdateWithoutChecklistsInput>
   }
 
   export type ProjectUpdateOneRequiredWithoutChecklistsNestedInput = {
@@ -20004,10 +20324,44 @@ export namespace Prisma {
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutChecklistsInput, ProjectUpdateWithoutChecklistsInput>, ProjectUncheckedUpdateWithoutChecklistsInput>
   }
 
+  export type ChecklistItemUpdateManyWithoutChecklistNestedInput = {
+    create?: XOR<ChecklistItemCreateWithoutChecklistInput, ChecklistItemUncheckedCreateWithoutChecklistInput> | ChecklistItemCreateWithoutChecklistInput[] | ChecklistItemUncheckedCreateWithoutChecklistInput[]
+    connectOrCreate?: ChecklistItemCreateOrConnectWithoutChecklistInput | ChecklistItemCreateOrConnectWithoutChecklistInput[]
+    upsert?: ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput | ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput[]
+    createMany?: ChecklistItemCreateManyChecklistInputEnvelope
+    set?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+    disconnect?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+    delete?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+    connect?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+    update?: ChecklistItemUpdateWithWhereUniqueWithoutChecklistInput | ChecklistItemUpdateWithWhereUniqueWithoutChecklistInput[]
+    updateMany?: ChecklistItemUpdateManyWithWhereWithoutChecklistInput | ChecklistItemUpdateManyWithWhereWithoutChecklistInput[]
+    deleteMany?: ChecklistItemScalarWhereInput | ChecklistItemScalarWhereInput[]
+  }
+
+  export type ChecklistItemUncheckedUpdateManyWithoutChecklistNestedInput = {
+    create?: XOR<ChecklistItemCreateWithoutChecklistInput, ChecklistItemUncheckedCreateWithoutChecklistInput> | ChecklistItemCreateWithoutChecklistInput[] | ChecklistItemUncheckedCreateWithoutChecklistInput[]
+    connectOrCreate?: ChecklistItemCreateOrConnectWithoutChecklistInput | ChecklistItemCreateOrConnectWithoutChecklistInput[]
+    upsert?: ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput | ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput[]
+    createMany?: ChecklistItemCreateManyChecklistInputEnvelope
+    set?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+    disconnect?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+    delete?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+    connect?: ChecklistItemWhereUniqueInput | ChecklistItemWhereUniqueInput[]
+    update?: ChecklistItemUpdateWithWhereUniqueWithoutChecklistInput | ChecklistItemUpdateWithWhereUniqueWithoutChecklistInput[]
+    updateMany?: ChecklistItemUpdateManyWithWhereWithoutChecklistInput | ChecklistItemUpdateManyWithWhereWithoutChecklistInput[]
+    deleteMany?: ChecklistItemScalarWhereInput | ChecklistItemScalarWhereInput[]
+  }
+
   export type TaskCreateNestedOneWithoutChecklistItemsInput = {
     create?: XOR<TaskCreateWithoutChecklistItemsInput, TaskUncheckedCreateWithoutChecklistItemsInput>
     connectOrCreate?: TaskCreateOrConnectWithoutChecklistItemsInput
     connect?: TaskWhereUniqueInput
+  }
+
+  export type ChecklistCreateNestedOneWithoutItemsInput = {
+    create?: XOR<ChecklistCreateWithoutItemsInput, ChecklistUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: ChecklistCreateOrConnectWithoutItemsInput
+    connect?: ChecklistWhereUniqueInput
   }
 
   export type TaskUpdateOneRequiredWithoutChecklistItemsNestedInput = {
@@ -20016,6 +20370,14 @@ export namespace Prisma {
     upsert?: TaskUpsertWithoutChecklistItemsInput
     connect?: TaskWhereUniqueInput
     update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutChecklistItemsInput, TaskUpdateWithoutChecklistItemsInput>, TaskUncheckedUpdateWithoutChecklistItemsInput>
+  }
+
+  export type ChecklistUpdateOneRequiredWithoutItemsNestedInput = {
+    create?: XOR<ChecklistCreateWithoutItemsInput, ChecklistUncheckedCreateWithoutItemsInput>
+    connectOrCreate?: ChecklistCreateOrConnectWithoutItemsInput
+    upsert?: ChecklistUpsertWithoutItemsInput
+    connect?: ChecklistWhereUniqueInput
+    update?: XOR<XOR<ChecklistUpdateToOneWithWhereWithoutItemsInput, ChecklistUpdateWithoutItemsInput>, ChecklistUncheckedUpdateWithoutItemsInput>
   }
 
   export type ProjectCreateNestedOneWithoutMembersInput = {
@@ -20953,6 +21315,7 @@ export namespace Prisma {
     assignee?: UserCreateNestedOneWithoutTaskInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutProjectInput = {
@@ -20974,6 +21337,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutProjectInput = {
@@ -20992,14 +21356,18 @@ export namespace Prisma {
     isCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    task: TaskCreateNestedOneWithoutChecklistsInput
+    items?: ChecklistItemCreateNestedManyWithoutChecklistInput
   }
 
   export type ChecklistUncheckedCreateWithoutProjectInput = {
     id?: string
     title: string
     isCompleted?: boolean
+    taskId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    items?: ChecklistItemUncheckedCreateNestedManyWithoutChecklistInput
   }
 
   export type ChecklistCreateOrConnectWithoutProjectInput = {
@@ -21195,7 +21563,7 @@ export namespace Prisma {
     progress?: FloatFilter<"Task"> | number
     color?: StringNullableFilter<"Task"> | string | null
     estimatedTime?: IntNullableFilter<"Task"> | number | null
-    projectId?: StringFilter<"Task"> | string
+    projectId?: StringNullableFilter<"Task"> | string | null
     columnId?: StringNullableFilter<"Task"> | string | null
     assignedUserId?: StringNullableFilter<"Task"> | string | null
     dependencies?: StringNullableListFilter<"Task">
@@ -21226,6 +21594,7 @@ export namespace Prisma {
     id?: StringFilter<"Checklist"> | string
     title?: StringFilter<"Checklist"> | string
     isCompleted?: BoolFilter<"Checklist"> | boolean
+    taskId?: StringFilter<"Checklist"> | string
     projectId?: StringFilter<"Checklist"> | string
     createdAt?: DateTimeFilter<"Checklist"> | Date | string
     updatedAt?: DateTimeFilter<"Checklist"> | Date | string
@@ -21331,6 +21700,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -21356,6 +21726,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -21465,12 +21836,14 @@ export namespace Prisma {
     isChecked?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    checklist: ChecklistCreateNestedOneWithoutItemsInput
   }
 
   export type ChecklistItemUncheckedCreateWithoutTaskInput = {
     id?: string
     title: string
     isChecked?: boolean
+    checklistId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21482,6 +21855,36 @@ export namespace Prisma {
 
   export type ChecklistItemCreateManyTaskInputEnvelope = {
     data: ChecklistItemCreateManyTaskInput | ChecklistItemCreateManyTaskInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ChecklistCreateWithoutTaskInput = {
+    id?: string
+    title: string
+    isCompleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutChecklistsInput
+    items?: ChecklistItemCreateNestedManyWithoutChecklistInput
+  }
+
+  export type ChecklistUncheckedCreateWithoutTaskInput = {
+    id?: string
+    title: string
+    isCompleted?: boolean
+    projectId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    items?: ChecklistItemUncheckedCreateNestedManyWithoutChecklistInput
+  }
+
+  export type ChecklistCreateOrConnectWithoutTaskInput = {
+    where: ChecklistWhereUniqueInput
+    create: XOR<ChecklistCreateWithoutTaskInput, ChecklistUncheckedCreateWithoutTaskInput>
+  }
+
+  export type ChecklistCreateManyTaskInputEnvelope = {
+    data: ChecklistCreateManyTaskInput | ChecklistCreateManyTaskInput[]
     skipDuplicates?: boolean
   }
 
@@ -21511,6 +21914,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -21536,6 +21940,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21672,8 +22077,25 @@ export namespace Prisma {
     title?: StringFilter<"ChecklistItem"> | string
     isChecked?: BoolFilter<"ChecklistItem"> | boolean
     taskId?: StringFilter<"ChecklistItem"> | string
+    checklistId?: StringFilter<"ChecklistItem"> | string
     createdAt?: DateTimeFilter<"ChecklistItem"> | Date | string
     updatedAt?: DateTimeFilter<"ChecklistItem"> | Date | string
+  }
+
+  export type ChecklistUpsertWithWhereUniqueWithoutTaskInput = {
+    where: ChecklistWhereUniqueInput
+    update: XOR<ChecklistUpdateWithoutTaskInput, ChecklistUncheckedUpdateWithoutTaskInput>
+    create: XOR<ChecklistCreateWithoutTaskInput, ChecklistUncheckedCreateWithoutTaskInput>
+  }
+
+  export type ChecklistUpdateWithWhereUniqueWithoutTaskInput = {
+    where: ChecklistWhereUniqueInput
+    data: XOR<ChecklistUpdateWithoutTaskInput, ChecklistUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type ChecklistUpdateManyWithWhereWithoutTaskInput = {
+    where: ChecklistScalarWhereInput
+    data: XOR<ChecklistUpdateManyMutationInput, ChecklistUncheckedUpdateManyWithoutTaskInput>
   }
 
   export type ProjectCreateWithoutColumnsInput = {
@@ -21691,6 +22113,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -21716,6 +22139,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -21746,10 +22170,11 @@ export namespace Prisma {
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    project: ProjectCreateNestedOneWithoutTasksInput
+    project?: ProjectCreateNestedOneWithoutTasksInput
     assignee?: UserCreateNestedOneWithoutTaskInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutColumnInput = {
@@ -21764,13 +22189,14 @@ export namespace Prisma {
     progress?: number
     color?: string | null
     estimatedTime?: number | null
-    projectId: string
+    projectId?: string | null
     assignedUserId?: string | null
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutColumnInput = {
@@ -21809,6 +22235,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -21834,6 +22261,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21860,6 +22288,55 @@ export namespace Prisma {
     data: XOR<TaskUpdateManyMutationInput, TaskUncheckedUpdateManyWithoutColumnInput>
   }
 
+  export type TaskCreateWithoutChecklistsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TaskStatus
+    priority?: $Enums.TaskPriority
+    dueDate?: Date | string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    progress?: number
+    color?: string | null
+    estimatedTime?: number | null
+    dependencies?: TaskCreatedependenciesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutTasksInput
+    column?: TaskColumnCreateNestedOneWithoutTasksInput
+    assignee?: UserCreateNestedOneWithoutTaskInput
+    comments?: CommentCreateNestedManyWithoutTaskInput
+    checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
+  }
+
+  export type TaskUncheckedCreateWithoutChecklistsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TaskStatus
+    priority?: $Enums.TaskPriority
+    dueDate?: Date | string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    progress?: number
+    color?: string | null
+    estimatedTime?: number | null
+    projectId?: string | null
+    columnId?: string | null
+    assignedUserId?: string | null
+    dependencies?: TaskCreatedependenciesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
+    checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type TaskCreateOrConnectWithoutChecklistsInput = {
+    where: TaskWhereUniqueInput
+    create: XOR<TaskCreateWithoutChecklistsInput, TaskUncheckedCreateWithoutChecklistsInput>
+  }
+
   export type ProjectCreateWithoutChecklistsInput = {
     id?: string
     name: string
@@ -21875,6 +22352,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -21900,6 +22378,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -21913,6 +22392,89 @@ export namespace Prisma {
   export type ProjectCreateOrConnectWithoutChecklistsInput = {
     where: ProjectWhereUniqueInput
     create: XOR<ProjectCreateWithoutChecklistsInput, ProjectUncheckedCreateWithoutChecklistsInput>
+  }
+
+  export type ChecklistItemCreateWithoutChecklistInput = {
+    id?: string
+    title: string
+    isChecked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    task: TaskCreateNestedOneWithoutChecklistItemsInput
+  }
+
+  export type ChecklistItemUncheckedCreateWithoutChecklistInput = {
+    id?: string
+    title: string
+    isChecked?: boolean
+    taskId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistItemCreateOrConnectWithoutChecklistInput = {
+    where: ChecklistItemWhereUniqueInput
+    create: XOR<ChecklistItemCreateWithoutChecklistInput, ChecklistItemUncheckedCreateWithoutChecklistInput>
+  }
+
+  export type ChecklistItemCreateManyChecklistInputEnvelope = {
+    data: ChecklistItemCreateManyChecklistInput | ChecklistItemCreateManyChecklistInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TaskUpsertWithoutChecklistsInput = {
+    update: XOR<TaskUpdateWithoutChecklistsInput, TaskUncheckedUpdateWithoutChecklistsInput>
+    create: XOR<TaskCreateWithoutChecklistsInput, TaskUncheckedCreateWithoutChecklistsInput>
+    where?: TaskWhereInput
+  }
+
+  export type TaskUpdateToOneWithWhereWithoutChecklistsInput = {
+    where?: TaskWhereInput
+    data: XOR<TaskUpdateWithoutChecklistsInput, TaskUncheckedUpdateWithoutChecklistsInput>
+  }
+
+  export type TaskUpdateWithoutChecklistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFieldUpdateOperationsInput | $Enums.TaskPriority
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
+    dependencies?: TaskUpdatedependenciesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutTasksNestedInput
+    column?: TaskColumnUpdateOneWithoutTasksNestedInput
+    assignee?: UserUpdateOneWithoutTaskNestedInput
+    comments?: CommentUpdateManyWithoutTaskNestedInput
+    checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
+  }
+
+  export type TaskUncheckedUpdateWithoutChecklistsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFieldUpdateOperationsInput | $Enums.TaskPriority
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    columnId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    dependencies?: TaskUpdatedependenciesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
+    checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type ProjectUpsertWithoutChecklistsInput = {
@@ -21941,6 +22503,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -21966,6 +22529,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21974,6 +22538,22 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput = {
+    where: ChecklistItemWhereUniqueInput
+    update: XOR<ChecklistItemUpdateWithoutChecklistInput, ChecklistItemUncheckedUpdateWithoutChecklistInput>
+    create: XOR<ChecklistItemCreateWithoutChecklistInput, ChecklistItemUncheckedCreateWithoutChecklistInput>
+  }
+
+  export type ChecklistItemUpdateWithWhereUniqueWithoutChecklistInput = {
+    where: ChecklistItemWhereUniqueInput
+    data: XOR<ChecklistItemUpdateWithoutChecklistInput, ChecklistItemUncheckedUpdateWithoutChecklistInput>
+  }
+
+  export type ChecklistItemUpdateManyWithWhereWithoutChecklistInput = {
+    where: ChecklistItemScalarWhereInput
+    data: XOR<ChecklistItemUpdateManyMutationInput, ChecklistItemUncheckedUpdateManyWithoutChecklistInput>
   }
 
   export type TaskCreateWithoutChecklistItemsInput = {
@@ -21991,10 +22571,11 @@ export namespace Prisma {
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    project: ProjectCreateNestedOneWithoutTasksInput
+    project?: ProjectCreateNestedOneWithoutTasksInput
     column?: TaskColumnCreateNestedOneWithoutTasksInput
     assignee?: UserCreateNestedOneWithoutTaskInput
     comments?: CommentCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutChecklistItemsInput = {
@@ -22009,18 +22590,44 @@ export namespace Prisma {
     progress?: number
     color?: string | null
     estimatedTime?: number | null
-    projectId: string
+    projectId?: string | null
     columnId?: string | null
     assignedUserId?: string | null
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutChecklistItemsInput = {
     where: TaskWhereUniqueInput
     create: XOR<TaskCreateWithoutChecklistItemsInput, TaskUncheckedCreateWithoutChecklistItemsInput>
+  }
+
+  export type ChecklistCreateWithoutItemsInput = {
+    id?: string
+    title: string
+    isCompleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    task: TaskCreateNestedOneWithoutChecklistsInput
+    project: ProjectCreateNestedOneWithoutChecklistsInput
+  }
+
+  export type ChecklistUncheckedCreateWithoutItemsInput = {
+    id?: string
+    title: string
+    isCompleted?: boolean
+    taskId: string
+    projectId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistCreateOrConnectWithoutItemsInput = {
+    where: ChecklistWhereUniqueInput
+    create: XOR<ChecklistCreateWithoutItemsInput, ChecklistUncheckedCreateWithoutItemsInput>
   }
 
   export type TaskUpsertWithoutChecklistItemsInput = {
@@ -22049,10 +22656,11 @@ export namespace Prisma {
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    project?: ProjectUpdateOneRequiredWithoutTasksNestedInput
+    project?: ProjectUpdateOneWithoutTasksNestedInput
     column?: TaskColumnUpdateOneWithoutTasksNestedInput
     assignee?: UserUpdateOneWithoutTaskNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutChecklistItemsInput = {
@@ -22067,13 +22675,45 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     color?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
-    projectId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     columnId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type ChecklistUpsertWithoutItemsInput = {
+    update: XOR<ChecklistUpdateWithoutItemsInput, ChecklistUncheckedUpdateWithoutItemsInput>
+    create: XOR<ChecklistCreateWithoutItemsInput, ChecklistUncheckedCreateWithoutItemsInput>
+    where?: ChecklistWhereInput
+  }
+
+  export type ChecklistUpdateToOneWithWhereWithoutItemsInput = {
+    where?: ChecklistWhereInput
+    data: XOR<ChecklistUpdateWithoutItemsInput, ChecklistUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type ChecklistUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    task?: TaskUpdateOneRequiredWithoutChecklistsNestedInput
+    project?: ProjectUpdateOneRequiredWithoutChecklistsNestedInput
+  }
+
+  export type ChecklistUncheckedUpdateWithoutItemsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    taskId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProjectCreateWithoutMembersInput = {
@@ -22091,6 +22731,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -22116,6 +22757,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -22200,6 +22842,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -22225,6 +22868,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22342,6 +22986,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -22367,6 +23012,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -22457,6 +23103,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -22482,6 +23129,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22507,10 +23155,11 @@ export namespace Prisma {
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    project: ProjectCreateNestedOneWithoutTasksInput
+    project?: ProjectCreateNestedOneWithoutTasksInput
     column?: TaskColumnCreateNestedOneWithoutTasksInput
     assignee?: UserCreateNestedOneWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutCommentsInput = {
@@ -22525,13 +23174,14 @@ export namespace Prisma {
     progress?: number
     color?: string | null
     estimatedTime?: number | null
-    projectId: string
+    projectId?: string | null
     columnId?: string | null
     assignedUserId?: string | null
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutCommentsInput = {
@@ -22608,10 +23258,11 @@ export namespace Prisma {
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    project?: ProjectUpdateOneRequiredWithoutTasksNestedInput
+    project?: ProjectUpdateOneWithoutTasksNestedInput
     column?: TaskColumnUpdateOneWithoutTasksNestedInput
     assignee?: UserUpdateOneWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutCommentsInput = {
@@ -22626,13 +23277,14 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     color?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
-    projectId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     columnId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type UserUpsertWithoutCommentsInput = {
@@ -22699,6 +23351,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: ProjectMemberCreateNestedManyWithoutProjectInput
@@ -22724,6 +23377,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     templateId?: string | null
@@ -22815,10 +23469,11 @@ export namespace Prisma {
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    project: ProjectCreateNestedOneWithoutTasksInput
+    project?: ProjectCreateNestedOneWithoutTasksInput
     column?: TaskColumnCreateNestedOneWithoutTasksInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutAssigneeInput = {
@@ -22833,13 +23488,14 @@ export namespace Prisma {
     progress?: number
     color?: string | null
     estimatedTime?: number | null
-    projectId: string
+    projectId?: string | null
     columnId?: string | null
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutAssigneeInput = {
@@ -22908,6 +23564,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFilter<"Project"> | $Enums.ProjectPriority
     isArchived?: BoolFilter<"Project"> | boolean
     aiSuggestions?: JsonNullableFilter<"Project">
+    aiGenerateStructure?: BoolFilter<"Project"> | boolean
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     ownerId?: StringNullableFilter<"Project"> | string | null
@@ -22993,6 +23650,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -23018,6 +23676,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -23301,6 +23960,7 @@ export namespace Prisma {
     id?: string
     title: string
     isCompleted?: boolean
+    taskId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23358,6 +24018,7 @@ export namespace Prisma {
     assignee?: UserUpdateOneWithoutTaskNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutProjectInput = {
@@ -23379,6 +24040,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutProjectInput = {
@@ -23406,20 +24068,25 @@ export namespace Prisma {
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    task?: TaskUpdateOneRequiredWithoutChecklistsNestedInput
+    items?: ChecklistItemUpdateManyWithoutChecklistNestedInput
   }
 
   export type ChecklistUncheckedUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    taskId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: ChecklistItemUncheckedUpdateManyWithoutChecklistNestedInput
   }
 
   export type ChecklistUncheckedUpdateManyWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    taskId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23486,6 +24153,16 @@ export namespace Prisma {
     id?: string
     title: string
     isChecked?: boolean
+    checklistId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistCreateManyTaskInput = {
+    id?: string
+    title: string
+    isCompleted?: boolean
+    projectId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23520,12 +24197,14 @@ export namespace Prisma {
     isChecked?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    checklist?: ChecklistUpdateOneRequiredWithoutItemsNestedInput
   }
 
   export type ChecklistItemUncheckedUpdateWithoutTaskInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     isChecked?: BoolFieldUpdateOperationsInput | boolean
+    checklistId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23534,6 +24213,36 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     isChecked?: BoolFieldUpdateOperationsInput | boolean
+    checklistId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutChecklistsNestedInput
+    items?: ChecklistItemUpdateManyWithoutChecklistNestedInput
+  }
+
+  export type ChecklistUncheckedUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    projectId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    items?: ChecklistItemUncheckedUpdateManyWithoutChecklistNestedInput
+  }
+
+  export type ChecklistUncheckedUpdateManyWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isCompleted?: BoolFieldUpdateOperationsInput | boolean
+    projectId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23550,7 +24259,7 @@ export namespace Prisma {
     progress?: number
     color?: string | null
     estimatedTime?: number | null
-    projectId: string
+    projectId?: string | null
     assignedUserId?: string | null
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
@@ -23572,10 +24281,11 @@ export namespace Prisma {
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    project?: ProjectUpdateOneRequiredWithoutTasksNestedInput
+    project?: ProjectUpdateOneWithoutTasksNestedInput
     assignee?: UserUpdateOneWithoutTaskNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutColumnInput = {
@@ -23590,13 +24300,14 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     color?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
-    projectId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutColumnInput = {
@@ -23611,9 +24322,45 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     color?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
-    projectId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     dependencies?: TaskUpdatedependenciesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistItemCreateManyChecklistInput = {
+    id?: string
+    title: string
+    isChecked?: boolean
+    taskId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChecklistItemUpdateWithoutChecklistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    task?: TaskUpdateOneRequiredWithoutChecklistItemsNestedInput
+  }
+
+  export type ChecklistItemUncheckedUpdateWithoutChecklistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    taskId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChecklistItemUncheckedUpdateManyWithoutChecklistInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    isChecked?: BoolFieldUpdateOperationsInput | boolean
+    taskId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23633,6 +24380,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     templateId?: string | null
@@ -23668,7 +24416,7 @@ export namespace Prisma {
     progress?: number
     color?: string | null
     estimatedTime?: number | null
-    projectId: string
+    projectId?: string | null
     columnId?: string | null
     dependencies?: TaskCreatedependenciesInput | string[]
     createdAt?: Date | string
@@ -23696,6 +24444,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: ProjectMemberUpdateManyWithoutProjectNestedInput
@@ -23721,6 +24470,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     templateId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23746,6 +24496,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     templateId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23820,10 +24571,11 @@ export namespace Prisma {
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    project?: ProjectUpdateOneRequiredWithoutTasksNestedInput
+    project?: ProjectUpdateOneWithoutTasksNestedInput
     column?: TaskColumnUpdateOneWithoutTasksNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutAssigneeInput = {
@@ -23838,13 +24590,14 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     color?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
-    projectId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     columnId?: NullableStringFieldUpdateOperationsInput | string | null
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutAssigneeInput = {
@@ -23859,7 +24612,7 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     color?: NullableStringFieldUpdateOperationsInput | string | null
     estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
-    projectId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
     columnId?: NullableStringFieldUpdateOperationsInput | string | null
     dependencies?: TaskUpdatedependenciesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23899,6 +24652,7 @@ export namespace Prisma {
     priority?: $Enums.ProjectPriority
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -23928,6 +24682,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -23953,6 +24708,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23978,6 +24734,7 @@ export namespace Prisma {
     priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null

@@ -4,6 +4,7 @@ export class ChecklistItem {
       public title: string,
       public isChecked: boolean,
       public readonly taskId: string,
+      public readonly checklistId: string,
       public readonly createdAt: Date,
       public readonly updatedAt: Date
     ) {}

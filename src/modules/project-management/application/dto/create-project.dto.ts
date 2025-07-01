@@ -1,13 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsOptional, IsString, IsNumber, MaxLength, IsBoolean, IsPositive } from 'class-validator';
 import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
 
 
 export class CreateProjectDto {
-@ApiProperty({ example: 'd9a0f1d2-2352-4a9e-86ff-fc78b3ebfc6c', required: true })
+@ApiProperty({ example: 'd9a0f1d2-2352-4a9e-86ff-fc78b3ebfc6c', required: false })
 @IsString()
+@IsOptional()
 @MaxLength(36)
-id: string;
+id?: string;
 
 @ApiProperty({ example: 'Refonte du site web' })
 @IsString()
@@ -74,4 +75,9 @@ ownerId?: string;
 @MaxLength(36)
 @IsOptional()
 templateId?: string;
+
+@ApiPropertyOptional({ default: true })
+@IsOptional()
+@IsBoolean()
+aiGenerateStructure?: boolean = true;
 }

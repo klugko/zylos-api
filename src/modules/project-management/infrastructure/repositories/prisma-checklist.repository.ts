@@ -40,6 +40,7 @@ export class PrismaChecklistRepository implements ChecklistRepository {
     const data = await this.prisma.checklist.create({
       data: {
         title: checklist.title,
+        taskId: checklist.taskId,
         projectId: checklist.projectId,
         isCompleted: checklist.isCompleted,
       },
@@ -74,5 +75,21 @@ export class PrismaChecklistRepository implements ChecklistRepository {
 
   async delete(id: string): Promise<void> {
     await this.prisma.checklist.delete({ where: { id } });
+  }
+
+  async bulkCreate(items: Checklist[]): Promise<void> {
+    if (!items.length) return;
+    await this.prisma.checklist.createMany({
+      data: items.map(c => ({
+        id: c.id,
+        title: c.title,
+        isCompleted: c.isCompleted,
+        taskId: c.taskId,
+        projectId: c.projectId,
+        createdAt: c.createdAt,
+        updatedAt: c.updatedAt,
+      })),
+      skipDuplicates: true,
+    });
   }
 }

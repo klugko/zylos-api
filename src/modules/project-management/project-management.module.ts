@@ -25,7 +25,7 @@ import { CreateProjectFromPdfUseCase } from './application/use-cases/create-proj
 import { GetAllProjectsWithDetailsUseCase } from './application/use-cases/get-all-projects-with-details.use-case';
 import { CreateProjectFromPdfController } from './infrastructure/controllers/create-project-from-pdf.controller';
 import { PrismaChecklistItemRepository } from './infrastructure/repositories/prisma-checklist-item.repository';
-
+import { ProjectStructureGenerator } from './infrastructure/adapters/project-generator';
 
 @Module({
   imports: [AuthModule],
@@ -53,6 +53,7 @@ import { PrismaChecklistItemRepository } from './infrastructure/repositories/pri
     OpenAIService,
     CreateProjectFromPdfUseCase,
     GetAllProjectsWithDetailsUseCase,
+    ProjectStructureGenerator,
 
     {
       provide: 'ProjectRepository',

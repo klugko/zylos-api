@@ -135,6 +135,7 @@ exports.Prisma.ProjectScalarFieldEnum = {
   priority: 'priority',
   isArchived: 'isArchived',
   aiSuggestions: 'aiSuggestions',
+  aiGenerateStructure: 'aiGenerateStructure',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   ownerId: 'ownerId',
@@ -172,6 +173,7 @@ exports.Prisma.ChecklistScalarFieldEnum = {
   id: 'id',
   title: 'title',
   isCompleted: 'isCompleted',
+  taskId: 'taskId',
   projectId: 'projectId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -182,6 +184,7 @@ exports.Prisma.ChecklistItemScalarFieldEnum = {
   title: 'title',
   isChecked: 'isChecked',
   taskId: 'taskId',
+  checklistId: 'checklistId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
