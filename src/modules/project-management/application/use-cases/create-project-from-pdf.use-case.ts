@@ -1,70 +1,82 @@
-import { Injectable, InternalServerErrorException, Logger, Inject } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import * as fs from 'fs/promises';
 import * as pdfParse from 'pdf-parse';
+import { v4 as uuid } from 'uuid';
+import { z } from 'zod';
+
+import { PrismaService } from '@core/prisma/prisma.service';
 import { OpenAIService } from '../../infrastructure/adapters/openapi.service';
-import { ProjectRepository } from '../../domain/interfaces/project-repository.interface';
-import { TaskRepository } from '../../domain/interfaces/task-repository.interface';
-
-import { Project } from '../../domain/entities/project.entity';
 import { Task } from '../../domain/entities/task.entity';
+import { Checklist } from '../../domain/entities/checklist.entity';
+import { Project } from '../../domain/entities/project.entity';
+import {
+  ProjectClientType,
+  ProjectPriority,
+  ProjectStatus,
+} from '../../domain/enums/project.enums';
+import {
+  TaskPriority,
+  TaskStatus,
+} from '../../domain/enums/task.enums';
 
-import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
-import { TaskPriority, TaskStatus } from '../../domain/enums/task.enums';
+/*────────── ZOD – Format IA strict ──────────*/
+const checklistSchema = z.string().min(1);
 
-import { v4 as uuidv4 } from 'uuid';
-import { ChecklistItemRepository } from '@modules/project-management/domain/interfaces/checklist-item-repository.interface';
-import { ChecklistItem } from '@modules/project-management/domain/entities/checklist-item.entity';
+const taskSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+  status: z.enum(['TODO', 'IN_PROGRESS', 'DONE', 'CANCELLED']),
+  priority: z.enum(['LOW', 'MEDIUM', 'HIGH', 'URGENT']),
+  estimatedTime: z.number().positive().int(),
+  checklist: z.array(checklistSchema).min(4).max(8),
+});
+
+const responseSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+  tasks: z.array(taskSchema).min(3),
+});
+
+type AiResponse = z.infer<typeof responseSchema>;
 
 @Injectable()
 export class CreateProjectFromPdfUseCase {
   private readonly logger = new Logger(CreateProjectFromPdfUseCase.name);
+  private static readonly MAX_RETRIES = 3;
 
   constructor(
-    @Inject('ProjectRepository') private readonly projectRepo: ProjectRepository,
-    @Inject('TaskRepository') private readonly taskRepo: TaskRepository,
-    @Inject('ChecklistItemRepository') private readonly checklistItemRepo: ChecklistItemRepository,
-    private readonly openai: OpenAIService
+    private readonly prisma: PrismaService,
+    private readonly openai: OpenAIService,
   ) {}
 
   async execute(filePath: string): Promise<{ project: Project; taskCount: number }> {
+    const now = new Date();
+
     try {
+      // ① Lire et parser le PDF
       const buffer = await fs.readFile(filePath);
-      const data = await pdfParse(buffer);
+      const parsed = await pdfParse(buffer);
+      const content = parsed.text.trim().replace(/\s{2,}/g, ' ');
 
-      const text = data.text.replace(/\s{2,}/g, ' ').replace(/\n/g, '\n').trim();
-      if (!text || text.length < 50) {
-        throw new Error('Le contenu du PDF semble vide ou insuffisant.');
+      if (!content || content.length < 50) {
+        throw new Error('PDF vide ou insuffisant.');
       }
 
-      const prompt = this.buildPrompt(text);
-      const rawResponse = await this.openai.ask(prompt);
+      // ② Générer via GPT (hors transaction)
+      const prompt = this.buildPrompt(content);
+      const ai = await this.getValidAiResponse(prompt);
 
-      const cleaned = rawResponse
-        .replace(/^```json/, '')
-        .replace(/^```/, '')
-        .replace(/```$/, '')
-        .trim();
-
-      let result: any;
-      try {
-        result = JSON.parse(cleaned);
-      } catch (e) {
-        this.logger.error('Réponse IA non exploitable :\n' + rawResponse);
-        throw new InternalServerErrorException('Réponse IA invalide (non JSON)');
-      }
-
-      if (!result.project || !Array.isArray(result.tasks)) {
-        throw new InternalServerErrorException('Structure de réponse IA incomplète ou invalide.');
-      }
-
-      const now = new Date();
-      const p = result.project;
-
+      // ③ Mapper vers entités
+      const projectId = uuid();
       const project = new Project(
-        uuidv4(),
-        p.name,
-        p.description,
-        p.clientType,
+        projectId,
+        ai.title,
+        ai.description,
+        'SIMPLE',
         null,
         null,
         null,
@@ -72,7 +84,7 @@ export class CreateProjectFromPdfUseCase {
         null,
         0,
         ProjectStatus.NOT_STARTED,
-        p.priority,
+        ProjectPriority.MEDIUM,
         false,
         now,
         now,
@@ -80,84 +92,151 @@ export class CreateProjectFromPdfUseCase {
         null
       );
 
-      const createdProject = await this.projectRepo.create(project);
+      const tasks: Task[] = [];
+      const checklists: Checklist[] = [];
+      const checklistData = checklists.map((c) => ({
+        id: c.id,
+        title: c.title,
+        isCompleted: c.isCompleted,
+        projectId: c.projectId,
+        taskId: c.taskId!, 
+        createdAt: c.createdAt,
+        updatedAt: c.updatedAt,
+      }));
+      
 
-      let taskCount = 0;
-
-      for (const t of result.tasks) {
-        const task = new Task(
-          uuidv4(),
-          t.title,
-          t.description ?? null,
-          TaskStatus.TODO,
-          TaskPriority.MEDIUM,
-          createdProject.id,
-          now,
-          now,
-          null,
-          null
-        );
-        const createdTask = await this.taskRepo.create(task);
-        taskCount++;
-
-        for (const c of t.checklists ?? []) {
-          const checklistItem = new ChecklistItem(
-            uuidv4(),
-            c.title,
-            false,
-            createdTask.id,
-            c.checklistId,
+      ai.tasks.forEach((t) => {
+        const taskId = uuid();
+        tasks.push(
+          new Task(
+            taskId,
+            t.title,
+            t.description,
+            t.status as TaskStatus,
+            t.priority as TaskPriority,
+            projectId,
             now,
-            now
-          );
-          await this.checklistItemRepo.create(checklistItem);
-        }
-      }
+            now,
+            null,
+            null
+          ),
+        );
 
-      return {
-        project: createdProject,
-        taskCount,
-      };
-    } catch (error) {
-      this.logger.error(`Erreur analyse PDF : ${error.message}`, error.stack);
-      throw new InternalServerErrorException('Erreur pendant le traitement du document PDF.');
+        t.checklist.forEach((item) => {
+          checklists.push(
+            new Checklist(
+              uuid(),
+              item,
+              false,
+              projectId,
+              now,
+              now,
+              taskId
+            ),
+          );
+        });
+      });
+
+      // ④ Transaction rapide et atomique
+      await this.prisma.$transaction([
+        this.prisma.project.create({
+          data: {
+            id: project.id,
+            name: project.name,
+            description: project.description,
+            clientType: project.clientType as ProjectClientType,
+            status: project.status as ProjectStatus,
+            priority: project.priority as ProjectPriority,
+            progress: project.progress,
+            isArchived: project.isArchived,
+            createdAt: project.createdAt,
+            updatedAt: project.updatedAt,
+          },
+        }),
+        this.prisma.task.createMany({ data: tasks, skipDuplicates: true }),
+        this.prisma.checklist.createMany({ data: checklistData, skipDuplicates: true })
+      ]);
+
+      return { project, taskCount: tasks.length };
+    } catch (err) {
+      this.logger.error(`Erreur analyse PDF : ${err.message}`, err.stack);
+      throw new InternalServerErrorException('Erreur lors du traitement du fichier PDF.');
     }
   }
 
   private buildPrompt(text: string): string {
-    return `
-  Tu es un assistant intelligent. À partir du contenu suivant extrait d’un cahier des charges, génère :
+    return [
+      'Tu es un assistant en gestion de projet.',
+      '',
+      'Objectif : générer une structure de projet à partir du cahier des charges ci-dessous.',
+      '',
+      'Retourne UNIQUEMENT ce JSON strict, sans commentaire :',
+      '{',
+      '  "title": "Titre du projet",',
+      '  "description": "Description globale",',
+      '  "tasks": [',
+      '    {',
+      '      "title": "Nom de la tâche",',
+      '      "description": "But de la tâche",',
+      '      "status": "TODO | IN_PROGRESS | DONE | CANCELLED",',
+      '      "priority": "LOW | MEDIUM | HIGH | URGENT",',
+      '      "estimatedTime": 8,',
+      '      "checklist": ["Élément 1", "... (4 à 8 éléments)"]',
+      '    }',
+      '  ]',
+      '}',
+      '',
+      'Règles :',
+      '1. Au moins 3 tâches.',
+      '2. Chaque tâche contient entre 4 et 8 éléments dans "checklist".',
+      '3. Pas de texte en dehors du JSON.',
+      '',
+      '### Cahier des charges :',
+      '"""',
+      text.slice(0, 3500),
+      '"""',
+    ].join('\n');
+  }
 
-  - Un objet "project" avec : name, description, clientType (SIMPLE / CODEUR), priority (LOW / MEDIUM / HIGH).
-  - Un tableau "tasks" contenant :
-    - title
-    - description 
-    - checklists : tableau avec des objets { title }
-
-  ### Cahier des charges :
-  """
-  ${text.slice(0, 3500)}
-  """
-
-  Retourne UNIQUEMENT ce JSON :
-  {
-    "project": {
-      "name": "...",
-      "description": "...",
-      "clientType": "SIMPLE",
-      "priority": "HIGH"
-    },
-    "tasks": [
-      {
-        "title": "...",
-        "description": "...",
-        "checklists": [
-          { "title": "..." },
-          { "title": "..." }
-        ]
+  private async getValidAiResponse(prompt: string): Promise<AiResponse> {
+    for (let attempt = 1; attempt <= CreateProjectFromPdfUseCase.MAX_RETRIES; attempt++) {
+      try {
+        const raw = await this.openai.ask(prompt);
+        const parsed = this.safeParse(raw);
+        return parsed;
+      } catch (err) {
+        this.logger.warn(`❌ Validation GPT échouée (tentative ${attempt}): ${err.message}`);
+        if (attempt === CreateProjectFromPdfUseCase.MAX_RETRIES) throw err;
       }
-    ]
-  }
-      `.trim();
     }
+    throw new Error('GPT parsing retries exhausted');
   }
+
+  private safeParse(raw: string): AiResponse {
+    const text = this.cleanJson(raw);
+    let parsed: unknown;
+    try {
+      parsed = JSON.parse(text);
+    } catch (e) {
+      this.logger.error('❌ JSON.parse failed');
+      throw new Error('Réponse IA invalide (non JSON)');
+    }
+    return responseSchema.parse(parsed);
+  }
+
+  private cleanJson(raw: string): string {
+    let text = raw.trim();
+
+    if (text.startsWith('```')) {
+      text = text.replace(/^```(?:json)?/i, '').replace(/```$/i, '').trim();
+    }
+
+    const first = text.indexOf('{');
+    const last = text.lastIndexOf('}');
+    if (first === -1 || last === -1 || last <= first) {
+      throw new Error('Aucun JSON détecté dans la réponse');
+    }
+
+    return text.slice(first, last + 1);
+  }
+}

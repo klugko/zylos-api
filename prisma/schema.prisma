@@ -102,8 +102,8 @@ model ChecklistItem {
   task   Task   @relation(fields: [taskId], references: [id])
   taskId String
 
-  checklist   Checklist @relation(fields: [checklistId], references: [id])
-  checklistId String
+  checklist   Checklist? @relation(fields: [checklistId], references: [id])
+  checklistId String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())

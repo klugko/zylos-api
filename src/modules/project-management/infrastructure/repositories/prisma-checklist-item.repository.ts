@@ -44,7 +44,7 @@ export class PrismaChecklistItemRepository implements ChecklistItemRepository {
         title: item.title,
         isChecked: item.isChecked,
         taskId: item.taskId,
-        checklistId: item.checklistId,
+        checklistId: item.checklistId ?? null,
       },
     });
     return new ChecklistItem(

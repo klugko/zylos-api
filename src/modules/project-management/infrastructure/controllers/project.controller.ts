@@ -86,30 +86,6 @@ export class ProjectController {
   async getAll(): Promise<Project[]> {
     return this.getAllProjectsUseCase.execute(); // méthode modifiée sans paramètre
   }
-
-  // @Post()
-  // // @UseGuards(JwtAuthGuard)
-  // @ApiOperation({ summary: 'Créer un nouveau projet' })
-  // @ApiResponse({ status: 201, description: 'Projet créé avec succès.' })
-  // @ApiResponse({ status: 400, description: 'Requête invalide.' })
-  // @ApiResponse({ status: 401, description: 'Non autorisé.' })
-  // async create(@Body() dto: CreateProjectDto): Promise<Project> {
-  //   try {
-  //     if (!dto.id) {
-  //       throw new HttpException(
-  //         'Id est obligatoire (générer un uuid côté client ou revoir la logique).',
-  //         HttpStatus.BAD_REQUEST,
-  //       );
-  //     }
-  //     return await this.createProjectUseCase.execute(dto); // sans userId
-  //   } catch (error) {
-  //     console.error('Erreur lors de la création du projet:', error.message, error.stack);
-  //     throw new HttpException(
-  //       error?.message ?? 'Erreur inattendue lors de la création du projet.',
-  //       error?.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
-  //     );
-  //   }
-  // }
  
   @Post()
   @ApiResponse({
