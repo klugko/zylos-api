@@ -203,8 +203,52 @@ exports.Prisma.DocumentScalarFieldEnum = {
   url: 'url',
   uploadedById: 'uploadedById',
   projectId: 'projectId',
+  tags: 'tags',
+  metadata: 'metadata',
+  validationRequired: 'validationRequired',
   uploadedAt: 'uploadedAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DocumentVersionScalarFieldEnum = {
+  id: 'id',
+  documentId: 'documentId',
+  url: 'url',
+  versionAt: 'versionAt',
+  name: 'name',
+  type: 'type',
+  size: 'size',
+  mimetype: 'mimetype'
+};
+
+exports.Prisma.DocumentCommentScalarFieldEnum = {
+  id: 'id',
+  documentId: 'documentId',
+  content: 'content',
+  zone: 'zone',
+  resolved: 'resolved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DocumentNotificationRuleScalarFieldEnum = {
+  id: 'id',
+  documentId: 'documentId',
+  trigger: 'trigger',
+  frequency: 'frequency',
+  channel: 'channel',
+  targetEmail: 'targetEmail',
+  targetUrl: 'targetUrl',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.DocumentSignatureScalarFieldEnum = {
+  id: 'id',
+  documentId: 'documentId',
+  status: 'status',
+  signatureUrl: 'signatureUrl',
+  requestedAt: 'requestedAt',
+  signedAt: 'signedAt'
 };
 
 exports.Prisma.CommentScalarFieldEnum = {
@@ -352,6 +396,10 @@ exports.Prisma.ModelName = {
   ChecklistItem: 'ChecklistItem',
   ProjectMember: 'ProjectMember',
   Document: 'Document',
+  DocumentVersion: 'DocumentVersion',
+  DocumentComment: 'DocumentComment',
+  DocumentNotificationRule: 'DocumentNotificationRule',
+  DocumentSignature: 'DocumentSignature',
   Comment: 'Comment',
   User: 'User',
   ProjectTemplate: 'ProjectTemplate',

@@ -3,6 +3,7 @@ import { PrismaModule } from './core/prisma/prisma.module';
 import { ProjectManagementModule } from './modules/project-management/project-management.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RagModule } from './rag/rag.module';
+import { DocumentModule } from '@modules/document-management/document.module';
 // import { ScheduleModule } from '@nestjs/schedule';
 
 
@@ -12,6 +13,7 @@ import { RagModule } from './rag/rag.module';
     AuthModule,
     ProjectManagementModule,
     RagModule,
+    DocumentModule,
     // ScheduleModule.forRoot(),
   ],
   controllers: [],

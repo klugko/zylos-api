@@ -119,16 +119,72 @@ model ProjectMember {
 }
 
 model Document {
-  id           String   @id @default(uuid())
-  name         String
-  type         String?
-  url          String   @db.Text
-  uploadedBy   User     @relation(fields: [uploadedById], references: [id])
-  uploadedById String
-  project      Project  @relation(fields: [projectId], references: [id])
-  projectId    String
-  uploadedAt   DateTime @default(now())
-  updatedAt    DateTime @default(now())
+  id                 String                     @id @default(uuid())
+  name               String
+  type               String?
+  url                String                     @db.Text
+  uploadedBy         User?                      @relation(fields: [uploadedById], references: [id])
+  uploadedById       String?
+  project            Project                    @relation(fields: [projectId], references: [id])
+  projectId          String
+  tags               String[]                   @default([])
+  metadata           Json?
+  validationRequired Boolean                    @default(false)
+  uploadedAt         DateTime                   @default(now())
+  updatedAt          DateTime                   @default(now())
+  versions           DocumentVersion[]
+  comments           DocumentComment[]
+  notificationRules  DocumentNotificationRule[]
+  signatures         DocumentSignature[]
+}
+
+model DocumentVersion {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  url        String   @db.Text
+  versionAt  DateTime @default(now())
+  name       String
+  type       String?
+  size       Int
+  mimetype   String
+}
+
+model DocumentComment {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content    String
+  zone       String? // ex: "page:1;line:3" ou "section:Résumé"
+  resolved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model DocumentNotificationRule {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  trigger   String // 'new_comment' | 'new_version'
+  frequency String // 'immediate' | 'daily' | 'weekly'
+  channel   String // 'in-app' | 'email' | 'webhook'
+
+  targetEmail String? // si channel=email
+  targetUrl   String? // si channel=webhook
+
+  createdAt DateTime @default(now())
+}
+
+model DocumentSignature {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  status       String // en_attente | signé | refusé | expiré
+  signatureUrl String? //  (base64 convertie en image)
+  requestedAt  DateTime  @default(now())
+  signedAt     DateTime?
 }
 
 enum CommentTargetType {

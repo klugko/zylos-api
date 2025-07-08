@@ -49,6 +49,26 @@ export type ProjectMember = $Result.DefaultSelection<Prisma.$ProjectMemberPayloa
  */
 export type Document = $Result.DefaultSelection<Prisma.$DocumentPayload>
 /**
+ * Model DocumentVersion
+ * 
+ */
+export type DocumentVersion = $Result.DefaultSelection<Prisma.$DocumentVersionPayload>
+/**
+ * Model DocumentComment
+ * 
+ */
+export type DocumentComment = $Result.DefaultSelection<Prisma.$DocumentCommentPayload>
+/**
+ * Model DocumentNotificationRule
+ * 
+ */
+export type DocumentNotificationRule = $Result.DefaultSelection<Prisma.$DocumentNotificationRulePayload>
+/**
+ * Model DocumentSignature
+ * 
+ */
+export type DocumentSignature = $Result.DefaultSelection<Prisma.$DocumentSignaturePayload>
+/**
  * Model Comment
  * 
  */
@@ -386,6 +406,46 @@ export class PrismaClient<
     * ```
     */
   get document(): Prisma.DocumentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.documentVersion`: Exposes CRUD operations for the **DocumentVersion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DocumentVersions
+    * const documentVersions = await prisma.documentVersion.findMany()
+    * ```
+    */
+  get documentVersion(): Prisma.DocumentVersionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.documentComment`: Exposes CRUD operations for the **DocumentComment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DocumentComments
+    * const documentComments = await prisma.documentComment.findMany()
+    * ```
+    */
+  get documentComment(): Prisma.DocumentCommentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.documentNotificationRule`: Exposes CRUD operations for the **DocumentNotificationRule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DocumentNotificationRules
+    * const documentNotificationRules = await prisma.documentNotificationRule.findMany()
+    * ```
+    */
+  get documentNotificationRule(): Prisma.DocumentNotificationRuleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.documentSignature`: Exposes CRUD operations for the **DocumentSignature** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DocumentSignatures
+    * const documentSignatures = await prisma.documentSignature.findMany()
+    * ```
+    */
+  get documentSignature(): Prisma.DocumentSignatureDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.comment`: Exposes CRUD operations for the **Comment** model.
@@ -893,6 +953,10 @@ export namespace Prisma {
     ChecklistItem: 'ChecklistItem',
     ProjectMember: 'ProjectMember',
     Document: 'Document',
+    DocumentVersion: 'DocumentVersion',
+    DocumentComment: 'DocumentComment',
+    DocumentNotificationRule: 'DocumentNotificationRule',
+    DocumentSignature: 'DocumentSignature',
     Comment: 'Comment',
     User: 'User',
     ProjectTemplate: 'ProjectTemplate',
@@ -917,7 +981,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate" | "reminderNotification"
+      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "documentVersion" | "documentComment" | "documentNotificationRule" | "documentSignature" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate" | "reminderNotification"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1436,6 +1500,302 @@ export namespace Prisma {
           count: {
             args: Prisma.DocumentCountArgs<ExtArgs>
             result: $Utils.Optional<DocumentCountAggregateOutputType> | number
+          }
+        }
+      }
+      DocumentVersion: {
+        payload: Prisma.$DocumentVersionPayload<ExtArgs>
+        fields: Prisma.DocumentVersionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DocumentVersionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DocumentVersionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>
+          }
+          findFirst: {
+            args: Prisma.DocumentVersionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DocumentVersionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>
+          }
+          findMany: {
+            args: Prisma.DocumentVersionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>[]
+          }
+          create: {
+            args: Prisma.DocumentVersionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>
+          }
+          createMany: {
+            args: Prisma.DocumentVersionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DocumentVersionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>[]
+          }
+          delete: {
+            args: Prisma.DocumentVersionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>
+          }
+          update: {
+            args: Prisma.DocumentVersionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>
+          }
+          deleteMany: {
+            args: Prisma.DocumentVersionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DocumentVersionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DocumentVersionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>[]
+          }
+          upsert: {
+            args: Prisma.DocumentVersionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentVersionPayload>
+          }
+          aggregate: {
+            args: Prisma.DocumentVersionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDocumentVersion>
+          }
+          groupBy: {
+            args: Prisma.DocumentVersionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DocumentVersionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DocumentVersionCountArgs<ExtArgs>
+            result: $Utils.Optional<DocumentVersionCountAggregateOutputType> | number
+          }
+        }
+      }
+      DocumentComment: {
+        payload: Prisma.$DocumentCommentPayload<ExtArgs>
+        fields: Prisma.DocumentCommentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DocumentCommentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DocumentCommentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>
+          }
+          findFirst: {
+            args: Prisma.DocumentCommentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DocumentCommentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>
+          }
+          findMany: {
+            args: Prisma.DocumentCommentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>[]
+          }
+          create: {
+            args: Prisma.DocumentCommentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>
+          }
+          createMany: {
+            args: Prisma.DocumentCommentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DocumentCommentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>[]
+          }
+          delete: {
+            args: Prisma.DocumentCommentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>
+          }
+          update: {
+            args: Prisma.DocumentCommentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>
+          }
+          deleteMany: {
+            args: Prisma.DocumentCommentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DocumentCommentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DocumentCommentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>[]
+          }
+          upsert: {
+            args: Prisma.DocumentCommentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentCommentPayload>
+          }
+          aggregate: {
+            args: Prisma.DocumentCommentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDocumentComment>
+          }
+          groupBy: {
+            args: Prisma.DocumentCommentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DocumentCommentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DocumentCommentCountArgs<ExtArgs>
+            result: $Utils.Optional<DocumentCommentCountAggregateOutputType> | number
+          }
+        }
+      }
+      DocumentNotificationRule: {
+        payload: Prisma.$DocumentNotificationRulePayload<ExtArgs>
+        fields: Prisma.DocumentNotificationRuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DocumentNotificationRuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DocumentNotificationRuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>
+          }
+          findFirst: {
+            args: Prisma.DocumentNotificationRuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DocumentNotificationRuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>
+          }
+          findMany: {
+            args: Prisma.DocumentNotificationRuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>[]
+          }
+          create: {
+            args: Prisma.DocumentNotificationRuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>
+          }
+          createMany: {
+            args: Prisma.DocumentNotificationRuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DocumentNotificationRuleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>[]
+          }
+          delete: {
+            args: Prisma.DocumentNotificationRuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>
+          }
+          update: {
+            args: Prisma.DocumentNotificationRuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>
+          }
+          deleteMany: {
+            args: Prisma.DocumentNotificationRuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DocumentNotificationRuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DocumentNotificationRuleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>[]
+          }
+          upsert: {
+            args: Prisma.DocumentNotificationRuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentNotificationRulePayload>
+          }
+          aggregate: {
+            args: Prisma.DocumentNotificationRuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDocumentNotificationRule>
+          }
+          groupBy: {
+            args: Prisma.DocumentNotificationRuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DocumentNotificationRuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DocumentNotificationRuleCountArgs<ExtArgs>
+            result: $Utils.Optional<DocumentNotificationRuleCountAggregateOutputType> | number
+          }
+        }
+      }
+      DocumentSignature: {
+        payload: Prisma.$DocumentSignaturePayload<ExtArgs>
+        fields: Prisma.DocumentSignatureFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DocumentSignatureFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DocumentSignatureFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>
+          }
+          findFirst: {
+            args: Prisma.DocumentSignatureFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DocumentSignatureFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>
+          }
+          findMany: {
+            args: Prisma.DocumentSignatureFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>[]
+          }
+          create: {
+            args: Prisma.DocumentSignatureCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>
+          }
+          createMany: {
+            args: Prisma.DocumentSignatureCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DocumentSignatureCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>[]
+          }
+          delete: {
+            args: Prisma.DocumentSignatureDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>
+          }
+          update: {
+            args: Prisma.DocumentSignatureUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>
+          }
+          deleteMany: {
+            args: Prisma.DocumentSignatureDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DocumentSignatureUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DocumentSignatureUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>[]
+          }
+          upsert: {
+            args: Prisma.DocumentSignatureUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentSignaturePayload>
+          }
+          aggregate: {
+            args: Prisma.DocumentSignatureAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDocumentSignature>
+          }
+          groupBy: {
+            args: Prisma.DocumentSignatureGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DocumentSignatureGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DocumentSignatureCountArgs<ExtArgs>
+            result: $Utils.Optional<DocumentSignatureCountAggregateOutputType> | number
           }
         }
       }
@@ -1974,6 +2334,10 @@ export namespace Prisma {
     checklistItem?: ChecklistItemOmit
     projectMember?: ProjectMemberOmit
     document?: DocumentOmit
+    documentVersion?: DocumentVersionOmit
+    documentComment?: DocumentCommentOmit
+    documentNotificationRule?: DocumentNotificationRuleOmit
+    documentSignature?: DocumentSignatureOmit
     comment?: CommentOmit
     user?: UserOmit
     projectTemplate?: ProjectTemplateOmit
@@ -2244,6 +2608,64 @@ export namespace Prisma {
    */
   export type ChecklistCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChecklistItemWhereInput
+  }
+
+
+  /**
+   * Count Type DocumentCountOutputType
+   */
+
+  export type DocumentCountOutputType = {
+    versions: number
+    comments: number
+    notificationRules: number
+    signatures: number
+  }
+
+  export type DocumentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    versions?: boolean | DocumentCountOutputTypeCountVersionsArgs
+    comments?: boolean | DocumentCountOutputTypeCountCommentsArgs
+    notificationRules?: boolean | DocumentCountOutputTypeCountNotificationRulesArgs
+    signatures?: boolean | DocumentCountOutputTypeCountSignaturesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DocumentCountOutputType without action
+   */
+  export type DocumentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentCountOutputType
+     */
+    select?: DocumentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DocumentCountOutputType without action
+   */
+  export type DocumentCountOutputTypeCountVersionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentVersionWhereInput
+  }
+
+  /**
+   * DocumentCountOutputType without action
+   */
+  export type DocumentCountOutputTypeCountCommentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentCommentWhereInput
+  }
+
+  /**
+   * DocumentCountOutputType without action
+   */
+  export type DocumentCountOutputTypeCountNotificationRulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentNotificationRuleWhereInput
+  }
+
+  /**
+   * DocumentCountOutputType without action
+   */
+  export type DocumentCountOutputTypeCountSignaturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentSignatureWhereInput
   }
 
 
@@ -9670,6 +10092,7 @@ export namespace Prisma {
     url: string | null
     uploadedById: string | null
     projectId: string | null
+    validationRequired: boolean | null
     uploadedAt: Date | null
     updatedAt: Date | null
   }
@@ -9681,6 +10104,7 @@ export namespace Prisma {
     url: string | null
     uploadedById: string | null
     projectId: string | null
+    validationRequired: boolean | null
     uploadedAt: Date | null
     updatedAt: Date | null
   }
@@ -9692,6 +10116,9 @@ export namespace Prisma {
     url: number
     uploadedById: number
     projectId: number
+    tags: number
+    metadata: number
+    validationRequired: number
     uploadedAt: number
     updatedAt: number
     _all: number
@@ -9705,6 +10132,7 @@ export namespace Prisma {
     url?: true
     uploadedById?: true
     projectId?: true
+    validationRequired?: true
     uploadedAt?: true
     updatedAt?: true
   }
@@ -9716,6 +10144,7 @@ export namespace Prisma {
     url?: true
     uploadedById?: true
     projectId?: true
+    validationRequired?: true
     uploadedAt?: true
     updatedAt?: true
   }
@@ -9727,6 +10156,9 @@ export namespace Prisma {
     url?: true
     uploadedById?: true
     projectId?: true
+    tags?: true
+    metadata?: true
+    validationRequired?: true
     uploadedAt?: true
     updatedAt?: true
     _all?: true
@@ -9809,8 +10241,11 @@ export namespace Prisma {
     name: string
     type: string | null
     url: string
-    uploadedById: string
+    uploadedById: string | null
     projectId: string
+    tags: string[]
+    metadata: JsonValue | null
+    validationRequired: boolean
     uploadedAt: Date
     updatedAt: Date
     _count: DocumentCountAggregateOutputType | null
@@ -9839,10 +10274,18 @@ export namespace Prisma {
     url?: boolean
     uploadedById?: boolean
     projectId?: boolean
+    tags?: boolean
+    metadata?: boolean
+    validationRequired?: boolean
     uploadedAt?: boolean
     updatedAt?: boolean
-    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | Document$uploadedByArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
+    versions?: boolean | Document$versionsArgs<ExtArgs>
+    comments?: boolean | Document$commentsArgs<ExtArgs>
+    notificationRules?: boolean | Document$notificationRulesArgs<ExtArgs>
+    signatures?: boolean | Document$signaturesArgs<ExtArgs>
+    _count?: boolean | DocumentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9852,9 +10295,12 @@ export namespace Prisma {
     url?: boolean
     uploadedById?: boolean
     projectId?: boolean
+    tags?: boolean
+    metadata?: boolean
+    validationRequired?: boolean
     uploadedAt?: boolean
     updatedAt?: boolean
-    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | Document$uploadedByArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
@@ -9865,9 +10311,12 @@ export namespace Prisma {
     url?: boolean
     uploadedById?: boolean
     projectId?: boolean
+    tags?: boolean
+    metadata?: boolean
+    validationRequired?: boolean
     uploadedAt?: boolean
     updatedAt?: boolean
-    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | Document$uploadedByArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
@@ -9878,37 +10327,52 @@ export namespace Prisma {
     url?: boolean
     uploadedById?: boolean
     projectId?: boolean
+    tags?: boolean
+    metadata?: boolean
+    validationRequired?: boolean
     uploadedAt?: boolean
     updatedAt?: boolean
   }
 
-  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "url" | "uploadedById" | "projectId" | "uploadedAt" | "updatedAt", ExtArgs["result"]["document"]>
+  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "url" | "uploadedById" | "projectId" | "tags" | "metadata" | "validationRequired" | "uploadedAt" | "updatedAt", ExtArgs["result"]["document"]>
   export type DocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | Document$uploadedByArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
+    versions?: boolean | Document$versionsArgs<ExtArgs>
+    comments?: boolean | Document$commentsArgs<ExtArgs>
+    notificationRules?: boolean | Document$notificationRulesArgs<ExtArgs>
+    signatures?: boolean | Document$signaturesArgs<ExtArgs>
+    _count?: boolean | DocumentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | Document$uploadedByArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
   export type DocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+    uploadedBy?: boolean | Document$uploadedByArgs<ExtArgs>
     project?: boolean | ProjectDefaultArgs<ExtArgs>
   }
 
   export type $DocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Document"
     objects: {
-      uploadedBy: Prisma.$UserPayload<ExtArgs>
+      uploadedBy: Prisma.$UserPayload<ExtArgs> | null
       project: Prisma.$ProjectPayload<ExtArgs>
+      versions: Prisma.$DocumentVersionPayload<ExtArgs>[]
+      comments: Prisma.$DocumentCommentPayload<ExtArgs>[]
+      notificationRules: Prisma.$DocumentNotificationRulePayload<ExtArgs>[]
+      signatures: Prisma.$DocumentSignaturePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       type: string | null
       url: string
-      uploadedById: string
+      uploadedById: string | null
       projectId: string
+      tags: string[]
+      metadata: Prisma.JsonValue | null
+      validationRequired: boolean
       uploadedAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["document"]>
@@ -10305,8 +10769,12 @@ export namespace Prisma {
    */
   export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    uploadedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    uploadedBy<T extends Document$uploadedByArgs<ExtArgs> = {}>(args?: Subset<T, Document$uploadedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    versions<T extends Document$versionsArgs<ExtArgs> = {}>(args?: Subset<T, Document$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    comments<T extends Document$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Document$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notificationRules<T extends Document$notificationRulesArgs<ExtArgs> = {}>(args?: Subset<T, Document$notificationRulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    signatures<T extends Document$signaturesArgs<ExtArgs> = {}>(args?: Subset<T, Document$signaturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10342,6 +10810,9 @@ export namespace Prisma {
     readonly url: FieldRef<"Document", 'String'>
     readonly uploadedById: FieldRef<"Document", 'String'>
     readonly projectId: FieldRef<"Document", 'String'>
+    readonly tags: FieldRef<"Document", 'String[]'>
+    readonly metadata: FieldRef<"Document", 'Json'>
+    readonly validationRequired: FieldRef<"Document", 'Boolean'>
     readonly uploadedAt: FieldRef<"Document", 'DateTime'>
     readonly updatedAt: FieldRef<"Document", 'DateTime'>
   }
@@ -10740,6 +11211,121 @@ export namespace Prisma {
   }
 
   /**
+   * Document.uploadedBy
+   */
+  export type Document$uploadedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Document.versions
+   */
+  export type Document$versionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    where?: DocumentVersionWhereInput
+    orderBy?: DocumentVersionOrderByWithRelationInput | DocumentVersionOrderByWithRelationInput[]
+    cursor?: DocumentVersionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentVersionScalarFieldEnum | DocumentVersionScalarFieldEnum[]
+  }
+
+  /**
+   * Document.comments
+   */
+  export type Document$commentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    where?: DocumentCommentWhereInput
+    orderBy?: DocumentCommentOrderByWithRelationInput | DocumentCommentOrderByWithRelationInput[]
+    cursor?: DocumentCommentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentCommentScalarFieldEnum | DocumentCommentScalarFieldEnum[]
+  }
+
+  /**
+   * Document.notificationRules
+   */
+  export type Document$notificationRulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    where?: DocumentNotificationRuleWhereInput
+    orderBy?: DocumentNotificationRuleOrderByWithRelationInput | DocumentNotificationRuleOrderByWithRelationInput[]
+    cursor?: DocumentNotificationRuleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentNotificationRuleScalarFieldEnum | DocumentNotificationRuleScalarFieldEnum[]
+  }
+
+  /**
+   * Document.signatures
+   */
+  export type Document$signaturesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    where?: DocumentSignatureWhereInput
+    orderBy?: DocumentSignatureOrderByWithRelationInput | DocumentSignatureOrderByWithRelationInput[]
+    cursor?: DocumentSignatureWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentSignatureScalarFieldEnum | DocumentSignatureScalarFieldEnum[]
+  }
+
+  /**
    * Document without action
    */
   export type DocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10755,6 +11341,4389 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: DocumentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DocumentVersion
+   */
+
+  export type AggregateDocumentVersion = {
+    _count: DocumentVersionCountAggregateOutputType | null
+    _avg: DocumentVersionAvgAggregateOutputType | null
+    _sum: DocumentVersionSumAggregateOutputType | null
+    _min: DocumentVersionMinAggregateOutputType | null
+    _max: DocumentVersionMaxAggregateOutputType | null
+  }
+
+  export type DocumentVersionAvgAggregateOutputType = {
+    size: number | null
+  }
+
+  export type DocumentVersionSumAggregateOutputType = {
+    size: number | null
+  }
+
+  export type DocumentVersionMinAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    url: string | null
+    versionAt: Date | null
+    name: string | null
+    type: string | null
+    size: number | null
+    mimetype: string | null
+  }
+
+  export type DocumentVersionMaxAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    url: string | null
+    versionAt: Date | null
+    name: string | null
+    type: string | null
+    size: number | null
+    mimetype: string | null
+  }
+
+  export type DocumentVersionCountAggregateOutputType = {
+    id: number
+    documentId: number
+    url: number
+    versionAt: number
+    name: number
+    type: number
+    size: number
+    mimetype: number
+    _all: number
+  }
+
+
+  export type DocumentVersionAvgAggregateInputType = {
+    size?: true
+  }
+
+  export type DocumentVersionSumAggregateInputType = {
+    size?: true
+  }
+
+  export type DocumentVersionMinAggregateInputType = {
+    id?: true
+    documentId?: true
+    url?: true
+    versionAt?: true
+    name?: true
+    type?: true
+    size?: true
+    mimetype?: true
+  }
+
+  export type DocumentVersionMaxAggregateInputType = {
+    id?: true
+    documentId?: true
+    url?: true
+    versionAt?: true
+    name?: true
+    type?: true
+    size?: true
+    mimetype?: true
+  }
+
+  export type DocumentVersionCountAggregateInputType = {
+    id?: true
+    documentId?: true
+    url?: true
+    versionAt?: true
+    name?: true
+    type?: true
+    size?: true
+    mimetype?: true
+    _all?: true
+  }
+
+  export type DocumentVersionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentVersion to aggregate.
+     */
+    where?: DocumentVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentVersions to fetch.
+     */
+    orderBy?: DocumentVersionOrderByWithRelationInput | DocumentVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DocumentVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DocumentVersions
+    **/
+    _count?: true | DocumentVersionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DocumentVersionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DocumentVersionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DocumentVersionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DocumentVersionMaxAggregateInputType
+  }
+
+  export type GetDocumentVersionAggregateType<T extends DocumentVersionAggregateArgs> = {
+        [P in keyof T & keyof AggregateDocumentVersion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDocumentVersion[P]>
+      : GetScalarType<T[P], AggregateDocumentVersion[P]>
+  }
+
+
+
+
+  export type DocumentVersionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentVersionWhereInput
+    orderBy?: DocumentVersionOrderByWithAggregationInput | DocumentVersionOrderByWithAggregationInput[]
+    by: DocumentVersionScalarFieldEnum[] | DocumentVersionScalarFieldEnum
+    having?: DocumentVersionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DocumentVersionCountAggregateInputType | true
+    _avg?: DocumentVersionAvgAggregateInputType
+    _sum?: DocumentVersionSumAggregateInputType
+    _min?: DocumentVersionMinAggregateInputType
+    _max?: DocumentVersionMaxAggregateInputType
+  }
+
+  export type DocumentVersionGroupByOutputType = {
+    id: string
+    documentId: string
+    url: string
+    versionAt: Date
+    name: string
+    type: string | null
+    size: number
+    mimetype: string
+    _count: DocumentVersionCountAggregateOutputType | null
+    _avg: DocumentVersionAvgAggregateOutputType | null
+    _sum: DocumentVersionSumAggregateOutputType | null
+    _min: DocumentVersionMinAggregateOutputType | null
+    _max: DocumentVersionMaxAggregateOutputType | null
+  }
+
+  type GetDocumentVersionGroupByPayload<T extends DocumentVersionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DocumentVersionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DocumentVersionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DocumentVersionGroupByOutputType[P]>
+            : GetScalarType<T[P], DocumentVersionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DocumentVersionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    url?: boolean
+    versionAt?: boolean
+    name?: boolean
+    type?: boolean
+    size?: boolean
+    mimetype?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentVersion"]>
+
+  export type DocumentVersionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    url?: boolean
+    versionAt?: boolean
+    name?: boolean
+    type?: boolean
+    size?: boolean
+    mimetype?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentVersion"]>
+
+  export type DocumentVersionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    url?: boolean
+    versionAt?: boolean
+    name?: boolean
+    type?: boolean
+    size?: boolean
+    mimetype?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentVersion"]>
+
+  export type DocumentVersionSelectScalar = {
+    id?: boolean
+    documentId?: boolean
+    url?: boolean
+    versionAt?: boolean
+    name?: boolean
+    type?: boolean
+    size?: boolean
+    mimetype?: boolean
+  }
+
+  export type DocumentVersionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "documentId" | "url" | "versionAt" | "name" | "type" | "size" | "mimetype", ExtArgs["result"]["documentVersion"]>
+  export type DocumentVersionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+  export type DocumentVersionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+  export type DocumentVersionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+
+  export type $DocumentVersionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DocumentVersion"
+    objects: {
+      document: Prisma.$DocumentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      documentId: string
+      url: string
+      versionAt: Date
+      name: string
+      type: string | null
+      size: number
+      mimetype: string
+    }, ExtArgs["result"]["documentVersion"]>
+    composites: {}
+  }
+
+  type DocumentVersionGetPayload<S extends boolean | null | undefined | DocumentVersionDefaultArgs> = $Result.GetResult<Prisma.$DocumentVersionPayload, S>
+
+  type DocumentVersionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DocumentVersionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DocumentVersionCountAggregateInputType | true
+    }
+
+  export interface DocumentVersionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DocumentVersion'], meta: { name: 'DocumentVersion' } }
+    /**
+     * Find zero or one DocumentVersion that matches the filter.
+     * @param {DocumentVersionFindUniqueArgs} args - Arguments to find a DocumentVersion
+     * @example
+     * // Get one DocumentVersion
+     * const documentVersion = await prisma.documentVersion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DocumentVersionFindUniqueArgs>(args: SelectSubset<T, DocumentVersionFindUniqueArgs<ExtArgs>>): Prisma__DocumentVersionClient<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DocumentVersion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DocumentVersionFindUniqueOrThrowArgs} args - Arguments to find a DocumentVersion
+     * @example
+     * // Get one DocumentVersion
+     * const documentVersion = await prisma.documentVersion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DocumentVersionFindUniqueOrThrowArgs>(args: SelectSubset<T, DocumentVersionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DocumentVersionClient<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentVersion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentVersionFindFirstArgs} args - Arguments to find a DocumentVersion
+     * @example
+     * // Get one DocumentVersion
+     * const documentVersion = await prisma.documentVersion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DocumentVersionFindFirstArgs>(args?: SelectSubset<T, DocumentVersionFindFirstArgs<ExtArgs>>): Prisma__DocumentVersionClient<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentVersion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentVersionFindFirstOrThrowArgs} args - Arguments to find a DocumentVersion
+     * @example
+     * // Get one DocumentVersion
+     * const documentVersion = await prisma.documentVersion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DocumentVersionFindFirstOrThrowArgs>(args?: SelectSubset<T, DocumentVersionFindFirstOrThrowArgs<ExtArgs>>): Prisma__DocumentVersionClient<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DocumentVersions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentVersionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DocumentVersions
+     * const documentVersions = await prisma.documentVersion.findMany()
+     * 
+     * // Get first 10 DocumentVersions
+     * const documentVersions = await prisma.documentVersion.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const documentVersionWithIdOnly = await prisma.documentVersion.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DocumentVersionFindManyArgs>(args?: SelectSubset<T, DocumentVersionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DocumentVersion.
+     * @param {DocumentVersionCreateArgs} args - Arguments to create a DocumentVersion.
+     * @example
+     * // Create one DocumentVersion
+     * const DocumentVersion = await prisma.documentVersion.create({
+     *   data: {
+     *     // ... data to create a DocumentVersion
+     *   }
+     * })
+     * 
+     */
+    create<T extends DocumentVersionCreateArgs>(args: SelectSubset<T, DocumentVersionCreateArgs<ExtArgs>>): Prisma__DocumentVersionClient<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DocumentVersions.
+     * @param {DocumentVersionCreateManyArgs} args - Arguments to create many DocumentVersions.
+     * @example
+     * // Create many DocumentVersions
+     * const documentVersion = await prisma.documentVersion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DocumentVersionCreateManyArgs>(args?: SelectSubset<T, DocumentVersionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DocumentVersions and returns the data saved in the database.
+     * @param {DocumentVersionCreateManyAndReturnArgs} args - Arguments to create many DocumentVersions.
+     * @example
+     * // Create many DocumentVersions
+     * const documentVersion = await prisma.documentVersion.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DocumentVersions and only return the `id`
+     * const documentVersionWithIdOnly = await prisma.documentVersion.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DocumentVersionCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentVersionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DocumentVersion.
+     * @param {DocumentVersionDeleteArgs} args - Arguments to delete one DocumentVersion.
+     * @example
+     * // Delete one DocumentVersion
+     * const DocumentVersion = await prisma.documentVersion.delete({
+     *   where: {
+     *     // ... filter to delete one DocumentVersion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DocumentVersionDeleteArgs>(args: SelectSubset<T, DocumentVersionDeleteArgs<ExtArgs>>): Prisma__DocumentVersionClient<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DocumentVersion.
+     * @param {DocumentVersionUpdateArgs} args - Arguments to update one DocumentVersion.
+     * @example
+     * // Update one DocumentVersion
+     * const documentVersion = await prisma.documentVersion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DocumentVersionUpdateArgs>(args: SelectSubset<T, DocumentVersionUpdateArgs<ExtArgs>>): Prisma__DocumentVersionClient<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DocumentVersions.
+     * @param {DocumentVersionDeleteManyArgs} args - Arguments to filter DocumentVersions to delete.
+     * @example
+     * // Delete a few DocumentVersions
+     * const { count } = await prisma.documentVersion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DocumentVersionDeleteManyArgs>(args?: SelectSubset<T, DocumentVersionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentVersions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentVersionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DocumentVersions
+     * const documentVersion = await prisma.documentVersion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DocumentVersionUpdateManyArgs>(args: SelectSubset<T, DocumentVersionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentVersions and returns the data updated in the database.
+     * @param {DocumentVersionUpdateManyAndReturnArgs} args - Arguments to update many DocumentVersions.
+     * @example
+     * // Update many DocumentVersions
+     * const documentVersion = await prisma.documentVersion.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DocumentVersions and only return the `id`
+     * const documentVersionWithIdOnly = await prisma.documentVersion.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DocumentVersionUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentVersionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DocumentVersion.
+     * @param {DocumentVersionUpsertArgs} args - Arguments to update or create a DocumentVersion.
+     * @example
+     * // Update or create a DocumentVersion
+     * const documentVersion = await prisma.documentVersion.upsert({
+     *   create: {
+     *     // ... data to create a DocumentVersion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DocumentVersion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DocumentVersionUpsertArgs>(args: SelectSubset<T, DocumentVersionUpsertArgs<ExtArgs>>): Prisma__DocumentVersionClient<$Result.GetResult<Prisma.$DocumentVersionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DocumentVersions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentVersionCountArgs} args - Arguments to filter DocumentVersions to count.
+     * @example
+     * // Count the number of DocumentVersions
+     * const count = await prisma.documentVersion.count({
+     *   where: {
+     *     // ... the filter for the DocumentVersions we want to count
+     *   }
+     * })
+    **/
+    count<T extends DocumentVersionCountArgs>(
+      args?: Subset<T, DocumentVersionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DocumentVersionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DocumentVersion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentVersionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DocumentVersionAggregateArgs>(args: Subset<T, DocumentVersionAggregateArgs>): Prisma.PrismaPromise<GetDocumentVersionAggregateType<T>>
+
+    /**
+     * Group by DocumentVersion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentVersionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DocumentVersionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DocumentVersionGroupByArgs['orderBy'] }
+        : { orderBy?: DocumentVersionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DocumentVersionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocumentVersionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DocumentVersion model
+   */
+  readonly fields: DocumentVersionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DocumentVersion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DocumentVersionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    document<T extends DocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DocumentDefaultArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DocumentVersion model
+   */
+  interface DocumentVersionFieldRefs {
+    readonly id: FieldRef<"DocumentVersion", 'String'>
+    readonly documentId: FieldRef<"DocumentVersion", 'String'>
+    readonly url: FieldRef<"DocumentVersion", 'String'>
+    readonly versionAt: FieldRef<"DocumentVersion", 'DateTime'>
+    readonly name: FieldRef<"DocumentVersion", 'String'>
+    readonly type: FieldRef<"DocumentVersion", 'String'>
+    readonly size: FieldRef<"DocumentVersion", 'Int'>
+    readonly mimetype: FieldRef<"DocumentVersion", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DocumentVersion findUnique
+   */
+  export type DocumentVersionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentVersion to fetch.
+     */
+    where: DocumentVersionWhereUniqueInput
+  }
+
+  /**
+   * DocumentVersion findUniqueOrThrow
+   */
+  export type DocumentVersionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentVersion to fetch.
+     */
+    where: DocumentVersionWhereUniqueInput
+  }
+
+  /**
+   * DocumentVersion findFirst
+   */
+  export type DocumentVersionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentVersion to fetch.
+     */
+    where?: DocumentVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentVersions to fetch.
+     */
+    orderBy?: DocumentVersionOrderByWithRelationInput | DocumentVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentVersions.
+     */
+    cursor?: DocumentVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentVersions.
+     */
+    distinct?: DocumentVersionScalarFieldEnum | DocumentVersionScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentVersion findFirstOrThrow
+   */
+  export type DocumentVersionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentVersion to fetch.
+     */
+    where?: DocumentVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentVersions to fetch.
+     */
+    orderBy?: DocumentVersionOrderByWithRelationInput | DocumentVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentVersions.
+     */
+    cursor?: DocumentVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentVersions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentVersions.
+     */
+    distinct?: DocumentVersionScalarFieldEnum | DocumentVersionScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentVersion findMany
+   */
+  export type DocumentVersionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentVersions to fetch.
+     */
+    where?: DocumentVersionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentVersions to fetch.
+     */
+    orderBy?: DocumentVersionOrderByWithRelationInput | DocumentVersionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DocumentVersions.
+     */
+    cursor?: DocumentVersionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentVersions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentVersions.
+     */
+    skip?: number
+    distinct?: DocumentVersionScalarFieldEnum | DocumentVersionScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentVersion create
+   */
+  export type DocumentVersionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DocumentVersion.
+     */
+    data: XOR<DocumentVersionCreateInput, DocumentVersionUncheckedCreateInput>
+  }
+
+  /**
+   * DocumentVersion createMany
+   */
+  export type DocumentVersionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DocumentVersions.
+     */
+    data: DocumentVersionCreateManyInput | DocumentVersionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DocumentVersion createManyAndReturn
+   */
+  export type DocumentVersionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * The data used to create many DocumentVersions.
+     */
+    data: DocumentVersionCreateManyInput | DocumentVersionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentVersion update
+   */
+  export type DocumentVersionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DocumentVersion.
+     */
+    data: XOR<DocumentVersionUpdateInput, DocumentVersionUncheckedUpdateInput>
+    /**
+     * Choose, which DocumentVersion to update.
+     */
+    where: DocumentVersionWhereUniqueInput
+  }
+
+  /**
+   * DocumentVersion updateMany
+   */
+  export type DocumentVersionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DocumentVersions.
+     */
+    data: XOR<DocumentVersionUpdateManyMutationInput, DocumentVersionUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentVersions to update
+     */
+    where?: DocumentVersionWhereInput
+    /**
+     * Limit how many DocumentVersions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentVersion updateManyAndReturn
+   */
+  export type DocumentVersionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * The data used to update DocumentVersions.
+     */
+    data: XOR<DocumentVersionUpdateManyMutationInput, DocumentVersionUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentVersions to update
+     */
+    where?: DocumentVersionWhereInput
+    /**
+     * Limit how many DocumentVersions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentVersion upsert
+   */
+  export type DocumentVersionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DocumentVersion to update in case it exists.
+     */
+    where: DocumentVersionWhereUniqueInput
+    /**
+     * In case the DocumentVersion found by the `where` argument doesn't exist, create a new DocumentVersion with this data.
+     */
+    create: XOR<DocumentVersionCreateInput, DocumentVersionUncheckedCreateInput>
+    /**
+     * In case the DocumentVersion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DocumentVersionUpdateInput, DocumentVersionUncheckedUpdateInput>
+  }
+
+  /**
+   * DocumentVersion delete
+   */
+  export type DocumentVersionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+    /**
+     * Filter which DocumentVersion to delete.
+     */
+    where: DocumentVersionWhereUniqueInput
+  }
+
+  /**
+   * DocumentVersion deleteMany
+   */
+  export type DocumentVersionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentVersions to delete
+     */
+    where?: DocumentVersionWhereInput
+    /**
+     * Limit how many DocumentVersions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentVersion without action
+   */
+  export type DocumentVersionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentVersion
+     */
+    select?: DocumentVersionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentVersion
+     */
+    omit?: DocumentVersionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentVersionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DocumentComment
+   */
+
+  export type AggregateDocumentComment = {
+    _count: DocumentCommentCountAggregateOutputType | null
+    _min: DocumentCommentMinAggregateOutputType | null
+    _max: DocumentCommentMaxAggregateOutputType | null
+  }
+
+  export type DocumentCommentMinAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    content: string | null
+    zone: string | null
+    resolved: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DocumentCommentMaxAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    content: string | null
+    zone: string | null
+    resolved: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DocumentCommentCountAggregateOutputType = {
+    id: number
+    documentId: number
+    content: number
+    zone: number
+    resolved: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DocumentCommentMinAggregateInputType = {
+    id?: true
+    documentId?: true
+    content?: true
+    zone?: true
+    resolved?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DocumentCommentMaxAggregateInputType = {
+    id?: true
+    documentId?: true
+    content?: true
+    zone?: true
+    resolved?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DocumentCommentCountAggregateInputType = {
+    id?: true
+    documentId?: true
+    content?: true
+    zone?: true
+    resolved?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DocumentCommentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentComment to aggregate.
+     */
+    where?: DocumentCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentComments to fetch.
+     */
+    orderBy?: DocumentCommentOrderByWithRelationInput | DocumentCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DocumentCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DocumentComments
+    **/
+    _count?: true | DocumentCommentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DocumentCommentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DocumentCommentMaxAggregateInputType
+  }
+
+  export type GetDocumentCommentAggregateType<T extends DocumentCommentAggregateArgs> = {
+        [P in keyof T & keyof AggregateDocumentComment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDocumentComment[P]>
+      : GetScalarType<T[P], AggregateDocumentComment[P]>
+  }
+
+
+
+
+  export type DocumentCommentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentCommentWhereInput
+    orderBy?: DocumentCommentOrderByWithAggregationInput | DocumentCommentOrderByWithAggregationInput[]
+    by: DocumentCommentScalarFieldEnum[] | DocumentCommentScalarFieldEnum
+    having?: DocumentCommentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DocumentCommentCountAggregateInputType | true
+    _min?: DocumentCommentMinAggregateInputType
+    _max?: DocumentCommentMaxAggregateInputType
+  }
+
+  export type DocumentCommentGroupByOutputType = {
+    id: string
+    documentId: string
+    content: string
+    zone: string | null
+    resolved: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DocumentCommentCountAggregateOutputType | null
+    _min: DocumentCommentMinAggregateOutputType | null
+    _max: DocumentCommentMaxAggregateOutputType | null
+  }
+
+  type GetDocumentCommentGroupByPayload<T extends DocumentCommentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DocumentCommentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DocumentCommentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DocumentCommentGroupByOutputType[P]>
+            : GetScalarType<T[P], DocumentCommentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DocumentCommentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    content?: boolean
+    zone?: boolean
+    resolved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentComment"]>
+
+  export type DocumentCommentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    content?: boolean
+    zone?: boolean
+    resolved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentComment"]>
+
+  export type DocumentCommentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    content?: boolean
+    zone?: boolean
+    resolved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentComment"]>
+
+  export type DocumentCommentSelectScalar = {
+    id?: boolean
+    documentId?: boolean
+    content?: boolean
+    zone?: boolean
+    resolved?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DocumentCommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "documentId" | "content" | "zone" | "resolved" | "createdAt" | "updatedAt", ExtArgs["result"]["documentComment"]>
+  export type DocumentCommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+  export type DocumentCommentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+  export type DocumentCommentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+
+  export type $DocumentCommentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DocumentComment"
+    objects: {
+      document: Prisma.$DocumentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      documentId: string
+      content: string
+      zone: string | null
+      resolved: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["documentComment"]>
+    composites: {}
+  }
+
+  type DocumentCommentGetPayload<S extends boolean | null | undefined | DocumentCommentDefaultArgs> = $Result.GetResult<Prisma.$DocumentCommentPayload, S>
+
+  type DocumentCommentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DocumentCommentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DocumentCommentCountAggregateInputType | true
+    }
+
+  export interface DocumentCommentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DocumentComment'], meta: { name: 'DocumentComment' } }
+    /**
+     * Find zero or one DocumentComment that matches the filter.
+     * @param {DocumentCommentFindUniqueArgs} args - Arguments to find a DocumentComment
+     * @example
+     * // Get one DocumentComment
+     * const documentComment = await prisma.documentComment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DocumentCommentFindUniqueArgs>(args: SelectSubset<T, DocumentCommentFindUniqueArgs<ExtArgs>>): Prisma__DocumentCommentClient<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DocumentComment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DocumentCommentFindUniqueOrThrowArgs} args - Arguments to find a DocumentComment
+     * @example
+     * // Get one DocumentComment
+     * const documentComment = await prisma.documentComment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DocumentCommentFindUniqueOrThrowArgs>(args: SelectSubset<T, DocumentCommentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DocumentCommentClient<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentComment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentCommentFindFirstArgs} args - Arguments to find a DocumentComment
+     * @example
+     * // Get one DocumentComment
+     * const documentComment = await prisma.documentComment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DocumentCommentFindFirstArgs>(args?: SelectSubset<T, DocumentCommentFindFirstArgs<ExtArgs>>): Prisma__DocumentCommentClient<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentComment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentCommentFindFirstOrThrowArgs} args - Arguments to find a DocumentComment
+     * @example
+     * // Get one DocumentComment
+     * const documentComment = await prisma.documentComment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DocumentCommentFindFirstOrThrowArgs>(args?: SelectSubset<T, DocumentCommentFindFirstOrThrowArgs<ExtArgs>>): Prisma__DocumentCommentClient<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DocumentComments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentCommentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DocumentComments
+     * const documentComments = await prisma.documentComment.findMany()
+     * 
+     * // Get first 10 DocumentComments
+     * const documentComments = await prisma.documentComment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const documentCommentWithIdOnly = await prisma.documentComment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DocumentCommentFindManyArgs>(args?: SelectSubset<T, DocumentCommentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DocumentComment.
+     * @param {DocumentCommentCreateArgs} args - Arguments to create a DocumentComment.
+     * @example
+     * // Create one DocumentComment
+     * const DocumentComment = await prisma.documentComment.create({
+     *   data: {
+     *     // ... data to create a DocumentComment
+     *   }
+     * })
+     * 
+     */
+    create<T extends DocumentCommentCreateArgs>(args: SelectSubset<T, DocumentCommentCreateArgs<ExtArgs>>): Prisma__DocumentCommentClient<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DocumentComments.
+     * @param {DocumentCommentCreateManyArgs} args - Arguments to create many DocumentComments.
+     * @example
+     * // Create many DocumentComments
+     * const documentComment = await prisma.documentComment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DocumentCommentCreateManyArgs>(args?: SelectSubset<T, DocumentCommentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DocumentComments and returns the data saved in the database.
+     * @param {DocumentCommentCreateManyAndReturnArgs} args - Arguments to create many DocumentComments.
+     * @example
+     * // Create many DocumentComments
+     * const documentComment = await prisma.documentComment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DocumentComments and only return the `id`
+     * const documentCommentWithIdOnly = await prisma.documentComment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DocumentCommentCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentCommentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DocumentComment.
+     * @param {DocumentCommentDeleteArgs} args - Arguments to delete one DocumentComment.
+     * @example
+     * // Delete one DocumentComment
+     * const DocumentComment = await prisma.documentComment.delete({
+     *   where: {
+     *     // ... filter to delete one DocumentComment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DocumentCommentDeleteArgs>(args: SelectSubset<T, DocumentCommentDeleteArgs<ExtArgs>>): Prisma__DocumentCommentClient<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DocumentComment.
+     * @param {DocumentCommentUpdateArgs} args - Arguments to update one DocumentComment.
+     * @example
+     * // Update one DocumentComment
+     * const documentComment = await prisma.documentComment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DocumentCommentUpdateArgs>(args: SelectSubset<T, DocumentCommentUpdateArgs<ExtArgs>>): Prisma__DocumentCommentClient<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DocumentComments.
+     * @param {DocumentCommentDeleteManyArgs} args - Arguments to filter DocumentComments to delete.
+     * @example
+     * // Delete a few DocumentComments
+     * const { count } = await prisma.documentComment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DocumentCommentDeleteManyArgs>(args?: SelectSubset<T, DocumentCommentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentCommentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DocumentComments
+     * const documentComment = await prisma.documentComment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DocumentCommentUpdateManyArgs>(args: SelectSubset<T, DocumentCommentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentComments and returns the data updated in the database.
+     * @param {DocumentCommentUpdateManyAndReturnArgs} args - Arguments to update many DocumentComments.
+     * @example
+     * // Update many DocumentComments
+     * const documentComment = await prisma.documentComment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DocumentComments and only return the `id`
+     * const documentCommentWithIdOnly = await prisma.documentComment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DocumentCommentUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentCommentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DocumentComment.
+     * @param {DocumentCommentUpsertArgs} args - Arguments to update or create a DocumentComment.
+     * @example
+     * // Update or create a DocumentComment
+     * const documentComment = await prisma.documentComment.upsert({
+     *   create: {
+     *     // ... data to create a DocumentComment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DocumentComment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DocumentCommentUpsertArgs>(args: SelectSubset<T, DocumentCommentUpsertArgs<ExtArgs>>): Prisma__DocumentCommentClient<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DocumentComments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentCommentCountArgs} args - Arguments to filter DocumentComments to count.
+     * @example
+     * // Count the number of DocumentComments
+     * const count = await prisma.documentComment.count({
+     *   where: {
+     *     // ... the filter for the DocumentComments we want to count
+     *   }
+     * })
+    **/
+    count<T extends DocumentCommentCountArgs>(
+      args?: Subset<T, DocumentCommentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DocumentCommentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DocumentComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentCommentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DocumentCommentAggregateArgs>(args: Subset<T, DocumentCommentAggregateArgs>): Prisma.PrismaPromise<GetDocumentCommentAggregateType<T>>
+
+    /**
+     * Group by DocumentComment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentCommentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DocumentCommentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DocumentCommentGroupByArgs['orderBy'] }
+        : { orderBy?: DocumentCommentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DocumentCommentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocumentCommentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DocumentComment model
+   */
+  readonly fields: DocumentCommentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DocumentComment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DocumentCommentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    document<T extends DocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DocumentDefaultArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DocumentComment model
+   */
+  interface DocumentCommentFieldRefs {
+    readonly id: FieldRef<"DocumentComment", 'String'>
+    readonly documentId: FieldRef<"DocumentComment", 'String'>
+    readonly content: FieldRef<"DocumentComment", 'String'>
+    readonly zone: FieldRef<"DocumentComment", 'String'>
+    readonly resolved: FieldRef<"DocumentComment", 'Boolean'>
+    readonly createdAt: FieldRef<"DocumentComment", 'DateTime'>
+    readonly updatedAt: FieldRef<"DocumentComment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DocumentComment findUnique
+   */
+  export type DocumentCommentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentComment to fetch.
+     */
+    where: DocumentCommentWhereUniqueInput
+  }
+
+  /**
+   * DocumentComment findUniqueOrThrow
+   */
+  export type DocumentCommentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentComment to fetch.
+     */
+    where: DocumentCommentWhereUniqueInput
+  }
+
+  /**
+   * DocumentComment findFirst
+   */
+  export type DocumentCommentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentComment to fetch.
+     */
+    where?: DocumentCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentComments to fetch.
+     */
+    orderBy?: DocumentCommentOrderByWithRelationInput | DocumentCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentComments.
+     */
+    cursor?: DocumentCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentComments.
+     */
+    distinct?: DocumentCommentScalarFieldEnum | DocumentCommentScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentComment findFirstOrThrow
+   */
+  export type DocumentCommentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentComment to fetch.
+     */
+    where?: DocumentCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentComments to fetch.
+     */
+    orderBy?: DocumentCommentOrderByWithRelationInput | DocumentCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentComments.
+     */
+    cursor?: DocumentCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentComments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentComments.
+     */
+    distinct?: DocumentCommentScalarFieldEnum | DocumentCommentScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentComment findMany
+   */
+  export type DocumentCommentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentComments to fetch.
+     */
+    where?: DocumentCommentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentComments to fetch.
+     */
+    orderBy?: DocumentCommentOrderByWithRelationInput | DocumentCommentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DocumentComments.
+     */
+    cursor?: DocumentCommentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentComments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentComments.
+     */
+    skip?: number
+    distinct?: DocumentCommentScalarFieldEnum | DocumentCommentScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentComment create
+   */
+  export type DocumentCommentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DocumentComment.
+     */
+    data: XOR<DocumentCommentCreateInput, DocumentCommentUncheckedCreateInput>
+  }
+
+  /**
+   * DocumentComment createMany
+   */
+  export type DocumentCommentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DocumentComments.
+     */
+    data: DocumentCommentCreateManyInput | DocumentCommentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DocumentComment createManyAndReturn
+   */
+  export type DocumentCommentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * The data used to create many DocumentComments.
+     */
+    data: DocumentCommentCreateManyInput | DocumentCommentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentComment update
+   */
+  export type DocumentCommentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DocumentComment.
+     */
+    data: XOR<DocumentCommentUpdateInput, DocumentCommentUncheckedUpdateInput>
+    /**
+     * Choose, which DocumentComment to update.
+     */
+    where: DocumentCommentWhereUniqueInput
+  }
+
+  /**
+   * DocumentComment updateMany
+   */
+  export type DocumentCommentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DocumentComments.
+     */
+    data: XOR<DocumentCommentUpdateManyMutationInput, DocumentCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentComments to update
+     */
+    where?: DocumentCommentWhereInput
+    /**
+     * Limit how many DocumentComments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentComment updateManyAndReturn
+   */
+  export type DocumentCommentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * The data used to update DocumentComments.
+     */
+    data: XOR<DocumentCommentUpdateManyMutationInput, DocumentCommentUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentComments to update
+     */
+    where?: DocumentCommentWhereInput
+    /**
+     * Limit how many DocumentComments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentComment upsert
+   */
+  export type DocumentCommentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DocumentComment to update in case it exists.
+     */
+    where: DocumentCommentWhereUniqueInput
+    /**
+     * In case the DocumentComment found by the `where` argument doesn't exist, create a new DocumentComment with this data.
+     */
+    create: XOR<DocumentCommentCreateInput, DocumentCommentUncheckedCreateInput>
+    /**
+     * In case the DocumentComment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DocumentCommentUpdateInput, DocumentCommentUncheckedUpdateInput>
+  }
+
+  /**
+   * DocumentComment delete
+   */
+  export type DocumentCommentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+    /**
+     * Filter which DocumentComment to delete.
+     */
+    where: DocumentCommentWhereUniqueInput
+  }
+
+  /**
+   * DocumentComment deleteMany
+   */
+  export type DocumentCommentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentComments to delete
+     */
+    where?: DocumentCommentWhereInput
+    /**
+     * Limit how many DocumentComments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentComment without action
+   */
+  export type DocumentCommentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentComment
+     */
+    select?: DocumentCommentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentComment
+     */
+    omit?: DocumentCommentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentCommentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DocumentNotificationRule
+   */
+
+  export type AggregateDocumentNotificationRule = {
+    _count: DocumentNotificationRuleCountAggregateOutputType | null
+    _min: DocumentNotificationRuleMinAggregateOutputType | null
+    _max: DocumentNotificationRuleMaxAggregateOutputType | null
+  }
+
+  export type DocumentNotificationRuleMinAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    trigger: string | null
+    frequency: string | null
+    channel: string | null
+    targetEmail: string | null
+    targetUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type DocumentNotificationRuleMaxAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    trigger: string | null
+    frequency: string | null
+    channel: string | null
+    targetEmail: string | null
+    targetUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type DocumentNotificationRuleCountAggregateOutputType = {
+    id: number
+    documentId: number
+    trigger: number
+    frequency: number
+    channel: number
+    targetEmail: number
+    targetUrl: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DocumentNotificationRuleMinAggregateInputType = {
+    id?: true
+    documentId?: true
+    trigger?: true
+    frequency?: true
+    channel?: true
+    targetEmail?: true
+    targetUrl?: true
+    createdAt?: true
+  }
+
+  export type DocumentNotificationRuleMaxAggregateInputType = {
+    id?: true
+    documentId?: true
+    trigger?: true
+    frequency?: true
+    channel?: true
+    targetEmail?: true
+    targetUrl?: true
+    createdAt?: true
+  }
+
+  export type DocumentNotificationRuleCountAggregateInputType = {
+    id?: true
+    documentId?: true
+    trigger?: true
+    frequency?: true
+    channel?: true
+    targetEmail?: true
+    targetUrl?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DocumentNotificationRuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentNotificationRule to aggregate.
+     */
+    where?: DocumentNotificationRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentNotificationRules to fetch.
+     */
+    orderBy?: DocumentNotificationRuleOrderByWithRelationInput | DocumentNotificationRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DocumentNotificationRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentNotificationRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentNotificationRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DocumentNotificationRules
+    **/
+    _count?: true | DocumentNotificationRuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DocumentNotificationRuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DocumentNotificationRuleMaxAggregateInputType
+  }
+
+  export type GetDocumentNotificationRuleAggregateType<T extends DocumentNotificationRuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateDocumentNotificationRule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDocumentNotificationRule[P]>
+      : GetScalarType<T[P], AggregateDocumentNotificationRule[P]>
+  }
+
+
+
+
+  export type DocumentNotificationRuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentNotificationRuleWhereInput
+    orderBy?: DocumentNotificationRuleOrderByWithAggregationInput | DocumentNotificationRuleOrderByWithAggregationInput[]
+    by: DocumentNotificationRuleScalarFieldEnum[] | DocumentNotificationRuleScalarFieldEnum
+    having?: DocumentNotificationRuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DocumentNotificationRuleCountAggregateInputType | true
+    _min?: DocumentNotificationRuleMinAggregateInputType
+    _max?: DocumentNotificationRuleMaxAggregateInputType
+  }
+
+  export type DocumentNotificationRuleGroupByOutputType = {
+    id: string
+    documentId: string
+    trigger: string
+    frequency: string
+    channel: string
+    targetEmail: string | null
+    targetUrl: string | null
+    createdAt: Date
+    _count: DocumentNotificationRuleCountAggregateOutputType | null
+    _min: DocumentNotificationRuleMinAggregateOutputType | null
+    _max: DocumentNotificationRuleMaxAggregateOutputType | null
+  }
+
+  type GetDocumentNotificationRuleGroupByPayload<T extends DocumentNotificationRuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DocumentNotificationRuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DocumentNotificationRuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DocumentNotificationRuleGroupByOutputType[P]>
+            : GetScalarType<T[P], DocumentNotificationRuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DocumentNotificationRuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    trigger?: boolean
+    frequency?: boolean
+    channel?: boolean
+    targetEmail?: boolean
+    targetUrl?: boolean
+    createdAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentNotificationRule"]>
+
+  export type DocumentNotificationRuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    trigger?: boolean
+    frequency?: boolean
+    channel?: boolean
+    targetEmail?: boolean
+    targetUrl?: boolean
+    createdAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentNotificationRule"]>
+
+  export type DocumentNotificationRuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    trigger?: boolean
+    frequency?: boolean
+    channel?: boolean
+    targetEmail?: boolean
+    targetUrl?: boolean
+    createdAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentNotificationRule"]>
+
+  export type DocumentNotificationRuleSelectScalar = {
+    id?: boolean
+    documentId?: boolean
+    trigger?: boolean
+    frequency?: boolean
+    channel?: boolean
+    targetEmail?: boolean
+    targetUrl?: boolean
+    createdAt?: boolean
+  }
+
+  export type DocumentNotificationRuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "documentId" | "trigger" | "frequency" | "channel" | "targetEmail" | "targetUrl" | "createdAt", ExtArgs["result"]["documentNotificationRule"]>
+  export type DocumentNotificationRuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+  export type DocumentNotificationRuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+  export type DocumentNotificationRuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+
+  export type $DocumentNotificationRulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DocumentNotificationRule"
+    objects: {
+      document: Prisma.$DocumentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      documentId: string
+      trigger: string
+      frequency: string
+      channel: string
+      targetEmail: string | null
+      targetUrl: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["documentNotificationRule"]>
+    composites: {}
+  }
+
+  type DocumentNotificationRuleGetPayload<S extends boolean | null | undefined | DocumentNotificationRuleDefaultArgs> = $Result.GetResult<Prisma.$DocumentNotificationRulePayload, S>
+
+  type DocumentNotificationRuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DocumentNotificationRuleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DocumentNotificationRuleCountAggregateInputType | true
+    }
+
+  export interface DocumentNotificationRuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DocumentNotificationRule'], meta: { name: 'DocumentNotificationRule' } }
+    /**
+     * Find zero or one DocumentNotificationRule that matches the filter.
+     * @param {DocumentNotificationRuleFindUniqueArgs} args - Arguments to find a DocumentNotificationRule
+     * @example
+     * // Get one DocumentNotificationRule
+     * const documentNotificationRule = await prisma.documentNotificationRule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DocumentNotificationRuleFindUniqueArgs>(args: SelectSubset<T, DocumentNotificationRuleFindUniqueArgs<ExtArgs>>): Prisma__DocumentNotificationRuleClient<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DocumentNotificationRule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DocumentNotificationRuleFindUniqueOrThrowArgs} args - Arguments to find a DocumentNotificationRule
+     * @example
+     * // Get one DocumentNotificationRule
+     * const documentNotificationRule = await prisma.documentNotificationRule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DocumentNotificationRuleFindUniqueOrThrowArgs>(args: SelectSubset<T, DocumentNotificationRuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DocumentNotificationRuleClient<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentNotificationRule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentNotificationRuleFindFirstArgs} args - Arguments to find a DocumentNotificationRule
+     * @example
+     * // Get one DocumentNotificationRule
+     * const documentNotificationRule = await prisma.documentNotificationRule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DocumentNotificationRuleFindFirstArgs>(args?: SelectSubset<T, DocumentNotificationRuleFindFirstArgs<ExtArgs>>): Prisma__DocumentNotificationRuleClient<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentNotificationRule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentNotificationRuleFindFirstOrThrowArgs} args - Arguments to find a DocumentNotificationRule
+     * @example
+     * // Get one DocumentNotificationRule
+     * const documentNotificationRule = await prisma.documentNotificationRule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DocumentNotificationRuleFindFirstOrThrowArgs>(args?: SelectSubset<T, DocumentNotificationRuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__DocumentNotificationRuleClient<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DocumentNotificationRules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentNotificationRuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DocumentNotificationRules
+     * const documentNotificationRules = await prisma.documentNotificationRule.findMany()
+     * 
+     * // Get first 10 DocumentNotificationRules
+     * const documentNotificationRules = await prisma.documentNotificationRule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const documentNotificationRuleWithIdOnly = await prisma.documentNotificationRule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DocumentNotificationRuleFindManyArgs>(args?: SelectSubset<T, DocumentNotificationRuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DocumentNotificationRule.
+     * @param {DocumentNotificationRuleCreateArgs} args - Arguments to create a DocumentNotificationRule.
+     * @example
+     * // Create one DocumentNotificationRule
+     * const DocumentNotificationRule = await prisma.documentNotificationRule.create({
+     *   data: {
+     *     // ... data to create a DocumentNotificationRule
+     *   }
+     * })
+     * 
+     */
+    create<T extends DocumentNotificationRuleCreateArgs>(args: SelectSubset<T, DocumentNotificationRuleCreateArgs<ExtArgs>>): Prisma__DocumentNotificationRuleClient<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DocumentNotificationRules.
+     * @param {DocumentNotificationRuleCreateManyArgs} args - Arguments to create many DocumentNotificationRules.
+     * @example
+     * // Create many DocumentNotificationRules
+     * const documentNotificationRule = await prisma.documentNotificationRule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DocumentNotificationRuleCreateManyArgs>(args?: SelectSubset<T, DocumentNotificationRuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DocumentNotificationRules and returns the data saved in the database.
+     * @param {DocumentNotificationRuleCreateManyAndReturnArgs} args - Arguments to create many DocumentNotificationRules.
+     * @example
+     * // Create many DocumentNotificationRules
+     * const documentNotificationRule = await prisma.documentNotificationRule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DocumentNotificationRules and only return the `id`
+     * const documentNotificationRuleWithIdOnly = await prisma.documentNotificationRule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DocumentNotificationRuleCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentNotificationRuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DocumentNotificationRule.
+     * @param {DocumentNotificationRuleDeleteArgs} args - Arguments to delete one DocumentNotificationRule.
+     * @example
+     * // Delete one DocumentNotificationRule
+     * const DocumentNotificationRule = await prisma.documentNotificationRule.delete({
+     *   where: {
+     *     // ... filter to delete one DocumentNotificationRule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DocumentNotificationRuleDeleteArgs>(args: SelectSubset<T, DocumentNotificationRuleDeleteArgs<ExtArgs>>): Prisma__DocumentNotificationRuleClient<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DocumentNotificationRule.
+     * @param {DocumentNotificationRuleUpdateArgs} args - Arguments to update one DocumentNotificationRule.
+     * @example
+     * // Update one DocumentNotificationRule
+     * const documentNotificationRule = await prisma.documentNotificationRule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DocumentNotificationRuleUpdateArgs>(args: SelectSubset<T, DocumentNotificationRuleUpdateArgs<ExtArgs>>): Prisma__DocumentNotificationRuleClient<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DocumentNotificationRules.
+     * @param {DocumentNotificationRuleDeleteManyArgs} args - Arguments to filter DocumentNotificationRules to delete.
+     * @example
+     * // Delete a few DocumentNotificationRules
+     * const { count } = await prisma.documentNotificationRule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DocumentNotificationRuleDeleteManyArgs>(args?: SelectSubset<T, DocumentNotificationRuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentNotificationRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentNotificationRuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DocumentNotificationRules
+     * const documentNotificationRule = await prisma.documentNotificationRule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DocumentNotificationRuleUpdateManyArgs>(args: SelectSubset<T, DocumentNotificationRuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentNotificationRules and returns the data updated in the database.
+     * @param {DocumentNotificationRuleUpdateManyAndReturnArgs} args - Arguments to update many DocumentNotificationRules.
+     * @example
+     * // Update many DocumentNotificationRules
+     * const documentNotificationRule = await prisma.documentNotificationRule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DocumentNotificationRules and only return the `id`
+     * const documentNotificationRuleWithIdOnly = await prisma.documentNotificationRule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DocumentNotificationRuleUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentNotificationRuleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DocumentNotificationRule.
+     * @param {DocumentNotificationRuleUpsertArgs} args - Arguments to update or create a DocumentNotificationRule.
+     * @example
+     * // Update or create a DocumentNotificationRule
+     * const documentNotificationRule = await prisma.documentNotificationRule.upsert({
+     *   create: {
+     *     // ... data to create a DocumentNotificationRule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DocumentNotificationRule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DocumentNotificationRuleUpsertArgs>(args: SelectSubset<T, DocumentNotificationRuleUpsertArgs<ExtArgs>>): Prisma__DocumentNotificationRuleClient<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DocumentNotificationRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentNotificationRuleCountArgs} args - Arguments to filter DocumentNotificationRules to count.
+     * @example
+     * // Count the number of DocumentNotificationRules
+     * const count = await prisma.documentNotificationRule.count({
+     *   where: {
+     *     // ... the filter for the DocumentNotificationRules we want to count
+     *   }
+     * })
+    **/
+    count<T extends DocumentNotificationRuleCountArgs>(
+      args?: Subset<T, DocumentNotificationRuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DocumentNotificationRuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DocumentNotificationRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentNotificationRuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DocumentNotificationRuleAggregateArgs>(args: Subset<T, DocumentNotificationRuleAggregateArgs>): Prisma.PrismaPromise<GetDocumentNotificationRuleAggregateType<T>>
+
+    /**
+     * Group by DocumentNotificationRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentNotificationRuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DocumentNotificationRuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DocumentNotificationRuleGroupByArgs['orderBy'] }
+        : { orderBy?: DocumentNotificationRuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DocumentNotificationRuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocumentNotificationRuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DocumentNotificationRule model
+   */
+  readonly fields: DocumentNotificationRuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DocumentNotificationRule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DocumentNotificationRuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    document<T extends DocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DocumentDefaultArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DocumentNotificationRule model
+   */
+  interface DocumentNotificationRuleFieldRefs {
+    readonly id: FieldRef<"DocumentNotificationRule", 'String'>
+    readonly documentId: FieldRef<"DocumentNotificationRule", 'String'>
+    readonly trigger: FieldRef<"DocumentNotificationRule", 'String'>
+    readonly frequency: FieldRef<"DocumentNotificationRule", 'String'>
+    readonly channel: FieldRef<"DocumentNotificationRule", 'String'>
+    readonly targetEmail: FieldRef<"DocumentNotificationRule", 'String'>
+    readonly targetUrl: FieldRef<"DocumentNotificationRule", 'String'>
+    readonly createdAt: FieldRef<"DocumentNotificationRule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DocumentNotificationRule findUnique
+   */
+  export type DocumentNotificationRuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentNotificationRule to fetch.
+     */
+    where: DocumentNotificationRuleWhereUniqueInput
+  }
+
+  /**
+   * DocumentNotificationRule findUniqueOrThrow
+   */
+  export type DocumentNotificationRuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentNotificationRule to fetch.
+     */
+    where: DocumentNotificationRuleWhereUniqueInput
+  }
+
+  /**
+   * DocumentNotificationRule findFirst
+   */
+  export type DocumentNotificationRuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentNotificationRule to fetch.
+     */
+    where?: DocumentNotificationRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentNotificationRules to fetch.
+     */
+    orderBy?: DocumentNotificationRuleOrderByWithRelationInput | DocumentNotificationRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentNotificationRules.
+     */
+    cursor?: DocumentNotificationRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentNotificationRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentNotificationRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentNotificationRules.
+     */
+    distinct?: DocumentNotificationRuleScalarFieldEnum | DocumentNotificationRuleScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentNotificationRule findFirstOrThrow
+   */
+  export type DocumentNotificationRuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentNotificationRule to fetch.
+     */
+    where?: DocumentNotificationRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentNotificationRules to fetch.
+     */
+    orderBy?: DocumentNotificationRuleOrderByWithRelationInput | DocumentNotificationRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentNotificationRules.
+     */
+    cursor?: DocumentNotificationRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentNotificationRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentNotificationRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentNotificationRules.
+     */
+    distinct?: DocumentNotificationRuleScalarFieldEnum | DocumentNotificationRuleScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentNotificationRule findMany
+   */
+  export type DocumentNotificationRuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentNotificationRules to fetch.
+     */
+    where?: DocumentNotificationRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentNotificationRules to fetch.
+     */
+    orderBy?: DocumentNotificationRuleOrderByWithRelationInput | DocumentNotificationRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DocumentNotificationRules.
+     */
+    cursor?: DocumentNotificationRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentNotificationRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentNotificationRules.
+     */
+    skip?: number
+    distinct?: DocumentNotificationRuleScalarFieldEnum | DocumentNotificationRuleScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentNotificationRule create
+   */
+  export type DocumentNotificationRuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DocumentNotificationRule.
+     */
+    data: XOR<DocumentNotificationRuleCreateInput, DocumentNotificationRuleUncheckedCreateInput>
+  }
+
+  /**
+   * DocumentNotificationRule createMany
+   */
+  export type DocumentNotificationRuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DocumentNotificationRules.
+     */
+    data: DocumentNotificationRuleCreateManyInput | DocumentNotificationRuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DocumentNotificationRule createManyAndReturn
+   */
+  export type DocumentNotificationRuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * The data used to create many DocumentNotificationRules.
+     */
+    data: DocumentNotificationRuleCreateManyInput | DocumentNotificationRuleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentNotificationRule update
+   */
+  export type DocumentNotificationRuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DocumentNotificationRule.
+     */
+    data: XOR<DocumentNotificationRuleUpdateInput, DocumentNotificationRuleUncheckedUpdateInput>
+    /**
+     * Choose, which DocumentNotificationRule to update.
+     */
+    where: DocumentNotificationRuleWhereUniqueInput
+  }
+
+  /**
+   * DocumentNotificationRule updateMany
+   */
+  export type DocumentNotificationRuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DocumentNotificationRules.
+     */
+    data: XOR<DocumentNotificationRuleUpdateManyMutationInput, DocumentNotificationRuleUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentNotificationRules to update
+     */
+    where?: DocumentNotificationRuleWhereInput
+    /**
+     * Limit how many DocumentNotificationRules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentNotificationRule updateManyAndReturn
+   */
+  export type DocumentNotificationRuleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * The data used to update DocumentNotificationRules.
+     */
+    data: XOR<DocumentNotificationRuleUpdateManyMutationInput, DocumentNotificationRuleUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentNotificationRules to update
+     */
+    where?: DocumentNotificationRuleWhereInput
+    /**
+     * Limit how many DocumentNotificationRules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentNotificationRule upsert
+   */
+  export type DocumentNotificationRuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DocumentNotificationRule to update in case it exists.
+     */
+    where: DocumentNotificationRuleWhereUniqueInput
+    /**
+     * In case the DocumentNotificationRule found by the `where` argument doesn't exist, create a new DocumentNotificationRule with this data.
+     */
+    create: XOR<DocumentNotificationRuleCreateInput, DocumentNotificationRuleUncheckedCreateInput>
+    /**
+     * In case the DocumentNotificationRule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DocumentNotificationRuleUpdateInput, DocumentNotificationRuleUncheckedUpdateInput>
+  }
+
+  /**
+   * DocumentNotificationRule delete
+   */
+  export type DocumentNotificationRuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+    /**
+     * Filter which DocumentNotificationRule to delete.
+     */
+    where: DocumentNotificationRuleWhereUniqueInput
+  }
+
+  /**
+   * DocumentNotificationRule deleteMany
+   */
+  export type DocumentNotificationRuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentNotificationRules to delete
+     */
+    where?: DocumentNotificationRuleWhereInput
+    /**
+     * Limit how many DocumentNotificationRules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentNotificationRule without action
+   */
+  export type DocumentNotificationRuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentNotificationRule
+     */
+    select?: DocumentNotificationRuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentNotificationRule
+     */
+    omit?: DocumentNotificationRuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentNotificationRuleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DocumentSignature
+   */
+
+  export type AggregateDocumentSignature = {
+    _count: DocumentSignatureCountAggregateOutputType | null
+    _min: DocumentSignatureMinAggregateOutputType | null
+    _max: DocumentSignatureMaxAggregateOutputType | null
+  }
+
+  export type DocumentSignatureMinAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    status: string | null
+    signatureUrl: string | null
+    requestedAt: Date | null
+    signedAt: Date | null
+  }
+
+  export type DocumentSignatureMaxAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    status: string | null
+    signatureUrl: string | null
+    requestedAt: Date | null
+    signedAt: Date | null
+  }
+
+  export type DocumentSignatureCountAggregateOutputType = {
+    id: number
+    documentId: number
+    status: number
+    signatureUrl: number
+    requestedAt: number
+    signedAt: number
+    _all: number
+  }
+
+
+  export type DocumentSignatureMinAggregateInputType = {
+    id?: true
+    documentId?: true
+    status?: true
+    signatureUrl?: true
+    requestedAt?: true
+    signedAt?: true
+  }
+
+  export type DocumentSignatureMaxAggregateInputType = {
+    id?: true
+    documentId?: true
+    status?: true
+    signatureUrl?: true
+    requestedAt?: true
+    signedAt?: true
+  }
+
+  export type DocumentSignatureCountAggregateInputType = {
+    id?: true
+    documentId?: true
+    status?: true
+    signatureUrl?: true
+    requestedAt?: true
+    signedAt?: true
+    _all?: true
+  }
+
+  export type DocumentSignatureAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentSignature to aggregate.
+     */
+    where?: DocumentSignatureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentSignatures to fetch.
+     */
+    orderBy?: DocumentSignatureOrderByWithRelationInput | DocumentSignatureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DocumentSignatureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentSignatures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentSignatures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DocumentSignatures
+    **/
+    _count?: true | DocumentSignatureCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DocumentSignatureMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DocumentSignatureMaxAggregateInputType
+  }
+
+  export type GetDocumentSignatureAggregateType<T extends DocumentSignatureAggregateArgs> = {
+        [P in keyof T & keyof AggregateDocumentSignature]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDocumentSignature[P]>
+      : GetScalarType<T[P], AggregateDocumentSignature[P]>
+  }
+
+
+
+
+  export type DocumentSignatureGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentSignatureWhereInput
+    orderBy?: DocumentSignatureOrderByWithAggregationInput | DocumentSignatureOrderByWithAggregationInput[]
+    by: DocumentSignatureScalarFieldEnum[] | DocumentSignatureScalarFieldEnum
+    having?: DocumentSignatureScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DocumentSignatureCountAggregateInputType | true
+    _min?: DocumentSignatureMinAggregateInputType
+    _max?: DocumentSignatureMaxAggregateInputType
+  }
+
+  export type DocumentSignatureGroupByOutputType = {
+    id: string
+    documentId: string
+    status: string
+    signatureUrl: string | null
+    requestedAt: Date
+    signedAt: Date | null
+    _count: DocumentSignatureCountAggregateOutputType | null
+    _min: DocumentSignatureMinAggregateOutputType | null
+    _max: DocumentSignatureMaxAggregateOutputType | null
+  }
+
+  type GetDocumentSignatureGroupByPayload<T extends DocumentSignatureGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DocumentSignatureGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DocumentSignatureGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DocumentSignatureGroupByOutputType[P]>
+            : GetScalarType<T[P], DocumentSignatureGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DocumentSignatureSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    status?: boolean
+    signatureUrl?: boolean
+    requestedAt?: boolean
+    signedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentSignature"]>
+
+  export type DocumentSignatureSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    status?: boolean
+    signatureUrl?: boolean
+    requestedAt?: boolean
+    signedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentSignature"]>
+
+  export type DocumentSignatureSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    status?: boolean
+    signatureUrl?: boolean
+    requestedAt?: boolean
+    signedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentSignature"]>
+
+  export type DocumentSignatureSelectScalar = {
+    id?: boolean
+    documentId?: boolean
+    status?: boolean
+    signatureUrl?: boolean
+    requestedAt?: boolean
+    signedAt?: boolean
+  }
+
+  export type DocumentSignatureOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "documentId" | "status" | "signatureUrl" | "requestedAt" | "signedAt", ExtArgs["result"]["documentSignature"]>
+  export type DocumentSignatureInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+  export type DocumentSignatureIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+  export type DocumentSignatureIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+  }
+
+  export type $DocumentSignaturePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DocumentSignature"
+    objects: {
+      document: Prisma.$DocumentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      documentId: string
+      status: string
+      signatureUrl: string | null
+      requestedAt: Date
+      signedAt: Date | null
+    }, ExtArgs["result"]["documentSignature"]>
+    composites: {}
+  }
+
+  type DocumentSignatureGetPayload<S extends boolean | null | undefined | DocumentSignatureDefaultArgs> = $Result.GetResult<Prisma.$DocumentSignaturePayload, S>
+
+  type DocumentSignatureCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DocumentSignatureFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DocumentSignatureCountAggregateInputType | true
+    }
+
+  export interface DocumentSignatureDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DocumentSignature'], meta: { name: 'DocumentSignature' } }
+    /**
+     * Find zero or one DocumentSignature that matches the filter.
+     * @param {DocumentSignatureFindUniqueArgs} args - Arguments to find a DocumentSignature
+     * @example
+     * // Get one DocumentSignature
+     * const documentSignature = await prisma.documentSignature.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DocumentSignatureFindUniqueArgs>(args: SelectSubset<T, DocumentSignatureFindUniqueArgs<ExtArgs>>): Prisma__DocumentSignatureClient<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DocumentSignature that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DocumentSignatureFindUniqueOrThrowArgs} args - Arguments to find a DocumentSignature
+     * @example
+     * // Get one DocumentSignature
+     * const documentSignature = await prisma.documentSignature.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DocumentSignatureFindUniqueOrThrowArgs>(args: SelectSubset<T, DocumentSignatureFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DocumentSignatureClient<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentSignature that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentSignatureFindFirstArgs} args - Arguments to find a DocumentSignature
+     * @example
+     * // Get one DocumentSignature
+     * const documentSignature = await prisma.documentSignature.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DocumentSignatureFindFirstArgs>(args?: SelectSubset<T, DocumentSignatureFindFirstArgs<ExtArgs>>): Prisma__DocumentSignatureClient<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentSignature that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentSignatureFindFirstOrThrowArgs} args - Arguments to find a DocumentSignature
+     * @example
+     * // Get one DocumentSignature
+     * const documentSignature = await prisma.documentSignature.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DocumentSignatureFindFirstOrThrowArgs>(args?: SelectSubset<T, DocumentSignatureFindFirstOrThrowArgs<ExtArgs>>): Prisma__DocumentSignatureClient<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DocumentSignatures that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentSignatureFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DocumentSignatures
+     * const documentSignatures = await prisma.documentSignature.findMany()
+     * 
+     * // Get first 10 DocumentSignatures
+     * const documentSignatures = await prisma.documentSignature.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const documentSignatureWithIdOnly = await prisma.documentSignature.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DocumentSignatureFindManyArgs>(args?: SelectSubset<T, DocumentSignatureFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DocumentSignature.
+     * @param {DocumentSignatureCreateArgs} args - Arguments to create a DocumentSignature.
+     * @example
+     * // Create one DocumentSignature
+     * const DocumentSignature = await prisma.documentSignature.create({
+     *   data: {
+     *     // ... data to create a DocumentSignature
+     *   }
+     * })
+     * 
+     */
+    create<T extends DocumentSignatureCreateArgs>(args: SelectSubset<T, DocumentSignatureCreateArgs<ExtArgs>>): Prisma__DocumentSignatureClient<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DocumentSignatures.
+     * @param {DocumentSignatureCreateManyArgs} args - Arguments to create many DocumentSignatures.
+     * @example
+     * // Create many DocumentSignatures
+     * const documentSignature = await prisma.documentSignature.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DocumentSignatureCreateManyArgs>(args?: SelectSubset<T, DocumentSignatureCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DocumentSignatures and returns the data saved in the database.
+     * @param {DocumentSignatureCreateManyAndReturnArgs} args - Arguments to create many DocumentSignatures.
+     * @example
+     * // Create many DocumentSignatures
+     * const documentSignature = await prisma.documentSignature.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DocumentSignatures and only return the `id`
+     * const documentSignatureWithIdOnly = await prisma.documentSignature.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DocumentSignatureCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentSignatureCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DocumentSignature.
+     * @param {DocumentSignatureDeleteArgs} args - Arguments to delete one DocumentSignature.
+     * @example
+     * // Delete one DocumentSignature
+     * const DocumentSignature = await prisma.documentSignature.delete({
+     *   where: {
+     *     // ... filter to delete one DocumentSignature
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DocumentSignatureDeleteArgs>(args: SelectSubset<T, DocumentSignatureDeleteArgs<ExtArgs>>): Prisma__DocumentSignatureClient<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DocumentSignature.
+     * @param {DocumentSignatureUpdateArgs} args - Arguments to update one DocumentSignature.
+     * @example
+     * // Update one DocumentSignature
+     * const documentSignature = await prisma.documentSignature.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DocumentSignatureUpdateArgs>(args: SelectSubset<T, DocumentSignatureUpdateArgs<ExtArgs>>): Prisma__DocumentSignatureClient<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DocumentSignatures.
+     * @param {DocumentSignatureDeleteManyArgs} args - Arguments to filter DocumentSignatures to delete.
+     * @example
+     * // Delete a few DocumentSignatures
+     * const { count } = await prisma.documentSignature.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DocumentSignatureDeleteManyArgs>(args?: SelectSubset<T, DocumentSignatureDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentSignatures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentSignatureUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DocumentSignatures
+     * const documentSignature = await prisma.documentSignature.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DocumentSignatureUpdateManyArgs>(args: SelectSubset<T, DocumentSignatureUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentSignatures and returns the data updated in the database.
+     * @param {DocumentSignatureUpdateManyAndReturnArgs} args - Arguments to update many DocumentSignatures.
+     * @example
+     * // Update many DocumentSignatures
+     * const documentSignature = await prisma.documentSignature.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DocumentSignatures and only return the `id`
+     * const documentSignatureWithIdOnly = await prisma.documentSignature.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DocumentSignatureUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentSignatureUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DocumentSignature.
+     * @param {DocumentSignatureUpsertArgs} args - Arguments to update or create a DocumentSignature.
+     * @example
+     * // Update or create a DocumentSignature
+     * const documentSignature = await prisma.documentSignature.upsert({
+     *   create: {
+     *     // ... data to create a DocumentSignature
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DocumentSignature we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DocumentSignatureUpsertArgs>(args: SelectSubset<T, DocumentSignatureUpsertArgs<ExtArgs>>): Prisma__DocumentSignatureClient<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DocumentSignatures.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentSignatureCountArgs} args - Arguments to filter DocumentSignatures to count.
+     * @example
+     * // Count the number of DocumentSignatures
+     * const count = await prisma.documentSignature.count({
+     *   where: {
+     *     // ... the filter for the DocumentSignatures we want to count
+     *   }
+     * })
+    **/
+    count<T extends DocumentSignatureCountArgs>(
+      args?: Subset<T, DocumentSignatureCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DocumentSignatureCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DocumentSignature.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentSignatureAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DocumentSignatureAggregateArgs>(args: Subset<T, DocumentSignatureAggregateArgs>): Prisma.PrismaPromise<GetDocumentSignatureAggregateType<T>>
+
+    /**
+     * Group by DocumentSignature.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentSignatureGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DocumentSignatureGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DocumentSignatureGroupByArgs['orderBy'] }
+        : { orderBy?: DocumentSignatureGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DocumentSignatureGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocumentSignatureGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DocumentSignature model
+   */
+  readonly fields: DocumentSignatureFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DocumentSignature.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DocumentSignatureClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    document<T extends DocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DocumentDefaultArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DocumentSignature model
+   */
+  interface DocumentSignatureFieldRefs {
+    readonly id: FieldRef<"DocumentSignature", 'String'>
+    readonly documentId: FieldRef<"DocumentSignature", 'String'>
+    readonly status: FieldRef<"DocumentSignature", 'String'>
+    readonly signatureUrl: FieldRef<"DocumentSignature", 'String'>
+    readonly requestedAt: FieldRef<"DocumentSignature", 'DateTime'>
+    readonly signedAt: FieldRef<"DocumentSignature", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DocumentSignature findUnique
+   */
+  export type DocumentSignatureFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentSignature to fetch.
+     */
+    where: DocumentSignatureWhereUniqueInput
+  }
+
+  /**
+   * DocumentSignature findUniqueOrThrow
+   */
+  export type DocumentSignatureFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentSignature to fetch.
+     */
+    where: DocumentSignatureWhereUniqueInput
+  }
+
+  /**
+   * DocumentSignature findFirst
+   */
+  export type DocumentSignatureFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentSignature to fetch.
+     */
+    where?: DocumentSignatureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentSignatures to fetch.
+     */
+    orderBy?: DocumentSignatureOrderByWithRelationInput | DocumentSignatureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentSignatures.
+     */
+    cursor?: DocumentSignatureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentSignatures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentSignatures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentSignatures.
+     */
+    distinct?: DocumentSignatureScalarFieldEnum | DocumentSignatureScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentSignature findFirstOrThrow
+   */
+  export type DocumentSignatureFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentSignature to fetch.
+     */
+    where?: DocumentSignatureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentSignatures to fetch.
+     */
+    orderBy?: DocumentSignatureOrderByWithRelationInput | DocumentSignatureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentSignatures.
+     */
+    cursor?: DocumentSignatureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentSignatures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentSignatures.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentSignatures.
+     */
+    distinct?: DocumentSignatureScalarFieldEnum | DocumentSignatureScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentSignature findMany
+   */
+  export type DocumentSignatureFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentSignatures to fetch.
+     */
+    where?: DocumentSignatureWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentSignatures to fetch.
+     */
+    orderBy?: DocumentSignatureOrderByWithRelationInput | DocumentSignatureOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DocumentSignatures.
+     */
+    cursor?: DocumentSignatureWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentSignatures from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentSignatures.
+     */
+    skip?: number
+    distinct?: DocumentSignatureScalarFieldEnum | DocumentSignatureScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentSignature create
+   */
+  export type DocumentSignatureCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DocumentSignature.
+     */
+    data: XOR<DocumentSignatureCreateInput, DocumentSignatureUncheckedCreateInput>
+  }
+
+  /**
+   * DocumentSignature createMany
+   */
+  export type DocumentSignatureCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DocumentSignatures.
+     */
+    data: DocumentSignatureCreateManyInput | DocumentSignatureCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DocumentSignature createManyAndReturn
+   */
+  export type DocumentSignatureCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * The data used to create many DocumentSignatures.
+     */
+    data: DocumentSignatureCreateManyInput | DocumentSignatureCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentSignature update
+   */
+  export type DocumentSignatureUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DocumentSignature.
+     */
+    data: XOR<DocumentSignatureUpdateInput, DocumentSignatureUncheckedUpdateInput>
+    /**
+     * Choose, which DocumentSignature to update.
+     */
+    where: DocumentSignatureWhereUniqueInput
+  }
+
+  /**
+   * DocumentSignature updateMany
+   */
+  export type DocumentSignatureUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DocumentSignatures.
+     */
+    data: XOR<DocumentSignatureUpdateManyMutationInput, DocumentSignatureUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentSignatures to update
+     */
+    where?: DocumentSignatureWhereInput
+    /**
+     * Limit how many DocumentSignatures to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentSignature updateManyAndReturn
+   */
+  export type DocumentSignatureUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * The data used to update DocumentSignatures.
+     */
+    data: XOR<DocumentSignatureUpdateManyMutationInput, DocumentSignatureUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentSignatures to update
+     */
+    where?: DocumentSignatureWhereInput
+    /**
+     * Limit how many DocumentSignatures to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentSignature upsert
+   */
+  export type DocumentSignatureUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DocumentSignature to update in case it exists.
+     */
+    where: DocumentSignatureWhereUniqueInput
+    /**
+     * In case the DocumentSignature found by the `where` argument doesn't exist, create a new DocumentSignature with this data.
+     */
+    create: XOR<DocumentSignatureCreateInput, DocumentSignatureUncheckedCreateInput>
+    /**
+     * In case the DocumentSignature was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DocumentSignatureUpdateInput, DocumentSignatureUncheckedUpdateInput>
+  }
+
+  /**
+   * DocumentSignature delete
+   */
+  export type DocumentSignatureDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
+    /**
+     * Filter which DocumentSignature to delete.
+     */
+    where: DocumentSignatureWhereUniqueInput
+  }
+
+  /**
+   * DocumentSignature deleteMany
+   */
+  export type DocumentSignatureDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentSignatures to delete
+     */
+    where?: DocumentSignatureWhereInput
+    /**
+     * Limit how many DocumentSignatures to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentSignature without action
+   */
+  export type DocumentSignatureDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentSignature
+     */
+    select?: DocumentSignatureSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentSignature
+     */
+    omit?: DocumentSignatureOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentSignatureInclude<ExtArgs> | null
   }
 
 
@@ -17622,11 +22591,67 @@ export namespace Prisma {
     url: 'url',
     uploadedById: 'uploadedById',
     projectId: 'projectId',
+    tags: 'tags',
+    metadata: 'metadata',
+    validationRequired: 'validationRequired',
     uploadedAt: 'uploadedAt',
     updatedAt: 'updatedAt'
   };
 
   export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+  export const DocumentVersionScalarFieldEnum: {
+    id: 'id',
+    documentId: 'documentId',
+    url: 'url',
+    versionAt: 'versionAt',
+    name: 'name',
+    type: 'type',
+    size: 'size',
+    mimetype: 'mimetype'
+  };
+
+  export type DocumentVersionScalarFieldEnum = (typeof DocumentVersionScalarFieldEnum)[keyof typeof DocumentVersionScalarFieldEnum]
+
+
+  export const DocumentCommentScalarFieldEnum: {
+    id: 'id',
+    documentId: 'documentId',
+    content: 'content',
+    zone: 'zone',
+    resolved: 'resolved',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DocumentCommentScalarFieldEnum = (typeof DocumentCommentScalarFieldEnum)[keyof typeof DocumentCommentScalarFieldEnum]
+
+
+  export const DocumentNotificationRuleScalarFieldEnum: {
+    id: 'id',
+    documentId: 'documentId',
+    trigger: 'trigger',
+    frequency: 'frequency',
+    channel: 'channel',
+    targetEmail: 'targetEmail',
+    targetUrl: 'targetUrl',
+    createdAt: 'createdAt'
+  };
+
+  export type DocumentNotificationRuleScalarFieldEnum = (typeof DocumentNotificationRuleScalarFieldEnum)[keyof typeof DocumentNotificationRuleScalarFieldEnum]
+
+
+  export const DocumentSignatureScalarFieldEnum: {
+    id: 'id',
+    documentId: 'documentId',
+    status: 'status',
+    signatureUrl: 'signatureUrl',
+    requestedAt: 'requestedAt',
+    signedAt: 'signedAt'
+  };
+
+  export type DocumentSignatureScalarFieldEnum = (typeof DocumentSignatureScalarFieldEnum)[keyof typeof DocumentSignatureScalarFieldEnum]
 
 
   export const CommentScalarFieldEnum: {
@@ -18491,12 +23516,19 @@ export namespace Prisma {
     name?: StringFilter<"Document"> | string
     type?: StringNullableFilter<"Document"> | string | null
     url?: StringFilter<"Document"> | string
-    uploadedById?: StringFilter<"Document"> | string
+    uploadedById?: StringNullableFilter<"Document"> | string | null
     projectId?: StringFilter<"Document"> | string
+    tags?: StringNullableListFilter<"Document">
+    metadata?: JsonNullableFilter<"Document">
+    validationRequired?: BoolFilter<"Document"> | boolean
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
     updatedAt?: DateTimeFilter<"Document"> | Date | string
-    uploadedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    uploadedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    versions?: DocumentVersionListRelationFilter
+    comments?: DocumentCommentListRelationFilter
+    notificationRules?: DocumentNotificationRuleListRelationFilter
+    signatures?: DocumentSignatureListRelationFilter
   }
 
   export type DocumentOrderByWithRelationInput = {
@@ -18504,12 +23536,19 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrderInput | SortOrder
     url?: SortOrder
-    uploadedById?: SortOrder
+    uploadedById?: SortOrderInput | SortOrder
     projectId?: SortOrder
+    tags?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    validationRequired?: SortOrder
     uploadedAt?: SortOrder
     updatedAt?: SortOrder
     uploadedBy?: UserOrderByWithRelationInput
     project?: ProjectOrderByWithRelationInput
+    versions?: DocumentVersionOrderByRelationAggregateInput
+    comments?: DocumentCommentOrderByRelationAggregateInput
+    notificationRules?: DocumentNotificationRuleOrderByRelationAggregateInput
+    signatures?: DocumentSignatureOrderByRelationAggregateInput
   }
 
   export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -18520,12 +23559,19 @@ export namespace Prisma {
     name?: StringFilter<"Document"> | string
     type?: StringNullableFilter<"Document"> | string | null
     url?: StringFilter<"Document"> | string
-    uploadedById?: StringFilter<"Document"> | string
+    uploadedById?: StringNullableFilter<"Document"> | string | null
     projectId?: StringFilter<"Document"> | string
+    tags?: StringNullableListFilter<"Document">
+    metadata?: JsonNullableFilter<"Document">
+    validationRequired?: BoolFilter<"Document"> | boolean
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
     updatedAt?: DateTimeFilter<"Document"> | Date | string
-    uploadedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    uploadedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    versions?: DocumentVersionListRelationFilter
+    comments?: DocumentCommentListRelationFilter
+    notificationRules?: DocumentNotificationRuleListRelationFilter
+    signatures?: DocumentSignatureListRelationFilter
   }, "id">
 
   export type DocumentOrderByWithAggregationInput = {
@@ -18533,8 +23579,11 @@ export namespace Prisma {
     name?: SortOrder
     type?: SortOrderInput | SortOrder
     url?: SortOrder
-    uploadedById?: SortOrder
+    uploadedById?: SortOrderInput | SortOrder
     projectId?: SortOrder
+    tags?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    validationRequired?: SortOrder
     uploadedAt?: SortOrder
     updatedAt?: SortOrder
     _count?: DocumentCountOrderByAggregateInput
@@ -18550,10 +23599,280 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Document"> | string
     type?: StringNullableWithAggregatesFilter<"Document"> | string | null
     url?: StringWithAggregatesFilter<"Document"> | string
-    uploadedById?: StringWithAggregatesFilter<"Document"> | string
+    uploadedById?: StringNullableWithAggregatesFilter<"Document"> | string | null
     projectId?: StringWithAggregatesFilter<"Document"> | string
+    tags?: StringNullableListFilter<"Document">
+    metadata?: JsonNullableWithAggregatesFilter<"Document">
+    validationRequired?: BoolWithAggregatesFilter<"Document"> | boolean
     uploadedAt?: DateTimeWithAggregatesFilter<"Document"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Document"> | Date | string
+  }
+
+  export type DocumentVersionWhereInput = {
+    AND?: DocumentVersionWhereInput | DocumentVersionWhereInput[]
+    OR?: DocumentVersionWhereInput[]
+    NOT?: DocumentVersionWhereInput | DocumentVersionWhereInput[]
+    id?: StringFilter<"DocumentVersion"> | string
+    documentId?: StringFilter<"DocumentVersion"> | string
+    url?: StringFilter<"DocumentVersion"> | string
+    versionAt?: DateTimeFilter<"DocumentVersion"> | Date | string
+    name?: StringFilter<"DocumentVersion"> | string
+    type?: StringNullableFilter<"DocumentVersion"> | string | null
+    size?: IntFilter<"DocumentVersion"> | number
+    mimetype?: StringFilter<"DocumentVersion"> | string
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+  }
+
+  export type DocumentVersionOrderByWithRelationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    url?: SortOrder
+    versionAt?: SortOrder
+    name?: SortOrder
+    type?: SortOrderInput | SortOrder
+    size?: SortOrder
+    mimetype?: SortOrder
+    document?: DocumentOrderByWithRelationInput
+  }
+
+  export type DocumentVersionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DocumentVersionWhereInput | DocumentVersionWhereInput[]
+    OR?: DocumentVersionWhereInput[]
+    NOT?: DocumentVersionWhereInput | DocumentVersionWhereInput[]
+    documentId?: StringFilter<"DocumentVersion"> | string
+    url?: StringFilter<"DocumentVersion"> | string
+    versionAt?: DateTimeFilter<"DocumentVersion"> | Date | string
+    name?: StringFilter<"DocumentVersion"> | string
+    type?: StringNullableFilter<"DocumentVersion"> | string | null
+    size?: IntFilter<"DocumentVersion"> | number
+    mimetype?: StringFilter<"DocumentVersion"> | string
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+  }, "id">
+
+  export type DocumentVersionOrderByWithAggregationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    url?: SortOrder
+    versionAt?: SortOrder
+    name?: SortOrder
+    type?: SortOrderInput | SortOrder
+    size?: SortOrder
+    mimetype?: SortOrder
+    _count?: DocumentVersionCountOrderByAggregateInput
+    _avg?: DocumentVersionAvgOrderByAggregateInput
+    _max?: DocumentVersionMaxOrderByAggregateInput
+    _min?: DocumentVersionMinOrderByAggregateInput
+    _sum?: DocumentVersionSumOrderByAggregateInput
+  }
+
+  export type DocumentVersionScalarWhereWithAggregatesInput = {
+    AND?: DocumentVersionScalarWhereWithAggregatesInput | DocumentVersionScalarWhereWithAggregatesInput[]
+    OR?: DocumentVersionScalarWhereWithAggregatesInput[]
+    NOT?: DocumentVersionScalarWhereWithAggregatesInput | DocumentVersionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DocumentVersion"> | string
+    documentId?: StringWithAggregatesFilter<"DocumentVersion"> | string
+    url?: StringWithAggregatesFilter<"DocumentVersion"> | string
+    versionAt?: DateTimeWithAggregatesFilter<"DocumentVersion"> | Date | string
+    name?: StringWithAggregatesFilter<"DocumentVersion"> | string
+    type?: StringNullableWithAggregatesFilter<"DocumentVersion"> | string | null
+    size?: IntWithAggregatesFilter<"DocumentVersion"> | number
+    mimetype?: StringWithAggregatesFilter<"DocumentVersion"> | string
+  }
+
+  export type DocumentCommentWhereInput = {
+    AND?: DocumentCommentWhereInput | DocumentCommentWhereInput[]
+    OR?: DocumentCommentWhereInput[]
+    NOT?: DocumentCommentWhereInput | DocumentCommentWhereInput[]
+    id?: StringFilter<"DocumentComment"> | string
+    documentId?: StringFilter<"DocumentComment"> | string
+    content?: StringFilter<"DocumentComment"> | string
+    zone?: StringNullableFilter<"DocumentComment"> | string | null
+    resolved?: BoolFilter<"DocumentComment"> | boolean
+    createdAt?: DateTimeFilter<"DocumentComment"> | Date | string
+    updatedAt?: DateTimeFilter<"DocumentComment"> | Date | string
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+  }
+
+  export type DocumentCommentOrderByWithRelationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    content?: SortOrder
+    zone?: SortOrderInput | SortOrder
+    resolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    document?: DocumentOrderByWithRelationInput
+  }
+
+  export type DocumentCommentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DocumentCommentWhereInput | DocumentCommentWhereInput[]
+    OR?: DocumentCommentWhereInput[]
+    NOT?: DocumentCommentWhereInput | DocumentCommentWhereInput[]
+    documentId?: StringFilter<"DocumentComment"> | string
+    content?: StringFilter<"DocumentComment"> | string
+    zone?: StringNullableFilter<"DocumentComment"> | string | null
+    resolved?: BoolFilter<"DocumentComment"> | boolean
+    createdAt?: DateTimeFilter<"DocumentComment"> | Date | string
+    updatedAt?: DateTimeFilter<"DocumentComment"> | Date | string
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+  }, "id">
+
+  export type DocumentCommentOrderByWithAggregationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    content?: SortOrder
+    zone?: SortOrderInput | SortOrder
+    resolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DocumentCommentCountOrderByAggregateInput
+    _max?: DocumentCommentMaxOrderByAggregateInput
+    _min?: DocumentCommentMinOrderByAggregateInput
+  }
+
+  export type DocumentCommentScalarWhereWithAggregatesInput = {
+    AND?: DocumentCommentScalarWhereWithAggregatesInput | DocumentCommentScalarWhereWithAggregatesInput[]
+    OR?: DocumentCommentScalarWhereWithAggregatesInput[]
+    NOT?: DocumentCommentScalarWhereWithAggregatesInput | DocumentCommentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DocumentComment"> | string
+    documentId?: StringWithAggregatesFilter<"DocumentComment"> | string
+    content?: StringWithAggregatesFilter<"DocumentComment"> | string
+    zone?: StringNullableWithAggregatesFilter<"DocumentComment"> | string | null
+    resolved?: BoolWithAggregatesFilter<"DocumentComment"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"DocumentComment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DocumentComment"> | Date | string
+  }
+
+  export type DocumentNotificationRuleWhereInput = {
+    AND?: DocumentNotificationRuleWhereInput | DocumentNotificationRuleWhereInput[]
+    OR?: DocumentNotificationRuleWhereInput[]
+    NOT?: DocumentNotificationRuleWhereInput | DocumentNotificationRuleWhereInput[]
+    id?: StringFilter<"DocumentNotificationRule"> | string
+    documentId?: StringFilter<"DocumentNotificationRule"> | string
+    trigger?: StringFilter<"DocumentNotificationRule"> | string
+    frequency?: StringFilter<"DocumentNotificationRule"> | string
+    channel?: StringFilter<"DocumentNotificationRule"> | string
+    targetEmail?: StringNullableFilter<"DocumentNotificationRule"> | string | null
+    targetUrl?: StringNullableFilter<"DocumentNotificationRule"> | string | null
+    createdAt?: DateTimeFilter<"DocumentNotificationRule"> | Date | string
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+  }
+
+  export type DocumentNotificationRuleOrderByWithRelationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    trigger?: SortOrder
+    frequency?: SortOrder
+    channel?: SortOrder
+    targetEmail?: SortOrderInput | SortOrder
+    targetUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    document?: DocumentOrderByWithRelationInput
+  }
+
+  export type DocumentNotificationRuleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DocumentNotificationRuleWhereInput | DocumentNotificationRuleWhereInput[]
+    OR?: DocumentNotificationRuleWhereInput[]
+    NOT?: DocumentNotificationRuleWhereInput | DocumentNotificationRuleWhereInput[]
+    documentId?: StringFilter<"DocumentNotificationRule"> | string
+    trigger?: StringFilter<"DocumentNotificationRule"> | string
+    frequency?: StringFilter<"DocumentNotificationRule"> | string
+    channel?: StringFilter<"DocumentNotificationRule"> | string
+    targetEmail?: StringNullableFilter<"DocumentNotificationRule"> | string | null
+    targetUrl?: StringNullableFilter<"DocumentNotificationRule"> | string | null
+    createdAt?: DateTimeFilter<"DocumentNotificationRule"> | Date | string
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+  }, "id">
+
+  export type DocumentNotificationRuleOrderByWithAggregationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    trigger?: SortOrder
+    frequency?: SortOrder
+    channel?: SortOrder
+    targetEmail?: SortOrderInput | SortOrder
+    targetUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: DocumentNotificationRuleCountOrderByAggregateInput
+    _max?: DocumentNotificationRuleMaxOrderByAggregateInput
+    _min?: DocumentNotificationRuleMinOrderByAggregateInput
+  }
+
+  export type DocumentNotificationRuleScalarWhereWithAggregatesInput = {
+    AND?: DocumentNotificationRuleScalarWhereWithAggregatesInput | DocumentNotificationRuleScalarWhereWithAggregatesInput[]
+    OR?: DocumentNotificationRuleScalarWhereWithAggregatesInput[]
+    NOT?: DocumentNotificationRuleScalarWhereWithAggregatesInput | DocumentNotificationRuleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DocumentNotificationRule"> | string
+    documentId?: StringWithAggregatesFilter<"DocumentNotificationRule"> | string
+    trigger?: StringWithAggregatesFilter<"DocumentNotificationRule"> | string
+    frequency?: StringWithAggregatesFilter<"DocumentNotificationRule"> | string
+    channel?: StringWithAggregatesFilter<"DocumentNotificationRule"> | string
+    targetEmail?: StringNullableWithAggregatesFilter<"DocumentNotificationRule"> | string | null
+    targetUrl?: StringNullableWithAggregatesFilter<"DocumentNotificationRule"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"DocumentNotificationRule"> | Date | string
+  }
+
+  export type DocumentSignatureWhereInput = {
+    AND?: DocumentSignatureWhereInput | DocumentSignatureWhereInput[]
+    OR?: DocumentSignatureWhereInput[]
+    NOT?: DocumentSignatureWhereInput | DocumentSignatureWhereInput[]
+    id?: StringFilter<"DocumentSignature"> | string
+    documentId?: StringFilter<"DocumentSignature"> | string
+    status?: StringFilter<"DocumentSignature"> | string
+    signatureUrl?: StringNullableFilter<"DocumentSignature"> | string | null
+    requestedAt?: DateTimeFilter<"DocumentSignature"> | Date | string
+    signedAt?: DateTimeNullableFilter<"DocumentSignature"> | Date | string | null
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+  }
+
+  export type DocumentSignatureOrderByWithRelationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    status?: SortOrder
+    signatureUrl?: SortOrderInput | SortOrder
+    requestedAt?: SortOrder
+    signedAt?: SortOrderInput | SortOrder
+    document?: DocumentOrderByWithRelationInput
+  }
+
+  export type DocumentSignatureWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DocumentSignatureWhereInput | DocumentSignatureWhereInput[]
+    OR?: DocumentSignatureWhereInput[]
+    NOT?: DocumentSignatureWhereInput | DocumentSignatureWhereInput[]
+    documentId?: StringFilter<"DocumentSignature"> | string
+    status?: StringFilter<"DocumentSignature"> | string
+    signatureUrl?: StringNullableFilter<"DocumentSignature"> | string | null
+    requestedAt?: DateTimeFilter<"DocumentSignature"> | Date | string
+    signedAt?: DateTimeNullableFilter<"DocumentSignature"> | Date | string | null
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+  }, "id">
+
+  export type DocumentSignatureOrderByWithAggregationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    status?: SortOrder
+    signatureUrl?: SortOrderInput | SortOrder
+    requestedAt?: SortOrder
+    signedAt?: SortOrderInput | SortOrder
+    _count?: DocumentSignatureCountOrderByAggregateInput
+    _max?: DocumentSignatureMaxOrderByAggregateInput
+    _min?: DocumentSignatureMinOrderByAggregateInput
+  }
+
+  export type DocumentSignatureScalarWhereWithAggregatesInput = {
+    AND?: DocumentSignatureScalarWhereWithAggregatesInput | DocumentSignatureScalarWhereWithAggregatesInput[]
+    OR?: DocumentSignatureScalarWhereWithAggregatesInput[]
+    NOT?: DocumentSignatureScalarWhereWithAggregatesInput | DocumentSignatureScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DocumentSignature"> | string
+    documentId?: StringWithAggregatesFilter<"DocumentSignature"> | string
+    status?: StringWithAggregatesFilter<"DocumentSignature"> | string
+    signatureUrl?: StringNullableWithAggregatesFilter<"DocumentSignature"> | string | null
+    requestedAt?: DateTimeWithAggregatesFilter<"DocumentSignature"> | Date | string
+    signedAt?: DateTimeNullableWithAggregatesFilter<"DocumentSignature"> | Date | string | null
   }
 
   export type CommentWhereInput = {
@@ -19533,10 +24852,17 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
-    uploadedBy: UserCreateNestedOneWithoutDocumentsInput
+    uploadedBy?: UserCreateNestedOneWithoutDocumentsInput
     project: ProjectCreateNestedOneWithoutDocumentsInput
+    versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateInput = {
@@ -19544,10 +24870,17 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    uploadedById: string
+    uploadedById?: string | null
     projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
+    versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUpdateInput = {
@@ -19555,10 +24888,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    uploadedBy?: UserUpdateOneRequiredWithoutDocumentsNestedInput
+    uploadedBy?: UserUpdateOneWithoutDocumentsNestedInput
     project?: ProjectUpdateOneRequiredWithoutDocumentsNestedInput
+    versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateInput = {
@@ -19566,10 +24906,17 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    uploadedById?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentCreateManyInput = {
@@ -19577,8 +24924,11 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    uploadedById: string
+    uploadedById?: string | null
     projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
   }
@@ -19588,6 +24938,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19597,10 +24950,296 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    uploadedById?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentVersionCreateInput = {
+    id?: string
+    url: string
+    versionAt?: Date | string
+    name: string
+    type?: string | null
+    size: number
+    mimetype: string
+    document: DocumentCreateNestedOneWithoutVersionsInput
+  }
+
+  export type DocumentVersionUncheckedCreateInput = {
+    id?: string
+    documentId: string
+    url: string
+    versionAt?: Date | string
+    name: string
+    type?: string | null
+    size: number
+    mimetype: string
+  }
+
+  export type DocumentVersionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    versionAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: IntFieldUpdateOperationsInput | number
+    mimetype?: StringFieldUpdateOperationsInput | string
+    document?: DocumentUpdateOneRequiredWithoutVersionsNestedInput
+  }
+
+  export type DocumentVersionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    versionAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: IntFieldUpdateOperationsInput | number
+    mimetype?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DocumentVersionCreateManyInput = {
+    id?: string
+    documentId: string
+    url: string
+    versionAt?: Date | string
+    name: string
+    type?: string | null
+    size: number
+    mimetype: string
+  }
+
+  export type DocumentVersionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    versionAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: IntFieldUpdateOperationsInput | number
+    mimetype?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DocumentVersionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    versionAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: IntFieldUpdateOperationsInput | number
+    mimetype?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DocumentCommentCreateInput = {
+    id?: string
+    content: string
+    zone?: string | null
+    resolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    document: DocumentCreateNestedOneWithoutCommentsInput
+  }
+
+  export type DocumentCommentUncheckedCreateInput = {
+    id?: string
+    documentId: string
+    content: string
+    zone?: string | null
+    resolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentCommentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    zone?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    document?: DocumentUpdateOneRequiredWithoutCommentsNestedInput
+  }
+
+  export type DocumentCommentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    zone?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentCommentCreateManyInput = {
+    id?: string
+    documentId: string
+    content: string
+    zone?: string | null
+    resolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentCommentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    zone?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentCommentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    zone?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentNotificationRuleCreateInput = {
+    id?: string
+    trigger: string
+    frequency: string
+    channel: string
+    targetEmail?: string | null
+    targetUrl?: string | null
+    createdAt?: Date | string
+    document: DocumentCreateNestedOneWithoutNotificationRulesInput
+  }
+
+  export type DocumentNotificationRuleUncheckedCreateInput = {
+    id?: string
+    documentId: string
+    trigger: string
+    frequency: string
+    channel: string
+    targetEmail?: string | null
+    targetUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentNotificationRuleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trigger?: StringFieldUpdateOperationsInput | string
+    frequency?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    targetEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    document?: DocumentUpdateOneRequiredWithoutNotificationRulesNestedInput
+  }
+
+  export type DocumentNotificationRuleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    trigger?: StringFieldUpdateOperationsInput | string
+    frequency?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    targetEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentNotificationRuleCreateManyInput = {
+    id?: string
+    documentId: string
+    trigger: string
+    frequency: string
+    channel: string
+    targetEmail?: string | null
+    targetUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentNotificationRuleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trigger?: StringFieldUpdateOperationsInput | string
+    frequency?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    targetEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentNotificationRuleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    trigger?: StringFieldUpdateOperationsInput | string
+    frequency?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    targetEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentSignatureCreateInput = {
+    id?: string
+    status: string
+    signatureUrl?: string | null
+    requestedAt?: Date | string
+    signedAt?: Date | string | null
+    document: DocumentCreateNestedOneWithoutSignaturesInput
+  }
+
+  export type DocumentSignatureUncheckedCreateInput = {
+    id?: string
+    documentId: string
+    status: string
+    signatureUrl?: string | null
+    requestedAt?: Date | string
+    signedAt?: Date | string | null
+  }
+
+  export type DocumentSignatureUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    signatureUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    document?: DocumentUpdateOneRequiredWithoutSignaturesNestedInput
+  }
+
+  export type DocumentSignatureUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    signatureUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DocumentSignatureCreateManyInput = {
+    id?: string
+    documentId: string
+    status: string
+    signatureUrl?: string | null
+    requestedAt?: Date | string
+    signedAt?: Date | string | null
+  }
+
+  export type DocumentSignatureUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    signatureUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DocumentSignatureUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    signatureUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CommentCreateInput = {
@@ -20814,6 +26453,46 @@ export namespace Prisma {
     _max?: NestedEnumProjectRoleFilter<$PrismaModel>
   }
 
+  export type DocumentVersionListRelationFilter = {
+    every?: DocumentVersionWhereInput
+    some?: DocumentVersionWhereInput
+    none?: DocumentVersionWhereInput
+  }
+
+  export type DocumentCommentListRelationFilter = {
+    every?: DocumentCommentWhereInput
+    some?: DocumentCommentWhereInput
+    none?: DocumentCommentWhereInput
+  }
+
+  export type DocumentNotificationRuleListRelationFilter = {
+    every?: DocumentNotificationRuleWhereInput
+    some?: DocumentNotificationRuleWhereInput
+    none?: DocumentNotificationRuleWhereInput
+  }
+
+  export type DocumentSignatureListRelationFilter = {
+    every?: DocumentSignatureWhereInput
+    some?: DocumentSignatureWhereInput
+    none?: DocumentSignatureWhereInput
+  }
+
+  export type DocumentVersionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DocumentCommentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DocumentNotificationRuleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DocumentSignatureOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type DocumentCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -20821,6 +26500,9 @@ export namespace Prisma {
     url?: SortOrder
     uploadedById?: SortOrder
     projectId?: SortOrder
+    tags?: SortOrder
+    metadata?: SortOrder
+    validationRequired?: SortOrder
     uploadedAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20832,6 +26514,7 @@ export namespace Prisma {
     url?: SortOrder
     uploadedById?: SortOrder
     projectId?: SortOrder
+    validationRequired?: SortOrder
     uploadedAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20843,8 +26526,145 @@ export namespace Prisma {
     url?: SortOrder
     uploadedById?: SortOrder
     projectId?: SortOrder
+    validationRequired?: SortOrder
     uploadedAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type DocumentScalarRelationFilter = {
+    is?: DocumentWhereInput
+    isNot?: DocumentWhereInput
+  }
+
+  export type DocumentVersionCountOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    url?: SortOrder
+    versionAt?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    size?: SortOrder
+    mimetype?: SortOrder
+  }
+
+  export type DocumentVersionAvgOrderByAggregateInput = {
+    size?: SortOrder
+  }
+
+  export type DocumentVersionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    url?: SortOrder
+    versionAt?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    size?: SortOrder
+    mimetype?: SortOrder
+  }
+
+  export type DocumentVersionMinOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    url?: SortOrder
+    versionAt?: SortOrder
+    name?: SortOrder
+    type?: SortOrder
+    size?: SortOrder
+    mimetype?: SortOrder
+  }
+
+  export type DocumentVersionSumOrderByAggregateInput = {
+    size?: SortOrder
+  }
+
+  export type DocumentCommentCountOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    content?: SortOrder
+    zone?: SortOrder
+    resolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DocumentCommentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    content?: SortOrder
+    zone?: SortOrder
+    resolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DocumentCommentMinOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    content?: SortOrder
+    zone?: SortOrder
+    resolved?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DocumentNotificationRuleCountOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    trigger?: SortOrder
+    frequency?: SortOrder
+    channel?: SortOrder
+    targetEmail?: SortOrder
+    targetUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DocumentNotificationRuleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    trigger?: SortOrder
+    frequency?: SortOrder
+    channel?: SortOrder
+    targetEmail?: SortOrder
+    targetUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DocumentNotificationRuleMinOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    trigger?: SortOrder
+    frequency?: SortOrder
+    channel?: SortOrder
+    targetEmail?: SortOrder
+    targetUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DocumentSignatureCountOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    status?: SortOrder
+    signatureUrl?: SortOrder
+    requestedAt?: SortOrder
+    signedAt?: SortOrder
+  }
+
+  export type DocumentSignatureMaxOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    status?: SortOrder
+    signatureUrl?: SortOrder
+    requestedAt?: SortOrder
+    signedAt?: SortOrder
+  }
+
+  export type DocumentSignatureMinOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    status?: SortOrder
+    signatureUrl?: SortOrder
+    requestedAt?: SortOrder
+    signedAt?: SortOrder
   }
 
   export type EnumCommentTargetTypeFilter<$PrismaModel = never> = {
@@ -21807,6 +27627,10 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProjectMemberInput, UserUpdateWithoutProjectMemberInput>, UserUncheckedUpdateWithoutProjectMemberInput>
   }
 
+  export type DocumentCreatetagsInput = {
+    set: string[]
+  }
+
   export type UserCreateNestedOneWithoutDocumentsInput = {
     create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
@@ -21819,10 +27643,73 @@ export namespace Prisma {
     connect?: ProjectWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutDocumentsNestedInput = {
+  export type DocumentVersionCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentVersionCreateWithoutDocumentInput, DocumentVersionUncheckedCreateWithoutDocumentInput> | DocumentVersionCreateWithoutDocumentInput[] | DocumentVersionUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentVersionCreateOrConnectWithoutDocumentInput | DocumentVersionCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentVersionCreateManyDocumentInputEnvelope
+    connect?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+  }
+
+  export type DocumentCommentCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentCommentCreateWithoutDocumentInput, DocumentCommentUncheckedCreateWithoutDocumentInput> | DocumentCommentCreateWithoutDocumentInput[] | DocumentCommentUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentCommentCreateOrConnectWithoutDocumentInput | DocumentCommentCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentCommentCreateManyDocumentInputEnvelope
+    connect?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+  }
+
+  export type DocumentNotificationRuleCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentNotificationRuleCreateWithoutDocumentInput, DocumentNotificationRuleUncheckedCreateWithoutDocumentInput> | DocumentNotificationRuleCreateWithoutDocumentInput[] | DocumentNotificationRuleUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentNotificationRuleCreateOrConnectWithoutDocumentInput | DocumentNotificationRuleCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentNotificationRuleCreateManyDocumentInputEnvelope
+    connect?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+  }
+
+  export type DocumentSignatureCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentSignatureCreateWithoutDocumentInput, DocumentSignatureUncheckedCreateWithoutDocumentInput> | DocumentSignatureCreateWithoutDocumentInput[] | DocumentSignatureUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentSignatureCreateOrConnectWithoutDocumentInput | DocumentSignatureCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentSignatureCreateManyDocumentInputEnvelope
+    connect?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+  }
+
+  export type DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentVersionCreateWithoutDocumentInput, DocumentVersionUncheckedCreateWithoutDocumentInput> | DocumentVersionCreateWithoutDocumentInput[] | DocumentVersionUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentVersionCreateOrConnectWithoutDocumentInput | DocumentVersionCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentVersionCreateManyDocumentInputEnvelope
+    connect?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+  }
+
+  export type DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentCommentCreateWithoutDocumentInput, DocumentCommentUncheckedCreateWithoutDocumentInput> | DocumentCommentCreateWithoutDocumentInput[] | DocumentCommentUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentCommentCreateOrConnectWithoutDocumentInput | DocumentCommentCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentCommentCreateManyDocumentInputEnvelope
+    connect?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+  }
+
+  export type DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentNotificationRuleCreateWithoutDocumentInput, DocumentNotificationRuleUncheckedCreateWithoutDocumentInput> | DocumentNotificationRuleCreateWithoutDocumentInput[] | DocumentNotificationRuleUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentNotificationRuleCreateOrConnectWithoutDocumentInput | DocumentNotificationRuleCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentNotificationRuleCreateManyDocumentInputEnvelope
+    connect?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+  }
+
+  export type DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentSignatureCreateWithoutDocumentInput, DocumentSignatureUncheckedCreateWithoutDocumentInput> | DocumentSignatureCreateWithoutDocumentInput[] | DocumentSignatureUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentSignatureCreateOrConnectWithoutDocumentInput | DocumentSignatureCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentSignatureCreateManyDocumentInputEnvelope
+    connect?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+  }
+
+  export type DocumentUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneWithoutDocumentsNestedInput = {
     create?: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutDocumentsInput
     upsert?: UserUpsertWithoutDocumentsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDocumentsInput, UserUpdateWithoutDocumentsInput>, UserUncheckedUpdateWithoutDocumentsInput>
   }
@@ -21833,6 +27720,174 @@ export namespace Prisma {
     upsert?: ProjectUpsertWithoutDocumentsInput
     connect?: ProjectWhereUniqueInput
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutDocumentsInput, ProjectUpdateWithoutDocumentsInput>, ProjectUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type DocumentVersionUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentVersionCreateWithoutDocumentInput, DocumentVersionUncheckedCreateWithoutDocumentInput> | DocumentVersionCreateWithoutDocumentInput[] | DocumentVersionUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentVersionCreateOrConnectWithoutDocumentInput | DocumentVersionCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentVersionUpsertWithWhereUniqueWithoutDocumentInput | DocumentVersionUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentVersionCreateManyDocumentInputEnvelope
+    set?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+    disconnect?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+    delete?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+    connect?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+    update?: DocumentVersionUpdateWithWhereUniqueWithoutDocumentInput | DocumentVersionUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentVersionUpdateManyWithWhereWithoutDocumentInput | DocumentVersionUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentVersionScalarWhereInput | DocumentVersionScalarWhereInput[]
+  }
+
+  export type DocumentCommentUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentCommentCreateWithoutDocumentInput, DocumentCommentUncheckedCreateWithoutDocumentInput> | DocumentCommentCreateWithoutDocumentInput[] | DocumentCommentUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentCommentCreateOrConnectWithoutDocumentInput | DocumentCommentCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentCommentUpsertWithWhereUniqueWithoutDocumentInput | DocumentCommentUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentCommentCreateManyDocumentInputEnvelope
+    set?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+    disconnect?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+    delete?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+    connect?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+    update?: DocumentCommentUpdateWithWhereUniqueWithoutDocumentInput | DocumentCommentUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentCommentUpdateManyWithWhereWithoutDocumentInput | DocumentCommentUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentCommentScalarWhereInput | DocumentCommentScalarWhereInput[]
+  }
+
+  export type DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentNotificationRuleCreateWithoutDocumentInput, DocumentNotificationRuleUncheckedCreateWithoutDocumentInput> | DocumentNotificationRuleCreateWithoutDocumentInput[] | DocumentNotificationRuleUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentNotificationRuleCreateOrConnectWithoutDocumentInput | DocumentNotificationRuleCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentNotificationRuleUpsertWithWhereUniqueWithoutDocumentInput | DocumentNotificationRuleUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentNotificationRuleCreateManyDocumentInputEnvelope
+    set?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+    disconnect?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+    delete?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+    connect?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+    update?: DocumentNotificationRuleUpdateWithWhereUniqueWithoutDocumentInput | DocumentNotificationRuleUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentNotificationRuleUpdateManyWithWhereWithoutDocumentInput | DocumentNotificationRuleUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentNotificationRuleScalarWhereInput | DocumentNotificationRuleScalarWhereInput[]
+  }
+
+  export type DocumentSignatureUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentSignatureCreateWithoutDocumentInput, DocumentSignatureUncheckedCreateWithoutDocumentInput> | DocumentSignatureCreateWithoutDocumentInput[] | DocumentSignatureUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentSignatureCreateOrConnectWithoutDocumentInput | DocumentSignatureCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentSignatureUpsertWithWhereUniqueWithoutDocumentInput | DocumentSignatureUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentSignatureCreateManyDocumentInputEnvelope
+    set?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+    disconnect?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+    delete?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+    connect?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+    update?: DocumentSignatureUpdateWithWhereUniqueWithoutDocumentInput | DocumentSignatureUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentSignatureUpdateManyWithWhereWithoutDocumentInput | DocumentSignatureUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentSignatureScalarWhereInput | DocumentSignatureScalarWhereInput[]
+  }
+
+  export type DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentVersionCreateWithoutDocumentInput, DocumentVersionUncheckedCreateWithoutDocumentInput> | DocumentVersionCreateWithoutDocumentInput[] | DocumentVersionUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentVersionCreateOrConnectWithoutDocumentInput | DocumentVersionCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentVersionUpsertWithWhereUniqueWithoutDocumentInput | DocumentVersionUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentVersionCreateManyDocumentInputEnvelope
+    set?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+    disconnect?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+    delete?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+    connect?: DocumentVersionWhereUniqueInput | DocumentVersionWhereUniqueInput[]
+    update?: DocumentVersionUpdateWithWhereUniqueWithoutDocumentInput | DocumentVersionUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentVersionUpdateManyWithWhereWithoutDocumentInput | DocumentVersionUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentVersionScalarWhereInput | DocumentVersionScalarWhereInput[]
+  }
+
+  export type DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentCommentCreateWithoutDocumentInput, DocumentCommentUncheckedCreateWithoutDocumentInput> | DocumentCommentCreateWithoutDocumentInput[] | DocumentCommentUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentCommentCreateOrConnectWithoutDocumentInput | DocumentCommentCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentCommentUpsertWithWhereUniqueWithoutDocumentInput | DocumentCommentUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentCommentCreateManyDocumentInputEnvelope
+    set?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+    disconnect?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+    delete?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+    connect?: DocumentCommentWhereUniqueInput | DocumentCommentWhereUniqueInput[]
+    update?: DocumentCommentUpdateWithWhereUniqueWithoutDocumentInput | DocumentCommentUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentCommentUpdateManyWithWhereWithoutDocumentInput | DocumentCommentUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentCommentScalarWhereInput | DocumentCommentScalarWhereInput[]
+  }
+
+  export type DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentNotificationRuleCreateWithoutDocumentInput, DocumentNotificationRuleUncheckedCreateWithoutDocumentInput> | DocumentNotificationRuleCreateWithoutDocumentInput[] | DocumentNotificationRuleUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentNotificationRuleCreateOrConnectWithoutDocumentInput | DocumentNotificationRuleCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentNotificationRuleUpsertWithWhereUniqueWithoutDocumentInput | DocumentNotificationRuleUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentNotificationRuleCreateManyDocumentInputEnvelope
+    set?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+    disconnect?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+    delete?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+    connect?: DocumentNotificationRuleWhereUniqueInput | DocumentNotificationRuleWhereUniqueInput[]
+    update?: DocumentNotificationRuleUpdateWithWhereUniqueWithoutDocumentInput | DocumentNotificationRuleUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentNotificationRuleUpdateManyWithWhereWithoutDocumentInput | DocumentNotificationRuleUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentNotificationRuleScalarWhereInput | DocumentNotificationRuleScalarWhereInput[]
+  }
+
+  export type DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentSignatureCreateWithoutDocumentInput, DocumentSignatureUncheckedCreateWithoutDocumentInput> | DocumentSignatureCreateWithoutDocumentInput[] | DocumentSignatureUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentSignatureCreateOrConnectWithoutDocumentInput | DocumentSignatureCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentSignatureUpsertWithWhereUniqueWithoutDocumentInput | DocumentSignatureUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentSignatureCreateManyDocumentInputEnvelope
+    set?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+    disconnect?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+    delete?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+    connect?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+    update?: DocumentSignatureUpdateWithWhereUniqueWithoutDocumentInput | DocumentSignatureUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentSignatureUpdateManyWithWhereWithoutDocumentInput | DocumentSignatureUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentSignatureScalarWhereInput | DocumentSignatureScalarWhereInput[]
+  }
+
+  export type DocumentCreateNestedOneWithoutVersionsInput = {
+    create?: XOR<DocumentCreateWithoutVersionsInput, DocumentUncheckedCreateWithoutVersionsInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutVersionsInput
+    connect?: DocumentWhereUniqueInput
+  }
+
+  export type DocumentUpdateOneRequiredWithoutVersionsNestedInput = {
+    create?: XOR<DocumentCreateWithoutVersionsInput, DocumentUncheckedCreateWithoutVersionsInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutVersionsInput
+    upsert?: DocumentUpsertWithoutVersionsInput
+    connect?: DocumentWhereUniqueInput
+    update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutVersionsInput, DocumentUpdateWithoutVersionsInput>, DocumentUncheckedUpdateWithoutVersionsInput>
+  }
+
+  export type DocumentCreateNestedOneWithoutCommentsInput = {
+    create?: XOR<DocumentCreateWithoutCommentsInput, DocumentUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutCommentsInput
+    connect?: DocumentWhereUniqueInput
+  }
+
+  export type DocumentUpdateOneRequiredWithoutCommentsNestedInput = {
+    create?: XOR<DocumentCreateWithoutCommentsInput, DocumentUncheckedCreateWithoutCommentsInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutCommentsInput
+    upsert?: DocumentUpsertWithoutCommentsInput
+    connect?: DocumentWhereUniqueInput
+    update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutCommentsInput, DocumentUpdateWithoutCommentsInput>, DocumentUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type DocumentCreateNestedOneWithoutNotificationRulesInput = {
+    create?: XOR<DocumentCreateWithoutNotificationRulesInput, DocumentUncheckedCreateWithoutNotificationRulesInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutNotificationRulesInput
+    connect?: DocumentWhereUniqueInput
+  }
+
+  export type DocumentUpdateOneRequiredWithoutNotificationRulesNestedInput = {
+    create?: XOR<DocumentCreateWithoutNotificationRulesInput, DocumentUncheckedCreateWithoutNotificationRulesInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutNotificationRulesInput
+    upsert?: DocumentUpsertWithoutNotificationRulesInput
+    connect?: DocumentWhereUniqueInput
+    update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutNotificationRulesInput, DocumentUpdateWithoutNotificationRulesInput>, DocumentUncheckedUpdateWithoutNotificationRulesInput>
+  }
+
+  export type DocumentCreateNestedOneWithoutSignaturesInput = {
+    create?: XOR<DocumentCreateWithoutSignaturesInput, DocumentUncheckedCreateWithoutSignaturesInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutSignaturesInput
+    connect?: DocumentWhereUniqueInput
+  }
+
+  export type DocumentUpdateOneRequiredWithoutSignaturesNestedInput = {
+    create?: XOR<DocumentCreateWithoutSignaturesInput, DocumentUncheckedCreateWithoutSignaturesInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutSignaturesInput
+    upsert?: DocumentUpsertWithoutSignaturesInput
+    connect?: DocumentWhereUniqueInput
+    update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutSignaturesInput, DocumentUpdateWithoutSignaturesInput>, DocumentUncheckedUpdateWithoutSignaturesInput>
   }
 
   export type UserCreateNestedOneWithoutCommentsInput = {
@@ -22829,9 +28884,16 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
-    uploadedBy: UserCreateNestedOneWithoutDocumentsInput
+    uploadedBy?: UserCreateNestedOneWithoutDocumentsInput
+    versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateWithoutProjectInput = {
@@ -22839,9 +28901,16 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    uploadedById: string
+    uploadedById?: string | null
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
+    versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentCreateOrConnectWithoutProjectInput = {
@@ -23070,8 +29139,11 @@ export namespace Prisma {
     name?: StringFilter<"Document"> | string
     type?: StringNullableFilter<"Document"> | string | null
     url?: StringFilter<"Document"> | string
-    uploadedById?: StringFilter<"Document"> | string
+    uploadedById?: StringNullableFilter<"Document"> | string | null
     projectId?: StringFilter<"Document"> | string
+    tags?: StringNullableListFilter<"Document">
+    metadata?: JsonNullableFilter<"Document">
+    validationRequired?: BoolFilter<"Document"> | boolean
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
     updatedAt?: DateTimeFilter<"Document"> | Date | string
   }
@@ -24451,6 +30523,120 @@ export namespace Prisma {
     create: XOR<ProjectCreateWithoutDocumentsInput, ProjectUncheckedCreateWithoutDocumentsInput>
   }
 
+  export type DocumentVersionCreateWithoutDocumentInput = {
+    id?: string
+    url: string
+    versionAt?: Date | string
+    name: string
+    type?: string | null
+    size: number
+    mimetype: string
+  }
+
+  export type DocumentVersionUncheckedCreateWithoutDocumentInput = {
+    id?: string
+    url: string
+    versionAt?: Date | string
+    name: string
+    type?: string | null
+    size: number
+    mimetype: string
+  }
+
+  export type DocumentVersionCreateOrConnectWithoutDocumentInput = {
+    where: DocumentVersionWhereUniqueInput
+    create: XOR<DocumentVersionCreateWithoutDocumentInput, DocumentVersionUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentVersionCreateManyDocumentInputEnvelope = {
+    data: DocumentVersionCreateManyDocumentInput | DocumentVersionCreateManyDocumentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DocumentCommentCreateWithoutDocumentInput = {
+    id?: string
+    content: string
+    zone?: string | null
+    resolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentCommentUncheckedCreateWithoutDocumentInput = {
+    id?: string
+    content: string
+    zone?: string | null
+    resolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentCommentCreateOrConnectWithoutDocumentInput = {
+    where: DocumentCommentWhereUniqueInput
+    create: XOR<DocumentCommentCreateWithoutDocumentInput, DocumentCommentUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentCommentCreateManyDocumentInputEnvelope = {
+    data: DocumentCommentCreateManyDocumentInput | DocumentCommentCreateManyDocumentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DocumentNotificationRuleCreateWithoutDocumentInput = {
+    id?: string
+    trigger: string
+    frequency: string
+    channel: string
+    targetEmail?: string | null
+    targetUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentNotificationRuleUncheckedCreateWithoutDocumentInput = {
+    id?: string
+    trigger: string
+    frequency: string
+    channel: string
+    targetEmail?: string | null
+    targetUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentNotificationRuleCreateOrConnectWithoutDocumentInput = {
+    where: DocumentNotificationRuleWhereUniqueInput
+    create: XOR<DocumentNotificationRuleCreateWithoutDocumentInput, DocumentNotificationRuleUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentNotificationRuleCreateManyDocumentInputEnvelope = {
+    data: DocumentNotificationRuleCreateManyDocumentInput | DocumentNotificationRuleCreateManyDocumentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DocumentSignatureCreateWithoutDocumentInput = {
+    id?: string
+    status: string
+    signatureUrl?: string | null
+    requestedAt?: Date | string
+    signedAt?: Date | string | null
+  }
+
+  export type DocumentSignatureUncheckedCreateWithoutDocumentInput = {
+    id?: string
+    status: string
+    signatureUrl?: string | null
+    requestedAt?: Date | string
+    signedAt?: Date | string | null
+  }
+
+  export type DocumentSignatureCreateOrConnectWithoutDocumentInput = {
+    where: DocumentSignatureWhereUniqueInput
+    create: XOR<DocumentSignatureCreateWithoutDocumentInput, DocumentSignatureUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentSignatureCreateManyDocumentInputEnvelope = {
+    data: DocumentSignatureCreateManyDocumentInput | DocumentSignatureCreateManyDocumentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutDocumentsInput = {
     update: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
     create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
@@ -24561,6 +30747,459 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type DocumentVersionUpsertWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentVersionWhereUniqueInput
+    update: XOR<DocumentVersionUpdateWithoutDocumentInput, DocumentVersionUncheckedUpdateWithoutDocumentInput>
+    create: XOR<DocumentVersionCreateWithoutDocumentInput, DocumentVersionUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentVersionUpdateWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentVersionWhereUniqueInput
+    data: XOR<DocumentVersionUpdateWithoutDocumentInput, DocumentVersionUncheckedUpdateWithoutDocumentInput>
+  }
+
+  export type DocumentVersionUpdateManyWithWhereWithoutDocumentInput = {
+    where: DocumentVersionScalarWhereInput
+    data: XOR<DocumentVersionUpdateManyMutationInput, DocumentVersionUncheckedUpdateManyWithoutDocumentInput>
+  }
+
+  export type DocumentVersionScalarWhereInput = {
+    AND?: DocumentVersionScalarWhereInput | DocumentVersionScalarWhereInput[]
+    OR?: DocumentVersionScalarWhereInput[]
+    NOT?: DocumentVersionScalarWhereInput | DocumentVersionScalarWhereInput[]
+    id?: StringFilter<"DocumentVersion"> | string
+    documentId?: StringFilter<"DocumentVersion"> | string
+    url?: StringFilter<"DocumentVersion"> | string
+    versionAt?: DateTimeFilter<"DocumentVersion"> | Date | string
+    name?: StringFilter<"DocumentVersion"> | string
+    type?: StringNullableFilter<"DocumentVersion"> | string | null
+    size?: IntFilter<"DocumentVersion"> | number
+    mimetype?: StringFilter<"DocumentVersion"> | string
+  }
+
+  export type DocumentCommentUpsertWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentCommentWhereUniqueInput
+    update: XOR<DocumentCommentUpdateWithoutDocumentInput, DocumentCommentUncheckedUpdateWithoutDocumentInput>
+    create: XOR<DocumentCommentCreateWithoutDocumentInput, DocumentCommentUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentCommentUpdateWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentCommentWhereUniqueInput
+    data: XOR<DocumentCommentUpdateWithoutDocumentInput, DocumentCommentUncheckedUpdateWithoutDocumentInput>
+  }
+
+  export type DocumentCommentUpdateManyWithWhereWithoutDocumentInput = {
+    where: DocumentCommentScalarWhereInput
+    data: XOR<DocumentCommentUpdateManyMutationInput, DocumentCommentUncheckedUpdateManyWithoutDocumentInput>
+  }
+
+  export type DocumentCommentScalarWhereInput = {
+    AND?: DocumentCommentScalarWhereInput | DocumentCommentScalarWhereInput[]
+    OR?: DocumentCommentScalarWhereInput[]
+    NOT?: DocumentCommentScalarWhereInput | DocumentCommentScalarWhereInput[]
+    id?: StringFilter<"DocumentComment"> | string
+    documentId?: StringFilter<"DocumentComment"> | string
+    content?: StringFilter<"DocumentComment"> | string
+    zone?: StringNullableFilter<"DocumentComment"> | string | null
+    resolved?: BoolFilter<"DocumentComment"> | boolean
+    createdAt?: DateTimeFilter<"DocumentComment"> | Date | string
+    updatedAt?: DateTimeFilter<"DocumentComment"> | Date | string
+  }
+
+  export type DocumentNotificationRuleUpsertWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentNotificationRuleWhereUniqueInput
+    update: XOR<DocumentNotificationRuleUpdateWithoutDocumentInput, DocumentNotificationRuleUncheckedUpdateWithoutDocumentInput>
+    create: XOR<DocumentNotificationRuleCreateWithoutDocumentInput, DocumentNotificationRuleUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentNotificationRuleUpdateWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentNotificationRuleWhereUniqueInput
+    data: XOR<DocumentNotificationRuleUpdateWithoutDocumentInput, DocumentNotificationRuleUncheckedUpdateWithoutDocumentInput>
+  }
+
+  export type DocumentNotificationRuleUpdateManyWithWhereWithoutDocumentInput = {
+    where: DocumentNotificationRuleScalarWhereInput
+    data: XOR<DocumentNotificationRuleUpdateManyMutationInput, DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentInput>
+  }
+
+  export type DocumentNotificationRuleScalarWhereInput = {
+    AND?: DocumentNotificationRuleScalarWhereInput | DocumentNotificationRuleScalarWhereInput[]
+    OR?: DocumentNotificationRuleScalarWhereInput[]
+    NOT?: DocumentNotificationRuleScalarWhereInput | DocumentNotificationRuleScalarWhereInput[]
+    id?: StringFilter<"DocumentNotificationRule"> | string
+    documentId?: StringFilter<"DocumentNotificationRule"> | string
+    trigger?: StringFilter<"DocumentNotificationRule"> | string
+    frequency?: StringFilter<"DocumentNotificationRule"> | string
+    channel?: StringFilter<"DocumentNotificationRule"> | string
+    targetEmail?: StringNullableFilter<"DocumentNotificationRule"> | string | null
+    targetUrl?: StringNullableFilter<"DocumentNotificationRule"> | string | null
+    createdAt?: DateTimeFilter<"DocumentNotificationRule"> | Date | string
+  }
+
+  export type DocumentSignatureUpsertWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentSignatureWhereUniqueInput
+    update: XOR<DocumentSignatureUpdateWithoutDocumentInput, DocumentSignatureUncheckedUpdateWithoutDocumentInput>
+    create: XOR<DocumentSignatureCreateWithoutDocumentInput, DocumentSignatureUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentSignatureUpdateWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentSignatureWhereUniqueInput
+    data: XOR<DocumentSignatureUpdateWithoutDocumentInput, DocumentSignatureUncheckedUpdateWithoutDocumentInput>
+  }
+
+  export type DocumentSignatureUpdateManyWithWhereWithoutDocumentInput = {
+    where: DocumentSignatureScalarWhereInput
+    data: XOR<DocumentSignatureUpdateManyMutationInput, DocumentSignatureUncheckedUpdateManyWithoutDocumentInput>
+  }
+
+  export type DocumentSignatureScalarWhereInput = {
+    AND?: DocumentSignatureScalarWhereInput | DocumentSignatureScalarWhereInput[]
+    OR?: DocumentSignatureScalarWhereInput[]
+    NOT?: DocumentSignatureScalarWhereInput | DocumentSignatureScalarWhereInput[]
+    id?: StringFilter<"DocumentSignature"> | string
+    documentId?: StringFilter<"DocumentSignature"> | string
+    status?: StringFilter<"DocumentSignature"> | string
+    signatureUrl?: StringNullableFilter<"DocumentSignature"> | string | null
+    requestedAt?: DateTimeFilter<"DocumentSignature"> | Date | string
+    signedAt?: DateTimeNullableFilter<"DocumentSignature"> | Date | string | null
+  }
+
+  export type DocumentCreateWithoutVersionsInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    uploadedBy?: UserCreateNestedOneWithoutDocumentsInput
+    project: ProjectCreateNestedOneWithoutDocumentsInput
+    comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentUncheckedCreateWithoutVersionsInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    uploadedById?: string | null
+    projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentCreateOrConnectWithoutVersionsInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutVersionsInput, DocumentUncheckedCreateWithoutVersionsInput>
+  }
+
+  export type DocumentUpsertWithoutVersionsInput = {
+    update: XOR<DocumentUpdateWithoutVersionsInput, DocumentUncheckedUpdateWithoutVersionsInput>
+    create: XOR<DocumentCreateWithoutVersionsInput, DocumentUncheckedCreateWithoutVersionsInput>
+    where?: DocumentWhereInput
+  }
+
+  export type DocumentUpdateToOneWithWhereWithoutVersionsInput = {
+    where?: DocumentWhereInput
+    data: XOR<DocumentUpdateWithoutVersionsInput, DocumentUncheckedUpdateWithoutVersionsInput>
+  }
+
+  export type DocumentUpdateWithoutVersionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedBy?: UserUpdateOneWithoutDocumentsNestedInput
+    project?: ProjectUpdateOneRequiredWithoutDocumentsNestedInput
+    comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutVersionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentCreateWithoutCommentsInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    uploadedBy?: UserCreateNestedOneWithoutDocumentsInput
+    project: ProjectCreateNestedOneWithoutDocumentsInput
+    versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentUncheckedCreateWithoutCommentsInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    uploadedById?: string | null
+    projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentCreateOrConnectWithoutCommentsInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutCommentsInput, DocumentUncheckedCreateWithoutCommentsInput>
+  }
+
+  export type DocumentUpsertWithoutCommentsInput = {
+    update: XOR<DocumentUpdateWithoutCommentsInput, DocumentUncheckedUpdateWithoutCommentsInput>
+    create: XOR<DocumentCreateWithoutCommentsInput, DocumentUncheckedCreateWithoutCommentsInput>
+    where?: DocumentWhereInput
+  }
+
+  export type DocumentUpdateToOneWithWhereWithoutCommentsInput = {
+    where?: DocumentWhereInput
+    data: XOR<DocumentUpdateWithoutCommentsInput, DocumentUncheckedUpdateWithoutCommentsInput>
+  }
+
+  export type DocumentUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedBy?: UserUpdateOneWithoutDocumentsNestedInput
+    project?: ProjectUpdateOneRequiredWithoutDocumentsNestedInput
+    versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutCommentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentCreateWithoutNotificationRulesInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    uploadedBy?: UserCreateNestedOneWithoutDocumentsInput
+    project: ProjectCreateNestedOneWithoutDocumentsInput
+    versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentUncheckedCreateWithoutNotificationRulesInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    uploadedById?: string | null
+    projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentCreateOrConnectWithoutNotificationRulesInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutNotificationRulesInput, DocumentUncheckedCreateWithoutNotificationRulesInput>
+  }
+
+  export type DocumentUpsertWithoutNotificationRulesInput = {
+    update: XOR<DocumentUpdateWithoutNotificationRulesInput, DocumentUncheckedUpdateWithoutNotificationRulesInput>
+    create: XOR<DocumentCreateWithoutNotificationRulesInput, DocumentUncheckedCreateWithoutNotificationRulesInput>
+    where?: DocumentWhereInput
+  }
+
+  export type DocumentUpdateToOneWithWhereWithoutNotificationRulesInput = {
+    where?: DocumentWhereInput
+    data: XOR<DocumentUpdateWithoutNotificationRulesInput, DocumentUncheckedUpdateWithoutNotificationRulesInput>
+  }
+
+  export type DocumentUpdateWithoutNotificationRulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedBy?: UserUpdateOneWithoutDocumentsNestedInput
+    project?: ProjectUpdateOneRequiredWithoutDocumentsNestedInput
+    versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutNotificationRulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentCreateWithoutSignaturesInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    uploadedBy?: UserCreateNestedOneWithoutDocumentsInput
+    project: ProjectCreateNestedOneWithoutDocumentsInput
+    versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentUncheckedCreateWithoutSignaturesInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    uploadedById?: string | null
+    projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentCreateOrConnectWithoutSignaturesInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutSignaturesInput, DocumentUncheckedCreateWithoutSignaturesInput>
+  }
+
+  export type DocumentUpsertWithoutSignaturesInput = {
+    update: XOR<DocumentUpdateWithoutSignaturesInput, DocumentUncheckedUpdateWithoutSignaturesInput>
+    create: XOR<DocumentCreateWithoutSignaturesInput, DocumentUncheckedCreateWithoutSignaturesInput>
+    where?: DocumentWhereInput
+  }
+
+  export type DocumentUpdateToOneWithWhereWithoutSignaturesInput = {
+    where?: DocumentWhereInput
+    data: XOR<DocumentUpdateWithoutSignaturesInput, DocumentUncheckedUpdateWithoutSignaturesInput>
+  }
+
+  export type DocumentUpdateWithoutSignaturesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedBy?: UserUpdateOneWithoutDocumentsNestedInput
+    project?: ProjectUpdateOneRequiredWithoutDocumentsNestedInput
+    versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutSignaturesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type UserCreateWithoutCommentsInput = {
@@ -24826,9 +31465,16 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
     project: ProjectCreateNestedOneWithoutDocumentsInput
+    versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateWithoutUploadedByInput = {
@@ -24837,8 +31483,15 @@ export namespace Prisma {
     type?: string | null
     url: string
     projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
+    versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentCreateOrConnectWithoutUploadedByInput = {
@@ -25401,7 +32054,10 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    uploadedById: string
+    uploadedById?: string | null
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25541,9 +32197,16 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    uploadedBy?: UserUpdateOneRequiredWithoutDocumentsNestedInput
+    uploadedBy?: UserUpdateOneWithoutDocumentsNestedInput
+    versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutProjectInput = {
@@ -25551,9 +32214,16 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    uploadedById?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateManyWithoutProjectInput = {
@@ -25561,7 +32231,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    uploadedById?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25794,6 +32467,154 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DocumentVersionCreateManyDocumentInput = {
+    id?: string
+    url: string
+    versionAt?: Date | string
+    name: string
+    type?: string | null
+    size: number
+    mimetype: string
+  }
+
+  export type DocumentCommentCreateManyDocumentInput = {
+    id?: string
+    content: string
+    zone?: string | null
+    resolved?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentNotificationRuleCreateManyDocumentInput = {
+    id?: string
+    trigger: string
+    frequency: string
+    channel: string
+    targetEmail?: string | null
+    targetUrl?: string | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentSignatureCreateManyDocumentInput = {
+    id?: string
+    status: string
+    signatureUrl?: string | null
+    requestedAt?: Date | string
+    signedAt?: Date | string | null
+  }
+
+  export type DocumentVersionUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    versionAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: IntFieldUpdateOperationsInput | number
+    mimetype?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DocumentVersionUncheckedUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    versionAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: IntFieldUpdateOperationsInput | number
+    mimetype?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DocumentVersionUncheckedUpdateManyWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    versionAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: IntFieldUpdateOperationsInput | number
+    mimetype?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DocumentCommentUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    zone?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentCommentUncheckedUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    zone?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentCommentUncheckedUpdateManyWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    zone?: NullableStringFieldUpdateOperationsInput | string | null
+    resolved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentNotificationRuleUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trigger?: StringFieldUpdateOperationsInput | string
+    frequency?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    targetEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentNotificationRuleUncheckedUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trigger?: StringFieldUpdateOperationsInput | string
+    frequency?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    targetEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    trigger?: StringFieldUpdateOperationsInput | string
+    frequency?: StringFieldUpdateOperationsInput | string
+    channel?: StringFieldUpdateOperationsInput | string
+    targetEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    targetUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentSignatureUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    signatureUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DocumentSignatureUncheckedUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    signatureUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DocumentSignatureUncheckedUpdateManyWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    signatureUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    requestedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    signedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type ProjectCreateManyOwnerInput = {
     id?: string
     name: string
@@ -25821,6 +32642,9 @@ export namespace Prisma {
     type?: string | null
     url: string
     projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25937,9 +32761,16 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     project?: ProjectUpdateOneRequiredWithoutDocumentsNestedInput
+    versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutUploadedByInput = {
@@ -25948,8 +32779,15 @@ export namespace Prisma {
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateManyWithoutUploadedByInput = {
@@ -25958,6 +32796,9 @@ export namespace Prisma {
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
