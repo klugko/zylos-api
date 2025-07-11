@@ -64,12 +64,13 @@ async function bootstrap() {
   //   exposedHeaders: '*',
   // });
 
+  // configuration CORS pour le developpement
   app.enableCors({
-    origin: true, 
-    credentials: true,
+    origin: true, // Autoriser toutes les origines
+    credentials: true, // Autoriser les credentials
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: '*',
-    exposedHeaders: '*',
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+    exposedHeaders: 'Authorization',
   });
 
   await app.listen(process.env.PORT ?? 3000);

@@ -8,14 +8,14 @@ import {
   HttpStatus,
   Get,
   Inject,
-  // UseGuards,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
   ApiResponse,
   ApiParam,
-  // ApiBearerAuth,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { CreateProjectDto } from '../../application/dto/create-project.dto';
 import { UpdateProjectDto } from '../../application/dto/update-project.dto';
@@ -23,13 +23,13 @@ import { CreateProjectUseCase } from '../../application/use-cases/create-project
 import { Project } from '../../domain/entities/project.entity';
 import { UpdateProjectUseCase } from '../../application/use-cases/update-project.use-case';
 import { GetAllProjectsUseCase } from '../../application/use-cases/get-all-projects.use-case';
-// import { JwtAuthGuard } from 'src/modules/auth/infrastructure/strategies/jwt-auth.guard';
-// import { CurrentUser } from 'src/modules/auth/application/decorators/current-user.decorator';
-// import { User } from 'src/modules/auth/domain/entities/user.entity';
+import { CurrentUser } from 'src/modules/auth/application/decorators/current-user.decorator';
+import { User } from 'src/modules/auth/domain/entities/user.entity';
 import { ProjectWithDetails } from '@modules/project-management/domain/entities/project-with-details.entity';
 import { GetAllProjectsWithDetailsUseCase } from '@modules/project-management/application/use-cases/get-all-projects-with-details.use-case';
 import { ProjectRepository } from '@modules/project-management/domain/interfaces/project-repository.interface';
 import { GetProjectProgressUseCase } from '@modules/project-management/application/use-cases/get-project-progress.use-case';
+import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
 
 @ApiTags('Projects')
 @Controller('api/v1/projects')
@@ -81,7 +81,8 @@ export class ProjectController {
   }
   
   @Get()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Récupérer tous les projets' })
   @ApiResponse({ status: 200, description: 'Liste de tous les projets' })
   @ApiResponse({ status: 401, description: 'Non autorisé.' })
@@ -109,7 +110,8 @@ export class ProjectController {
   }
 
   @Put(':id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Mettre à jour un projet existant' })
   @ApiResponse({ status: 200, description: 'Projet mis à jour avec succès.' })
   @ApiResponse({ status: 404, description: 'Projet non trouvé.' })

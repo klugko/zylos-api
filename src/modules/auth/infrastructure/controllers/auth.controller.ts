@@ -5,7 +5,7 @@ import {
   Put,
   Param,
   Get,
-  // UseGuards,
+  UseGuards,
   Req,
 } from '@nestjs/common';
 import {
@@ -14,7 +14,7 @@ import {
   ApiResponse,
   ApiParam,
   ApiBody,
-  // ApiBearerAuth,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { RegisterUseCase } from '../../application/use-cases/register.use-case';
 import { LoginUseCase } from '../../application/use-cases/login.use-case';
@@ -22,10 +22,10 @@ import { ActivateUserUseCase } from '../../application/use-cases/activate-user.u
 import { DeactivateUserUseCase } from '../../application/use-cases/deactivate-user.use-case';
 import { RegisterDto } from '../../application/dto/register.dto';
 import { LoginDto } from '../../application/dto/login.dto';
-// import { AuthGuard } from '@nestjs/passport';
-// import { JwtAuthGuard } from '../strategies/jwt-auth.guard';
-// import { CurrentUser } from '@core/common/current-user.decorator';
-// import { User } from '@modules/auth/domain/entities/user.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from '../strategies/jwt-auth.guard';
+import { CurrentUser } from '@core/common/current-user.decorator';
+import { User } from '@modules/auth/domain/entities/user.entity';
 
 @ApiTags('Auth')
 @Controller('api/v1/auth')
@@ -53,20 +53,27 @@ export class AuthController {
     return this.loginUC.execute(dto);
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @ApiBearerAuth('JWT-auth')
+
   @Get('me')
   @ApiOperation({ summary: 'Profil utilisateur (mock)' })
   @ApiResponse({ status: 200, description: 'Profil fictif retourné pour tests' })
-  getProfile() {
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  getProfile(@CurrentUser() user: User) {
     return {
-      message: 'Authentification désactivée temporairement',
-      user: null,
+      id: user.id,
+      email: user.email,
+      firstName: user.fullname,
+      isActive: user.isActive,
+      role: user.role,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     };
   }
 
   @Post('logout')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Se déconnecter (stateless)' })
   @ApiResponse({ status: 200, description: 'Déconnexion réussie' })
   logout() {
@@ -74,7 +81,8 @@ export class AuthController {
   }
 
   @Put('activate/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Activer un utilisateur' })
   @ApiParam({ name: 'id', description: "ID de l'utilisateur à activer" })
   @ApiResponse({ status: 200, description: 'Utilisateur activé' })
@@ -83,7 +91,8 @@ export class AuthController {
   }
 
   @Put('deactivate/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Désactiver un utilisateur' })
   @ApiParam({ name: 'id', description: "ID de l'utilisateur à désactiver" })
   @ApiResponse({ status: 200, description: 'Utilisateur désactivé' })
@@ -92,14 +101,14 @@ export class AuthController {
   }
 
   @Get('google')
-  // @UseGuards(AuthGuard('google'))
+  @UseGuards(AuthGuard('google'))
   @ApiOperation({ summary: 'Connexion Google OAuth (mock)' })
   googleLogin() {
     return { message: 'Redirection OAuth désactivée temporairement.' };
   }
 
   @Get('google/redirect')
-  // @UseGuards(AuthGuard('google'))
+  @UseGuards(AuthGuard('google'))
   @ApiOperation({ summary: 'Callback Google OAuth (mock)' })
   async googleCallback(@Req() req: any) {
     return {
