@@ -23,9 +23,9 @@ export class CreateProjectUseCase {
     private readonly prisma: PrismaService,
   ) {}
 
-  async execute(dto: CreateProjectDto): Promise<Project> {
+  async execute(dto: CreateProjectDto, ownerId: string): Promise<Project> {
     const now = new Date();
-    const projectId = dto.id ?? uuid(); // 🆕 Génération UUID serveur
+    const projectId = dto.id ?? uuid(); 
     const project = new Project(
       projectId,
       dto.name,
@@ -42,12 +42,11 @@ export class CreateProjectUseCase {
       dto.isArchived ?? false,
       now,
       now,
-      dto.ownerId ?? null,
+      ownerId ?? null,
       dto.templateId ?? null,
     );
 
     try {
-      // ① Appel GPT (HORS TRANSACTION)
       let tasks = [];
       let checklists = [];
       if (dto.aiGenerateStructure !== false) {
@@ -60,7 +59,6 @@ export class CreateProjectUseCase {
         checklists = result.checklists;
       }
 
-      // ② Transaction rapide avec batch inserts
       await this.prisma.$transaction([
         this.prisma.project.create({
           data: {
@@ -93,13 +91,12 @@ export class CreateProjectUseCase {
 
       return project;
     } catch (err) {
-      // ③ Gestion des erreurs UUID déjà utilisé
       if (
         err instanceof PrismaClientKnownRequestError &&
         err.code === 'P2002'
       ) {
         this.logger.warn(`❗ Conflit UUID – retry avec nouveau ID`);
-        return this.execute({ ...dto, id: uuid() });
+        return this.execute({ ...dto, id: uuid() }, ownerId); 
       }
 
       this.logger.error('❌ Erreur lors de la création du projet', err);

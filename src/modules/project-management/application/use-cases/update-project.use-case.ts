@@ -15,10 +15,13 @@ export class UpdateProjectUseCase {
     private readonly tracking: TrackingService,
   ) {}
 
-  async execute(id: string, dto: UpdateProjectDto): Promise<Project> {
+  async execute(id: string, dto: UpdateProjectDto, userId): Promise<Project> {
     const project = await this.projectRepository.findById(id);
     if (!project) {
       throw new NotFoundException('Projet non trouvé.');
+    }
+    if (project.ownerId !== userId) {
+      throw new NotFoundException('Vous n\'êtes pas autorisé à modifier ce projet.');
     }
 
     const updated = await this.projectRepository.update(id, dto);

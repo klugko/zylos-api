@@ -9,6 +9,7 @@ import {
   Get,
   Inject,
   UseGuards,
+  ForbiddenException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -57,11 +58,13 @@ export class ProjectController {
   }
   
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Récupérer un projet par son ID' })
   @ApiParam({ name: 'id', type: 'string', description: 'ID du projet' })
   @ApiResponse({ status: 200, description: 'Projet trouvé', type: Project })
   @ApiResponse({ status: 404, description: 'Projet non trouvé' })
-  async getById(@Param('id') id: string): Promise<Project> {
+  async getById(@Param('id') id: string, @CurrentUser() user: User): Promise<Project> {
     try {
       const project = await this.projectRepository.findById(id);
       if (!project) {
@@ -69,6 +72,9 @@ export class ProjectController {
           `Projet avec l'ID ${id} introuvable.`,
           HttpStatus.NOT_FOUND,
         );
+      }
+      if (project.ownerId !== user.id) {
+        throw new ForbiddenException("Vous n'avez pas accès à ce projet.");
       }
       return project;
     } catch (error) {
@@ -86,11 +92,13 @@ export class ProjectController {
   @ApiOperation({ summary: 'Récupérer tous les projets' })
   @ApiResponse({ status: 200, description: 'Liste de tous les projets' })
   @ApiResponse({ status: 401, description: 'Non autorisé.' })
-  async getAll(): Promise<Project[]> {
-    return this.getAllProjectsUseCase.execute(); // méthode modifiée sans paramètre
+  async getAll(@CurrentUser() user: User): Promise<Project[]> {
+    return this.getAllProjectsUseCase.execute(user.id); 
   }
  
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiResponse({
     status: 201,
     description: 'Projet créé',
@@ -98,9 +106,14 @@ export class ProjectController {
       example: { id: 'uuid', title: 'application web', description: 'Site e-commerce' },
     },
   })
-  async create(@Body() dto: CreateProjectDto): Promise<{ id: string; title: string; description: string | null }> {
-    const project = await this.createProjectUseCase.execute(dto);
-    return { id: project.id, title: project.name, description: project.description };
+  async create(@Body() dto: CreateProjectDto, @CurrentUser() user: User): 
+    Promise<{ id: string; title: string; description: string | null }> {
+    const project = await this.createProjectUseCase.execute(dto, user.id);
+    return {
+      id: project.id,
+      title: project.name,
+      description: project.description,
+    };
   }
 
   @Get(':id/progress')
@@ -120,9 +133,10 @@ export class ProjectController {
   async update(
     @Param('id') id: string,
     @Body() dto: UpdateProjectDto,
+    @CurrentUser() user: User,
   ): Promise<Project> {
     try {
-      return await this.updateProjectUseCase.execute(id, dto); // sans userId
+      return await this.updateProjectUseCase.execute(id, dto, user.id); 
     } catch (error) {
       throw new HttpException(
         error?.message ?? 'Erreur inattendue lors de la mise à jour du projet.',
