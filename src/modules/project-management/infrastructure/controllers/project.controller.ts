@@ -101,18 +101,32 @@ export class ProjectController {
   @ApiBearerAuth('JWT-auth')
   @ApiResponse({
     status: 201,
-    description: 'Projet créé',
-    schema: {
-      example: { id: 'uuid', title: 'application web', description: 'Site e-commerce' },
-    },
+    description: 'Projet créé avec ses tasks et checklists',
   })
-  async create(@Body() dto: CreateProjectDto, @CurrentUser() user: User): 
-    Promise<{ id: string; title: string; description: string | null }> {
-    const project = await this.createProjectUseCase.execute(dto, user.id);
+  async create(
+    @Body() dto: CreateProjectDto,
+    @CurrentUser() user: User,
+  ): Promise<any> {
+    const projectWithRelations = await this.createProjectUseCase.execute(dto, user.id);
     return {
-      id: project.id,
-      title: project.name,
-      description: project.description,
+      project: {
+        id: projectWithRelations.id,
+        name: projectWithRelations.name,
+        description: projectWithRelations.description,
+        status: projectWithRelations.status,
+        priority: projectWithRelations.priority,
+        
+      },
+      tasks: projectWithRelations.tasks.map((t) => ({
+        id: t.id,
+        title: t.title,
+        status: t.status,
+        checklists: t.checklists.map((c) => ({
+          id: c.id,
+          title: c.title,
+          isCompleted: c.isCompleted,
+        })),
+      })),
     };
   }
 

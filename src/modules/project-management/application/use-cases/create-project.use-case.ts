@@ -23,9 +23,9 @@ export class CreateProjectUseCase {
     private readonly prisma: PrismaService,
   ) {}
 
-  async execute(dto: CreateProjectDto, ownerId: string): Promise<Project> {
+  async execute(dto: CreateProjectDto, ownerId: string): Promise<any> {
     const now = new Date();
-    const projectId = dto.id ?? uuid(); 
+    const projectId = dto.id ?? uuid();
     const project = new Project(
       projectId,
       dto.name,
@@ -45,10 +45,10 @@ export class CreateProjectUseCase {
       ownerId ?? null,
       dto.templateId ?? null,
     );
-
+  
     try {
-      let tasks = [];
-      let checklists = [];
+      let tasks: any[] = [];
+      let checklists: any[] = [];
       if (dto.aiGenerateStructure !== false) {
         const result = await this.generator.generate({
           id: projectId,
@@ -58,14 +58,14 @@ export class CreateProjectUseCase {
         tasks = result.tasks;
         checklists = result.checklists;
       }
-
+  
       await this.prisma.$transaction([
         this.prisma.project.create({
           data: {
             id: project.id,
             name: project.name,
             description: project.description,
-            clientType: project.clientType  as ProjectClientType,
+            clientType: project.clientType as ProjectClientType,
             industry: project.industry,
             color: project.color,
             startDate: project.startDate ?? new Date(),
@@ -88,19 +88,27 @@ export class CreateProjectUseCase {
           ? [this.prisma.checklist.createMany({ data: checklists, skipDuplicates: true })]
           : []),
       ]);
-
-      return project;
+  
+      const fullProject = await this.prisma.project.findUnique({
+        where: { id: projectId },
+        include: {
+          tasks: {
+            include: {
+              checklists: true,
+            },
+          },
+        },
+      });
+  
+      return fullProject; 
     } catch (err) {
-      if (
-        err instanceof PrismaClientKnownRequestError &&
-        err.code === 'P2002'
-      ) {
+      if (err instanceof PrismaClientKnownRequestError && err.code === 'P2002') {
         this.logger.warn(`❗ Conflit UUID – retry avec nouveau ID`);
-        return this.execute({ ...dto, id: uuid() }, ownerId); 
+        return this.execute({ ...dto, id: uuid() }, ownerId);
       }
-
       this.logger.error('❌ Erreur lors de la création du projet', err);
       throw err;
     }
   }
+  
 }
