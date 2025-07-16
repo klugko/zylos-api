@@ -8,6 +8,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ======================================================
+// ENUMERATIONS (nouvelles uniquement, sans casser l'existant)
+// ======================================================
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum ProjectClientType {
+  SIMPLE
+  CODEUR
+}
+
+enum ProjectStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  ON_HOLD
+  CANCELLED
+}
+
+enum ProjectPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ProjectRole {
+  OWNER
+  MEMBER
+  OBSERVER
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  COLLABORATOR
+  MANAGER
+  PARTNER
+}
+
+enum CommentTargetType {
+  PROJECT
+  TASK
+  CHECKLIST
+}
+
+enum RequestStatus {
+  OPEN
+  ASSIGNED
+  CONVERTED_TO_TASK
+  CLOSED
+}
+
+// ======================================================
+// MODELS
+// ======================================================
+
 model Project {
   id                  String             @id @default(uuid())
   name                String
@@ -27,7 +94,6 @@ model Project {
   createdAt           DateTime           @default(now())
   updatedAt           DateTime           @updatedAt
 
-  // Relations
   owner      User?            @relation("ProjectOwner", fields: [ownerId], references: [id])
   ownerId    String?
   members    ProjectMember[]
@@ -37,6 +103,12 @@ model Project {
   documents  Document[]
   template   ProjectTemplate? @relation(fields: [templateId], references: [id])
   templateId String?
+
+  // Bloc 3 relations
+  accesses        ProjectAccess[]
+  partnerRequests PartnerRequest[]
+  activityLogs    PartnerActivityLog[]
+  roleAssignments UserRoleAssignment[]
 }
 
 model Task {
@@ -52,7 +124,6 @@ model Task {
   color         String?      @db.VarChar(10)
   estimatedTime Int?
 
-  // Relations
   project        Project?    @relation(fields: [projectId], references: [id])
   projectId      String?
   column         TaskColumn? @relation(fields: [columnId], references: [id])
@@ -83,7 +154,6 @@ model Checklist {
   title       String
   isCompleted Boolean @default(false)
 
-  // Relations
   task      Task    @relation(fields: [taskId], references: [id])
   taskId    String
   project   Project @relation(fields: [projectId], references: [id])
@@ -136,6 +206,10 @@ model Document {
   comments           DocumentComment[]
   notificationRules  DocumentNotificationRule[]
   signatures         DocumentSignature[]
+
+  // Bloc 3
+  accesses     DocumentAccess[]
+  activityLogs PartnerActivityLog[]
 }
 
 model DocumentVersion {
@@ -155,42 +229,33 @@ model DocumentComment {
   documentId String
   document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
   content    String
-  zone       String? // ex: "page:1;line:3" ou "section:Résumé"
+  zone       String?
   resolved   Boolean  @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
+// ⚠️ Garder les champs en String pour éviter la perte de données
 model DocumentNotificationRule {
-  id         String   @id @default(uuid())
-  documentId String
-  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-
-  trigger   String // 'new_comment' | 'new_version'
-  frequency String // 'immediate' | 'daily' | 'weekly'
-  channel   String // 'in-app' | 'email' | 'webhook'
-
-  targetEmail String? // si channel=email
-  targetUrl   String? // si channel=webhook
-
-  createdAt DateTime @default(now())
+  id          String   @id @default(uuid())
+  documentId  String
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  trigger     String // remain as string
+  frequency   String // remain as string
+  channel     String // remain as string
+  targetEmail String?
+  targetUrl   String?
+  createdAt   DateTime @default(now())
 }
 
 model DocumentSignature {
-  id         String   @id @default(uuid())
-  documentId String
-  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-
-  status       String // en_attente | signé | refusé | expiré
-  signatureUrl String? //  (base64 convertie en image)
+  id           String    @id @default(uuid())
+  documentId   String
+  document     Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  status       String // remain as string
+  signatureUrl String?
   requestedAt  DateTime  @default(now())
   signedAt     DateTime?
-}
-
-enum CommentTargetType {
-  PROJECT
-  TASK
-  CHECKLIST
 }
 
 model Comment {
@@ -221,14 +286,25 @@ model User {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @default(now())
 
-  // Relations
-  projectsOwned Project[]       @relation("ProjectOwner")
-  documents     Document[]
-  comments      Comment[]
-  Task          Task[]
-  ProjectMember ProjectMember[]
+  // Bloc 3
+  external        Boolean @default(false)
+  partnerType     String?
+  activationToken String?
+
+  projectsOwned   Project[]               @relation("ProjectOwner")
+  documents       Document[]
+  comments        Comment[]
+  Task            Task[]
+  ProjectMember   ProjectMember[]
+  projectAccess   ProjectAccess[]
+  documentAccess  DocumentAccess[]
+  partnerRequests PartnerRequest[]
+  partnerMessages PartnerRequestMessage[]
+  activityLogs    PartnerActivityLog[]
+  roleAssignments UserRoleAssignment[]
 }
 
+// Templates
 model ProjectTemplate {
   id          String         @id @default(uuid())
   name        String
@@ -269,48 +345,97 @@ model ReminderNotification {
   createdAt DateTime @default(now())
 }
 
-enum TaskStatus {
-  TODO
-  IN_PROGRESS
-  DONE
-  CANCELLED
+// ======================================================
+// NOUVEAUX MODELS BLOC 3
+// ======================================================
+
+model Role {
+  id              String   @id @default(uuid())
+  name            String
+  description     String?
+  canRead         Boolean  @default(false)
+  canWrite        Boolean  @default(false)
+  canComment      Boolean  @default(false)
+  canValidate     Boolean  @default(false)
+  canDelete       Boolean  @default(false)
+  canUseVisio     Boolean  @default(false)
+  canUseDashboard Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  assignments UserRoleAssignment[]
 }
 
-enum TaskPriority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
+model UserRoleAssignment {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  roleId    String
+  role      Role     @relation(fields: [roleId], references: [id])
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
 }
 
-enum ProjectClientType {
-  SIMPLE
-  CODEUR
+model ProjectAccess {
+  id          String   @id @default(uuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  canRead     Boolean  @default(true)
+  canWrite    Boolean  @default(false)
+  canComment  Boolean  @default(false)
+  canValidate Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 }
 
-enum ProjectStatus {
-  NOT_STARTED
-  IN_PROGRESS
-  COMPLETED
-  ON_HOLD
-  CANCELLED
+model DocumentAccess {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  canRead    Boolean  @default(true)
+  canWrite   Boolean  @default(false)
+  canComment Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
 }
 
-enum ProjectPriority {
-  LOW
-  MEDIUM
-  HIGH
+model PartnerActivityLog {
+  id         String    @id @default(uuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  projectId  String?
+  project    Project?  @relation(fields: [projectId], references: [id])
+  documentId String?
+  document   Document? @relation(fields: [documentId], references: [id])
+  action     String
+  createdAt  DateTime  @default(now())
 }
 
-enum ProjectRole {
-  OWNER
-  MEMBER
-  OBSERVER
+model PartnerRequest {
+  id         String                  @id @default(uuid())
+  projectId  String
+  project    Project                 @relation(fields: [projectId], references: [id])
+  userId     String
+  user       User                    @relation(fields: [userId], references: [id])
+  subject    String
+  message    String
+  attachment String?
+  status     RequestStatus           @default(OPEN)
+  createdAt  DateTime                @default(now())
+  updatedAt  DateTime                @updatedAt
+  messages   PartnerRequestMessage[]
 }
 
-enum UserRole {
-  USER
-  ADMIN
-  COLLABORATOR
-  MANAGER
+model PartnerRequestMessage {
+  id        String         @id @default(uuid())
+  requestId String
+  request   PartnerRequest @relation(fields: [requestId], references: [id])
+  senderId  String
+  sender    User           @relation(fields: [senderId], references: [id])
+  content   String
+  createdAt DateTime       @default(now())
 }

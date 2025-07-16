@@ -273,7 +273,10 @@ exports.Prisma.UserScalarFieldEnum = {
   performanceScore: 'performanceScore',
   googleId: 'googleId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  external: 'external',
+  partnerType: 'partnerType',
+  activationToken: 'activationToken'
 };
 
 exports.Prisma.ProjectTemplateScalarFieldEnum = {
@@ -308,6 +311,80 @@ exports.Prisma.ReminderNotificationScalarFieldEnum = {
   message: 'message',
   userId: 'userId',
   taskId: 'taskId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  canRead: 'canRead',
+  canWrite: 'canWrite',
+  canComment: 'canComment',
+  canValidate: 'canValidate',
+  canDelete: 'canDelete',
+  canUseVisio: 'canUseVisio',
+  canUseDashboard: 'canUseDashboard',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserRoleAssignmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  roleId: 'roleId',
+  projectId: 'projectId'
+};
+
+exports.Prisma.ProjectAccessScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  canRead: 'canRead',
+  canWrite: 'canWrite',
+  canComment: 'canComment',
+  canValidate: 'canValidate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DocumentAccessScalarFieldEnum = {
+  id: 'id',
+  documentId: 'documentId',
+  userId: 'userId',
+  canRead: 'canRead',
+  canWrite: 'canWrite',
+  canComment: 'canComment',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PartnerActivityLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  projectId: 'projectId',
+  documentId: 'documentId',
+  action: 'action',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.PartnerRequestScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  subject: 'subject',
+  message: 'message',
+  attachment: 'attachment',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PartnerRequestMessageScalarFieldEnum = {
+  id: 'id',
+  requestId: 'requestId',
+  senderId: 'senderId',
+  content: 'content',
   createdAt: 'createdAt'
 };
 
@@ -385,7 +462,15 @@ exports.UserRole = exports.$Enums.UserRole = {
   USER: 'USER',
   ADMIN: 'ADMIN',
   COLLABORATOR: 'COLLABORATOR',
-  MANAGER: 'MANAGER'
+  MANAGER: 'MANAGER',
+  PARTNER: 'PARTNER'
+};
+
+exports.RequestStatus = exports.$Enums.RequestStatus = {
+  OPEN: 'OPEN',
+  ASSIGNED: 'ASSIGNED',
+  CONVERTED_TO_TASK: 'CONVERTED_TO_TASK',
+  CLOSED: 'CLOSED'
 };
 
 exports.Prisma.ModelName = {
@@ -405,7 +490,14 @@ exports.Prisma.ModelName = {
   ProjectTemplate: 'ProjectTemplate',
   TaskTemplate: 'TaskTemplate',
   ChecklistTemplate: 'ChecklistTemplate',
-  ReminderNotification: 'ReminderNotification'
+  ReminderNotification: 'ReminderNotification',
+  Role: 'Role',
+  UserRoleAssignment: 'UserRoleAssignment',
+  ProjectAccess: 'ProjectAccess',
+  DocumentAccess: 'DocumentAccess',
+  PartnerActivityLog: 'PartnerActivityLog',
+  PartnerRequest: 'PartnerRequest',
+  PartnerRequestMessage: 'PartnerRequestMessage'
 };
 
 /**

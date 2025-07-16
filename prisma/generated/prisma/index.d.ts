@@ -98,21 +98,47 @@ export type ChecklistTemplate = $Result.DefaultSelection<Prisma.$ChecklistTempla
  * 
  */
 export type ReminderNotification = $Result.DefaultSelection<Prisma.$ReminderNotificationPayload>
+/**
+ * Model Role
+ * 
+ */
+export type Role = $Result.DefaultSelection<Prisma.$RolePayload>
+/**
+ * Model UserRoleAssignment
+ * 
+ */
+export type UserRoleAssignment = $Result.DefaultSelection<Prisma.$UserRoleAssignmentPayload>
+/**
+ * Model ProjectAccess
+ * 
+ */
+export type ProjectAccess = $Result.DefaultSelection<Prisma.$ProjectAccessPayload>
+/**
+ * Model DocumentAccess
+ * 
+ */
+export type DocumentAccess = $Result.DefaultSelection<Prisma.$DocumentAccessPayload>
+/**
+ * Model PartnerActivityLog
+ * 
+ */
+export type PartnerActivityLog = $Result.DefaultSelection<Prisma.$PartnerActivityLogPayload>
+/**
+ * Model PartnerRequest
+ * 
+ */
+export type PartnerRequest = $Result.DefaultSelection<Prisma.$PartnerRequestPayload>
+/**
+ * Model PartnerRequestMessage
+ * 
+ */
+export type PartnerRequestMessage = $Result.DefaultSelection<Prisma.$PartnerRequestMessagePayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const CommentTargetType: {
-  PROJECT: 'PROJECT',
-  TASK: 'TASK',
-  CHECKLIST: 'CHECKLIST'
-};
-
-export type CommentTargetType = (typeof CommentTargetType)[keyof typeof CommentTargetType]
-
-
-export const TaskStatus: {
+  export const TaskStatus: {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',
@@ -173,16 +199,32 @@ export const UserRole: {
   USER: 'USER',
   ADMIN: 'ADMIN',
   COLLABORATOR: 'COLLABORATOR',
-  MANAGER: 'MANAGER'
+  MANAGER: 'MANAGER',
+  PARTNER: 'PARTNER'
 };
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
+
+export const CommentTargetType: {
+  PROJECT: 'PROJECT',
+  TASK: 'TASK',
+  CHECKLIST: 'CHECKLIST'
+};
+
+export type CommentTargetType = (typeof CommentTargetType)[keyof typeof CommentTargetType]
+
+
+export const RequestStatus: {
+  OPEN: 'OPEN',
+  ASSIGNED: 'ASSIGNED',
+  CONVERTED_TO_TASK: 'CONVERTED_TO_TASK',
+  CLOSED: 'CLOSED'
+};
+
+export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus]
+
 }
-
-export type CommentTargetType = $Enums.CommentTargetType
-
-export const CommentTargetType: typeof $Enums.CommentTargetType
 
 export type TaskStatus = $Enums.TaskStatus
 
@@ -211,6 +253,14 @@ export const ProjectRole: typeof $Enums.ProjectRole
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type CommentTargetType = $Enums.CommentTargetType
+
+export const CommentTargetType: typeof $Enums.CommentTargetType
+
+export type RequestStatus = $Enums.RequestStatus
+
+export const RequestStatus: typeof $Enums.RequestStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -506,6 +556,76 @@ export class PrismaClient<
     * ```
     */
   get reminderNotification(): Prisma.ReminderNotificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.role`: Exposes CRUD operations for the **Role** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Roles
+    * const roles = await prisma.role.findMany()
+    * ```
+    */
+  get role(): Prisma.RoleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userRoleAssignment`: Exposes CRUD operations for the **UserRoleAssignment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserRoleAssignments
+    * const userRoleAssignments = await prisma.userRoleAssignment.findMany()
+    * ```
+    */
+  get userRoleAssignment(): Prisma.UserRoleAssignmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.projectAccess`: Exposes CRUD operations for the **ProjectAccess** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProjectAccesses
+    * const projectAccesses = await prisma.projectAccess.findMany()
+    * ```
+    */
+  get projectAccess(): Prisma.ProjectAccessDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.documentAccess`: Exposes CRUD operations for the **DocumentAccess** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DocumentAccesses
+    * const documentAccesses = await prisma.documentAccess.findMany()
+    * ```
+    */
+  get documentAccess(): Prisma.DocumentAccessDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.partnerActivityLog`: Exposes CRUD operations for the **PartnerActivityLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PartnerActivityLogs
+    * const partnerActivityLogs = await prisma.partnerActivityLog.findMany()
+    * ```
+    */
+  get partnerActivityLog(): Prisma.PartnerActivityLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.partnerRequest`: Exposes CRUD operations for the **PartnerRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PartnerRequests
+    * const partnerRequests = await prisma.partnerRequest.findMany()
+    * ```
+    */
+  get partnerRequest(): Prisma.PartnerRequestDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.partnerRequestMessage`: Exposes CRUD operations for the **PartnerRequestMessage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PartnerRequestMessages
+    * const partnerRequestMessages = await prisma.partnerRequestMessage.findMany()
+    * ```
+    */
+  get partnerRequestMessage(): Prisma.PartnerRequestMessageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -962,7 +1082,14 @@ export namespace Prisma {
     ProjectTemplate: 'ProjectTemplate',
     TaskTemplate: 'TaskTemplate',
     ChecklistTemplate: 'ChecklistTemplate',
-    ReminderNotification: 'ReminderNotification'
+    ReminderNotification: 'ReminderNotification',
+    Role: 'Role',
+    UserRoleAssignment: 'UserRoleAssignment',
+    ProjectAccess: 'ProjectAccess',
+    DocumentAccess: 'DocumentAccess',
+    PartnerActivityLog: 'PartnerActivityLog',
+    PartnerRequest: 'PartnerRequest',
+    PartnerRequestMessage: 'PartnerRequestMessage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -981,7 +1108,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "documentVersion" | "documentComment" | "documentNotificationRule" | "documentSignature" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate" | "reminderNotification"
+      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "documentVersion" | "documentComment" | "documentNotificationRule" | "documentSignature" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate" | "reminderNotification" | "role" | "userRoleAssignment" | "projectAccess" | "documentAccess" | "partnerActivityLog" | "partnerRequest" | "partnerRequestMessage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2243,6 +2370,524 @@ export namespace Prisma {
           }
         }
       }
+      Role: {
+        payload: Prisma.$RolePayload<ExtArgs>
+        fields: Prisma.RoleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RoleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RoleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          findFirst: {
+            args: Prisma.RoleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RoleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          findMany: {
+            args: Prisma.RoleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+          }
+          create: {
+            args: Prisma.RoleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          createMany: {
+            args: Prisma.RoleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RoleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+          }
+          delete: {
+            args: Prisma.RoleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          update: {
+            args: Prisma.RoleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          deleteMany: {
+            args: Prisma.RoleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RoleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RoleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>[]
+          }
+          upsert: {
+            args: Prisma.RoleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RolePayload>
+          }
+          aggregate: {
+            args: Prisma.RoleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRole>
+          }
+          groupBy: {
+            args: Prisma.RoleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RoleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RoleCountArgs<ExtArgs>
+            result: $Utils.Optional<RoleCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserRoleAssignment: {
+        payload: Prisma.$UserRoleAssignmentPayload<ExtArgs>
+        fields: Prisma.UserRoleAssignmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserRoleAssignmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserRoleAssignmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>
+          }
+          findFirst: {
+            args: Prisma.UserRoleAssignmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserRoleAssignmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>
+          }
+          findMany: {
+            args: Prisma.UserRoleAssignmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>[]
+          }
+          create: {
+            args: Prisma.UserRoleAssignmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>
+          }
+          createMany: {
+            args: Prisma.UserRoleAssignmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserRoleAssignmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>[]
+          }
+          delete: {
+            args: Prisma.UserRoleAssignmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>
+          }
+          update: {
+            args: Prisma.UserRoleAssignmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserRoleAssignmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserRoleAssignmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserRoleAssignmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserRoleAssignmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserRoleAssignmentPayload>
+          }
+          aggregate: {
+            args: Prisma.UserRoleAssignmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserRoleAssignment>
+          }
+          groupBy: {
+            args: Prisma.UserRoleAssignmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserRoleAssignmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserRoleAssignmentCountArgs<ExtArgs>
+            result: $Utils.Optional<UserRoleAssignmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProjectAccess: {
+        payload: Prisma.$ProjectAccessPayload<ExtArgs>
+        fields: Prisma.ProjectAccessFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProjectAccessFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProjectAccessFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>
+          }
+          findFirst: {
+            args: Prisma.ProjectAccessFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProjectAccessFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>
+          }
+          findMany: {
+            args: Prisma.ProjectAccessFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>[]
+          }
+          create: {
+            args: Prisma.ProjectAccessCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>
+          }
+          createMany: {
+            args: Prisma.ProjectAccessCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProjectAccessCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>[]
+          }
+          delete: {
+            args: Prisma.ProjectAccessDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>
+          }
+          update: {
+            args: Prisma.ProjectAccessUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProjectAccessDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProjectAccessUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProjectAccessUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProjectAccessUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectAccessPayload>
+          }
+          aggregate: {
+            args: Prisma.ProjectAccessAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProjectAccess>
+          }
+          groupBy: {
+            args: Prisma.ProjectAccessGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProjectAccessGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProjectAccessCountArgs<ExtArgs>
+            result: $Utils.Optional<ProjectAccessCountAggregateOutputType> | number
+          }
+        }
+      }
+      DocumentAccess: {
+        payload: Prisma.$DocumentAccessPayload<ExtArgs>
+        fields: Prisma.DocumentAccessFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DocumentAccessFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DocumentAccessFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
+          }
+          findFirst: {
+            args: Prisma.DocumentAccessFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DocumentAccessFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
+          }
+          findMany: {
+            args: Prisma.DocumentAccessFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>[]
+          }
+          create: {
+            args: Prisma.DocumentAccessCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
+          }
+          createMany: {
+            args: Prisma.DocumentAccessCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DocumentAccessCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>[]
+          }
+          delete: {
+            args: Prisma.DocumentAccessDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
+          }
+          update: {
+            args: Prisma.DocumentAccessUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
+          }
+          deleteMany: {
+            args: Prisma.DocumentAccessDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DocumentAccessUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DocumentAccessUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>[]
+          }
+          upsert: {
+            args: Prisma.DocumentAccessUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentAccessPayload>
+          }
+          aggregate: {
+            args: Prisma.DocumentAccessAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDocumentAccess>
+          }
+          groupBy: {
+            args: Prisma.DocumentAccessGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DocumentAccessGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DocumentAccessCountArgs<ExtArgs>
+            result: $Utils.Optional<DocumentAccessCountAggregateOutputType> | number
+          }
+        }
+      }
+      PartnerActivityLog: {
+        payload: Prisma.$PartnerActivityLogPayload<ExtArgs>
+        fields: Prisma.PartnerActivityLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PartnerActivityLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PartnerActivityLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>
+          }
+          findFirst: {
+            args: Prisma.PartnerActivityLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PartnerActivityLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>
+          }
+          findMany: {
+            args: Prisma.PartnerActivityLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>[]
+          }
+          create: {
+            args: Prisma.PartnerActivityLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>
+          }
+          createMany: {
+            args: Prisma.PartnerActivityLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PartnerActivityLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>[]
+          }
+          delete: {
+            args: Prisma.PartnerActivityLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>
+          }
+          update: {
+            args: Prisma.PartnerActivityLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.PartnerActivityLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PartnerActivityLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PartnerActivityLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.PartnerActivityLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerActivityLogPayload>
+          }
+          aggregate: {
+            args: Prisma.PartnerActivityLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePartnerActivityLog>
+          }
+          groupBy: {
+            args: Prisma.PartnerActivityLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PartnerActivityLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PartnerActivityLogCountArgs<ExtArgs>
+            result: $Utils.Optional<PartnerActivityLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      PartnerRequest: {
+        payload: Prisma.$PartnerRequestPayload<ExtArgs>
+        fields: Prisma.PartnerRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PartnerRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PartnerRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.PartnerRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PartnerRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>
+          }
+          findMany: {
+            args: Prisma.PartnerRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>[]
+          }
+          create: {
+            args: Prisma.PartnerRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>
+          }
+          createMany: {
+            args: Prisma.PartnerRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PartnerRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.PartnerRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>
+          }
+          update: {
+            args: Prisma.PartnerRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.PartnerRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PartnerRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PartnerRequestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>[]
+          }
+          upsert: {
+            args: Prisma.PartnerRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.PartnerRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePartnerRequest>
+          }
+          groupBy: {
+            args: Prisma.PartnerRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PartnerRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PartnerRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<PartnerRequestCountAggregateOutputType> | number
+          }
+        }
+      }
+      PartnerRequestMessage: {
+        payload: Prisma.$PartnerRequestMessagePayload<ExtArgs>
+        fields: Prisma.PartnerRequestMessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PartnerRequestMessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PartnerRequestMessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>
+          }
+          findFirst: {
+            args: Prisma.PartnerRequestMessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PartnerRequestMessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>
+          }
+          findMany: {
+            args: Prisma.PartnerRequestMessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>[]
+          }
+          create: {
+            args: Prisma.PartnerRequestMessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>
+          }
+          createMany: {
+            args: Prisma.PartnerRequestMessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PartnerRequestMessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>[]
+          }
+          delete: {
+            args: Prisma.PartnerRequestMessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>
+          }
+          update: {
+            args: Prisma.PartnerRequestMessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.PartnerRequestMessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PartnerRequestMessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PartnerRequestMessageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>[]
+          }
+          upsert: {
+            args: Prisma.PartnerRequestMessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PartnerRequestMessagePayload>
+          }
+          aggregate: {
+            args: Prisma.PartnerRequestMessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePartnerRequestMessage>
+          }
+          groupBy: {
+            args: Prisma.PartnerRequestMessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PartnerRequestMessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PartnerRequestMessageCountArgs<ExtArgs>
+            result: $Utils.Optional<PartnerRequestMessageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2344,6 +2989,13 @@ export namespace Prisma {
     taskTemplate?: TaskTemplateOmit
     checklistTemplate?: ChecklistTemplateOmit
     reminderNotification?: ReminderNotificationOmit
+    role?: RoleOmit
+    userRoleAssignment?: UserRoleAssignmentOmit
+    projectAccess?: ProjectAccessOmit
+    documentAccess?: DocumentAccessOmit
+    partnerActivityLog?: PartnerActivityLogOmit
+    partnerRequest?: PartnerRequestOmit
+    partnerRequestMessage?: PartnerRequestMessageOmit
   }
 
   /* Types for Logging */
@@ -2443,6 +3095,10 @@ export namespace Prisma {
     checklists: number
     columns: number
     documents: number
+    accesses: number
+    partnerRequests: number
+    activityLogs: number
+    roleAssignments: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2451,6 +3107,10 @@ export namespace Prisma {
     checklists?: boolean | ProjectCountOutputTypeCountChecklistsArgs
     columns?: boolean | ProjectCountOutputTypeCountColumnsArgs
     documents?: boolean | ProjectCountOutputTypeCountDocumentsArgs
+    accesses?: boolean | ProjectCountOutputTypeCountAccessesArgs
+    partnerRequests?: boolean | ProjectCountOutputTypeCountPartnerRequestsArgs
+    activityLogs?: boolean | ProjectCountOutputTypeCountActivityLogsArgs
+    roleAssignments?: boolean | ProjectCountOutputTypeCountRoleAssignmentsArgs
   }
 
   // Custom InputTypes
@@ -2497,6 +3157,34 @@ export namespace Prisma {
    */
   export type ProjectCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DocumentWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountAccessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectAccessWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountPartnerRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerRequestWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountActivityLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerActivityLogWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountRoleAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserRoleAssignmentWhereInput
   }
 
 
@@ -2620,6 +3308,8 @@ export namespace Prisma {
     comments: number
     notificationRules: number
     signatures: number
+    accesses: number
+    activityLogs: number
   }
 
   export type DocumentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2627,6 +3317,8 @@ export namespace Prisma {
     comments?: boolean | DocumentCountOutputTypeCountCommentsArgs
     notificationRules?: boolean | DocumentCountOutputTypeCountNotificationRulesArgs
     signatures?: boolean | DocumentCountOutputTypeCountSignaturesArgs
+    accesses?: boolean | DocumentCountOutputTypeCountAccessesArgs
+    activityLogs?: boolean | DocumentCountOutputTypeCountActivityLogsArgs
   }
 
   // Custom InputTypes
@@ -2668,6 +3360,20 @@ export namespace Prisma {
     where?: DocumentSignatureWhereInput
   }
 
+  /**
+   * DocumentCountOutputType without action
+   */
+  export type DocumentCountOutputTypeCountAccessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentAccessWhereInput
+  }
+
+  /**
+   * DocumentCountOutputType without action
+   */
+  export type DocumentCountOutputTypeCountActivityLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerActivityLogWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -2679,6 +3385,12 @@ export namespace Prisma {
     comments: number
     Task: number
     ProjectMember: number
+    projectAccess: number
+    documentAccess: number
+    partnerRequests: number
+    partnerMessages: number
+    activityLogs: number
+    roleAssignments: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2687,6 +3399,12 @@ export namespace Prisma {
     comments?: boolean | UserCountOutputTypeCountCommentsArgs
     Task?: boolean | UserCountOutputTypeCountTaskArgs
     ProjectMember?: boolean | UserCountOutputTypeCountProjectMemberArgs
+    projectAccess?: boolean | UserCountOutputTypeCountProjectAccessArgs
+    documentAccess?: boolean | UserCountOutputTypeCountDocumentAccessArgs
+    partnerRequests?: boolean | UserCountOutputTypeCountPartnerRequestsArgs
+    partnerMessages?: boolean | UserCountOutputTypeCountPartnerMessagesArgs
+    activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs
+    roleAssignments?: boolean | UserCountOutputTypeCountRoleAssignmentsArgs
   }
 
   // Custom InputTypes
@@ -2733,6 +3451,48 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProjectMemberArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProjectMemberWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountProjectAccessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectAccessWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDocumentAccessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentAccessWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPartnerRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerRequestWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPartnerMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerRequestMessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountActivityLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerActivityLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRoleAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserRoleAssignmentWhereInput
   }
 
 
@@ -2804,6 +3564,68 @@ export namespace Prisma {
    */
   export type TaskTemplateCountOutputTypeCountChecklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChecklistTemplateWhereInput
+  }
+
+
+  /**
+   * Count Type RoleCountOutputType
+   */
+
+  export type RoleCountOutputType = {
+    assignments: number
+  }
+
+  export type RoleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assignments?: boolean | RoleCountOutputTypeCountAssignmentsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * RoleCountOutputType without action
+   */
+  export type RoleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoleCountOutputType
+     */
+    select?: RoleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * RoleCountOutputType without action
+   */
+  export type RoleCountOutputTypeCountAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserRoleAssignmentWhereInput
+  }
+
+
+  /**
+   * Count Type PartnerRequestCountOutputType
+   */
+
+  export type PartnerRequestCountOutputType = {
+    messages: number
+  }
+
+  export type PartnerRequestCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    messages?: boolean | PartnerRequestCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PartnerRequestCountOutputType without action
+   */
+  export type PartnerRequestCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestCountOutputType
+     */
+    select?: PartnerRequestCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PartnerRequestCountOutputType without action
+   */
+  export type PartnerRequestCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerRequestMessageWhereInput
   }
 
 
@@ -3128,6 +3950,10 @@ export namespace Prisma {
     columns?: boolean | Project$columnsArgs<ExtArgs>
     documents?: boolean | Project$documentsArgs<ExtArgs>
     template?: boolean | Project$templateArgs<ExtArgs>
+    accesses?: boolean | Project$accessesArgs<ExtArgs>
+    partnerRequests?: boolean | Project$partnerRequestsArgs<ExtArgs>
+    activityLogs?: boolean | Project$activityLogsArgs<ExtArgs>
+    roleAssignments?: boolean | Project$roleAssignmentsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -3210,6 +4036,10 @@ export namespace Prisma {
     columns?: boolean | Project$columnsArgs<ExtArgs>
     documents?: boolean | Project$documentsArgs<ExtArgs>
     template?: boolean | Project$templateArgs<ExtArgs>
+    accesses?: boolean | Project$accessesArgs<ExtArgs>
+    partnerRequests?: boolean | Project$partnerRequestsArgs<ExtArgs>
+    activityLogs?: boolean | Project$activityLogsArgs<ExtArgs>
+    roleAssignments?: boolean | Project$roleAssignmentsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3231,6 +4061,10 @@ export namespace Prisma {
       columns: Prisma.$TaskColumnPayload<ExtArgs>[]
       documents: Prisma.$DocumentPayload<ExtArgs>[]
       template: Prisma.$ProjectTemplatePayload<ExtArgs> | null
+      accesses: Prisma.$ProjectAccessPayload<ExtArgs>[]
+      partnerRequests: Prisma.$PartnerRequestPayload<ExtArgs>[]
+      activityLogs: Prisma.$PartnerActivityLogPayload<ExtArgs>[]
+      roleAssignments: Prisma.$UserRoleAssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3653,6 +4487,10 @@ export namespace Prisma {
     columns<T extends Project$columnsArgs<ExtArgs> = {}>(args?: Subset<T, Project$columnsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskColumnPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends Project$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Project$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     template<T extends Project$templateArgs<ExtArgs> = {}>(args?: Subset<T, Project$templateArgs<ExtArgs>>): Prisma__ProjectTemplateClient<$Result.GetResult<Prisma.$ProjectTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    accesses<T extends Project$accessesArgs<ExtArgs> = {}>(args?: Subset<T, Project$accessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    partnerRequests<T extends Project$partnerRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Project$partnerRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    activityLogs<T extends Project$activityLogsArgs<ExtArgs> = {}>(args?: Subset<T, Project$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roleAssignments<T extends Project$roleAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Project$roleAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4252,6 +5090,102 @@ export namespace Prisma {
      */
     include?: ProjectTemplateInclude<ExtArgs> | null
     where?: ProjectTemplateWhereInput
+  }
+
+  /**
+   * Project.accesses
+   */
+  export type Project$accessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    where?: ProjectAccessWhereInput
+    orderBy?: ProjectAccessOrderByWithRelationInput | ProjectAccessOrderByWithRelationInput[]
+    cursor?: ProjectAccessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectAccessScalarFieldEnum | ProjectAccessScalarFieldEnum[]
+  }
+
+  /**
+   * Project.partnerRequests
+   */
+  export type Project$partnerRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    where?: PartnerRequestWhereInput
+    orderBy?: PartnerRequestOrderByWithRelationInput | PartnerRequestOrderByWithRelationInput[]
+    cursor?: PartnerRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PartnerRequestScalarFieldEnum | PartnerRequestScalarFieldEnum[]
+  }
+
+  /**
+   * Project.activityLogs
+   */
+  export type Project$activityLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    where?: PartnerActivityLogWhereInput
+    orderBy?: PartnerActivityLogOrderByWithRelationInput | PartnerActivityLogOrderByWithRelationInput[]
+    cursor?: PartnerActivityLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PartnerActivityLogScalarFieldEnum | PartnerActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * Project.roleAssignments
+   */
+  export type Project$roleAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    where?: UserRoleAssignmentWhereInput
+    orderBy?: UserRoleAssignmentOrderByWithRelationInput | UserRoleAssignmentOrderByWithRelationInput[]
+    cursor?: UserRoleAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserRoleAssignmentScalarFieldEnum | UserRoleAssignmentScalarFieldEnum[]
   }
 
   /**
@@ -10285,6 +11219,8 @@ export namespace Prisma {
     comments?: boolean | Document$commentsArgs<ExtArgs>
     notificationRules?: boolean | Document$notificationRulesArgs<ExtArgs>
     signatures?: boolean | Document$signaturesArgs<ExtArgs>
+    accesses?: boolean | Document$accessesArgs<ExtArgs>
+    activityLogs?: boolean | Document$activityLogsArgs<ExtArgs>
     _count?: boolean | DocumentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
@@ -10342,6 +11278,8 @@ export namespace Prisma {
     comments?: boolean | Document$commentsArgs<ExtArgs>
     notificationRules?: boolean | Document$notificationRulesArgs<ExtArgs>
     signatures?: boolean | Document$signaturesArgs<ExtArgs>
+    accesses?: boolean | Document$accessesArgs<ExtArgs>
+    activityLogs?: boolean | Document$activityLogsArgs<ExtArgs>
     _count?: boolean | DocumentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10362,6 +11300,8 @@ export namespace Prisma {
       comments: Prisma.$DocumentCommentPayload<ExtArgs>[]
       notificationRules: Prisma.$DocumentNotificationRulePayload<ExtArgs>[]
       signatures: Prisma.$DocumentSignaturePayload<ExtArgs>[]
+      accesses: Prisma.$DocumentAccessPayload<ExtArgs>[]
+      activityLogs: Prisma.$PartnerActivityLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10775,6 +11715,8 @@ export namespace Prisma {
     comments<T extends Document$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Document$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notificationRules<T extends Document$notificationRulesArgs<ExtArgs> = {}>(args?: Subset<T, Document$notificationRulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentNotificationRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     signatures<T extends Document$signaturesArgs<ExtArgs> = {}>(args?: Subset<T, Document$signaturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentSignaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    accesses<T extends Document$accessesArgs<ExtArgs> = {}>(args?: Subset<T, Document$accessesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    activityLogs<T extends Document$activityLogsArgs<ExtArgs> = {}>(args?: Subset<T, Document$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11323,6 +12265,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DocumentSignatureScalarFieldEnum | DocumentSignatureScalarFieldEnum[]
+  }
+
+  /**
+   * Document.accesses
+   */
+  export type Document$accessesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    where?: DocumentAccessWhereInput
+    orderBy?: DocumentAccessOrderByWithRelationInput | DocumentAccessOrderByWithRelationInput[]
+    cursor?: DocumentAccessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentAccessScalarFieldEnum | DocumentAccessScalarFieldEnum[]
+  }
+
+  /**
+   * Document.activityLogs
+   */
+  export type Document$activityLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    where?: PartnerActivityLogWhereInput
+    orderBy?: PartnerActivityLogOrderByWithRelationInput | PartnerActivityLogOrderByWithRelationInput[]
+    cursor?: PartnerActivityLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PartnerActivityLogScalarFieldEnum | PartnerActivityLogScalarFieldEnum[]
   }
 
   /**
@@ -16891,6 +17881,9 @@ export namespace Prisma {
     googleId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    external: boolean | null
+    partnerType: string | null
+    activationToken: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -16905,6 +17898,9 @@ export namespace Prisma {
     googleId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    external: boolean | null
+    partnerType: string | null
+    activationToken: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -16920,6 +17916,9 @@ export namespace Prisma {
     googleId: number
     createdAt: number
     updatedAt: number
+    external: number
+    partnerType: number
+    activationToken: number
     _all: number
   }
 
@@ -16946,6 +17945,9 @@ export namespace Prisma {
     googleId?: true
     createdAt?: true
     updatedAt?: true
+    external?: true
+    partnerType?: true
+    activationToken?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -16960,6 +17962,9 @@ export namespace Prisma {
     googleId?: true
     createdAt?: true
     updatedAt?: true
+    external?: true
+    partnerType?: true
+    activationToken?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -16975,6 +17980,9 @@ export namespace Prisma {
     googleId?: true
     createdAt?: true
     updatedAt?: true
+    external?: true
+    partnerType?: true
+    activationToken?: true
     _all?: true
   }
 
@@ -17077,6 +18085,9 @@ export namespace Prisma {
     googleId: string | null
     createdAt: Date
     updatedAt: Date
+    external: boolean
+    partnerType: string | null
+    activationToken: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -17111,11 +18122,20 @@ export namespace Prisma {
     googleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    external?: boolean
+    partnerType?: boolean
+    activationToken?: boolean
     projectsOwned?: boolean | User$projectsOwnedArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
     Task?: boolean | User$TaskArgs<ExtArgs>
     ProjectMember?: boolean | User$ProjectMemberArgs<ExtArgs>
+    projectAccess?: boolean | User$projectAccessArgs<ExtArgs>
+    documentAccess?: boolean | User$documentAccessArgs<ExtArgs>
+    partnerRequests?: boolean | User$partnerRequestsArgs<ExtArgs>
+    partnerMessages?: boolean | User$partnerMessagesArgs<ExtArgs>
+    activityLogs?: boolean | User$activityLogsArgs<ExtArgs>
+    roleAssignments?: boolean | User$roleAssignmentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -17132,6 +18152,9 @@ export namespace Prisma {
     googleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    external?: boolean
+    partnerType?: boolean
+    activationToken?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17147,6 +18170,9 @@ export namespace Prisma {
     googleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    external?: boolean
+    partnerType?: boolean
+    activationToken?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -17162,15 +18188,24 @@ export namespace Prisma {
     googleId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    external?: boolean
+    partnerType?: boolean
+    activationToken?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "email" | "password" | "role" | "isActive" | "skills" | "availability" | "performanceScore" | "googleId" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullname" | "email" | "password" | "role" | "isActive" | "skills" | "availability" | "performanceScore" | "googleId" | "createdAt" | "updatedAt" | "external" | "partnerType" | "activationToken", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     projectsOwned?: boolean | User$projectsOwnedArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
     Task?: boolean | User$TaskArgs<ExtArgs>
     ProjectMember?: boolean | User$ProjectMemberArgs<ExtArgs>
+    projectAccess?: boolean | User$projectAccessArgs<ExtArgs>
+    documentAccess?: boolean | User$documentAccessArgs<ExtArgs>
+    partnerRequests?: boolean | User$partnerRequestsArgs<ExtArgs>
+    partnerMessages?: boolean | User$partnerMessagesArgs<ExtArgs>
+    activityLogs?: boolean | User$activityLogsArgs<ExtArgs>
+    roleAssignments?: boolean | User$roleAssignmentsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -17184,6 +18219,12 @@ export namespace Prisma {
       comments: Prisma.$CommentPayload<ExtArgs>[]
       Task: Prisma.$TaskPayload<ExtArgs>[]
       ProjectMember: Prisma.$ProjectMemberPayload<ExtArgs>[]
+      projectAccess: Prisma.$ProjectAccessPayload<ExtArgs>[]
+      documentAccess: Prisma.$DocumentAccessPayload<ExtArgs>[]
+      partnerRequests: Prisma.$PartnerRequestPayload<ExtArgs>[]
+      partnerMessages: Prisma.$PartnerRequestMessagePayload<ExtArgs>[]
+      activityLogs: Prisma.$PartnerActivityLogPayload<ExtArgs>[]
+      roleAssignments: Prisma.$UserRoleAssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -17198,6 +18239,9 @@ export namespace Prisma {
       googleId: string | null
       createdAt: Date
       updatedAt: Date
+      external: boolean
+      partnerType: string | null
+      activationToken: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -17597,6 +18641,12 @@ export namespace Prisma {
     comments<T extends User$commentsArgs<ExtArgs> = {}>(args?: Subset<T, User$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Task<T extends User$TaskArgs<ExtArgs> = {}>(args?: Subset<T, User$TaskArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ProjectMember<T extends User$ProjectMemberArgs<ExtArgs> = {}>(args?: Subset<T, User$ProjectMemberArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    projectAccess<T extends User$projectAccessArgs<ExtArgs> = {}>(args?: Subset<T, User$projectAccessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    documentAccess<T extends User$documentAccessArgs<ExtArgs> = {}>(args?: Subset<T, User$documentAccessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    partnerRequests<T extends User$partnerRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$partnerRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    partnerMessages<T extends User$partnerMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$partnerMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    activityLogs<T extends User$activityLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    roleAssignments<T extends User$roleAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$roleAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -17638,6 +18688,9 @@ export namespace Prisma {
     readonly googleId: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly external: FieldRef<"User", 'Boolean'>
+    readonly partnerType: FieldRef<"User", 'String'>
+    readonly activationToken: FieldRef<"User", 'String'>
   }
     
 
@@ -18143,6 +19196,150 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProjectMemberScalarFieldEnum | ProjectMemberScalarFieldEnum[]
+  }
+
+  /**
+   * User.projectAccess
+   */
+  export type User$projectAccessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    where?: ProjectAccessWhereInput
+    orderBy?: ProjectAccessOrderByWithRelationInput | ProjectAccessOrderByWithRelationInput[]
+    cursor?: ProjectAccessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectAccessScalarFieldEnum | ProjectAccessScalarFieldEnum[]
+  }
+
+  /**
+   * User.documentAccess
+   */
+  export type User$documentAccessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    where?: DocumentAccessWhereInput
+    orderBy?: DocumentAccessOrderByWithRelationInput | DocumentAccessOrderByWithRelationInput[]
+    cursor?: DocumentAccessWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentAccessScalarFieldEnum | DocumentAccessScalarFieldEnum[]
+  }
+
+  /**
+   * User.partnerRequests
+   */
+  export type User$partnerRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    where?: PartnerRequestWhereInput
+    orderBy?: PartnerRequestOrderByWithRelationInput | PartnerRequestOrderByWithRelationInput[]
+    cursor?: PartnerRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PartnerRequestScalarFieldEnum | PartnerRequestScalarFieldEnum[]
+  }
+
+  /**
+   * User.partnerMessages
+   */
+  export type User$partnerMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    where?: PartnerRequestMessageWhereInput
+    orderBy?: PartnerRequestMessageOrderByWithRelationInput | PartnerRequestMessageOrderByWithRelationInput[]
+    cursor?: PartnerRequestMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PartnerRequestMessageScalarFieldEnum | PartnerRequestMessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.activityLogs
+   */
+  export type User$activityLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    where?: PartnerActivityLogWhereInput
+    orderBy?: PartnerActivityLogOrderByWithRelationInput | PartnerActivityLogOrderByWithRelationInput[]
+    cursor?: PartnerActivityLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PartnerActivityLogScalarFieldEnum | PartnerActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.roleAssignments
+   */
+  export type User$roleAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    where?: UserRoleAssignmentWhereInput
+    orderBy?: UserRoleAssignmentOrderByWithRelationInput | UserRoleAssignmentOrderByWithRelationInput[]
+    cursor?: UserRoleAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserRoleAssignmentScalarFieldEnum | UserRoleAssignmentScalarFieldEnum[]
   }
 
   /**
@@ -22477,6 +23674,7809 @@ export namespace Prisma {
 
 
   /**
+   * Model Role
+   */
+
+  export type AggregateRole = {
+    _count: RoleCountAggregateOutputType | null
+    _min: RoleMinAggregateOutputType | null
+    _max: RoleMaxAggregateOutputType | null
+  }
+
+  export type RoleMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    canRead: boolean | null
+    canWrite: boolean | null
+    canComment: boolean | null
+    canValidate: boolean | null
+    canDelete: boolean | null
+    canUseVisio: boolean | null
+    canUseDashboard: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RoleMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    canRead: boolean | null
+    canWrite: boolean | null
+    canComment: boolean | null
+    canValidate: boolean | null
+    canDelete: boolean | null
+    canUseVisio: boolean | null
+    canUseDashboard: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type RoleCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    canRead: number
+    canWrite: number
+    canComment: number
+    canValidate: number
+    canDelete: number
+    canUseVisio: number
+    canUseDashboard: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type RoleMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    canValidate?: true
+    canDelete?: true
+    canUseVisio?: true
+    canUseDashboard?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RoleMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    canValidate?: true
+    canDelete?: true
+    canUseVisio?: true
+    canUseDashboard?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type RoleCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    canValidate?: true
+    canDelete?: true
+    canUseVisio?: true
+    canUseDashboard?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type RoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Role to aggregate.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Roles
+    **/
+    _count?: true | RoleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RoleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RoleMaxAggregateInputType
+  }
+
+  export type GetRoleAggregateType<T extends RoleAggregateArgs> = {
+        [P in keyof T & keyof AggregateRole]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRole[P]>
+      : GetScalarType<T[P], AggregateRole[P]>
+  }
+
+
+
+
+  export type RoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoleWhereInput
+    orderBy?: RoleOrderByWithAggregationInput | RoleOrderByWithAggregationInput[]
+    by: RoleScalarFieldEnum[] | RoleScalarFieldEnum
+    having?: RoleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RoleCountAggregateInputType | true
+    _min?: RoleMinAggregateInputType
+    _max?: RoleMaxAggregateInputType
+  }
+
+  export type RoleGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    canRead: boolean
+    canWrite: boolean
+    canComment: boolean
+    canValidate: boolean
+    canDelete: boolean
+    canUseVisio: boolean
+    canUseDashboard: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: RoleCountAggregateOutputType | null
+    _min: RoleMinAggregateOutputType | null
+    _max: RoleMaxAggregateOutputType | null
+  }
+
+  type GetRoleGroupByPayload<T extends RoleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RoleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RoleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RoleGroupByOutputType[P]>
+            : GetScalarType<T[P], RoleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    assignments?: boolean | Role$assignmentsArgs<ExtArgs>
+    _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["role"]>
+
+  export type RoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["role"]>
+
+  export type RoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["role"]>
+
+  export type RoleSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type RoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "canRead" | "canWrite" | "canComment" | "canValidate" | "canDelete" | "canUseVisio" | "canUseDashboard" | "createdAt" | "updatedAt", ExtArgs["result"]["role"]>
+  export type RoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    assignments?: boolean | Role$assignmentsArgs<ExtArgs>
+    _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type RoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type RoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $RolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Role"
+    objects: {
+      assignments: Prisma.$UserRoleAssignmentPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      canRead: boolean
+      canWrite: boolean
+      canComment: boolean
+      canValidate: boolean
+      canDelete: boolean
+      canUseVisio: boolean
+      canUseDashboard: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["role"]>
+    composites: {}
+  }
+
+  type RoleGetPayload<S extends boolean | null | undefined | RoleDefaultArgs> = $Result.GetResult<Prisma.$RolePayload, S>
+
+  type RoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RoleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RoleCountAggregateInputType | true
+    }
+
+  export interface RoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Role'], meta: { name: 'Role' } }
+    /**
+     * Find zero or one Role that matches the filter.
+     * @param {RoleFindUniqueArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RoleFindUniqueArgs>(args: SelectSubset<T, RoleFindUniqueArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Role that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RoleFindUniqueOrThrowArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RoleFindUniqueOrThrowArgs>(args: SelectSubset<T, RoleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Role that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindFirstArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RoleFindFirstArgs>(args?: SelectSubset<T, RoleFindFirstArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Role that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindFirstOrThrowArgs} args - Arguments to find a Role
+     * @example
+     * // Get one Role
+     * const role = await prisma.role.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RoleFindFirstOrThrowArgs>(args?: SelectSubset<T, RoleFindFirstOrThrowArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Roles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Roles
+     * const roles = await prisma.role.findMany()
+     * 
+     * // Get first 10 Roles
+     * const roles = await prisma.role.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const roleWithIdOnly = await prisma.role.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RoleFindManyArgs>(args?: SelectSubset<T, RoleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Role.
+     * @param {RoleCreateArgs} args - Arguments to create a Role.
+     * @example
+     * // Create one Role
+     * const Role = await prisma.role.create({
+     *   data: {
+     *     // ... data to create a Role
+     *   }
+     * })
+     * 
+     */
+    create<T extends RoleCreateArgs>(args: SelectSubset<T, RoleCreateArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Roles.
+     * @param {RoleCreateManyArgs} args - Arguments to create many Roles.
+     * @example
+     * // Create many Roles
+     * const role = await prisma.role.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RoleCreateManyArgs>(args?: SelectSubset<T, RoleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Roles and returns the data saved in the database.
+     * @param {RoleCreateManyAndReturnArgs} args - Arguments to create many Roles.
+     * @example
+     * // Create many Roles
+     * const role = await prisma.role.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Roles and only return the `id`
+     * const roleWithIdOnly = await prisma.role.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RoleCreateManyAndReturnArgs>(args?: SelectSubset<T, RoleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Role.
+     * @param {RoleDeleteArgs} args - Arguments to delete one Role.
+     * @example
+     * // Delete one Role
+     * const Role = await prisma.role.delete({
+     *   where: {
+     *     // ... filter to delete one Role
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RoleDeleteArgs>(args: SelectSubset<T, RoleDeleteArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Role.
+     * @param {RoleUpdateArgs} args - Arguments to update one Role.
+     * @example
+     * // Update one Role
+     * const role = await prisma.role.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RoleUpdateArgs>(args: SelectSubset<T, RoleUpdateArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Roles.
+     * @param {RoleDeleteManyArgs} args - Arguments to filter Roles to delete.
+     * @example
+     * // Delete a few Roles
+     * const { count } = await prisma.role.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RoleDeleteManyArgs>(args?: SelectSubset<T, RoleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Roles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Roles
+     * const role = await prisma.role.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RoleUpdateManyArgs>(args: SelectSubset<T, RoleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Roles and returns the data updated in the database.
+     * @param {RoleUpdateManyAndReturnArgs} args - Arguments to update many Roles.
+     * @example
+     * // Update many Roles
+     * const role = await prisma.role.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Roles and only return the `id`
+     * const roleWithIdOnly = await prisma.role.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RoleUpdateManyAndReturnArgs>(args: SelectSubset<T, RoleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Role.
+     * @param {RoleUpsertArgs} args - Arguments to update or create a Role.
+     * @example
+     * // Update or create a Role
+     * const role = await prisma.role.upsert({
+     *   create: {
+     *     // ... data to create a Role
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Role we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RoleUpsertArgs>(args: SelectSubset<T, RoleUpsertArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Roles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleCountArgs} args - Arguments to filter Roles to count.
+     * @example
+     * // Count the number of Roles
+     * const count = await prisma.role.count({
+     *   where: {
+     *     // ... the filter for the Roles we want to count
+     *   }
+     * })
+    **/
+    count<T extends RoleCountArgs>(
+      args?: Subset<T, RoleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RoleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Role.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RoleAggregateArgs>(args: Subset<T, RoleAggregateArgs>): Prisma.PrismaPromise<GetRoleAggregateType<T>>
+
+    /**
+     * Group by Role.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RoleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RoleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RoleGroupByArgs['orderBy'] }
+        : { orderBy?: RoleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Role model
+   */
+  readonly fields: RoleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Role.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    assignments<T extends Role$assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Role$assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Role model
+   */
+  interface RoleFieldRefs {
+    readonly id: FieldRef<"Role", 'String'>
+    readonly name: FieldRef<"Role", 'String'>
+    readonly description: FieldRef<"Role", 'String'>
+    readonly canRead: FieldRef<"Role", 'Boolean'>
+    readonly canWrite: FieldRef<"Role", 'Boolean'>
+    readonly canComment: FieldRef<"Role", 'Boolean'>
+    readonly canValidate: FieldRef<"Role", 'Boolean'>
+    readonly canDelete: FieldRef<"Role", 'Boolean'>
+    readonly canUseVisio: FieldRef<"Role", 'Boolean'>
+    readonly canUseDashboard: FieldRef<"Role", 'Boolean'>
+    readonly createdAt: FieldRef<"Role", 'DateTime'>
+    readonly updatedAt: FieldRef<"Role", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Role findUnique
+   */
+  export type RoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role findUniqueOrThrow
+   */
+  export type RoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role findFirst
+   */
+  export type RoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Roles.
+     */
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role findFirstOrThrow
+   */
+  export type RoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Role to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Roles.
+     */
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role findMany
+   */
+  export type RoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter, which Roles to fetch.
+     */
+    where?: RoleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Roles to fetch.
+     */
+    orderBy?: RoleOrderByWithRelationInput | RoleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Roles.
+     */
+    cursor?: RoleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Roles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Roles.
+     */
+    skip?: number
+    distinct?: RoleScalarFieldEnum | RoleScalarFieldEnum[]
+  }
+
+  /**
+   * Role create
+   */
+  export type RoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Role.
+     */
+    data: XOR<RoleCreateInput, RoleUncheckedCreateInput>
+  }
+
+  /**
+   * Role createMany
+   */
+  export type RoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Roles.
+     */
+    data: RoleCreateManyInput | RoleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Role createManyAndReturn
+   */
+  export type RoleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Roles.
+     */
+    data: RoleCreateManyInput | RoleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Role update
+   */
+  export type RoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Role.
+     */
+    data: XOR<RoleUpdateInput, RoleUncheckedUpdateInput>
+    /**
+     * Choose, which Role to update.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role updateMany
+   */
+  export type RoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Roles.
+     */
+    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
+    /**
+     * Filter which Roles to update
+     */
+    where?: RoleWhereInput
+    /**
+     * Limit how many Roles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Role updateManyAndReturn
+   */
+  export type RoleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * The data used to update Roles.
+     */
+    data: XOR<RoleUpdateManyMutationInput, RoleUncheckedUpdateManyInput>
+    /**
+     * Filter which Roles to update
+     */
+    where?: RoleWhereInput
+    /**
+     * Limit how many Roles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Role upsert
+   */
+  export type RoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Role to update in case it exists.
+     */
+    where: RoleWhereUniqueInput
+    /**
+     * In case the Role found by the `where` argument doesn't exist, create a new Role with this data.
+     */
+    create: XOR<RoleCreateInput, RoleUncheckedCreateInput>
+    /**
+     * In case the Role was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RoleUpdateInput, RoleUncheckedUpdateInput>
+  }
+
+  /**
+   * Role delete
+   */
+  export type RoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+    /**
+     * Filter which Role to delete.
+     */
+    where: RoleWhereUniqueInput
+  }
+
+  /**
+   * Role deleteMany
+   */
+  export type RoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Roles to delete
+     */
+    where?: RoleWhereInput
+    /**
+     * Limit how many Roles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Role.assignments
+   */
+  export type Role$assignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    where?: UserRoleAssignmentWhereInput
+    orderBy?: UserRoleAssignmentOrderByWithRelationInput | UserRoleAssignmentOrderByWithRelationInput[]
+    cursor?: UserRoleAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserRoleAssignmentScalarFieldEnum | UserRoleAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * Role without action
+   */
+  export type RoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Role
+     */
+    select?: RoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Role
+     */
+    omit?: RoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserRoleAssignment
+   */
+
+  export type AggregateUserRoleAssignment = {
+    _count: UserRoleAssignmentCountAggregateOutputType | null
+    _min: UserRoleAssignmentMinAggregateOutputType | null
+    _max: UserRoleAssignmentMaxAggregateOutputType | null
+  }
+
+  export type UserRoleAssignmentMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    roleId: string | null
+    projectId: string | null
+  }
+
+  export type UserRoleAssignmentMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    roleId: string | null
+    projectId: string | null
+  }
+
+  export type UserRoleAssignmentCountAggregateOutputType = {
+    id: number
+    userId: number
+    roleId: number
+    projectId: number
+    _all: number
+  }
+
+
+  export type UserRoleAssignmentMinAggregateInputType = {
+    id?: true
+    userId?: true
+    roleId?: true
+    projectId?: true
+  }
+
+  export type UserRoleAssignmentMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    roleId?: true
+    projectId?: true
+  }
+
+  export type UserRoleAssignmentCountAggregateInputType = {
+    id?: true
+    userId?: true
+    roleId?: true
+    projectId?: true
+    _all?: true
+  }
+
+  export type UserRoleAssignmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserRoleAssignment to aggregate.
+     */
+    where?: UserRoleAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserRoleAssignments to fetch.
+     */
+    orderBy?: UserRoleAssignmentOrderByWithRelationInput | UserRoleAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserRoleAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserRoleAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserRoleAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserRoleAssignments
+    **/
+    _count?: true | UserRoleAssignmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserRoleAssignmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserRoleAssignmentMaxAggregateInputType
+  }
+
+  export type GetUserRoleAssignmentAggregateType<T extends UserRoleAssignmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserRoleAssignment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserRoleAssignment[P]>
+      : GetScalarType<T[P], AggregateUserRoleAssignment[P]>
+  }
+
+
+
+
+  export type UserRoleAssignmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserRoleAssignmentWhereInput
+    orderBy?: UserRoleAssignmentOrderByWithAggregationInput | UserRoleAssignmentOrderByWithAggregationInput[]
+    by: UserRoleAssignmentScalarFieldEnum[] | UserRoleAssignmentScalarFieldEnum
+    having?: UserRoleAssignmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserRoleAssignmentCountAggregateInputType | true
+    _min?: UserRoleAssignmentMinAggregateInputType
+    _max?: UserRoleAssignmentMaxAggregateInputType
+  }
+
+  export type UserRoleAssignmentGroupByOutputType = {
+    id: string
+    userId: string
+    roleId: string
+    projectId: string | null
+    _count: UserRoleAssignmentCountAggregateOutputType | null
+    _min: UserRoleAssignmentMinAggregateOutputType | null
+    _max: UserRoleAssignmentMaxAggregateOutputType | null
+  }
+
+  type GetUserRoleAssignmentGroupByPayload<T extends UserRoleAssignmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserRoleAssignmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserRoleAssignmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserRoleAssignmentGroupByOutputType[P]>
+            : GetScalarType<T[P], UserRoleAssignmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserRoleAssignmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    roleId?: boolean
+    projectId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+    project?: boolean | UserRoleAssignment$projectArgs<ExtArgs>
+  }, ExtArgs["result"]["userRoleAssignment"]>
+
+  export type UserRoleAssignmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    roleId?: boolean
+    projectId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+    project?: boolean | UserRoleAssignment$projectArgs<ExtArgs>
+  }, ExtArgs["result"]["userRoleAssignment"]>
+
+  export type UserRoleAssignmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    roleId?: boolean
+    projectId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+    project?: boolean | UserRoleAssignment$projectArgs<ExtArgs>
+  }, ExtArgs["result"]["userRoleAssignment"]>
+
+  export type UserRoleAssignmentSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    roleId?: boolean
+    projectId?: boolean
+  }
+
+  export type UserRoleAssignmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "roleId" | "projectId", ExtArgs["result"]["userRoleAssignment"]>
+  export type UserRoleAssignmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+    project?: boolean | UserRoleAssignment$projectArgs<ExtArgs>
+  }
+  export type UserRoleAssignmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+    project?: boolean | UserRoleAssignment$projectArgs<ExtArgs>
+  }
+  export type UserRoleAssignmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    role?: boolean | RoleDefaultArgs<ExtArgs>
+    project?: boolean | UserRoleAssignment$projectArgs<ExtArgs>
+  }
+
+  export type $UserRoleAssignmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserRoleAssignment"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      role: Prisma.$RolePayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      roleId: string
+      projectId: string | null
+    }, ExtArgs["result"]["userRoleAssignment"]>
+    composites: {}
+  }
+
+  type UserRoleAssignmentGetPayload<S extends boolean | null | undefined | UserRoleAssignmentDefaultArgs> = $Result.GetResult<Prisma.$UserRoleAssignmentPayload, S>
+
+  type UserRoleAssignmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserRoleAssignmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserRoleAssignmentCountAggregateInputType | true
+    }
+
+  export interface UserRoleAssignmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserRoleAssignment'], meta: { name: 'UserRoleAssignment' } }
+    /**
+     * Find zero or one UserRoleAssignment that matches the filter.
+     * @param {UserRoleAssignmentFindUniqueArgs} args - Arguments to find a UserRoleAssignment
+     * @example
+     * // Get one UserRoleAssignment
+     * const userRoleAssignment = await prisma.userRoleAssignment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserRoleAssignmentFindUniqueArgs>(args: SelectSubset<T, UserRoleAssignmentFindUniqueArgs<ExtArgs>>): Prisma__UserRoleAssignmentClient<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserRoleAssignment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserRoleAssignmentFindUniqueOrThrowArgs} args - Arguments to find a UserRoleAssignment
+     * @example
+     * // Get one UserRoleAssignment
+     * const userRoleAssignment = await prisma.userRoleAssignment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserRoleAssignmentFindUniqueOrThrowArgs>(args: SelectSubset<T, UserRoleAssignmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserRoleAssignmentClient<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserRoleAssignment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleAssignmentFindFirstArgs} args - Arguments to find a UserRoleAssignment
+     * @example
+     * // Get one UserRoleAssignment
+     * const userRoleAssignment = await prisma.userRoleAssignment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserRoleAssignmentFindFirstArgs>(args?: SelectSubset<T, UserRoleAssignmentFindFirstArgs<ExtArgs>>): Prisma__UserRoleAssignmentClient<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserRoleAssignment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleAssignmentFindFirstOrThrowArgs} args - Arguments to find a UserRoleAssignment
+     * @example
+     * // Get one UserRoleAssignment
+     * const userRoleAssignment = await prisma.userRoleAssignment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserRoleAssignmentFindFirstOrThrowArgs>(args?: SelectSubset<T, UserRoleAssignmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserRoleAssignmentClient<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserRoleAssignments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleAssignmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserRoleAssignments
+     * const userRoleAssignments = await prisma.userRoleAssignment.findMany()
+     * 
+     * // Get first 10 UserRoleAssignments
+     * const userRoleAssignments = await prisma.userRoleAssignment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userRoleAssignmentWithIdOnly = await prisma.userRoleAssignment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserRoleAssignmentFindManyArgs>(args?: SelectSubset<T, UserRoleAssignmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserRoleAssignment.
+     * @param {UserRoleAssignmentCreateArgs} args - Arguments to create a UserRoleAssignment.
+     * @example
+     * // Create one UserRoleAssignment
+     * const UserRoleAssignment = await prisma.userRoleAssignment.create({
+     *   data: {
+     *     // ... data to create a UserRoleAssignment
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserRoleAssignmentCreateArgs>(args: SelectSubset<T, UserRoleAssignmentCreateArgs<ExtArgs>>): Prisma__UserRoleAssignmentClient<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserRoleAssignments.
+     * @param {UserRoleAssignmentCreateManyArgs} args - Arguments to create many UserRoleAssignments.
+     * @example
+     * // Create many UserRoleAssignments
+     * const userRoleAssignment = await prisma.userRoleAssignment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserRoleAssignmentCreateManyArgs>(args?: SelectSubset<T, UserRoleAssignmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserRoleAssignments and returns the data saved in the database.
+     * @param {UserRoleAssignmentCreateManyAndReturnArgs} args - Arguments to create many UserRoleAssignments.
+     * @example
+     * // Create many UserRoleAssignments
+     * const userRoleAssignment = await prisma.userRoleAssignment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserRoleAssignments and only return the `id`
+     * const userRoleAssignmentWithIdOnly = await prisma.userRoleAssignment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserRoleAssignmentCreateManyAndReturnArgs>(args?: SelectSubset<T, UserRoleAssignmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserRoleAssignment.
+     * @param {UserRoleAssignmentDeleteArgs} args - Arguments to delete one UserRoleAssignment.
+     * @example
+     * // Delete one UserRoleAssignment
+     * const UserRoleAssignment = await prisma.userRoleAssignment.delete({
+     *   where: {
+     *     // ... filter to delete one UserRoleAssignment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserRoleAssignmentDeleteArgs>(args: SelectSubset<T, UserRoleAssignmentDeleteArgs<ExtArgs>>): Prisma__UserRoleAssignmentClient<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserRoleAssignment.
+     * @param {UserRoleAssignmentUpdateArgs} args - Arguments to update one UserRoleAssignment.
+     * @example
+     * // Update one UserRoleAssignment
+     * const userRoleAssignment = await prisma.userRoleAssignment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserRoleAssignmentUpdateArgs>(args: SelectSubset<T, UserRoleAssignmentUpdateArgs<ExtArgs>>): Prisma__UserRoleAssignmentClient<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserRoleAssignments.
+     * @param {UserRoleAssignmentDeleteManyArgs} args - Arguments to filter UserRoleAssignments to delete.
+     * @example
+     * // Delete a few UserRoleAssignments
+     * const { count } = await prisma.userRoleAssignment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserRoleAssignmentDeleteManyArgs>(args?: SelectSubset<T, UserRoleAssignmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserRoleAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleAssignmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserRoleAssignments
+     * const userRoleAssignment = await prisma.userRoleAssignment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserRoleAssignmentUpdateManyArgs>(args: SelectSubset<T, UserRoleAssignmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserRoleAssignments and returns the data updated in the database.
+     * @param {UserRoleAssignmentUpdateManyAndReturnArgs} args - Arguments to update many UserRoleAssignments.
+     * @example
+     * // Update many UserRoleAssignments
+     * const userRoleAssignment = await prisma.userRoleAssignment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserRoleAssignments and only return the `id`
+     * const userRoleAssignmentWithIdOnly = await prisma.userRoleAssignment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserRoleAssignmentUpdateManyAndReturnArgs>(args: SelectSubset<T, UserRoleAssignmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserRoleAssignment.
+     * @param {UserRoleAssignmentUpsertArgs} args - Arguments to update or create a UserRoleAssignment.
+     * @example
+     * // Update or create a UserRoleAssignment
+     * const userRoleAssignment = await prisma.userRoleAssignment.upsert({
+     *   create: {
+     *     // ... data to create a UserRoleAssignment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserRoleAssignment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserRoleAssignmentUpsertArgs>(args: SelectSubset<T, UserRoleAssignmentUpsertArgs<ExtArgs>>): Prisma__UserRoleAssignmentClient<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserRoleAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleAssignmentCountArgs} args - Arguments to filter UserRoleAssignments to count.
+     * @example
+     * // Count the number of UserRoleAssignments
+     * const count = await prisma.userRoleAssignment.count({
+     *   where: {
+     *     // ... the filter for the UserRoleAssignments we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserRoleAssignmentCountArgs>(
+      args?: Subset<T, UserRoleAssignmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserRoleAssignmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserRoleAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleAssignmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserRoleAssignmentAggregateArgs>(args: Subset<T, UserRoleAssignmentAggregateArgs>): Prisma.PrismaPromise<GetUserRoleAssignmentAggregateType<T>>
+
+    /**
+     * Group by UserRoleAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserRoleAssignmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserRoleAssignmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserRoleAssignmentGroupByArgs['orderBy'] }
+        : { orderBy?: UserRoleAssignmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserRoleAssignmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserRoleAssignmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserRoleAssignment model
+   */
+  readonly fields: UserRoleAssignmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserRoleAssignment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserRoleAssignmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    role<T extends RoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoleDefaultArgs<ExtArgs>>): Prisma__RoleClient<$Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    project<T extends UserRoleAssignment$projectArgs<ExtArgs> = {}>(args?: Subset<T, UserRoleAssignment$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserRoleAssignment model
+   */
+  interface UserRoleAssignmentFieldRefs {
+    readonly id: FieldRef<"UserRoleAssignment", 'String'>
+    readonly userId: FieldRef<"UserRoleAssignment", 'String'>
+    readonly roleId: FieldRef<"UserRoleAssignment", 'String'>
+    readonly projectId: FieldRef<"UserRoleAssignment", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserRoleAssignment findUnique
+   */
+  export type UserRoleAssignmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRoleAssignment to fetch.
+     */
+    where: UserRoleAssignmentWhereUniqueInput
+  }
+
+  /**
+   * UserRoleAssignment findUniqueOrThrow
+   */
+  export type UserRoleAssignmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRoleAssignment to fetch.
+     */
+    where: UserRoleAssignmentWhereUniqueInput
+  }
+
+  /**
+   * UserRoleAssignment findFirst
+   */
+  export type UserRoleAssignmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRoleAssignment to fetch.
+     */
+    where?: UserRoleAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserRoleAssignments to fetch.
+     */
+    orderBy?: UserRoleAssignmentOrderByWithRelationInput | UserRoleAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserRoleAssignments.
+     */
+    cursor?: UserRoleAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserRoleAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserRoleAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserRoleAssignments.
+     */
+    distinct?: UserRoleAssignmentScalarFieldEnum | UserRoleAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * UserRoleAssignment findFirstOrThrow
+   */
+  export type UserRoleAssignmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRoleAssignment to fetch.
+     */
+    where?: UserRoleAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserRoleAssignments to fetch.
+     */
+    orderBy?: UserRoleAssignmentOrderByWithRelationInput | UserRoleAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserRoleAssignments.
+     */
+    cursor?: UserRoleAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserRoleAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserRoleAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserRoleAssignments.
+     */
+    distinct?: UserRoleAssignmentScalarFieldEnum | UserRoleAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * UserRoleAssignment findMany
+   */
+  export type UserRoleAssignmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which UserRoleAssignments to fetch.
+     */
+    where?: UserRoleAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserRoleAssignments to fetch.
+     */
+    orderBy?: UserRoleAssignmentOrderByWithRelationInput | UserRoleAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserRoleAssignments.
+     */
+    cursor?: UserRoleAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserRoleAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserRoleAssignments.
+     */
+    skip?: number
+    distinct?: UserRoleAssignmentScalarFieldEnum | UserRoleAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * UserRoleAssignment create
+   */
+  export type UserRoleAssignmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserRoleAssignment.
+     */
+    data: XOR<UserRoleAssignmentCreateInput, UserRoleAssignmentUncheckedCreateInput>
+  }
+
+  /**
+   * UserRoleAssignment createMany
+   */
+  export type UserRoleAssignmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserRoleAssignments.
+     */
+    data: UserRoleAssignmentCreateManyInput | UserRoleAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserRoleAssignment createManyAndReturn
+   */
+  export type UserRoleAssignmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserRoleAssignments.
+     */
+    data: UserRoleAssignmentCreateManyInput | UserRoleAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserRoleAssignment update
+   */
+  export type UserRoleAssignmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserRoleAssignment.
+     */
+    data: XOR<UserRoleAssignmentUpdateInput, UserRoleAssignmentUncheckedUpdateInput>
+    /**
+     * Choose, which UserRoleAssignment to update.
+     */
+    where: UserRoleAssignmentWhereUniqueInput
+  }
+
+  /**
+   * UserRoleAssignment updateMany
+   */
+  export type UserRoleAssignmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserRoleAssignments.
+     */
+    data: XOR<UserRoleAssignmentUpdateManyMutationInput, UserRoleAssignmentUncheckedUpdateManyInput>
+    /**
+     * Filter which UserRoleAssignments to update
+     */
+    where?: UserRoleAssignmentWhereInput
+    /**
+     * Limit how many UserRoleAssignments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserRoleAssignment updateManyAndReturn
+   */
+  export type UserRoleAssignmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * The data used to update UserRoleAssignments.
+     */
+    data: XOR<UserRoleAssignmentUpdateManyMutationInput, UserRoleAssignmentUncheckedUpdateManyInput>
+    /**
+     * Filter which UserRoleAssignments to update
+     */
+    where?: UserRoleAssignmentWhereInput
+    /**
+     * Limit how many UserRoleAssignments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserRoleAssignment upsert
+   */
+  export type UserRoleAssignmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserRoleAssignment to update in case it exists.
+     */
+    where: UserRoleAssignmentWhereUniqueInput
+    /**
+     * In case the UserRoleAssignment found by the `where` argument doesn't exist, create a new UserRoleAssignment with this data.
+     */
+    create: XOR<UserRoleAssignmentCreateInput, UserRoleAssignmentUncheckedCreateInput>
+    /**
+     * In case the UserRoleAssignment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserRoleAssignmentUpdateInput, UserRoleAssignmentUncheckedUpdateInput>
+  }
+
+  /**
+   * UserRoleAssignment delete
+   */
+  export type UserRoleAssignmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter which UserRoleAssignment to delete.
+     */
+    where: UserRoleAssignmentWhereUniqueInput
+  }
+
+  /**
+   * UserRoleAssignment deleteMany
+   */
+  export type UserRoleAssignmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserRoleAssignments to delete
+     */
+    where?: UserRoleAssignmentWhereInput
+    /**
+     * Limit how many UserRoleAssignments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserRoleAssignment.project
+   */
+  export type UserRoleAssignment$projectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
+  }
+
+  /**
+   * UserRoleAssignment without action
+   */
+  export type UserRoleAssignmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserRoleAssignment
+     */
+    select?: UserRoleAssignmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserRoleAssignment
+     */
+    omit?: UserRoleAssignmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserRoleAssignmentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ProjectAccess
+   */
+
+  export type AggregateProjectAccess = {
+    _count: ProjectAccessCountAggregateOutputType | null
+    _min: ProjectAccessMinAggregateOutputType | null
+    _max: ProjectAccessMaxAggregateOutputType | null
+  }
+
+  export type ProjectAccessMinAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    userId: string | null
+    canRead: boolean | null
+    canWrite: boolean | null
+    canComment: boolean | null
+    canValidate: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectAccessMaxAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    userId: string | null
+    canRead: boolean | null
+    canWrite: boolean | null
+    canComment: boolean | null
+    canValidate: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProjectAccessCountAggregateOutputType = {
+    id: number
+    projectId: number
+    userId: number
+    canRead: number
+    canWrite: number
+    canComment: number
+    canValidate: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProjectAccessMinAggregateInputType = {
+    id?: true
+    projectId?: true
+    userId?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    canValidate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectAccessMaxAggregateInputType = {
+    id?: true
+    projectId?: true
+    userId?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    canValidate?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProjectAccessCountAggregateInputType = {
+    id?: true
+    projectId?: true
+    userId?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    canValidate?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProjectAccessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectAccess to aggregate.
+     */
+    where?: ProjectAccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectAccesses to fetch.
+     */
+    orderBy?: ProjectAccessOrderByWithRelationInput | ProjectAccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProjectAccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectAccesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectAccesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProjectAccesses
+    **/
+    _count?: true | ProjectAccessCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProjectAccessMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProjectAccessMaxAggregateInputType
+  }
+
+  export type GetProjectAccessAggregateType<T extends ProjectAccessAggregateArgs> = {
+        [P in keyof T & keyof AggregateProjectAccess]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProjectAccess[P]>
+      : GetScalarType<T[P], AggregateProjectAccess[P]>
+  }
+
+
+
+
+  export type ProjectAccessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectAccessWhereInput
+    orderBy?: ProjectAccessOrderByWithAggregationInput | ProjectAccessOrderByWithAggregationInput[]
+    by: ProjectAccessScalarFieldEnum[] | ProjectAccessScalarFieldEnum
+    having?: ProjectAccessScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProjectAccessCountAggregateInputType | true
+    _min?: ProjectAccessMinAggregateInputType
+    _max?: ProjectAccessMaxAggregateInputType
+  }
+
+  export type ProjectAccessGroupByOutputType = {
+    id: string
+    projectId: string
+    userId: string
+    canRead: boolean
+    canWrite: boolean
+    canComment: boolean
+    canValidate: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: ProjectAccessCountAggregateOutputType | null
+    _min: ProjectAccessMinAggregateOutputType | null
+    _max: ProjectAccessMaxAggregateOutputType | null
+  }
+
+  type GetProjectAccessGroupByPayload<T extends ProjectAccessGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProjectAccessGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProjectAccessGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProjectAccessGroupByOutputType[P]>
+            : GetScalarType<T[P], ProjectAccessGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProjectAccessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    userId?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectAccess"]>
+
+  export type ProjectAccessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    userId?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectAccess"]>
+
+  export type ProjectAccessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    userId?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectAccess"]>
+
+  export type ProjectAccessSelectScalar = {
+    id?: boolean
+    projectId?: boolean
+    userId?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProjectAccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "projectId" | "userId" | "canRead" | "canWrite" | "canComment" | "canValidate" | "createdAt" | "updatedAt", ExtArgs["result"]["projectAccess"]>
+  export type ProjectAccessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ProjectAccessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ProjectAccessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ProjectAccessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProjectAccess"
+    objects: {
+      project: Prisma.$ProjectPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      projectId: string
+      userId: string
+      canRead: boolean
+      canWrite: boolean
+      canComment: boolean
+      canValidate: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["projectAccess"]>
+    composites: {}
+  }
+
+  type ProjectAccessGetPayload<S extends boolean | null | undefined | ProjectAccessDefaultArgs> = $Result.GetResult<Prisma.$ProjectAccessPayload, S>
+
+  type ProjectAccessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProjectAccessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProjectAccessCountAggregateInputType | true
+    }
+
+  export interface ProjectAccessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProjectAccess'], meta: { name: 'ProjectAccess' } }
+    /**
+     * Find zero or one ProjectAccess that matches the filter.
+     * @param {ProjectAccessFindUniqueArgs} args - Arguments to find a ProjectAccess
+     * @example
+     * // Get one ProjectAccess
+     * const projectAccess = await prisma.projectAccess.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProjectAccessFindUniqueArgs>(args: SelectSubset<T, ProjectAccessFindUniqueArgs<ExtArgs>>): Prisma__ProjectAccessClient<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProjectAccess that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProjectAccessFindUniqueOrThrowArgs} args - Arguments to find a ProjectAccess
+     * @example
+     * // Get one ProjectAccess
+     * const projectAccess = await prisma.projectAccess.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProjectAccessFindUniqueOrThrowArgs>(args: SelectSubset<T, ProjectAccessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProjectAccessClient<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProjectAccess that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAccessFindFirstArgs} args - Arguments to find a ProjectAccess
+     * @example
+     * // Get one ProjectAccess
+     * const projectAccess = await prisma.projectAccess.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProjectAccessFindFirstArgs>(args?: SelectSubset<T, ProjectAccessFindFirstArgs<ExtArgs>>): Prisma__ProjectAccessClient<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProjectAccess that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAccessFindFirstOrThrowArgs} args - Arguments to find a ProjectAccess
+     * @example
+     * // Get one ProjectAccess
+     * const projectAccess = await prisma.projectAccess.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProjectAccessFindFirstOrThrowArgs>(args?: SelectSubset<T, ProjectAccessFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProjectAccessClient<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProjectAccesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAccessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProjectAccesses
+     * const projectAccesses = await prisma.projectAccess.findMany()
+     * 
+     * // Get first 10 ProjectAccesses
+     * const projectAccesses = await prisma.projectAccess.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const projectAccessWithIdOnly = await prisma.projectAccess.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProjectAccessFindManyArgs>(args?: SelectSubset<T, ProjectAccessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProjectAccess.
+     * @param {ProjectAccessCreateArgs} args - Arguments to create a ProjectAccess.
+     * @example
+     * // Create one ProjectAccess
+     * const ProjectAccess = await prisma.projectAccess.create({
+     *   data: {
+     *     // ... data to create a ProjectAccess
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProjectAccessCreateArgs>(args: SelectSubset<T, ProjectAccessCreateArgs<ExtArgs>>): Prisma__ProjectAccessClient<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProjectAccesses.
+     * @param {ProjectAccessCreateManyArgs} args - Arguments to create many ProjectAccesses.
+     * @example
+     * // Create many ProjectAccesses
+     * const projectAccess = await prisma.projectAccess.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProjectAccessCreateManyArgs>(args?: SelectSubset<T, ProjectAccessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProjectAccesses and returns the data saved in the database.
+     * @param {ProjectAccessCreateManyAndReturnArgs} args - Arguments to create many ProjectAccesses.
+     * @example
+     * // Create many ProjectAccesses
+     * const projectAccess = await prisma.projectAccess.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProjectAccesses and only return the `id`
+     * const projectAccessWithIdOnly = await prisma.projectAccess.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProjectAccessCreateManyAndReturnArgs>(args?: SelectSubset<T, ProjectAccessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProjectAccess.
+     * @param {ProjectAccessDeleteArgs} args - Arguments to delete one ProjectAccess.
+     * @example
+     * // Delete one ProjectAccess
+     * const ProjectAccess = await prisma.projectAccess.delete({
+     *   where: {
+     *     // ... filter to delete one ProjectAccess
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProjectAccessDeleteArgs>(args: SelectSubset<T, ProjectAccessDeleteArgs<ExtArgs>>): Prisma__ProjectAccessClient<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProjectAccess.
+     * @param {ProjectAccessUpdateArgs} args - Arguments to update one ProjectAccess.
+     * @example
+     * // Update one ProjectAccess
+     * const projectAccess = await prisma.projectAccess.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProjectAccessUpdateArgs>(args: SelectSubset<T, ProjectAccessUpdateArgs<ExtArgs>>): Prisma__ProjectAccessClient<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProjectAccesses.
+     * @param {ProjectAccessDeleteManyArgs} args - Arguments to filter ProjectAccesses to delete.
+     * @example
+     * // Delete a few ProjectAccesses
+     * const { count } = await prisma.projectAccess.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProjectAccessDeleteManyArgs>(args?: SelectSubset<T, ProjectAccessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectAccesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAccessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProjectAccesses
+     * const projectAccess = await prisma.projectAccess.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProjectAccessUpdateManyArgs>(args: SelectSubset<T, ProjectAccessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectAccesses and returns the data updated in the database.
+     * @param {ProjectAccessUpdateManyAndReturnArgs} args - Arguments to update many ProjectAccesses.
+     * @example
+     * // Update many ProjectAccesses
+     * const projectAccess = await prisma.projectAccess.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProjectAccesses and only return the `id`
+     * const projectAccessWithIdOnly = await prisma.projectAccess.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProjectAccessUpdateManyAndReturnArgs>(args: SelectSubset<T, ProjectAccessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProjectAccess.
+     * @param {ProjectAccessUpsertArgs} args - Arguments to update or create a ProjectAccess.
+     * @example
+     * // Update or create a ProjectAccess
+     * const projectAccess = await prisma.projectAccess.upsert({
+     *   create: {
+     *     // ... data to create a ProjectAccess
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProjectAccess we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProjectAccessUpsertArgs>(args: SelectSubset<T, ProjectAccessUpsertArgs<ExtArgs>>): Prisma__ProjectAccessClient<$Result.GetResult<Prisma.$ProjectAccessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProjectAccesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAccessCountArgs} args - Arguments to filter ProjectAccesses to count.
+     * @example
+     * // Count the number of ProjectAccesses
+     * const count = await prisma.projectAccess.count({
+     *   where: {
+     *     // ... the filter for the ProjectAccesses we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProjectAccessCountArgs>(
+      args?: Subset<T, ProjectAccessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProjectAccessCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProjectAccess.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAccessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProjectAccessAggregateArgs>(args: Subset<T, ProjectAccessAggregateArgs>): Prisma.PrismaPromise<GetProjectAccessAggregateType<T>>
+
+    /**
+     * Group by ProjectAccess.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectAccessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProjectAccessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProjectAccessGroupByArgs['orderBy'] }
+        : { orderBy?: ProjectAccessGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProjectAccessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectAccessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProjectAccess model
+   */
+  readonly fields: ProjectAccessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProjectAccess.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProjectAccessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProjectAccess model
+   */
+  interface ProjectAccessFieldRefs {
+    readonly id: FieldRef<"ProjectAccess", 'String'>
+    readonly projectId: FieldRef<"ProjectAccess", 'String'>
+    readonly userId: FieldRef<"ProjectAccess", 'String'>
+    readonly canRead: FieldRef<"ProjectAccess", 'Boolean'>
+    readonly canWrite: FieldRef<"ProjectAccess", 'Boolean'>
+    readonly canComment: FieldRef<"ProjectAccess", 'Boolean'>
+    readonly canValidate: FieldRef<"ProjectAccess", 'Boolean'>
+    readonly createdAt: FieldRef<"ProjectAccess", 'DateTime'>
+    readonly updatedAt: FieldRef<"ProjectAccess", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProjectAccess findUnique
+   */
+  export type ProjectAccessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectAccess to fetch.
+     */
+    where: ProjectAccessWhereUniqueInput
+  }
+
+  /**
+   * ProjectAccess findUniqueOrThrow
+   */
+  export type ProjectAccessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectAccess to fetch.
+     */
+    where: ProjectAccessWhereUniqueInput
+  }
+
+  /**
+   * ProjectAccess findFirst
+   */
+  export type ProjectAccessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectAccess to fetch.
+     */
+    where?: ProjectAccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectAccesses to fetch.
+     */
+    orderBy?: ProjectAccessOrderByWithRelationInput | ProjectAccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectAccesses.
+     */
+    cursor?: ProjectAccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectAccesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectAccesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectAccesses.
+     */
+    distinct?: ProjectAccessScalarFieldEnum | ProjectAccessScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectAccess findFirstOrThrow
+   */
+  export type ProjectAccessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectAccess to fetch.
+     */
+    where?: ProjectAccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectAccesses to fetch.
+     */
+    orderBy?: ProjectAccessOrderByWithRelationInput | ProjectAccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectAccesses.
+     */
+    cursor?: ProjectAccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectAccesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectAccesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectAccesses.
+     */
+    distinct?: ProjectAccessScalarFieldEnum | ProjectAccessScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectAccess findMany
+   */
+  export type ProjectAccessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectAccesses to fetch.
+     */
+    where?: ProjectAccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectAccesses to fetch.
+     */
+    orderBy?: ProjectAccessOrderByWithRelationInput | ProjectAccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProjectAccesses.
+     */
+    cursor?: ProjectAccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectAccesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectAccesses.
+     */
+    skip?: number
+    distinct?: ProjectAccessScalarFieldEnum | ProjectAccessScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectAccess create
+   */
+  export type ProjectAccessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProjectAccess.
+     */
+    data: XOR<ProjectAccessCreateInput, ProjectAccessUncheckedCreateInput>
+  }
+
+  /**
+   * ProjectAccess createMany
+   */
+  export type ProjectAccessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProjectAccesses.
+     */
+    data: ProjectAccessCreateManyInput | ProjectAccessCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProjectAccess createManyAndReturn
+   */
+  export type ProjectAccessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProjectAccesses.
+     */
+    data: ProjectAccessCreateManyInput | ProjectAccessCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProjectAccess update
+   */
+  export type ProjectAccessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProjectAccess.
+     */
+    data: XOR<ProjectAccessUpdateInput, ProjectAccessUncheckedUpdateInput>
+    /**
+     * Choose, which ProjectAccess to update.
+     */
+    where: ProjectAccessWhereUniqueInput
+  }
+
+  /**
+   * ProjectAccess updateMany
+   */
+  export type ProjectAccessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProjectAccesses.
+     */
+    data: XOR<ProjectAccessUpdateManyMutationInput, ProjectAccessUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectAccesses to update
+     */
+    where?: ProjectAccessWhereInput
+    /**
+     * Limit how many ProjectAccesses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectAccess updateManyAndReturn
+   */
+  export type ProjectAccessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * The data used to update ProjectAccesses.
+     */
+    data: XOR<ProjectAccessUpdateManyMutationInput, ProjectAccessUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectAccesses to update
+     */
+    where?: ProjectAccessWhereInput
+    /**
+     * Limit how many ProjectAccesses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProjectAccess upsert
+   */
+  export type ProjectAccessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProjectAccess to update in case it exists.
+     */
+    where: ProjectAccessWhereUniqueInput
+    /**
+     * In case the ProjectAccess found by the `where` argument doesn't exist, create a new ProjectAccess with this data.
+     */
+    create: XOR<ProjectAccessCreateInput, ProjectAccessUncheckedCreateInput>
+    /**
+     * In case the ProjectAccess was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProjectAccessUpdateInput, ProjectAccessUncheckedUpdateInput>
+  }
+
+  /**
+   * ProjectAccess delete
+   */
+  export type ProjectAccessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+    /**
+     * Filter which ProjectAccess to delete.
+     */
+    where: ProjectAccessWhereUniqueInput
+  }
+
+  /**
+   * ProjectAccess deleteMany
+   */
+  export type ProjectAccessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectAccesses to delete
+     */
+    where?: ProjectAccessWhereInput
+    /**
+     * Limit how many ProjectAccesses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectAccess without action
+   */
+  export type ProjectAccessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectAccess
+     */
+    select?: ProjectAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectAccess
+     */
+    omit?: ProjectAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectAccessInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DocumentAccess
+   */
+
+  export type AggregateDocumentAccess = {
+    _count: DocumentAccessCountAggregateOutputType | null
+    _min: DocumentAccessMinAggregateOutputType | null
+    _max: DocumentAccessMaxAggregateOutputType | null
+  }
+
+  export type DocumentAccessMinAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    userId: string | null
+    canRead: boolean | null
+    canWrite: boolean | null
+    canComment: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DocumentAccessMaxAggregateOutputType = {
+    id: string | null
+    documentId: string | null
+    userId: string | null
+    canRead: boolean | null
+    canWrite: boolean | null
+    canComment: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DocumentAccessCountAggregateOutputType = {
+    id: number
+    documentId: number
+    userId: number
+    canRead: number
+    canWrite: number
+    canComment: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DocumentAccessMinAggregateInputType = {
+    id?: true
+    documentId?: true
+    userId?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DocumentAccessMaxAggregateInputType = {
+    id?: true
+    documentId?: true
+    userId?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DocumentAccessCountAggregateInputType = {
+    id?: true
+    documentId?: true
+    userId?: true
+    canRead?: true
+    canWrite?: true
+    canComment?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DocumentAccessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentAccess to aggregate.
+     */
+    where?: DocumentAccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentAccesses to fetch.
+     */
+    orderBy?: DocumentAccessOrderByWithRelationInput | DocumentAccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DocumentAccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentAccesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentAccesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DocumentAccesses
+    **/
+    _count?: true | DocumentAccessCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DocumentAccessMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DocumentAccessMaxAggregateInputType
+  }
+
+  export type GetDocumentAccessAggregateType<T extends DocumentAccessAggregateArgs> = {
+        [P in keyof T & keyof AggregateDocumentAccess]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDocumentAccess[P]>
+      : GetScalarType<T[P], AggregateDocumentAccess[P]>
+  }
+
+
+
+
+  export type DocumentAccessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentAccessWhereInput
+    orderBy?: DocumentAccessOrderByWithAggregationInput | DocumentAccessOrderByWithAggregationInput[]
+    by: DocumentAccessScalarFieldEnum[] | DocumentAccessScalarFieldEnum
+    having?: DocumentAccessScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DocumentAccessCountAggregateInputType | true
+    _min?: DocumentAccessMinAggregateInputType
+    _max?: DocumentAccessMaxAggregateInputType
+  }
+
+  export type DocumentAccessGroupByOutputType = {
+    id: string
+    documentId: string
+    userId: string
+    canRead: boolean
+    canWrite: boolean
+    canComment: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DocumentAccessCountAggregateOutputType | null
+    _min: DocumentAccessMinAggregateOutputType | null
+    _max: DocumentAccessMaxAggregateOutputType | null
+  }
+
+  type GetDocumentAccessGroupByPayload<T extends DocumentAccessGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DocumentAccessGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DocumentAccessGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DocumentAccessGroupByOutputType[P]>
+            : GetScalarType<T[P], DocumentAccessGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DocumentAccessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    userId?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentAccess"]>
+
+  export type DocumentAccessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    userId?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentAccess"]>
+
+  export type DocumentAccessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    documentId?: boolean
+    userId?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["documentAccess"]>
+
+  export type DocumentAccessSelectScalar = {
+    id?: boolean
+    documentId?: boolean
+    userId?: boolean
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DocumentAccessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "documentId" | "userId" | "canRead" | "canWrite" | "canComment" | "createdAt" | "updatedAt", ExtArgs["result"]["documentAccess"]>
+  export type DocumentAccessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DocumentAccessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type DocumentAccessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    document?: boolean | DocumentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $DocumentAccessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DocumentAccess"
+    objects: {
+      document: Prisma.$DocumentPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      documentId: string
+      userId: string
+      canRead: boolean
+      canWrite: boolean
+      canComment: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["documentAccess"]>
+    composites: {}
+  }
+
+  type DocumentAccessGetPayload<S extends boolean | null | undefined | DocumentAccessDefaultArgs> = $Result.GetResult<Prisma.$DocumentAccessPayload, S>
+
+  type DocumentAccessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DocumentAccessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DocumentAccessCountAggregateInputType | true
+    }
+
+  export interface DocumentAccessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DocumentAccess'], meta: { name: 'DocumentAccess' } }
+    /**
+     * Find zero or one DocumentAccess that matches the filter.
+     * @param {DocumentAccessFindUniqueArgs} args - Arguments to find a DocumentAccess
+     * @example
+     * // Get one DocumentAccess
+     * const documentAccess = await prisma.documentAccess.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DocumentAccessFindUniqueArgs>(args: SelectSubset<T, DocumentAccessFindUniqueArgs<ExtArgs>>): Prisma__DocumentAccessClient<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DocumentAccess that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DocumentAccessFindUniqueOrThrowArgs} args - Arguments to find a DocumentAccess
+     * @example
+     * // Get one DocumentAccess
+     * const documentAccess = await prisma.documentAccess.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DocumentAccessFindUniqueOrThrowArgs>(args: SelectSubset<T, DocumentAccessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DocumentAccessClient<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentAccess that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentAccessFindFirstArgs} args - Arguments to find a DocumentAccess
+     * @example
+     * // Get one DocumentAccess
+     * const documentAccess = await prisma.documentAccess.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DocumentAccessFindFirstArgs>(args?: SelectSubset<T, DocumentAccessFindFirstArgs<ExtArgs>>): Prisma__DocumentAccessClient<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DocumentAccess that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentAccessFindFirstOrThrowArgs} args - Arguments to find a DocumentAccess
+     * @example
+     * // Get one DocumentAccess
+     * const documentAccess = await prisma.documentAccess.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DocumentAccessFindFirstOrThrowArgs>(args?: SelectSubset<T, DocumentAccessFindFirstOrThrowArgs<ExtArgs>>): Prisma__DocumentAccessClient<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DocumentAccesses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentAccessFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DocumentAccesses
+     * const documentAccesses = await prisma.documentAccess.findMany()
+     * 
+     * // Get first 10 DocumentAccesses
+     * const documentAccesses = await prisma.documentAccess.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const documentAccessWithIdOnly = await prisma.documentAccess.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DocumentAccessFindManyArgs>(args?: SelectSubset<T, DocumentAccessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DocumentAccess.
+     * @param {DocumentAccessCreateArgs} args - Arguments to create a DocumentAccess.
+     * @example
+     * // Create one DocumentAccess
+     * const DocumentAccess = await prisma.documentAccess.create({
+     *   data: {
+     *     // ... data to create a DocumentAccess
+     *   }
+     * })
+     * 
+     */
+    create<T extends DocumentAccessCreateArgs>(args: SelectSubset<T, DocumentAccessCreateArgs<ExtArgs>>): Prisma__DocumentAccessClient<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DocumentAccesses.
+     * @param {DocumentAccessCreateManyArgs} args - Arguments to create many DocumentAccesses.
+     * @example
+     * // Create many DocumentAccesses
+     * const documentAccess = await prisma.documentAccess.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DocumentAccessCreateManyArgs>(args?: SelectSubset<T, DocumentAccessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DocumentAccesses and returns the data saved in the database.
+     * @param {DocumentAccessCreateManyAndReturnArgs} args - Arguments to create many DocumentAccesses.
+     * @example
+     * // Create many DocumentAccesses
+     * const documentAccess = await prisma.documentAccess.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DocumentAccesses and only return the `id`
+     * const documentAccessWithIdOnly = await prisma.documentAccess.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DocumentAccessCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentAccessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DocumentAccess.
+     * @param {DocumentAccessDeleteArgs} args - Arguments to delete one DocumentAccess.
+     * @example
+     * // Delete one DocumentAccess
+     * const DocumentAccess = await prisma.documentAccess.delete({
+     *   where: {
+     *     // ... filter to delete one DocumentAccess
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DocumentAccessDeleteArgs>(args: SelectSubset<T, DocumentAccessDeleteArgs<ExtArgs>>): Prisma__DocumentAccessClient<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DocumentAccess.
+     * @param {DocumentAccessUpdateArgs} args - Arguments to update one DocumentAccess.
+     * @example
+     * // Update one DocumentAccess
+     * const documentAccess = await prisma.documentAccess.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DocumentAccessUpdateArgs>(args: SelectSubset<T, DocumentAccessUpdateArgs<ExtArgs>>): Prisma__DocumentAccessClient<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DocumentAccesses.
+     * @param {DocumentAccessDeleteManyArgs} args - Arguments to filter DocumentAccesses to delete.
+     * @example
+     * // Delete a few DocumentAccesses
+     * const { count } = await prisma.documentAccess.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DocumentAccessDeleteManyArgs>(args?: SelectSubset<T, DocumentAccessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentAccesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentAccessUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DocumentAccesses
+     * const documentAccess = await prisma.documentAccess.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DocumentAccessUpdateManyArgs>(args: SelectSubset<T, DocumentAccessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DocumentAccesses and returns the data updated in the database.
+     * @param {DocumentAccessUpdateManyAndReturnArgs} args - Arguments to update many DocumentAccesses.
+     * @example
+     * // Update many DocumentAccesses
+     * const documentAccess = await prisma.documentAccess.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DocumentAccesses and only return the `id`
+     * const documentAccessWithIdOnly = await prisma.documentAccess.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DocumentAccessUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentAccessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DocumentAccess.
+     * @param {DocumentAccessUpsertArgs} args - Arguments to update or create a DocumentAccess.
+     * @example
+     * // Update or create a DocumentAccess
+     * const documentAccess = await prisma.documentAccess.upsert({
+     *   create: {
+     *     // ... data to create a DocumentAccess
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DocumentAccess we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DocumentAccessUpsertArgs>(args: SelectSubset<T, DocumentAccessUpsertArgs<ExtArgs>>): Prisma__DocumentAccessClient<$Result.GetResult<Prisma.$DocumentAccessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DocumentAccesses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentAccessCountArgs} args - Arguments to filter DocumentAccesses to count.
+     * @example
+     * // Count the number of DocumentAccesses
+     * const count = await prisma.documentAccess.count({
+     *   where: {
+     *     // ... the filter for the DocumentAccesses we want to count
+     *   }
+     * })
+    **/
+    count<T extends DocumentAccessCountArgs>(
+      args?: Subset<T, DocumentAccessCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DocumentAccessCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DocumentAccess.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentAccessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DocumentAccessAggregateArgs>(args: Subset<T, DocumentAccessAggregateArgs>): Prisma.PrismaPromise<GetDocumentAccessAggregateType<T>>
+
+    /**
+     * Group by DocumentAccess.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentAccessGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DocumentAccessGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DocumentAccessGroupByArgs['orderBy'] }
+        : { orderBy?: DocumentAccessGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DocumentAccessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocumentAccessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DocumentAccess model
+   */
+  readonly fields: DocumentAccessFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DocumentAccess.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DocumentAccessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    document<T extends DocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DocumentDefaultArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DocumentAccess model
+   */
+  interface DocumentAccessFieldRefs {
+    readonly id: FieldRef<"DocumentAccess", 'String'>
+    readonly documentId: FieldRef<"DocumentAccess", 'String'>
+    readonly userId: FieldRef<"DocumentAccess", 'String'>
+    readonly canRead: FieldRef<"DocumentAccess", 'Boolean'>
+    readonly canWrite: FieldRef<"DocumentAccess", 'Boolean'>
+    readonly canComment: FieldRef<"DocumentAccess", 'Boolean'>
+    readonly createdAt: FieldRef<"DocumentAccess", 'DateTime'>
+    readonly updatedAt: FieldRef<"DocumentAccess", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DocumentAccess findUnique
+   */
+  export type DocumentAccessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentAccess to fetch.
+     */
+    where: DocumentAccessWhereUniqueInput
+  }
+
+  /**
+   * DocumentAccess findUniqueOrThrow
+   */
+  export type DocumentAccessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentAccess to fetch.
+     */
+    where: DocumentAccessWhereUniqueInput
+  }
+
+  /**
+   * DocumentAccess findFirst
+   */
+  export type DocumentAccessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentAccess to fetch.
+     */
+    where?: DocumentAccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentAccesses to fetch.
+     */
+    orderBy?: DocumentAccessOrderByWithRelationInput | DocumentAccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentAccesses.
+     */
+    cursor?: DocumentAccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentAccesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentAccesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentAccesses.
+     */
+    distinct?: DocumentAccessScalarFieldEnum | DocumentAccessScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentAccess findFirstOrThrow
+   */
+  export type DocumentAccessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentAccess to fetch.
+     */
+    where?: DocumentAccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentAccesses to fetch.
+     */
+    orderBy?: DocumentAccessOrderByWithRelationInput | DocumentAccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DocumentAccesses.
+     */
+    cursor?: DocumentAccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentAccesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentAccesses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DocumentAccesses.
+     */
+    distinct?: DocumentAccessScalarFieldEnum | DocumentAccessScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentAccess findMany
+   */
+  export type DocumentAccessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * Filter, which DocumentAccesses to fetch.
+     */
+    where?: DocumentAccessWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DocumentAccesses to fetch.
+     */
+    orderBy?: DocumentAccessOrderByWithRelationInput | DocumentAccessOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DocumentAccesses.
+     */
+    cursor?: DocumentAccessWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DocumentAccesses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DocumentAccesses.
+     */
+    skip?: number
+    distinct?: DocumentAccessScalarFieldEnum | DocumentAccessScalarFieldEnum[]
+  }
+
+  /**
+   * DocumentAccess create
+   */
+  export type DocumentAccessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DocumentAccess.
+     */
+    data: XOR<DocumentAccessCreateInput, DocumentAccessUncheckedCreateInput>
+  }
+
+  /**
+   * DocumentAccess createMany
+   */
+  export type DocumentAccessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DocumentAccesses.
+     */
+    data: DocumentAccessCreateManyInput | DocumentAccessCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DocumentAccess createManyAndReturn
+   */
+  export type DocumentAccessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * The data used to create many DocumentAccesses.
+     */
+    data: DocumentAccessCreateManyInput | DocumentAccessCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentAccess update
+   */
+  export type DocumentAccessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DocumentAccess.
+     */
+    data: XOR<DocumentAccessUpdateInput, DocumentAccessUncheckedUpdateInput>
+    /**
+     * Choose, which DocumentAccess to update.
+     */
+    where: DocumentAccessWhereUniqueInput
+  }
+
+  /**
+   * DocumentAccess updateMany
+   */
+  export type DocumentAccessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DocumentAccesses.
+     */
+    data: XOR<DocumentAccessUpdateManyMutationInput, DocumentAccessUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentAccesses to update
+     */
+    where?: DocumentAccessWhereInput
+    /**
+     * Limit how many DocumentAccesses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentAccess updateManyAndReturn
+   */
+  export type DocumentAccessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * The data used to update DocumentAccesses.
+     */
+    data: XOR<DocumentAccessUpdateManyMutationInput, DocumentAccessUncheckedUpdateManyInput>
+    /**
+     * Filter which DocumentAccesses to update
+     */
+    where?: DocumentAccessWhereInput
+    /**
+     * Limit how many DocumentAccesses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DocumentAccess upsert
+   */
+  export type DocumentAccessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DocumentAccess to update in case it exists.
+     */
+    where: DocumentAccessWhereUniqueInput
+    /**
+     * In case the DocumentAccess found by the `where` argument doesn't exist, create a new DocumentAccess with this data.
+     */
+    create: XOR<DocumentAccessCreateInput, DocumentAccessUncheckedCreateInput>
+    /**
+     * In case the DocumentAccess was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DocumentAccessUpdateInput, DocumentAccessUncheckedUpdateInput>
+  }
+
+  /**
+   * DocumentAccess delete
+   */
+  export type DocumentAccessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+    /**
+     * Filter which DocumentAccess to delete.
+     */
+    where: DocumentAccessWhereUniqueInput
+  }
+
+  /**
+   * DocumentAccess deleteMany
+   */
+  export type DocumentAccessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DocumentAccesses to delete
+     */
+    where?: DocumentAccessWhereInput
+    /**
+     * Limit how many DocumentAccesses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DocumentAccess without action
+   */
+  export type DocumentAccessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DocumentAccess
+     */
+    select?: DocumentAccessSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DocumentAccess
+     */
+    omit?: DocumentAccessOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentAccessInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PartnerActivityLog
+   */
+
+  export type AggregatePartnerActivityLog = {
+    _count: PartnerActivityLogCountAggregateOutputType | null
+    _min: PartnerActivityLogMinAggregateOutputType | null
+    _max: PartnerActivityLogMaxAggregateOutputType | null
+  }
+
+  export type PartnerActivityLogMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    projectId: string | null
+    documentId: string | null
+    action: string | null
+    createdAt: Date | null
+  }
+
+  export type PartnerActivityLogMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    projectId: string | null
+    documentId: string | null
+    action: string | null
+    createdAt: Date | null
+  }
+
+  export type PartnerActivityLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    projectId: number
+    documentId: number
+    action: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PartnerActivityLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    projectId?: true
+    documentId?: true
+    action?: true
+    createdAt?: true
+  }
+
+  export type PartnerActivityLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    projectId?: true
+    documentId?: true
+    action?: true
+    createdAt?: true
+  }
+
+  export type PartnerActivityLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    projectId?: true
+    documentId?: true
+    action?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PartnerActivityLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PartnerActivityLog to aggregate.
+     */
+    where?: PartnerActivityLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerActivityLogs to fetch.
+     */
+    orderBy?: PartnerActivityLogOrderByWithRelationInput | PartnerActivityLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PartnerActivityLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerActivityLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerActivityLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PartnerActivityLogs
+    **/
+    _count?: true | PartnerActivityLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PartnerActivityLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PartnerActivityLogMaxAggregateInputType
+  }
+
+  export type GetPartnerActivityLogAggregateType<T extends PartnerActivityLogAggregateArgs> = {
+        [P in keyof T & keyof AggregatePartnerActivityLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePartnerActivityLog[P]>
+      : GetScalarType<T[P], AggregatePartnerActivityLog[P]>
+  }
+
+
+
+
+  export type PartnerActivityLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerActivityLogWhereInput
+    orderBy?: PartnerActivityLogOrderByWithAggregationInput | PartnerActivityLogOrderByWithAggregationInput[]
+    by: PartnerActivityLogScalarFieldEnum[] | PartnerActivityLogScalarFieldEnum
+    having?: PartnerActivityLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PartnerActivityLogCountAggregateInputType | true
+    _min?: PartnerActivityLogMinAggregateInputType
+    _max?: PartnerActivityLogMaxAggregateInputType
+  }
+
+  export type PartnerActivityLogGroupByOutputType = {
+    id: string
+    userId: string
+    projectId: string | null
+    documentId: string | null
+    action: string
+    createdAt: Date
+    _count: PartnerActivityLogCountAggregateOutputType | null
+    _min: PartnerActivityLogMinAggregateOutputType | null
+    _max: PartnerActivityLogMaxAggregateOutputType | null
+  }
+
+  type GetPartnerActivityLogGroupByPayload<T extends PartnerActivityLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PartnerActivityLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PartnerActivityLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PartnerActivityLogGroupByOutputType[P]>
+            : GetScalarType<T[P], PartnerActivityLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PartnerActivityLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    projectId?: boolean
+    documentId?: boolean
+    action?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | PartnerActivityLog$projectArgs<ExtArgs>
+    document?: boolean | PartnerActivityLog$documentArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerActivityLog"]>
+
+  export type PartnerActivityLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    projectId?: boolean
+    documentId?: boolean
+    action?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | PartnerActivityLog$projectArgs<ExtArgs>
+    document?: boolean | PartnerActivityLog$documentArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerActivityLog"]>
+
+  export type PartnerActivityLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    projectId?: boolean
+    documentId?: boolean
+    action?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | PartnerActivityLog$projectArgs<ExtArgs>
+    document?: boolean | PartnerActivityLog$documentArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerActivityLog"]>
+
+  export type PartnerActivityLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    projectId?: boolean
+    documentId?: boolean
+    action?: boolean
+    createdAt?: boolean
+  }
+
+  export type PartnerActivityLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "projectId" | "documentId" | "action" | "createdAt", ExtArgs["result"]["partnerActivityLog"]>
+  export type PartnerActivityLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | PartnerActivityLog$projectArgs<ExtArgs>
+    document?: boolean | PartnerActivityLog$documentArgs<ExtArgs>
+  }
+  export type PartnerActivityLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | PartnerActivityLog$projectArgs<ExtArgs>
+    document?: boolean | PartnerActivityLog$documentArgs<ExtArgs>
+  }
+  export type PartnerActivityLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    project?: boolean | PartnerActivityLog$projectArgs<ExtArgs>
+    document?: boolean | PartnerActivityLog$documentArgs<ExtArgs>
+  }
+
+  export type $PartnerActivityLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PartnerActivityLog"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs> | null
+      document: Prisma.$DocumentPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      projectId: string | null
+      documentId: string | null
+      action: string
+      createdAt: Date
+    }, ExtArgs["result"]["partnerActivityLog"]>
+    composites: {}
+  }
+
+  type PartnerActivityLogGetPayload<S extends boolean | null | undefined | PartnerActivityLogDefaultArgs> = $Result.GetResult<Prisma.$PartnerActivityLogPayload, S>
+
+  type PartnerActivityLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PartnerActivityLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PartnerActivityLogCountAggregateInputType | true
+    }
+
+  export interface PartnerActivityLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PartnerActivityLog'], meta: { name: 'PartnerActivityLog' } }
+    /**
+     * Find zero or one PartnerActivityLog that matches the filter.
+     * @param {PartnerActivityLogFindUniqueArgs} args - Arguments to find a PartnerActivityLog
+     * @example
+     * // Get one PartnerActivityLog
+     * const partnerActivityLog = await prisma.partnerActivityLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PartnerActivityLogFindUniqueArgs>(args: SelectSubset<T, PartnerActivityLogFindUniqueArgs<ExtArgs>>): Prisma__PartnerActivityLogClient<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PartnerActivityLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PartnerActivityLogFindUniqueOrThrowArgs} args - Arguments to find a PartnerActivityLog
+     * @example
+     * // Get one PartnerActivityLog
+     * const partnerActivityLog = await prisma.partnerActivityLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PartnerActivityLogFindUniqueOrThrowArgs>(args: SelectSubset<T, PartnerActivityLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PartnerActivityLogClient<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PartnerActivityLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerActivityLogFindFirstArgs} args - Arguments to find a PartnerActivityLog
+     * @example
+     * // Get one PartnerActivityLog
+     * const partnerActivityLog = await prisma.partnerActivityLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PartnerActivityLogFindFirstArgs>(args?: SelectSubset<T, PartnerActivityLogFindFirstArgs<ExtArgs>>): Prisma__PartnerActivityLogClient<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PartnerActivityLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerActivityLogFindFirstOrThrowArgs} args - Arguments to find a PartnerActivityLog
+     * @example
+     * // Get one PartnerActivityLog
+     * const partnerActivityLog = await prisma.partnerActivityLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PartnerActivityLogFindFirstOrThrowArgs>(args?: SelectSubset<T, PartnerActivityLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__PartnerActivityLogClient<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PartnerActivityLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerActivityLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PartnerActivityLogs
+     * const partnerActivityLogs = await prisma.partnerActivityLog.findMany()
+     * 
+     * // Get first 10 PartnerActivityLogs
+     * const partnerActivityLogs = await prisma.partnerActivityLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const partnerActivityLogWithIdOnly = await prisma.partnerActivityLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PartnerActivityLogFindManyArgs>(args?: SelectSubset<T, PartnerActivityLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PartnerActivityLog.
+     * @param {PartnerActivityLogCreateArgs} args - Arguments to create a PartnerActivityLog.
+     * @example
+     * // Create one PartnerActivityLog
+     * const PartnerActivityLog = await prisma.partnerActivityLog.create({
+     *   data: {
+     *     // ... data to create a PartnerActivityLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends PartnerActivityLogCreateArgs>(args: SelectSubset<T, PartnerActivityLogCreateArgs<ExtArgs>>): Prisma__PartnerActivityLogClient<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PartnerActivityLogs.
+     * @param {PartnerActivityLogCreateManyArgs} args - Arguments to create many PartnerActivityLogs.
+     * @example
+     * // Create many PartnerActivityLogs
+     * const partnerActivityLog = await prisma.partnerActivityLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PartnerActivityLogCreateManyArgs>(args?: SelectSubset<T, PartnerActivityLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PartnerActivityLogs and returns the data saved in the database.
+     * @param {PartnerActivityLogCreateManyAndReturnArgs} args - Arguments to create many PartnerActivityLogs.
+     * @example
+     * // Create many PartnerActivityLogs
+     * const partnerActivityLog = await prisma.partnerActivityLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PartnerActivityLogs and only return the `id`
+     * const partnerActivityLogWithIdOnly = await prisma.partnerActivityLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PartnerActivityLogCreateManyAndReturnArgs>(args?: SelectSubset<T, PartnerActivityLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PartnerActivityLog.
+     * @param {PartnerActivityLogDeleteArgs} args - Arguments to delete one PartnerActivityLog.
+     * @example
+     * // Delete one PartnerActivityLog
+     * const PartnerActivityLog = await prisma.partnerActivityLog.delete({
+     *   where: {
+     *     // ... filter to delete one PartnerActivityLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PartnerActivityLogDeleteArgs>(args: SelectSubset<T, PartnerActivityLogDeleteArgs<ExtArgs>>): Prisma__PartnerActivityLogClient<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PartnerActivityLog.
+     * @param {PartnerActivityLogUpdateArgs} args - Arguments to update one PartnerActivityLog.
+     * @example
+     * // Update one PartnerActivityLog
+     * const partnerActivityLog = await prisma.partnerActivityLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PartnerActivityLogUpdateArgs>(args: SelectSubset<T, PartnerActivityLogUpdateArgs<ExtArgs>>): Prisma__PartnerActivityLogClient<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PartnerActivityLogs.
+     * @param {PartnerActivityLogDeleteManyArgs} args - Arguments to filter PartnerActivityLogs to delete.
+     * @example
+     * // Delete a few PartnerActivityLogs
+     * const { count } = await prisma.partnerActivityLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PartnerActivityLogDeleteManyArgs>(args?: SelectSubset<T, PartnerActivityLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PartnerActivityLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerActivityLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PartnerActivityLogs
+     * const partnerActivityLog = await prisma.partnerActivityLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PartnerActivityLogUpdateManyArgs>(args: SelectSubset<T, PartnerActivityLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PartnerActivityLogs and returns the data updated in the database.
+     * @param {PartnerActivityLogUpdateManyAndReturnArgs} args - Arguments to update many PartnerActivityLogs.
+     * @example
+     * // Update many PartnerActivityLogs
+     * const partnerActivityLog = await prisma.partnerActivityLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PartnerActivityLogs and only return the `id`
+     * const partnerActivityLogWithIdOnly = await prisma.partnerActivityLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PartnerActivityLogUpdateManyAndReturnArgs>(args: SelectSubset<T, PartnerActivityLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PartnerActivityLog.
+     * @param {PartnerActivityLogUpsertArgs} args - Arguments to update or create a PartnerActivityLog.
+     * @example
+     * // Update or create a PartnerActivityLog
+     * const partnerActivityLog = await prisma.partnerActivityLog.upsert({
+     *   create: {
+     *     // ... data to create a PartnerActivityLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PartnerActivityLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PartnerActivityLogUpsertArgs>(args: SelectSubset<T, PartnerActivityLogUpsertArgs<ExtArgs>>): Prisma__PartnerActivityLogClient<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PartnerActivityLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerActivityLogCountArgs} args - Arguments to filter PartnerActivityLogs to count.
+     * @example
+     * // Count the number of PartnerActivityLogs
+     * const count = await prisma.partnerActivityLog.count({
+     *   where: {
+     *     // ... the filter for the PartnerActivityLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends PartnerActivityLogCountArgs>(
+      args?: Subset<T, PartnerActivityLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PartnerActivityLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PartnerActivityLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerActivityLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PartnerActivityLogAggregateArgs>(args: Subset<T, PartnerActivityLogAggregateArgs>): Prisma.PrismaPromise<GetPartnerActivityLogAggregateType<T>>
+
+    /**
+     * Group by PartnerActivityLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerActivityLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PartnerActivityLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PartnerActivityLogGroupByArgs['orderBy'] }
+        : { orderBy?: PartnerActivityLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PartnerActivityLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPartnerActivityLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PartnerActivityLog model
+   */
+  readonly fields: PartnerActivityLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PartnerActivityLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PartnerActivityLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    project<T extends PartnerActivityLog$projectArgs<ExtArgs> = {}>(args?: Subset<T, PartnerActivityLog$projectArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    document<T extends PartnerActivityLog$documentArgs<ExtArgs> = {}>(args?: Subset<T, PartnerActivityLog$documentArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PartnerActivityLog model
+   */
+  interface PartnerActivityLogFieldRefs {
+    readonly id: FieldRef<"PartnerActivityLog", 'String'>
+    readonly userId: FieldRef<"PartnerActivityLog", 'String'>
+    readonly projectId: FieldRef<"PartnerActivityLog", 'String'>
+    readonly documentId: FieldRef<"PartnerActivityLog", 'String'>
+    readonly action: FieldRef<"PartnerActivityLog", 'String'>
+    readonly createdAt: FieldRef<"PartnerActivityLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PartnerActivityLog findUnique
+   */
+  export type PartnerActivityLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerActivityLog to fetch.
+     */
+    where: PartnerActivityLogWhereUniqueInput
+  }
+
+  /**
+   * PartnerActivityLog findUniqueOrThrow
+   */
+  export type PartnerActivityLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerActivityLog to fetch.
+     */
+    where: PartnerActivityLogWhereUniqueInput
+  }
+
+  /**
+   * PartnerActivityLog findFirst
+   */
+  export type PartnerActivityLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerActivityLog to fetch.
+     */
+    where?: PartnerActivityLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerActivityLogs to fetch.
+     */
+    orderBy?: PartnerActivityLogOrderByWithRelationInput | PartnerActivityLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PartnerActivityLogs.
+     */
+    cursor?: PartnerActivityLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerActivityLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerActivityLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PartnerActivityLogs.
+     */
+    distinct?: PartnerActivityLogScalarFieldEnum | PartnerActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerActivityLog findFirstOrThrow
+   */
+  export type PartnerActivityLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerActivityLog to fetch.
+     */
+    where?: PartnerActivityLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerActivityLogs to fetch.
+     */
+    orderBy?: PartnerActivityLogOrderByWithRelationInput | PartnerActivityLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PartnerActivityLogs.
+     */
+    cursor?: PartnerActivityLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerActivityLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerActivityLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PartnerActivityLogs.
+     */
+    distinct?: PartnerActivityLogScalarFieldEnum | PartnerActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerActivityLog findMany
+   */
+  export type PartnerActivityLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerActivityLogs to fetch.
+     */
+    where?: PartnerActivityLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerActivityLogs to fetch.
+     */
+    orderBy?: PartnerActivityLogOrderByWithRelationInput | PartnerActivityLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PartnerActivityLogs.
+     */
+    cursor?: PartnerActivityLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerActivityLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerActivityLogs.
+     */
+    skip?: number
+    distinct?: PartnerActivityLogScalarFieldEnum | PartnerActivityLogScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerActivityLog create
+   */
+  export type PartnerActivityLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PartnerActivityLog.
+     */
+    data: XOR<PartnerActivityLogCreateInput, PartnerActivityLogUncheckedCreateInput>
+  }
+
+  /**
+   * PartnerActivityLog createMany
+   */
+  export type PartnerActivityLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PartnerActivityLogs.
+     */
+    data: PartnerActivityLogCreateManyInput | PartnerActivityLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PartnerActivityLog createManyAndReturn
+   */
+  export type PartnerActivityLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many PartnerActivityLogs.
+     */
+    data: PartnerActivityLogCreateManyInput | PartnerActivityLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PartnerActivityLog update
+   */
+  export type PartnerActivityLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PartnerActivityLog.
+     */
+    data: XOR<PartnerActivityLogUpdateInput, PartnerActivityLogUncheckedUpdateInput>
+    /**
+     * Choose, which PartnerActivityLog to update.
+     */
+    where: PartnerActivityLogWhereUniqueInput
+  }
+
+  /**
+   * PartnerActivityLog updateMany
+   */
+  export type PartnerActivityLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PartnerActivityLogs.
+     */
+    data: XOR<PartnerActivityLogUpdateManyMutationInput, PartnerActivityLogUncheckedUpdateManyInput>
+    /**
+     * Filter which PartnerActivityLogs to update
+     */
+    where?: PartnerActivityLogWhereInput
+    /**
+     * Limit how many PartnerActivityLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PartnerActivityLog updateManyAndReturn
+   */
+  export type PartnerActivityLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * The data used to update PartnerActivityLogs.
+     */
+    data: XOR<PartnerActivityLogUpdateManyMutationInput, PartnerActivityLogUncheckedUpdateManyInput>
+    /**
+     * Filter which PartnerActivityLogs to update
+     */
+    where?: PartnerActivityLogWhereInput
+    /**
+     * Limit how many PartnerActivityLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PartnerActivityLog upsert
+   */
+  export type PartnerActivityLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PartnerActivityLog to update in case it exists.
+     */
+    where: PartnerActivityLogWhereUniqueInput
+    /**
+     * In case the PartnerActivityLog found by the `where` argument doesn't exist, create a new PartnerActivityLog with this data.
+     */
+    create: XOR<PartnerActivityLogCreateInput, PartnerActivityLogUncheckedCreateInput>
+    /**
+     * In case the PartnerActivityLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PartnerActivityLogUpdateInput, PartnerActivityLogUncheckedUpdateInput>
+  }
+
+  /**
+   * PartnerActivityLog delete
+   */
+  export type PartnerActivityLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+    /**
+     * Filter which PartnerActivityLog to delete.
+     */
+    where: PartnerActivityLogWhereUniqueInput
+  }
+
+  /**
+   * PartnerActivityLog deleteMany
+   */
+  export type PartnerActivityLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PartnerActivityLogs to delete
+     */
+    where?: PartnerActivityLogWhereInput
+    /**
+     * Limit how many PartnerActivityLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PartnerActivityLog.project
+   */
+  export type PartnerActivityLog$projectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Project
+     */
+    select?: ProjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Project
+     */
+    omit?: ProjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectInclude<ExtArgs> | null
+    where?: ProjectWhereInput
+  }
+
+  /**
+   * PartnerActivityLog.document
+   */
+  export type PartnerActivityLog$documentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    where?: DocumentWhereInput
+  }
+
+  /**
+   * PartnerActivityLog without action
+   */
+  export type PartnerActivityLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerActivityLog
+     */
+    select?: PartnerActivityLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerActivityLog
+     */
+    omit?: PartnerActivityLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerActivityLogInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PartnerRequest
+   */
+
+  export type AggregatePartnerRequest = {
+    _count: PartnerRequestCountAggregateOutputType | null
+    _min: PartnerRequestMinAggregateOutputType | null
+    _max: PartnerRequestMaxAggregateOutputType | null
+  }
+
+  export type PartnerRequestMinAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    userId: string | null
+    subject: string | null
+    message: string | null
+    attachment: string | null
+    status: $Enums.RequestStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PartnerRequestMaxAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    userId: string | null
+    subject: string | null
+    message: string | null
+    attachment: string | null
+    status: $Enums.RequestStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PartnerRequestCountAggregateOutputType = {
+    id: number
+    projectId: number
+    userId: number
+    subject: number
+    message: number
+    attachment: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PartnerRequestMinAggregateInputType = {
+    id?: true
+    projectId?: true
+    userId?: true
+    subject?: true
+    message?: true
+    attachment?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PartnerRequestMaxAggregateInputType = {
+    id?: true
+    projectId?: true
+    userId?: true
+    subject?: true
+    message?: true
+    attachment?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PartnerRequestCountAggregateInputType = {
+    id?: true
+    projectId?: true
+    userId?: true
+    subject?: true
+    message?: true
+    attachment?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PartnerRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PartnerRequest to aggregate.
+     */
+    where?: PartnerRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerRequests to fetch.
+     */
+    orderBy?: PartnerRequestOrderByWithRelationInput | PartnerRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PartnerRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PartnerRequests
+    **/
+    _count?: true | PartnerRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PartnerRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PartnerRequestMaxAggregateInputType
+  }
+
+  export type GetPartnerRequestAggregateType<T extends PartnerRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregatePartnerRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePartnerRequest[P]>
+      : GetScalarType<T[P], AggregatePartnerRequest[P]>
+  }
+
+
+
+
+  export type PartnerRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerRequestWhereInput
+    orderBy?: PartnerRequestOrderByWithAggregationInput | PartnerRequestOrderByWithAggregationInput[]
+    by: PartnerRequestScalarFieldEnum[] | PartnerRequestScalarFieldEnum
+    having?: PartnerRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PartnerRequestCountAggregateInputType | true
+    _min?: PartnerRequestMinAggregateInputType
+    _max?: PartnerRequestMaxAggregateInputType
+  }
+
+  export type PartnerRequestGroupByOutputType = {
+    id: string
+    projectId: string
+    userId: string
+    subject: string
+    message: string
+    attachment: string | null
+    status: $Enums.RequestStatus
+    createdAt: Date
+    updatedAt: Date
+    _count: PartnerRequestCountAggregateOutputType | null
+    _min: PartnerRequestMinAggregateOutputType | null
+    _max: PartnerRequestMaxAggregateOutputType | null
+  }
+
+  type GetPartnerRequestGroupByPayload<T extends PartnerRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PartnerRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PartnerRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PartnerRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], PartnerRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PartnerRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    userId?: boolean
+    subject?: boolean
+    message?: boolean
+    attachment?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    messages?: boolean | PartnerRequest$messagesArgs<ExtArgs>
+    _count?: boolean | PartnerRequestCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerRequest"]>
+
+  export type PartnerRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    userId?: boolean
+    subject?: boolean
+    message?: boolean
+    attachment?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerRequest"]>
+
+  export type PartnerRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    userId?: boolean
+    subject?: boolean
+    message?: boolean
+    attachment?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerRequest"]>
+
+  export type PartnerRequestSelectScalar = {
+    id?: boolean
+    projectId?: boolean
+    userId?: boolean
+    subject?: boolean
+    message?: boolean
+    attachment?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PartnerRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "projectId" | "userId" | "subject" | "message" | "attachment" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["partnerRequest"]>
+  export type PartnerRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    messages?: boolean | PartnerRequest$messagesArgs<ExtArgs>
+    _count?: boolean | PartnerRequestCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PartnerRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PartnerRequestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PartnerRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PartnerRequest"
+    objects: {
+      project: Prisma.$ProjectPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+      messages: Prisma.$PartnerRequestMessagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      projectId: string
+      userId: string
+      subject: string
+      message: string
+      attachment: string | null
+      status: $Enums.RequestStatus
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["partnerRequest"]>
+    composites: {}
+  }
+
+  type PartnerRequestGetPayload<S extends boolean | null | undefined | PartnerRequestDefaultArgs> = $Result.GetResult<Prisma.$PartnerRequestPayload, S>
+
+  type PartnerRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PartnerRequestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PartnerRequestCountAggregateInputType | true
+    }
+
+  export interface PartnerRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PartnerRequest'], meta: { name: 'PartnerRequest' } }
+    /**
+     * Find zero or one PartnerRequest that matches the filter.
+     * @param {PartnerRequestFindUniqueArgs} args - Arguments to find a PartnerRequest
+     * @example
+     * // Get one PartnerRequest
+     * const partnerRequest = await prisma.partnerRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PartnerRequestFindUniqueArgs>(args: SelectSubset<T, PartnerRequestFindUniqueArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PartnerRequest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PartnerRequestFindUniqueOrThrowArgs} args - Arguments to find a PartnerRequest
+     * @example
+     * // Get one PartnerRequest
+     * const partnerRequest = await prisma.partnerRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PartnerRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, PartnerRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PartnerRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestFindFirstArgs} args - Arguments to find a PartnerRequest
+     * @example
+     * // Get one PartnerRequest
+     * const partnerRequest = await prisma.partnerRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PartnerRequestFindFirstArgs>(args?: SelectSubset<T, PartnerRequestFindFirstArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PartnerRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestFindFirstOrThrowArgs} args - Arguments to find a PartnerRequest
+     * @example
+     * // Get one PartnerRequest
+     * const partnerRequest = await prisma.partnerRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PartnerRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, PartnerRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PartnerRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PartnerRequests
+     * const partnerRequests = await prisma.partnerRequest.findMany()
+     * 
+     * // Get first 10 PartnerRequests
+     * const partnerRequests = await prisma.partnerRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const partnerRequestWithIdOnly = await prisma.partnerRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PartnerRequestFindManyArgs>(args?: SelectSubset<T, PartnerRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PartnerRequest.
+     * @param {PartnerRequestCreateArgs} args - Arguments to create a PartnerRequest.
+     * @example
+     * // Create one PartnerRequest
+     * const PartnerRequest = await prisma.partnerRequest.create({
+     *   data: {
+     *     // ... data to create a PartnerRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends PartnerRequestCreateArgs>(args: SelectSubset<T, PartnerRequestCreateArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PartnerRequests.
+     * @param {PartnerRequestCreateManyArgs} args - Arguments to create many PartnerRequests.
+     * @example
+     * // Create many PartnerRequests
+     * const partnerRequest = await prisma.partnerRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PartnerRequestCreateManyArgs>(args?: SelectSubset<T, PartnerRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PartnerRequests and returns the data saved in the database.
+     * @param {PartnerRequestCreateManyAndReturnArgs} args - Arguments to create many PartnerRequests.
+     * @example
+     * // Create many PartnerRequests
+     * const partnerRequest = await prisma.partnerRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PartnerRequests and only return the `id`
+     * const partnerRequestWithIdOnly = await prisma.partnerRequest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PartnerRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, PartnerRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PartnerRequest.
+     * @param {PartnerRequestDeleteArgs} args - Arguments to delete one PartnerRequest.
+     * @example
+     * // Delete one PartnerRequest
+     * const PartnerRequest = await prisma.partnerRequest.delete({
+     *   where: {
+     *     // ... filter to delete one PartnerRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PartnerRequestDeleteArgs>(args: SelectSubset<T, PartnerRequestDeleteArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PartnerRequest.
+     * @param {PartnerRequestUpdateArgs} args - Arguments to update one PartnerRequest.
+     * @example
+     * // Update one PartnerRequest
+     * const partnerRequest = await prisma.partnerRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PartnerRequestUpdateArgs>(args: SelectSubset<T, PartnerRequestUpdateArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PartnerRequests.
+     * @param {PartnerRequestDeleteManyArgs} args - Arguments to filter PartnerRequests to delete.
+     * @example
+     * // Delete a few PartnerRequests
+     * const { count } = await prisma.partnerRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PartnerRequestDeleteManyArgs>(args?: SelectSubset<T, PartnerRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PartnerRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PartnerRequests
+     * const partnerRequest = await prisma.partnerRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PartnerRequestUpdateManyArgs>(args: SelectSubset<T, PartnerRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PartnerRequests and returns the data updated in the database.
+     * @param {PartnerRequestUpdateManyAndReturnArgs} args - Arguments to update many PartnerRequests.
+     * @example
+     * // Update many PartnerRequests
+     * const partnerRequest = await prisma.partnerRequest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PartnerRequests and only return the `id`
+     * const partnerRequestWithIdOnly = await prisma.partnerRequest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PartnerRequestUpdateManyAndReturnArgs>(args: SelectSubset<T, PartnerRequestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PartnerRequest.
+     * @param {PartnerRequestUpsertArgs} args - Arguments to update or create a PartnerRequest.
+     * @example
+     * // Update or create a PartnerRequest
+     * const partnerRequest = await prisma.partnerRequest.upsert({
+     *   create: {
+     *     // ... data to create a PartnerRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PartnerRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PartnerRequestUpsertArgs>(args: SelectSubset<T, PartnerRequestUpsertArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PartnerRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestCountArgs} args - Arguments to filter PartnerRequests to count.
+     * @example
+     * // Count the number of PartnerRequests
+     * const count = await prisma.partnerRequest.count({
+     *   where: {
+     *     // ... the filter for the PartnerRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends PartnerRequestCountArgs>(
+      args?: Subset<T, PartnerRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PartnerRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PartnerRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PartnerRequestAggregateArgs>(args: Subset<T, PartnerRequestAggregateArgs>): Prisma.PrismaPromise<GetPartnerRequestAggregateType<T>>
+
+    /**
+     * Group by PartnerRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PartnerRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PartnerRequestGroupByArgs['orderBy'] }
+        : { orderBy?: PartnerRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PartnerRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPartnerRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PartnerRequest model
+   */
+  readonly fields: PartnerRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PartnerRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PartnerRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    messages<T extends PartnerRequest$messagesArgs<ExtArgs> = {}>(args?: Subset<T, PartnerRequest$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PartnerRequest model
+   */
+  interface PartnerRequestFieldRefs {
+    readonly id: FieldRef<"PartnerRequest", 'String'>
+    readonly projectId: FieldRef<"PartnerRequest", 'String'>
+    readonly userId: FieldRef<"PartnerRequest", 'String'>
+    readonly subject: FieldRef<"PartnerRequest", 'String'>
+    readonly message: FieldRef<"PartnerRequest", 'String'>
+    readonly attachment: FieldRef<"PartnerRequest", 'String'>
+    readonly status: FieldRef<"PartnerRequest", 'RequestStatus'>
+    readonly createdAt: FieldRef<"PartnerRequest", 'DateTime'>
+    readonly updatedAt: FieldRef<"PartnerRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PartnerRequest findUnique
+   */
+  export type PartnerRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequest to fetch.
+     */
+    where: PartnerRequestWhereUniqueInput
+  }
+
+  /**
+   * PartnerRequest findUniqueOrThrow
+   */
+  export type PartnerRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequest to fetch.
+     */
+    where: PartnerRequestWhereUniqueInput
+  }
+
+  /**
+   * PartnerRequest findFirst
+   */
+  export type PartnerRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequest to fetch.
+     */
+    where?: PartnerRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerRequests to fetch.
+     */
+    orderBy?: PartnerRequestOrderByWithRelationInput | PartnerRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PartnerRequests.
+     */
+    cursor?: PartnerRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PartnerRequests.
+     */
+    distinct?: PartnerRequestScalarFieldEnum | PartnerRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerRequest findFirstOrThrow
+   */
+  export type PartnerRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequest to fetch.
+     */
+    where?: PartnerRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerRequests to fetch.
+     */
+    orderBy?: PartnerRequestOrderByWithRelationInput | PartnerRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PartnerRequests.
+     */
+    cursor?: PartnerRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PartnerRequests.
+     */
+    distinct?: PartnerRequestScalarFieldEnum | PartnerRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerRequest findMany
+   */
+  export type PartnerRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequests to fetch.
+     */
+    where?: PartnerRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerRequests to fetch.
+     */
+    orderBy?: PartnerRequestOrderByWithRelationInput | PartnerRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PartnerRequests.
+     */
+    cursor?: PartnerRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerRequests.
+     */
+    skip?: number
+    distinct?: PartnerRequestScalarFieldEnum | PartnerRequestScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerRequest create
+   */
+  export type PartnerRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PartnerRequest.
+     */
+    data: XOR<PartnerRequestCreateInput, PartnerRequestUncheckedCreateInput>
+  }
+
+  /**
+   * PartnerRequest createMany
+   */
+  export type PartnerRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PartnerRequests.
+     */
+    data: PartnerRequestCreateManyInput | PartnerRequestCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PartnerRequest createManyAndReturn
+   */
+  export type PartnerRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * The data used to create many PartnerRequests.
+     */
+    data: PartnerRequestCreateManyInput | PartnerRequestCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PartnerRequest update
+   */
+  export type PartnerRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PartnerRequest.
+     */
+    data: XOR<PartnerRequestUpdateInput, PartnerRequestUncheckedUpdateInput>
+    /**
+     * Choose, which PartnerRequest to update.
+     */
+    where: PartnerRequestWhereUniqueInput
+  }
+
+  /**
+   * PartnerRequest updateMany
+   */
+  export type PartnerRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PartnerRequests.
+     */
+    data: XOR<PartnerRequestUpdateManyMutationInput, PartnerRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which PartnerRequests to update
+     */
+    where?: PartnerRequestWhereInput
+    /**
+     * Limit how many PartnerRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PartnerRequest updateManyAndReturn
+   */
+  export type PartnerRequestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * The data used to update PartnerRequests.
+     */
+    data: XOR<PartnerRequestUpdateManyMutationInput, PartnerRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which PartnerRequests to update
+     */
+    where?: PartnerRequestWhereInput
+    /**
+     * Limit how many PartnerRequests to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PartnerRequest upsert
+   */
+  export type PartnerRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PartnerRequest to update in case it exists.
+     */
+    where: PartnerRequestWhereUniqueInput
+    /**
+     * In case the PartnerRequest found by the `where` argument doesn't exist, create a new PartnerRequest with this data.
+     */
+    create: XOR<PartnerRequestCreateInput, PartnerRequestUncheckedCreateInput>
+    /**
+     * In case the PartnerRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PartnerRequestUpdateInput, PartnerRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * PartnerRequest delete
+   */
+  export type PartnerRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+    /**
+     * Filter which PartnerRequest to delete.
+     */
+    where: PartnerRequestWhereUniqueInput
+  }
+
+  /**
+   * PartnerRequest deleteMany
+   */
+  export type PartnerRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PartnerRequests to delete
+     */
+    where?: PartnerRequestWhereInput
+    /**
+     * Limit how many PartnerRequests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PartnerRequest.messages
+   */
+  export type PartnerRequest$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    where?: PartnerRequestMessageWhereInput
+    orderBy?: PartnerRequestMessageOrderByWithRelationInput | PartnerRequestMessageOrderByWithRelationInput[]
+    cursor?: PartnerRequestMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PartnerRequestMessageScalarFieldEnum | PartnerRequestMessageScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerRequest without action
+   */
+  export type PartnerRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequest
+     */
+    select?: PartnerRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequest
+     */
+    omit?: PartnerRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PartnerRequestMessage
+   */
+
+  export type AggregatePartnerRequestMessage = {
+    _count: PartnerRequestMessageCountAggregateOutputType | null
+    _min: PartnerRequestMessageMinAggregateOutputType | null
+    _max: PartnerRequestMessageMaxAggregateOutputType | null
+  }
+
+  export type PartnerRequestMessageMinAggregateOutputType = {
+    id: string | null
+    requestId: string | null
+    senderId: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type PartnerRequestMessageMaxAggregateOutputType = {
+    id: string | null
+    requestId: string | null
+    senderId: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type PartnerRequestMessageCountAggregateOutputType = {
+    id: number
+    requestId: number
+    senderId: number
+    content: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PartnerRequestMessageMinAggregateInputType = {
+    id?: true
+    requestId?: true
+    senderId?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type PartnerRequestMessageMaxAggregateInputType = {
+    id?: true
+    requestId?: true
+    senderId?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type PartnerRequestMessageCountAggregateInputType = {
+    id?: true
+    requestId?: true
+    senderId?: true
+    content?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PartnerRequestMessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PartnerRequestMessage to aggregate.
+     */
+    where?: PartnerRequestMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerRequestMessages to fetch.
+     */
+    orderBy?: PartnerRequestMessageOrderByWithRelationInput | PartnerRequestMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PartnerRequestMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerRequestMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerRequestMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PartnerRequestMessages
+    **/
+    _count?: true | PartnerRequestMessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PartnerRequestMessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PartnerRequestMessageMaxAggregateInputType
+  }
+
+  export type GetPartnerRequestMessageAggregateType<T extends PartnerRequestMessageAggregateArgs> = {
+        [P in keyof T & keyof AggregatePartnerRequestMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePartnerRequestMessage[P]>
+      : GetScalarType<T[P], AggregatePartnerRequestMessage[P]>
+  }
+
+
+
+
+  export type PartnerRequestMessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PartnerRequestMessageWhereInput
+    orderBy?: PartnerRequestMessageOrderByWithAggregationInput | PartnerRequestMessageOrderByWithAggregationInput[]
+    by: PartnerRequestMessageScalarFieldEnum[] | PartnerRequestMessageScalarFieldEnum
+    having?: PartnerRequestMessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PartnerRequestMessageCountAggregateInputType | true
+    _min?: PartnerRequestMessageMinAggregateInputType
+    _max?: PartnerRequestMessageMaxAggregateInputType
+  }
+
+  export type PartnerRequestMessageGroupByOutputType = {
+    id: string
+    requestId: string
+    senderId: string
+    content: string
+    createdAt: Date
+    _count: PartnerRequestMessageCountAggregateOutputType | null
+    _min: PartnerRequestMessageMinAggregateOutputType | null
+    _max: PartnerRequestMessageMaxAggregateOutputType | null
+  }
+
+  type GetPartnerRequestMessageGroupByPayload<T extends PartnerRequestMessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PartnerRequestMessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PartnerRequestMessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PartnerRequestMessageGroupByOutputType[P]>
+            : GetScalarType<T[P], PartnerRequestMessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PartnerRequestMessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    requestId?: boolean
+    senderId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    request?: boolean | PartnerRequestDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerRequestMessage"]>
+
+  export type PartnerRequestMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    requestId?: boolean
+    senderId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    request?: boolean | PartnerRequestDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerRequestMessage"]>
+
+  export type PartnerRequestMessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    requestId?: boolean
+    senderId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    request?: boolean | PartnerRequestDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["partnerRequestMessage"]>
+
+  export type PartnerRequestMessageSelectScalar = {
+    id?: boolean
+    requestId?: boolean
+    senderId?: boolean
+    content?: boolean
+    createdAt?: boolean
+  }
+
+  export type PartnerRequestMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "requestId" | "senderId" | "content" | "createdAt", ExtArgs["result"]["partnerRequestMessage"]>
+  export type PartnerRequestMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    request?: boolean | PartnerRequestDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PartnerRequestMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    request?: boolean | PartnerRequestDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PartnerRequestMessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    request?: boolean | PartnerRequestDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $PartnerRequestMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PartnerRequestMessage"
+    objects: {
+      request: Prisma.$PartnerRequestPayload<ExtArgs>
+      sender: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      requestId: string
+      senderId: string
+      content: string
+      createdAt: Date
+    }, ExtArgs["result"]["partnerRequestMessage"]>
+    composites: {}
+  }
+
+  type PartnerRequestMessageGetPayload<S extends boolean | null | undefined | PartnerRequestMessageDefaultArgs> = $Result.GetResult<Prisma.$PartnerRequestMessagePayload, S>
+
+  type PartnerRequestMessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PartnerRequestMessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PartnerRequestMessageCountAggregateInputType | true
+    }
+
+  export interface PartnerRequestMessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PartnerRequestMessage'], meta: { name: 'PartnerRequestMessage' } }
+    /**
+     * Find zero or one PartnerRequestMessage that matches the filter.
+     * @param {PartnerRequestMessageFindUniqueArgs} args - Arguments to find a PartnerRequestMessage
+     * @example
+     * // Get one PartnerRequestMessage
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PartnerRequestMessageFindUniqueArgs>(args: SelectSubset<T, PartnerRequestMessageFindUniqueArgs<ExtArgs>>): Prisma__PartnerRequestMessageClient<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PartnerRequestMessage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PartnerRequestMessageFindUniqueOrThrowArgs} args - Arguments to find a PartnerRequestMessage
+     * @example
+     * // Get one PartnerRequestMessage
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PartnerRequestMessageFindUniqueOrThrowArgs>(args: SelectSubset<T, PartnerRequestMessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PartnerRequestMessageClient<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PartnerRequestMessage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestMessageFindFirstArgs} args - Arguments to find a PartnerRequestMessage
+     * @example
+     * // Get one PartnerRequestMessage
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PartnerRequestMessageFindFirstArgs>(args?: SelectSubset<T, PartnerRequestMessageFindFirstArgs<ExtArgs>>): Prisma__PartnerRequestMessageClient<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PartnerRequestMessage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestMessageFindFirstOrThrowArgs} args - Arguments to find a PartnerRequestMessage
+     * @example
+     * // Get one PartnerRequestMessage
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PartnerRequestMessageFindFirstOrThrowArgs>(args?: SelectSubset<T, PartnerRequestMessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__PartnerRequestMessageClient<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PartnerRequestMessages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestMessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PartnerRequestMessages
+     * const partnerRequestMessages = await prisma.partnerRequestMessage.findMany()
+     * 
+     * // Get first 10 PartnerRequestMessages
+     * const partnerRequestMessages = await prisma.partnerRequestMessage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const partnerRequestMessageWithIdOnly = await prisma.partnerRequestMessage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PartnerRequestMessageFindManyArgs>(args?: SelectSubset<T, PartnerRequestMessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PartnerRequestMessage.
+     * @param {PartnerRequestMessageCreateArgs} args - Arguments to create a PartnerRequestMessage.
+     * @example
+     * // Create one PartnerRequestMessage
+     * const PartnerRequestMessage = await prisma.partnerRequestMessage.create({
+     *   data: {
+     *     // ... data to create a PartnerRequestMessage
+     *   }
+     * })
+     * 
+     */
+    create<T extends PartnerRequestMessageCreateArgs>(args: SelectSubset<T, PartnerRequestMessageCreateArgs<ExtArgs>>): Prisma__PartnerRequestMessageClient<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PartnerRequestMessages.
+     * @param {PartnerRequestMessageCreateManyArgs} args - Arguments to create many PartnerRequestMessages.
+     * @example
+     * // Create many PartnerRequestMessages
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PartnerRequestMessageCreateManyArgs>(args?: SelectSubset<T, PartnerRequestMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PartnerRequestMessages and returns the data saved in the database.
+     * @param {PartnerRequestMessageCreateManyAndReturnArgs} args - Arguments to create many PartnerRequestMessages.
+     * @example
+     * // Create many PartnerRequestMessages
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PartnerRequestMessages and only return the `id`
+     * const partnerRequestMessageWithIdOnly = await prisma.partnerRequestMessage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PartnerRequestMessageCreateManyAndReturnArgs>(args?: SelectSubset<T, PartnerRequestMessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PartnerRequestMessage.
+     * @param {PartnerRequestMessageDeleteArgs} args - Arguments to delete one PartnerRequestMessage.
+     * @example
+     * // Delete one PartnerRequestMessage
+     * const PartnerRequestMessage = await prisma.partnerRequestMessage.delete({
+     *   where: {
+     *     // ... filter to delete one PartnerRequestMessage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PartnerRequestMessageDeleteArgs>(args: SelectSubset<T, PartnerRequestMessageDeleteArgs<ExtArgs>>): Prisma__PartnerRequestMessageClient<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PartnerRequestMessage.
+     * @param {PartnerRequestMessageUpdateArgs} args - Arguments to update one PartnerRequestMessage.
+     * @example
+     * // Update one PartnerRequestMessage
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PartnerRequestMessageUpdateArgs>(args: SelectSubset<T, PartnerRequestMessageUpdateArgs<ExtArgs>>): Prisma__PartnerRequestMessageClient<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PartnerRequestMessages.
+     * @param {PartnerRequestMessageDeleteManyArgs} args - Arguments to filter PartnerRequestMessages to delete.
+     * @example
+     * // Delete a few PartnerRequestMessages
+     * const { count } = await prisma.partnerRequestMessage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PartnerRequestMessageDeleteManyArgs>(args?: SelectSubset<T, PartnerRequestMessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PartnerRequestMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestMessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PartnerRequestMessages
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PartnerRequestMessageUpdateManyArgs>(args: SelectSubset<T, PartnerRequestMessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PartnerRequestMessages and returns the data updated in the database.
+     * @param {PartnerRequestMessageUpdateManyAndReturnArgs} args - Arguments to update many PartnerRequestMessages.
+     * @example
+     * // Update many PartnerRequestMessages
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PartnerRequestMessages and only return the `id`
+     * const partnerRequestMessageWithIdOnly = await prisma.partnerRequestMessage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PartnerRequestMessageUpdateManyAndReturnArgs>(args: SelectSubset<T, PartnerRequestMessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PartnerRequestMessage.
+     * @param {PartnerRequestMessageUpsertArgs} args - Arguments to update or create a PartnerRequestMessage.
+     * @example
+     * // Update or create a PartnerRequestMessage
+     * const partnerRequestMessage = await prisma.partnerRequestMessage.upsert({
+     *   create: {
+     *     // ... data to create a PartnerRequestMessage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PartnerRequestMessage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PartnerRequestMessageUpsertArgs>(args: SelectSubset<T, PartnerRequestMessageUpsertArgs<ExtArgs>>): Prisma__PartnerRequestMessageClient<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PartnerRequestMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestMessageCountArgs} args - Arguments to filter PartnerRequestMessages to count.
+     * @example
+     * // Count the number of PartnerRequestMessages
+     * const count = await prisma.partnerRequestMessage.count({
+     *   where: {
+     *     // ... the filter for the PartnerRequestMessages we want to count
+     *   }
+     * })
+    **/
+    count<T extends PartnerRequestMessageCountArgs>(
+      args?: Subset<T, PartnerRequestMessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PartnerRequestMessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PartnerRequestMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestMessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PartnerRequestMessageAggregateArgs>(args: Subset<T, PartnerRequestMessageAggregateArgs>): Prisma.PrismaPromise<GetPartnerRequestMessageAggregateType<T>>
+
+    /**
+     * Group by PartnerRequestMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PartnerRequestMessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PartnerRequestMessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PartnerRequestMessageGroupByArgs['orderBy'] }
+        : { orderBy?: PartnerRequestMessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PartnerRequestMessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPartnerRequestMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PartnerRequestMessage model
+   */
+  readonly fields: PartnerRequestMessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PartnerRequestMessage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PartnerRequestMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    request<T extends PartnerRequestDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PartnerRequestDefaultArgs<ExtArgs>>): Prisma__PartnerRequestClient<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PartnerRequestMessage model
+   */
+  interface PartnerRequestMessageFieldRefs {
+    readonly id: FieldRef<"PartnerRequestMessage", 'String'>
+    readonly requestId: FieldRef<"PartnerRequestMessage", 'String'>
+    readonly senderId: FieldRef<"PartnerRequestMessage", 'String'>
+    readonly content: FieldRef<"PartnerRequestMessage", 'String'>
+    readonly createdAt: FieldRef<"PartnerRequestMessage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PartnerRequestMessage findUnique
+   */
+  export type PartnerRequestMessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequestMessage to fetch.
+     */
+    where: PartnerRequestMessageWhereUniqueInput
+  }
+
+  /**
+   * PartnerRequestMessage findUniqueOrThrow
+   */
+  export type PartnerRequestMessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequestMessage to fetch.
+     */
+    where: PartnerRequestMessageWhereUniqueInput
+  }
+
+  /**
+   * PartnerRequestMessage findFirst
+   */
+  export type PartnerRequestMessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequestMessage to fetch.
+     */
+    where?: PartnerRequestMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerRequestMessages to fetch.
+     */
+    orderBy?: PartnerRequestMessageOrderByWithRelationInput | PartnerRequestMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PartnerRequestMessages.
+     */
+    cursor?: PartnerRequestMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerRequestMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerRequestMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PartnerRequestMessages.
+     */
+    distinct?: PartnerRequestMessageScalarFieldEnum | PartnerRequestMessageScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerRequestMessage findFirstOrThrow
+   */
+  export type PartnerRequestMessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequestMessage to fetch.
+     */
+    where?: PartnerRequestMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerRequestMessages to fetch.
+     */
+    orderBy?: PartnerRequestMessageOrderByWithRelationInput | PartnerRequestMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PartnerRequestMessages.
+     */
+    cursor?: PartnerRequestMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerRequestMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerRequestMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PartnerRequestMessages.
+     */
+    distinct?: PartnerRequestMessageScalarFieldEnum | PartnerRequestMessageScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerRequestMessage findMany
+   */
+  export type PartnerRequestMessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which PartnerRequestMessages to fetch.
+     */
+    where?: PartnerRequestMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PartnerRequestMessages to fetch.
+     */
+    orderBy?: PartnerRequestMessageOrderByWithRelationInput | PartnerRequestMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PartnerRequestMessages.
+     */
+    cursor?: PartnerRequestMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PartnerRequestMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PartnerRequestMessages.
+     */
+    skip?: number
+    distinct?: PartnerRequestMessageScalarFieldEnum | PartnerRequestMessageScalarFieldEnum[]
+  }
+
+  /**
+   * PartnerRequestMessage create
+   */
+  export type PartnerRequestMessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PartnerRequestMessage.
+     */
+    data: XOR<PartnerRequestMessageCreateInput, PartnerRequestMessageUncheckedCreateInput>
+  }
+
+  /**
+   * PartnerRequestMessage createMany
+   */
+  export type PartnerRequestMessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PartnerRequestMessages.
+     */
+    data: PartnerRequestMessageCreateManyInput | PartnerRequestMessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PartnerRequestMessage createManyAndReturn
+   */
+  export type PartnerRequestMessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * The data used to create many PartnerRequestMessages.
+     */
+    data: PartnerRequestMessageCreateManyInput | PartnerRequestMessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PartnerRequestMessage update
+   */
+  export type PartnerRequestMessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PartnerRequestMessage.
+     */
+    data: XOR<PartnerRequestMessageUpdateInput, PartnerRequestMessageUncheckedUpdateInput>
+    /**
+     * Choose, which PartnerRequestMessage to update.
+     */
+    where: PartnerRequestMessageWhereUniqueInput
+  }
+
+  /**
+   * PartnerRequestMessage updateMany
+   */
+  export type PartnerRequestMessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PartnerRequestMessages.
+     */
+    data: XOR<PartnerRequestMessageUpdateManyMutationInput, PartnerRequestMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which PartnerRequestMessages to update
+     */
+    where?: PartnerRequestMessageWhereInput
+    /**
+     * Limit how many PartnerRequestMessages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PartnerRequestMessage updateManyAndReturn
+   */
+  export type PartnerRequestMessageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * The data used to update PartnerRequestMessages.
+     */
+    data: XOR<PartnerRequestMessageUpdateManyMutationInput, PartnerRequestMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which PartnerRequestMessages to update
+     */
+    where?: PartnerRequestMessageWhereInput
+    /**
+     * Limit how many PartnerRequestMessages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PartnerRequestMessage upsert
+   */
+  export type PartnerRequestMessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PartnerRequestMessage to update in case it exists.
+     */
+    where: PartnerRequestMessageWhereUniqueInput
+    /**
+     * In case the PartnerRequestMessage found by the `where` argument doesn't exist, create a new PartnerRequestMessage with this data.
+     */
+    create: XOR<PartnerRequestMessageCreateInput, PartnerRequestMessageUncheckedCreateInput>
+    /**
+     * In case the PartnerRequestMessage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PartnerRequestMessageUpdateInput, PartnerRequestMessageUncheckedUpdateInput>
+  }
+
+  /**
+   * PartnerRequestMessage delete
+   */
+  export type PartnerRequestMessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+    /**
+     * Filter which PartnerRequestMessage to delete.
+     */
+    where: PartnerRequestMessageWhereUniqueInput
+  }
+
+  /**
+   * PartnerRequestMessage deleteMany
+   */
+  export type PartnerRequestMessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PartnerRequestMessages to delete
+     */
+    where?: PartnerRequestMessageWhereInput
+    /**
+     * Limit how many PartnerRequestMessages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PartnerRequestMessage without action
+   */
+  export type PartnerRequestMessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PartnerRequestMessage
+     */
+    select?: PartnerRequestMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PartnerRequestMessage
+     */
+    omit?: PartnerRequestMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PartnerRequestMessageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -22679,7 +31679,10 @@ export namespace Prisma {
     performanceScore: 'performanceScore',
     googleId: 'googleId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    external: 'external',
+    partnerType: 'partnerType',
+    activationToken: 'activationToken'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -22730,6 +31733,101 @@ export namespace Prisma {
   };
 
   export type ReminderNotificationScalarFieldEnum = (typeof ReminderNotificationScalarFieldEnum)[keyof typeof ReminderNotificationScalarFieldEnum]
+
+
+  export const RoleScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    canRead: 'canRead',
+    canWrite: 'canWrite',
+    canComment: 'canComment',
+    canValidate: 'canValidate',
+    canDelete: 'canDelete',
+    canUseVisio: 'canUseVisio',
+    canUseDashboard: 'canUseDashboard',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
+
+
+  export const UserRoleAssignmentScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    roleId: 'roleId',
+    projectId: 'projectId'
+  };
+
+  export type UserRoleAssignmentScalarFieldEnum = (typeof UserRoleAssignmentScalarFieldEnum)[keyof typeof UserRoleAssignmentScalarFieldEnum]
+
+
+  export const ProjectAccessScalarFieldEnum: {
+    id: 'id',
+    projectId: 'projectId',
+    userId: 'userId',
+    canRead: 'canRead',
+    canWrite: 'canWrite',
+    canComment: 'canComment',
+    canValidate: 'canValidate',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProjectAccessScalarFieldEnum = (typeof ProjectAccessScalarFieldEnum)[keyof typeof ProjectAccessScalarFieldEnum]
+
+
+  export const DocumentAccessScalarFieldEnum: {
+    id: 'id',
+    documentId: 'documentId',
+    userId: 'userId',
+    canRead: 'canRead',
+    canWrite: 'canWrite',
+    canComment: 'canComment',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DocumentAccessScalarFieldEnum = (typeof DocumentAccessScalarFieldEnum)[keyof typeof DocumentAccessScalarFieldEnum]
+
+
+  export const PartnerActivityLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    projectId: 'projectId',
+    documentId: 'documentId',
+    action: 'action',
+    createdAt: 'createdAt'
+  };
+
+  export type PartnerActivityLogScalarFieldEnum = (typeof PartnerActivityLogScalarFieldEnum)[keyof typeof PartnerActivityLogScalarFieldEnum]
+
+
+  export const PartnerRequestScalarFieldEnum: {
+    id: 'id',
+    projectId: 'projectId',
+    userId: 'userId',
+    subject: 'subject',
+    message: 'message',
+    attachment: 'attachment',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PartnerRequestScalarFieldEnum = (typeof PartnerRequestScalarFieldEnum)[keyof typeof PartnerRequestScalarFieldEnum]
+
+
+  export const PartnerRequestMessageScalarFieldEnum: {
+    id: 'id',
+    requestId: 'requestId',
+    senderId: 'senderId',
+    content: 'content',
+    createdAt: 'createdAt'
+  };
+
+  export type PartnerRequestMessageScalarFieldEnum = (typeof PartnerRequestMessageScalarFieldEnum)[keyof typeof PartnerRequestMessageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -22979,6 +32077,20 @@ export namespace Prisma {
    */
   export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
     
+
+
+  /**
+   * Reference to a field of type 'RequestStatus'
+   */
+  export type EnumRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequestStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'RequestStatus[]'
+   */
+  export type ListEnumRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequestStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -23014,6 +32126,10 @@ export namespace Prisma {
     columns?: TaskColumnListRelationFilter
     documents?: DocumentListRelationFilter
     template?: XOR<ProjectTemplateNullableScalarRelationFilter, ProjectTemplateWhereInput> | null
+    accesses?: ProjectAccessListRelationFilter
+    partnerRequests?: PartnerRequestListRelationFilter
+    activityLogs?: PartnerActivityLogListRelationFilter
+    roleAssignments?: UserRoleAssignmentListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -23043,6 +32159,10 @@ export namespace Prisma {
     columns?: TaskColumnOrderByRelationAggregateInput
     documents?: DocumentOrderByRelationAggregateInput
     template?: ProjectTemplateOrderByWithRelationInput
+    accesses?: ProjectAccessOrderByRelationAggregateInput
+    partnerRequests?: PartnerRequestOrderByRelationAggregateInput
+    activityLogs?: PartnerActivityLogOrderByRelationAggregateInput
+    roleAssignments?: UserRoleAssignmentOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -23075,6 +32195,10 @@ export namespace Prisma {
     columns?: TaskColumnListRelationFilter
     documents?: DocumentListRelationFilter
     template?: XOR<ProjectTemplateNullableScalarRelationFilter, ProjectTemplateWhereInput> | null
+    accesses?: ProjectAccessListRelationFilter
+    partnerRequests?: PartnerRequestListRelationFilter
+    activityLogs?: PartnerActivityLogListRelationFilter
+    roleAssignments?: UserRoleAssignmentListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -23529,6 +32653,8 @@ export namespace Prisma {
     comments?: DocumentCommentListRelationFilter
     notificationRules?: DocumentNotificationRuleListRelationFilter
     signatures?: DocumentSignatureListRelationFilter
+    accesses?: DocumentAccessListRelationFilter
+    activityLogs?: PartnerActivityLogListRelationFilter
   }
 
   export type DocumentOrderByWithRelationInput = {
@@ -23549,6 +32675,8 @@ export namespace Prisma {
     comments?: DocumentCommentOrderByRelationAggregateInput
     notificationRules?: DocumentNotificationRuleOrderByRelationAggregateInput
     signatures?: DocumentSignatureOrderByRelationAggregateInput
+    accesses?: DocumentAccessOrderByRelationAggregateInput
+    activityLogs?: PartnerActivityLogOrderByRelationAggregateInput
   }
 
   export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -23572,6 +32700,8 @@ export namespace Prisma {
     comments?: DocumentCommentListRelationFilter
     notificationRules?: DocumentNotificationRuleListRelationFilter
     signatures?: DocumentSignatureListRelationFilter
+    accesses?: DocumentAccessListRelationFilter
+    activityLogs?: PartnerActivityLogListRelationFilter
   }, "id">
 
   export type DocumentOrderByWithAggregationInput = {
@@ -23959,11 +33089,20 @@ export namespace Prisma {
     googleId?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    external?: BoolFilter<"User"> | boolean
+    partnerType?: StringNullableFilter<"User"> | string | null
+    activationToken?: StringNullableFilter<"User"> | string | null
     projectsOwned?: ProjectListRelationFilter
     documents?: DocumentListRelationFilter
     comments?: CommentListRelationFilter
     Task?: TaskListRelationFilter
     ProjectMember?: ProjectMemberListRelationFilter
+    projectAccess?: ProjectAccessListRelationFilter
+    documentAccess?: DocumentAccessListRelationFilter
+    partnerRequests?: PartnerRequestListRelationFilter
+    partnerMessages?: PartnerRequestMessageListRelationFilter
+    activityLogs?: PartnerActivityLogListRelationFilter
+    roleAssignments?: UserRoleAssignmentListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -23979,11 +33118,20 @@ export namespace Prisma {
     googleId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    external?: SortOrder
+    partnerType?: SortOrderInput | SortOrder
+    activationToken?: SortOrderInput | SortOrder
     projectsOwned?: ProjectOrderByRelationAggregateInput
     documents?: DocumentOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
     Task?: TaskOrderByRelationAggregateInput
     ProjectMember?: ProjectMemberOrderByRelationAggregateInput
+    projectAccess?: ProjectAccessOrderByRelationAggregateInput
+    documentAccess?: DocumentAccessOrderByRelationAggregateInput
+    partnerRequests?: PartnerRequestOrderByRelationAggregateInput
+    partnerMessages?: PartnerRequestMessageOrderByRelationAggregateInput
+    activityLogs?: PartnerActivityLogOrderByRelationAggregateInput
+    roleAssignments?: UserRoleAssignmentOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -24002,11 +33150,20 @@ export namespace Prisma {
     performanceScore?: FloatFilter<"User"> | number
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    external?: BoolFilter<"User"> | boolean
+    partnerType?: StringNullableFilter<"User"> | string | null
+    activationToken?: StringNullableFilter<"User"> | string | null
     projectsOwned?: ProjectListRelationFilter
     documents?: DocumentListRelationFilter
     comments?: CommentListRelationFilter
     Task?: TaskListRelationFilter
     ProjectMember?: ProjectMemberListRelationFilter
+    projectAccess?: ProjectAccessListRelationFilter
+    documentAccess?: DocumentAccessListRelationFilter
+    partnerRequests?: PartnerRequestListRelationFilter
+    partnerMessages?: PartnerRequestMessageListRelationFilter
+    activityLogs?: PartnerActivityLogListRelationFilter
+    roleAssignments?: UserRoleAssignmentListRelationFilter
   }, "id" | "email" | "googleId">
 
   export type UserOrderByWithAggregationInput = {
@@ -24022,6 +33179,9 @@ export namespace Prisma {
     googleId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    external?: SortOrder
+    partnerType?: SortOrderInput | SortOrder
+    activationToken?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -24045,6 +33205,9 @@ export namespace Prisma {
     googleId?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    external?: BoolWithAggregatesFilter<"User"> | boolean
+    partnerType?: StringNullableWithAggregatesFilter<"User"> | string | null
+    activationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type ProjectTemplateWhereInput = {
@@ -24287,6 +33450,508 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ReminderNotification"> | Date | string
   }
 
+  export type RoleWhereInput = {
+    AND?: RoleWhereInput | RoleWhereInput[]
+    OR?: RoleWhereInput[]
+    NOT?: RoleWhereInput | RoleWhereInput[]
+    id?: StringFilter<"Role"> | string
+    name?: StringFilter<"Role"> | string
+    description?: StringNullableFilter<"Role"> | string | null
+    canRead?: BoolFilter<"Role"> | boolean
+    canWrite?: BoolFilter<"Role"> | boolean
+    canComment?: BoolFilter<"Role"> | boolean
+    canValidate?: BoolFilter<"Role"> | boolean
+    canDelete?: BoolFilter<"Role"> | boolean
+    canUseVisio?: BoolFilter<"Role"> | boolean
+    canUseDashboard?: BoolFilter<"Role"> | boolean
+    createdAt?: DateTimeFilter<"Role"> | Date | string
+    updatedAt?: DateTimeFilter<"Role"> | Date | string
+    assignments?: UserRoleAssignmentListRelationFilter
+  }
+
+  export type RoleOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    canDelete?: SortOrder
+    canUseVisio?: SortOrder
+    canUseDashboard?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    assignments?: UserRoleAssignmentOrderByRelationAggregateInput
+  }
+
+  export type RoleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RoleWhereInput | RoleWhereInput[]
+    OR?: RoleWhereInput[]
+    NOT?: RoleWhereInput | RoleWhereInput[]
+    name?: StringFilter<"Role"> | string
+    description?: StringNullableFilter<"Role"> | string | null
+    canRead?: BoolFilter<"Role"> | boolean
+    canWrite?: BoolFilter<"Role"> | boolean
+    canComment?: BoolFilter<"Role"> | boolean
+    canValidate?: BoolFilter<"Role"> | boolean
+    canDelete?: BoolFilter<"Role"> | boolean
+    canUseVisio?: BoolFilter<"Role"> | boolean
+    canUseDashboard?: BoolFilter<"Role"> | boolean
+    createdAt?: DateTimeFilter<"Role"> | Date | string
+    updatedAt?: DateTimeFilter<"Role"> | Date | string
+    assignments?: UserRoleAssignmentListRelationFilter
+  }, "id">
+
+  export type RoleOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    canDelete?: SortOrder
+    canUseVisio?: SortOrder
+    canUseDashboard?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: RoleCountOrderByAggregateInput
+    _max?: RoleMaxOrderByAggregateInput
+    _min?: RoleMinOrderByAggregateInput
+  }
+
+  export type RoleScalarWhereWithAggregatesInput = {
+    AND?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
+    OR?: RoleScalarWhereWithAggregatesInput[]
+    NOT?: RoleScalarWhereWithAggregatesInput | RoleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Role"> | string
+    name?: StringWithAggregatesFilter<"Role"> | string
+    description?: StringNullableWithAggregatesFilter<"Role"> | string | null
+    canRead?: BoolWithAggregatesFilter<"Role"> | boolean
+    canWrite?: BoolWithAggregatesFilter<"Role"> | boolean
+    canComment?: BoolWithAggregatesFilter<"Role"> | boolean
+    canValidate?: BoolWithAggregatesFilter<"Role"> | boolean
+    canDelete?: BoolWithAggregatesFilter<"Role"> | boolean
+    canUseVisio?: BoolWithAggregatesFilter<"Role"> | boolean
+    canUseDashboard?: BoolWithAggregatesFilter<"Role"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Role"> | Date | string
+  }
+
+  export type UserRoleAssignmentWhereInput = {
+    AND?: UserRoleAssignmentWhereInput | UserRoleAssignmentWhereInput[]
+    OR?: UserRoleAssignmentWhereInput[]
+    NOT?: UserRoleAssignmentWhereInput | UserRoleAssignmentWhereInput[]
+    id?: StringFilter<"UserRoleAssignment"> | string
+    userId?: StringFilter<"UserRoleAssignment"> | string
+    roleId?: StringFilter<"UserRoleAssignment"> | string
+    projectId?: StringNullableFilter<"UserRoleAssignment"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+  }
+
+  export type UserRoleAssignmentOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    role?: RoleOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
+  }
+
+  export type UserRoleAssignmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: UserRoleAssignmentWhereInput | UserRoleAssignmentWhereInput[]
+    OR?: UserRoleAssignmentWhereInput[]
+    NOT?: UserRoleAssignmentWhereInput | UserRoleAssignmentWhereInput[]
+    userId?: StringFilter<"UserRoleAssignment"> | string
+    roleId?: StringFilter<"UserRoleAssignment"> | string
+    projectId?: StringNullableFilter<"UserRoleAssignment"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    role?: XOR<RoleScalarRelationFilter, RoleWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+  }, "id">
+
+  export type UserRoleAssignmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
+    _count?: UserRoleAssignmentCountOrderByAggregateInput
+    _max?: UserRoleAssignmentMaxOrderByAggregateInput
+    _min?: UserRoleAssignmentMinOrderByAggregateInput
+  }
+
+  export type UserRoleAssignmentScalarWhereWithAggregatesInput = {
+    AND?: UserRoleAssignmentScalarWhereWithAggregatesInput | UserRoleAssignmentScalarWhereWithAggregatesInput[]
+    OR?: UserRoleAssignmentScalarWhereWithAggregatesInput[]
+    NOT?: UserRoleAssignmentScalarWhereWithAggregatesInput | UserRoleAssignmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserRoleAssignment"> | string
+    userId?: StringWithAggregatesFilter<"UserRoleAssignment"> | string
+    roleId?: StringWithAggregatesFilter<"UserRoleAssignment"> | string
+    projectId?: StringNullableWithAggregatesFilter<"UserRoleAssignment"> | string | null
+  }
+
+  export type ProjectAccessWhereInput = {
+    AND?: ProjectAccessWhereInput | ProjectAccessWhereInput[]
+    OR?: ProjectAccessWhereInput[]
+    NOT?: ProjectAccessWhereInput | ProjectAccessWhereInput[]
+    id?: StringFilter<"ProjectAccess"> | string
+    projectId?: StringFilter<"ProjectAccess"> | string
+    userId?: StringFilter<"ProjectAccess"> | string
+    canRead?: BoolFilter<"ProjectAccess"> | boolean
+    canWrite?: BoolFilter<"ProjectAccess"> | boolean
+    canComment?: BoolFilter<"ProjectAccess"> | boolean
+    canValidate?: BoolFilter<"ProjectAccess"> | boolean
+    createdAt?: DateTimeFilter<"ProjectAccess"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectAccess"> | Date | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ProjectAccessOrderByWithRelationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    project?: ProjectOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ProjectAccessWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProjectAccessWhereInput | ProjectAccessWhereInput[]
+    OR?: ProjectAccessWhereInput[]
+    NOT?: ProjectAccessWhereInput | ProjectAccessWhereInput[]
+    projectId?: StringFilter<"ProjectAccess"> | string
+    userId?: StringFilter<"ProjectAccess"> | string
+    canRead?: BoolFilter<"ProjectAccess"> | boolean
+    canWrite?: BoolFilter<"ProjectAccess"> | boolean
+    canComment?: BoolFilter<"ProjectAccess"> | boolean
+    canValidate?: BoolFilter<"ProjectAccess"> | boolean
+    createdAt?: DateTimeFilter<"ProjectAccess"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectAccess"> | Date | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ProjectAccessOrderByWithAggregationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProjectAccessCountOrderByAggregateInput
+    _max?: ProjectAccessMaxOrderByAggregateInput
+    _min?: ProjectAccessMinOrderByAggregateInput
+  }
+
+  export type ProjectAccessScalarWhereWithAggregatesInput = {
+    AND?: ProjectAccessScalarWhereWithAggregatesInput | ProjectAccessScalarWhereWithAggregatesInput[]
+    OR?: ProjectAccessScalarWhereWithAggregatesInput[]
+    NOT?: ProjectAccessScalarWhereWithAggregatesInput | ProjectAccessScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ProjectAccess"> | string
+    projectId?: StringWithAggregatesFilter<"ProjectAccess"> | string
+    userId?: StringWithAggregatesFilter<"ProjectAccess"> | string
+    canRead?: BoolWithAggregatesFilter<"ProjectAccess"> | boolean
+    canWrite?: BoolWithAggregatesFilter<"ProjectAccess"> | boolean
+    canComment?: BoolWithAggregatesFilter<"ProjectAccess"> | boolean
+    canValidate?: BoolWithAggregatesFilter<"ProjectAccess"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"ProjectAccess"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ProjectAccess"> | Date | string
+  }
+
+  export type DocumentAccessWhereInput = {
+    AND?: DocumentAccessWhereInput | DocumentAccessWhereInput[]
+    OR?: DocumentAccessWhereInput[]
+    NOT?: DocumentAccessWhereInput | DocumentAccessWhereInput[]
+    id?: StringFilter<"DocumentAccess"> | string
+    documentId?: StringFilter<"DocumentAccess"> | string
+    userId?: StringFilter<"DocumentAccess"> | string
+    canRead?: BoolFilter<"DocumentAccess"> | boolean
+    canWrite?: BoolFilter<"DocumentAccess"> | boolean
+    canComment?: BoolFilter<"DocumentAccess"> | boolean
+    createdAt?: DateTimeFilter<"DocumentAccess"> | Date | string
+    updatedAt?: DateTimeFilter<"DocumentAccess"> | Date | string
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type DocumentAccessOrderByWithRelationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    document?: DocumentOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type DocumentAccessWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DocumentAccessWhereInput | DocumentAccessWhereInput[]
+    OR?: DocumentAccessWhereInput[]
+    NOT?: DocumentAccessWhereInput | DocumentAccessWhereInput[]
+    documentId?: StringFilter<"DocumentAccess"> | string
+    userId?: StringFilter<"DocumentAccess"> | string
+    canRead?: BoolFilter<"DocumentAccess"> | boolean
+    canWrite?: BoolFilter<"DocumentAccess"> | boolean
+    canComment?: BoolFilter<"DocumentAccess"> | boolean
+    createdAt?: DateTimeFilter<"DocumentAccess"> | Date | string
+    updatedAt?: DateTimeFilter<"DocumentAccess"> | Date | string
+    document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type DocumentAccessOrderByWithAggregationInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DocumentAccessCountOrderByAggregateInput
+    _max?: DocumentAccessMaxOrderByAggregateInput
+    _min?: DocumentAccessMinOrderByAggregateInput
+  }
+
+  export type DocumentAccessScalarWhereWithAggregatesInput = {
+    AND?: DocumentAccessScalarWhereWithAggregatesInput | DocumentAccessScalarWhereWithAggregatesInput[]
+    OR?: DocumentAccessScalarWhereWithAggregatesInput[]
+    NOT?: DocumentAccessScalarWhereWithAggregatesInput | DocumentAccessScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DocumentAccess"> | string
+    documentId?: StringWithAggregatesFilter<"DocumentAccess"> | string
+    userId?: StringWithAggregatesFilter<"DocumentAccess"> | string
+    canRead?: BoolWithAggregatesFilter<"DocumentAccess"> | boolean
+    canWrite?: BoolWithAggregatesFilter<"DocumentAccess"> | boolean
+    canComment?: BoolWithAggregatesFilter<"DocumentAccess"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"DocumentAccess"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DocumentAccess"> | Date | string
+  }
+
+  export type PartnerActivityLogWhereInput = {
+    AND?: PartnerActivityLogWhereInput | PartnerActivityLogWhereInput[]
+    OR?: PartnerActivityLogWhereInput[]
+    NOT?: PartnerActivityLogWhereInput | PartnerActivityLogWhereInput[]
+    id?: StringFilter<"PartnerActivityLog"> | string
+    userId?: StringFilter<"PartnerActivityLog"> | string
+    projectId?: StringNullableFilter<"PartnerActivityLog"> | string | null
+    documentId?: StringNullableFilter<"PartnerActivityLog"> | string | null
+    action?: StringFilter<"PartnerActivityLog"> | string
+    createdAt?: DateTimeFilter<"PartnerActivityLog"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+    document?: XOR<DocumentNullableScalarRelationFilter, DocumentWhereInput> | null
+  }
+
+  export type PartnerActivityLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
+    documentId?: SortOrderInput | SortOrder
+    action?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
+    document?: DocumentOrderByWithRelationInput
+  }
+
+  export type PartnerActivityLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PartnerActivityLogWhereInput | PartnerActivityLogWhereInput[]
+    OR?: PartnerActivityLogWhereInput[]
+    NOT?: PartnerActivityLogWhereInput | PartnerActivityLogWhereInput[]
+    userId?: StringFilter<"PartnerActivityLog"> | string
+    projectId?: StringNullableFilter<"PartnerActivityLog"> | string | null
+    documentId?: StringNullableFilter<"PartnerActivityLog"> | string | null
+    action?: StringFilter<"PartnerActivityLog"> | string
+    createdAt?: DateTimeFilter<"PartnerActivityLog"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    project?: XOR<ProjectNullableScalarRelationFilter, ProjectWhereInput> | null
+    document?: XOR<DocumentNullableScalarRelationFilter, DocumentWhereInput> | null
+  }, "id">
+
+  export type PartnerActivityLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    projectId?: SortOrderInput | SortOrder
+    documentId?: SortOrderInput | SortOrder
+    action?: SortOrder
+    createdAt?: SortOrder
+    _count?: PartnerActivityLogCountOrderByAggregateInput
+    _max?: PartnerActivityLogMaxOrderByAggregateInput
+    _min?: PartnerActivityLogMinOrderByAggregateInput
+  }
+
+  export type PartnerActivityLogScalarWhereWithAggregatesInput = {
+    AND?: PartnerActivityLogScalarWhereWithAggregatesInput | PartnerActivityLogScalarWhereWithAggregatesInput[]
+    OR?: PartnerActivityLogScalarWhereWithAggregatesInput[]
+    NOT?: PartnerActivityLogScalarWhereWithAggregatesInput | PartnerActivityLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PartnerActivityLog"> | string
+    userId?: StringWithAggregatesFilter<"PartnerActivityLog"> | string
+    projectId?: StringNullableWithAggregatesFilter<"PartnerActivityLog"> | string | null
+    documentId?: StringNullableWithAggregatesFilter<"PartnerActivityLog"> | string | null
+    action?: StringWithAggregatesFilter<"PartnerActivityLog"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PartnerActivityLog"> | Date | string
+  }
+
+  export type PartnerRequestWhereInput = {
+    AND?: PartnerRequestWhereInput | PartnerRequestWhereInput[]
+    OR?: PartnerRequestWhereInput[]
+    NOT?: PartnerRequestWhereInput | PartnerRequestWhereInput[]
+    id?: StringFilter<"PartnerRequest"> | string
+    projectId?: StringFilter<"PartnerRequest"> | string
+    userId?: StringFilter<"PartnerRequest"> | string
+    subject?: StringFilter<"PartnerRequest"> | string
+    message?: StringFilter<"PartnerRequest"> | string
+    attachment?: StringNullableFilter<"PartnerRequest"> | string | null
+    status?: EnumRequestStatusFilter<"PartnerRequest"> | $Enums.RequestStatus
+    createdAt?: DateTimeFilter<"PartnerRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"PartnerRequest"> | Date | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    messages?: PartnerRequestMessageListRelationFilter
+  }
+
+  export type PartnerRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    attachment?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    project?: ProjectOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    messages?: PartnerRequestMessageOrderByRelationAggregateInput
+  }
+
+  export type PartnerRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PartnerRequestWhereInput | PartnerRequestWhereInput[]
+    OR?: PartnerRequestWhereInput[]
+    NOT?: PartnerRequestWhereInput | PartnerRequestWhereInput[]
+    projectId?: StringFilter<"PartnerRequest"> | string
+    userId?: StringFilter<"PartnerRequest"> | string
+    subject?: StringFilter<"PartnerRequest"> | string
+    message?: StringFilter<"PartnerRequest"> | string
+    attachment?: StringNullableFilter<"PartnerRequest"> | string | null
+    status?: EnumRequestStatusFilter<"PartnerRequest"> | $Enums.RequestStatus
+    createdAt?: DateTimeFilter<"PartnerRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"PartnerRequest"> | Date | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    messages?: PartnerRequestMessageListRelationFilter
+  }, "id">
+
+  export type PartnerRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    attachment?: SortOrderInput | SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PartnerRequestCountOrderByAggregateInput
+    _max?: PartnerRequestMaxOrderByAggregateInput
+    _min?: PartnerRequestMinOrderByAggregateInput
+  }
+
+  export type PartnerRequestScalarWhereWithAggregatesInput = {
+    AND?: PartnerRequestScalarWhereWithAggregatesInput | PartnerRequestScalarWhereWithAggregatesInput[]
+    OR?: PartnerRequestScalarWhereWithAggregatesInput[]
+    NOT?: PartnerRequestScalarWhereWithAggregatesInput | PartnerRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PartnerRequest"> | string
+    projectId?: StringWithAggregatesFilter<"PartnerRequest"> | string
+    userId?: StringWithAggregatesFilter<"PartnerRequest"> | string
+    subject?: StringWithAggregatesFilter<"PartnerRequest"> | string
+    message?: StringWithAggregatesFilter<"PartnerRequest"> | string
+    attachment?: StringNullableWithAggregatesFilter<"PartnerRequest"> | string | null
+    status?: EnumRequestStatusWithAggregatesFilter<"PartnerRequest"> | $Enums.RequestStatus
+    createdAt?: DateTimeWithAggregatesFilter<"PartnerRequest"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PartnerRequest"> | Date | string
+  }
+
+  export type PartnerRequestMessageWhereInput = {
+    AND?: PartnerRequestMessageWhereInput | PartnerRequestMessageWhereInput[]
+    OR?: PartnerRequestMessageWhereInput[]
+    NOT?: PartnerRequestMessageWhereInput | PartnerRequestMessageWhereInput[]
+    id?: StringFilter<"PartnerRequestMessage"> | string
+    requestId?: StringFilter<"PartnerRequestMessage"> | string
+    senderId?: StringFilter<"PartnerRequestMessage"> | string
+    content?: StringFilter<"PartnerRequestMessage"> | string
+    createdAt?: DateTimeFilter<"PartnerRequestMessage"> | Date | string
+    request?: XOR<PartnerRequestScalarRelationFilter, PartnerRequestWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type PartnerRequestMessageOrderByWithRelationInput = {
+    id?: SortOrder
+    requestId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    request?: PartnerRequestOrderByWithRelationInput
+    sender?: UserOrderByWithRelationInput
+  }
+
+  export type PartnerRequestMessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PartnerRequestMessageWhereInput | PartnerRequestMessageWhereInput[]
+    OR?: PartnerRequestMessageWhereInput[]
+    NOT?: PartnerRequestMessageWhereInput | PartnerRequestMessageWhereInput[]
+    requestId?: StringFilter<"PartnerRequestMessage"> | string
+    senderId?: StringFilter<"PartnerRequestMessage"> | string
+    content?: StringFilter<"PartnerRequestMessage"> | string
+    createdAt?: DateTimeFilter<"PartnerRequestMessage"> | Date | string
+    request?: XOR<PartnerRequestScalarRelationFilter, PartnerRequestWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type PartnerRequestMessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    requestId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    _count?: PartnerRequestMessageCountOrderByAggregateInput
+    _max?: PartnerRequestMessageMaxOrderByAggregateInput
+    _min?: PartnerRequestMessageMinOrderByAggregateInput
+  }
+
+  export type PartnerRequestMessageScalarWhereWithAggregatesInput = {
+    AND?: PartnerRequestMessageScalarWhereWithAggregatesInput | PartnerRequestMessageScalarWhereWithAggregatesInput[]
+    OR?: PartnerRequestMessageScalarWhereWithAggregatesInput[]
+    NOT?: PartnerRequestMessageScalarWhereWithAggregatesInput | PartnerRequestMessageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PartnerRequestMessage"> | string
+    requestId?: StringWithAggregatesFilter<"PartnerRequestMessage"> | string
+    senderId?: StringWithAggregatesFilter<"PartnerRequestMessage"> | string
+    content?: StringWithAggregatesFilter<"PartnerRequestMessage"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PartnerRequestMessage"> | Date | string
+  }
+
   export type ProjectCreateInput = {
     id?: string
     name: string
@@ -24312,6 +33977,10 @@ export namespace Prisma {
     columns?: TaskColumnCreateNestedManyWithoutProjectInput
     documents?: DocumentCreateNestedManyWithoutProjectInput
     template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -24339,6 +34008,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
     columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
     documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -24366,6 +34039,10 @@ export namespace Prisma {
     columns?: TaskColumnUpdateManyWithoutProjectNestedInput
     documents?: DocumentUpdateManyWithoutProjectNestedInput
     template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -24393,6 +34070,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -24863,6 +34544,8 @@ export namespace Prisma {
     comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateInput = {
@@ -24881,6 +34564,8 @@ export namespace Prisma {
     comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUpdateInput = {
@@ -24899,6 +34584,8 @@ export namespace Prisma {
     comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateInput = {
@@ -24917,6 +34604,8 @@ export namespace Prisma {
     comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentCreateManyInput = {
@@ -25323,11 +35012,20 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     comments?: CommentCreateNestedManyWithoutAuthorInput
     Task?: TaskCreateNestedManyWithoutAssigneeInput
     ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -25343,11 +35041,20 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
     ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -25363,11 +35070,20 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     Task?: TaskUpdateManyWithoutAssigneeNestedInput
     ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -25383,11 +35099,20 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
     ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -25403,6 +35128,9 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -25418,6 +35146,9 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -25433,6 +35164,9 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProjectTemplateCreateInput = {
@@ -25690,6 +35424,518 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RoleCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignments?: UserRoleAssignmentCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    assignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutRoleInput
+  }
+
+  export type RoleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
+    canUseVisio?: BoolFieldUpdateOperationsInput | boolean
+    canUseDashboard?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignments?: UserRoleAssignmentUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
+    canUseVisio?: BoolFieldUpdateOperationsInput | boolean
+    canUseDashboard?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    assignments?: UserRoleAssignmentUncheckedUpdateManyWithoutRoleNestedInput
+  }
+
+  export type RoleCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RoleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
+    canUseVisio?: BoolFieldUpdateOperationsInput | boolean
+    canUseDashboard?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RoleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
+    canUseVisio?: BoolFieldUpdateOperationsInput | boolean
+    canUseDashboard?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleAssignmentCreateInput = {
+    id?: string
+    user: UserCreateNestedOneWithoutRoleAssignmentsInput
+    role: RoleCreateNestedOneWithoutAssignmentsInput
+    project?: ProjectCreateNestedOneWithoutRoleAssignmentsInput
+  }
+
+  export type UserRoleAssignmentUncheckedCreateInput = {
+    id?: string
+    userId: string
+    roleId: string
+    projectId?: string | null
+  }
+
+  export type UserRoleAssignmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutRoleAssignmentsNestedInput
+    role?: RoleUpdateOneRequiredWithoutAssignmentsNestedInput
+    project?: ProjectUpdateOneWithoutRoleAssignmentsNestedInput
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserRoleAssignmentCreateManyInput = {
+    id?: string
+    userId: string
+    roleId: string
+    projectId?: string | null
+  }
+
+  export type UserRoleAssignmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProjectAccessCreateInput = {
+    id?: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutAccessesInput
+    user: UserCreateNestedOneWithoutProjectAccessInput
+  }
+
+  export type ProjectAccessUncheckedCreateInput = {
+    id?: string
+    projectId: string
+    userId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectAccessUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutAccessesNestedInput
+    user?: UserUpdateOneRequiredWithoutProjectAccessNestedInput
+  }
+
+  export type ProjectAccessUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectAccessCreateManyInput = {
+    id?: string
+    projectId: string
+    userId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectAccessUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectAccessUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentAccessCreateInput = {
+    id?: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    document: DocumentCreateNestedOneWithoutAccessesInput
+    user: UserCreateNestedOneWithoutDocumentAccessInput
+  }
+
+  export type DocumentAccessUncheckedCreateInput = {
+    id?: string
+    documentId: string
+    userId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentAccessUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    document?: DocumentUpdateOneRequiredWithoutAccessesNestedInput
+    user?: UserUpdateOneRequiredWithoutDocumentAccessNestedInput
+  }
+
+  export type DocumentAccessUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentAccessCreateManyInput = {
+    id?: string
+    documentId: string
+    userId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentAccessUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentAccessUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogCreateInput = {
+    id?: string
+    action: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutActivityLogsInput
+    project?: ProjectCreateNestedOneWithoutActivityLogsInput
+    document?: DocumentCreateNestedOneWithoutActivityLogsInput
+  }
+
+  export type PartnerActivityLogUncheckedCreateInput = {
+    id?: string
+    userId: string
+    projectId?: string | null
+    documentId?: string | null
+    action: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerActivityLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutActivityLogsNestedInput
+    project?: ProjectUpdateOneWithoutActivityLogsNestedInput
+    document?: DocumentUpdateOneWithoutActivityLogsNestedInput
+  }
+
+  export type PartnerActivityLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    documentId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogCreateManyInput = {
+    id?: string
+    userId: string
+    projectId?: string | null
+    documentId?: string | null
+    action: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerActivityLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    documentId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestCreateInput = {
+    id?: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutPartnerRequestsInput
+    user: UserCreateNestedOneWithoutPartnerRequestsInput
+    messages?: PartnerRequestMessageCreateNestedManyWithoutRequestInput
+  }
+
+  export type PartnerRequestUncheckedCreateInput = {
+    id?: string
+    projectId: string
+    userId: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutRequestInput
+  }
+
+  export type PartnerRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutPartnerRequestsNestedInput
+    user?: UserUpdateOneRequiredWithoutPartnerRequestsNestedInput
+    messages?: PartnerRequestMessageUpdateManyWithoutRequestNestedInput
+  }
+
+  export type PartnerRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: PartnerRequestMessageUncheckedUpdateManyWithoutRequestNestedInput
+  }
+
+  export type PartnerRequestCreateManyInput = {
+    id?: string
+    projectId: string
+    userId: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PartnerRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestMessageCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    request: PartnerRequestCreateNestedOneWithoutMessagesInput
+    sender: UserCreateNestedOneWithoutPartnerMessagesInput
+  }
+
+  export type PartnerRequestMessageUncheckedCreateInput = {
+    id?: string
+    requestId: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerRequestMessageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    request?: PartnerRequestUpdateOneRequiredWithoutMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutPartnerMessagesNestedInput
+  }
+
+  export type PartnerRequestMessageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestMessageCreateManyInput = {
+    id?: string
+    requestId: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerRequestMessageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestMessageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -25853,6 +36099,30 @@ export namespace Prisma {
     isNot?: ProjectTemplateWhereInput | null
   }
 
+  export type ProjectAccessListRelationFilter = {
+    every?: ProjectAccessWhereInput
+    some?: ProjectAccessWhereInput
+    none?: ProjectAccessWhereInput
+  }
+
+  export type PartnerRequestListRelationFilter = {
+    every?: PartnerRequestWhereInput
+    some?: PartnerRequestWhereInput
+    none?: PartnerRequestWhereInput
+  }
+
+  export type PartnerActivityLogListRelationFilter = {
+    every?: PartnerActivityLogWhereInput
+    some?: PartnerActivityLogWhereInput
+    none?: PartnerActivityLogWhereInput
+  }
+
+  export type UserRoleAssignmentListRelationFilter = {
+    every?: UserRoleAssignmentWhereInput
+    some?: UserRoleAssignmentWhereInput
+    none?: UserRoleAssignmentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -25875,6 +36145,22 @@ export namespace Prisma {
   }
 
   export type DocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProjectAccessOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PartnerRequestOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PartnerActivityLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserRoleAssignmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26477,6 +36763,12 @@ export namespace Prisma {
     none?: DocumentSignatureWhereInput
   }
 
+  export type DocumentAccessListRelationFilter = {
+    every?: DocumentAccessWhereInput
+    some?: DocumentAccessWhereInput
+    none?: DocumentAccessWhereInput
+  }
+
   export type DocumentVersionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -26490,6 +36782,10 @@ export namespace Prisma {
   }
 
   export type DocumentSignatureOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DocumentAccessOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26732,7 +37028,17 @@ export namespace Prisma {
     none?: ProjectWhereInput
   }
 
+  export type PartnerRequestMessageListRelationFilter = {
+    every?: PartnerRequestMessageWhereInput
+    some?: PartnerRequestMessageWhereInput
+    none?: PartnerRequestMessageWhereInput
+  }
+
   export type ProjectOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PartnerRequestMessageOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -26749,6 +37055,9 @@ export namespace Prisma {
     googleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    external?: SortOrder
+    partnerType?: SortOrder
+    activationToken?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -26768,6 +37077,9 @@ export namespace Prisma {
     googleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    external?: SortOrder
+    partnerType?: SortOrder
+    activationToken?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -26782,6 +37094,9 @@ export namespace Prisma {
     googleId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    external?: SortOrder
+    partnerType?: SortOrder
+    activationToken?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -26942,6 +37257,260 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type RoleCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    canDelete?: SortOrder
+    canUseVisio?: SortOrder
+    canUseDashboard?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RoleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    canDelete?: SortOrder
+    canUseVisio?: SortOrder
+    canUseDashboard?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RoleMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    canDelete?: SortOrder
+    canUseVisio?: SortOrder
+    canUseDashboard?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type RoleScalarRelationFilter = {
+    is?: RoleWhereInput
+    isNot?: RoleWhereInput
+  }
+
+  export type UserRoleAssignmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type UserRoleAssignmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type UserRoleAssignmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    roleId?: SortOrder
+    projectId?: SortOrder
+  }
+
+  export type ProjectAccessCountOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectAccessMaxOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProjectAccessMinOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    canValidate?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DocumentAccessCountOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DocumentAccessMaxOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DocumentAccessMinOrderByAggregateInput = {
+    id?: SortOrder
+    documentId?: SortOrder
+    userId?: SortOrder
+    canRead?: SortOrder
+    canWrite?: SortOrder
+    canComment?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DocumentNullableScalarRelationFilter = {
+    is?: DocumentWhereInput | null
+    isNot?: DocumentWhereInput | null
+  }
+
+  export type PartnerActivityLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    projectId?: SortOrder
+    documentId?: SortOrder
+    action?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PartnerActivityLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    projectId?: SortOrder
+    documentId?: SortOrder
+    action?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PartnerActivityLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    projectId?: SortOrder
+    documentId?: SortOrder
+    action?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EnumRequestStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RequestStatus | EnumRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RequestStatus[] | ListEnumRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RequestStatus[] | ListEnumRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRequestStatusFilter<$PrismaModel> | $Enums.RequestStatus
+  }
+
+  export type PartnerRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    attachment?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PartnerRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    attachment?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PartnerRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    userId?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    attachment?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RequestStatus | EnumRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RequestStatus[] | ListEnumRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RequestStatus[] | ListEnumRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.RequestStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRequestStatusFilter<$PrismaModel>
+    _max?: NestedEnumRequestStatusFilter<$PrismaModel>
+  }
+
+  export type PartnerRequestScalarRelationFilter = {
+    is?: PartnerRequestWhereInput
+    isNot?: PartnerRequestWhereInput
+  }
+
+  export type PartnerRequestMessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    requestId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PartnerRequestMessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    requestId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PartnerRequestMessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    requestId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutProjectsOwnedInput = {
     create?: XOR<UserCreateWithoutProjectsOwnedInput, UserUncheckedCreateWithoutProjectsOwnedInput>
     connectOrCreate?: UserCreateOrConnectWithoutProjectsOwnedInput
@@ -26989,6 +37558,34 @@ export namespace Prisma {
     connect?: ProjectTemplateWhereUniqueInput
   }
 
+  export type ProjectAccessCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ProjectAccessCreateWithoutProjectInput, ProjectAccessUncheckedCreateWithoutProjectInput> | ProjectAccessCreateWithoutProjectInput[] | ProjectAccessUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectAccessCreateOrConnectWithoutProjectInput | ProjectAccessCreateOrConnectWithoutProjectInput[]
+    createMany?: ProjectAccessCreateManyProjectInputEnvelope
+    connect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+  }
+
+  export type PartnerRequestCreateNestedManyWithoutProjectInput = {
+    create?: XOR<PartnerRequestCreateWithoutProjectInput, PartnerRequestUncheckedCreateWithoutProjectInput> | PartnerRequestCreateWithoutProjectInput[] | PartnerRequestUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutProjectInput | PartnerRequestCreateOrConnectWithoutProjectInput[]
+    createMany?: PartnerRequestCreateManyProjectInputEnvelope
+    connect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+  }
+
+  export type PartnerActivityLogCreateNestedManyWithoutProjectInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutProjectInput, PartnerActivityLogUncheckedCreateWithoutProjectInput> | PartnerActivityLogCreateWithoutProjectInput[] | PartnerActivityLogUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutProjectInput | PartnerActivityLogCreateOrConnectWithoutProjectInput[]
+    createMany?: PartnerActivityLogCreateManyProjectInputEnvelope
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+  }
+
+  export type UserRoleAssignmentCreateNestedManyWithoutProjectInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutProjectInput, UserRoleAssignmentUncheckedCreateWithoutProjectInput> | UserRoleAssignmentCreateWithoutProjectInput[] | UserRoleAssignmentUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutProjectInput | UserRoleAssignmentCreateOrConnectWithoutProjectInput[]
+    createMany?: UserRoleAssignmentCreateManyProjectInputEnvelope
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+  }
+
   export type ProjectMemberUncheckedCreateNestedManyWithoutProjectInput = {
     create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
@@ -27022,6 +37619,34 @@ export namespace Prisma {
     connectOrCreate?: DocumentCreateOrConnectWithoutProjectInput | DocumentCreateOrConnectWithoutProjectInput[]
     createMany?: DocumentCreateManyProjectInputEnvelope
     connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
+  export type ProjectAccessUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ProjectAccessCreateWithoutProjectInput, ProjectAccessUncheckedCreateWithoutProjectInput> | ProjectAccessCreateWithoutProjectInput[] | ProjectAccessUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectAccessCreateOrConnectWithoutProjectInput | ProjectAccessCreateOrConnectWithoutProjectInput[]
+    createMany?: ProjectAccessCreateManyProjectInputEnvelope
+    connect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+  }
+
+  export type PartnerRequestUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<PartnerRequestCreateWithoutProjectInput, PartnerRequestUncheckedCreateWithoutProjectInput> | PartnerRequestCreateWithoutProjectInput[] | PartnerRequestUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutProjectInput | PartnerRequestCreateOrConnectWithoutProjectInput[]
+    createMany?: PartnerRequestCreateManyProjectInputEnvelope
+    connect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+  }
+
+  export type PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutProjectInput, PartnerActivityLogUncheckedCreateWithoutProjectInput> | PartnerActivityLogCreateWithoutProjectInput[] | PartnerActivityLogUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutProjectInput | PartnerActivityLogCreateOrConnectWithoutProjectInput[]
+    createMany?: PartnerActivityLogCreateManyProjectInputEnvelope
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+  }
+
+  export type UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutProjectInput, UserRoleAssignmentUncheckedCreateWithoutProjectInput> | UserRoleAssignmentCreateWithoutProjectInput[] | UserRoleAssignmentUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutProjectInput | UserRoleAssignmentCreateOrConnectWithoutProjectInput[]
+    createMany?: UserRoleAssignmentCreateManyProjectInputEnvelope
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -27162,6 +37787,62 @@ export namespace Prisma {
     update?: XOR<XOR<ProjectTemplateUpdateToOneWithWhereWithoutProjectsInput, ProjectTemplateUpdateWithoutProjectsInput>, ProjectTemplateUncheckedUpdateWithoutProjectsInput>
   }
 
+  export type ProjectAccessUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ProjectAccessCreateWithoutProjectInput, ProjectAccessUncheckedCreateWithoutProjectInput> | ProjectAccessCreateWithoutProjectInput[] | ProjectAccessUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectAccessCreateOrConnectWithoutProjectInput | ProjectAccessCreateOrConnectWithoutProjectInput[]
+    upsert?: ProjectAccessUpsertWithWhereUniqueWithoutProjectInput | ProjectAccessUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ProjectAccessCreateManyProjectInputEnvelope
+    set?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    disconnect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    delete?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    connect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    update?: ProjectAccessUpdateWithWhereUniqueWithoutProjectInput | ProjectAccessUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ProjectAccessUpdateManyWithWhereWithoutProjectInput | ProjectAccessUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ProjectAccessScalarWhereInput | ProjectAccessScalarWhereInput[]
+  }
+
+  export type PartnerRequestUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<PartnerRequestCreateWithoutProjectInput, PartnerRequestUncheckedCreateWithoutProjectInput> | PartnerRequestCreateWithoutProjectInput[] | PartnerRequestUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutProjectInput | PartnerRequestCreateOrConnectWithoutProjectInput[]
+    upsert?: PartnerRequestUpsertWithWhereUniqueWithoutProjectInput | PartnerRequestUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: PartnerRequestCreateManyProjectInputEnvelope
+    set?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    disconnect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    delete?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    connect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    update?: PartnerRequestUpdateWithWhereUniqueWithoutProjectInput | PartnerRequestUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: PartnerRequestUpdateManyWithWhereWithoutProjectInput | PartnerRequestUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: PartnerRequestScalarWhereInput | PartnerRequestScalarWhereInput[]
+  }
+
+  export type PartnerActivityLogUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutProjectInput, PartnerActivityLogUncheckedCreateWithoutProjectInput> | PartnerActivityLogCreateWithoutProjectInput[] | PartnerActivityLogUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutProjectInput | PartnerActivityLogCreateOrConnectWithoutProjectInput[]
+    upsert?: PartnerActivityLogUpsertWithWhereUniqueWithoutProjectInput | PartnerActivityLogUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: PartnerActivityLogCreateManyProjectInputEnvelope
+    set?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    disconnect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    delete?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    update?: PartnerActivityLogUpdateWithWhereUniqueWithoutProjectInput | PartnerActivityLogUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: PartnerActivityLogUpdateManyWithWhereWithoutProjectInput | PartnerActivityLogUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: PartnerActivityLogScalarWhereInput | PartnerActivityLogScalarWhereInput[]
+  }
+
+  export type UserRoleAssignmentUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutProjectInput, UserRoleAssignmentUncheckedCreateWithoutProjectInput> | UserRoleAssignmentCreateWithoutProjectInput[] | UserRoleAssignmentUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutProjectInput | UserRoleAssignmentCreateOrConnectWithoutProjectInput[]
+    upsert?: UserRoleAssignmentUpsertWithWhereUniqueWithoutProjectInput | UserRoleAssignmentUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: UserRoleAssignmentCreateManyProjectInputEnvelope
+    set?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    disconnect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    delete?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    update?: UserRoleAssignmentUpdateWithWhereUniqueWithoutProjectInput | UserRoleAssignmentUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: UserRoleAssignmentUpdateManyWithWhereWithoutProjectInput | UserRoleAssignmentUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
+  }
+
   export type ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput = {
     create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
@@ -27230,6 +37911,62 @@ export namespace Prisma {
     update?: DocumentUpdateWithWhereUniqueWithoutProjectInput | DocumentUpdateWithWhereUniqueWithoutProjectInput[]
     updateMany?: DocumentUpdateManyWithWhereWithoutProjectInput | DocumentUpdateManyWithWhereWithoutProjectInput[]
     deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
+  export type ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ProjectAccessCreateWithoutProjectInput, ProjectAccessUncheckedCreateWithoutProjectInput> | ProjectAccessCreateWithoutProjectInput[] | ProjectAccessUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectAccessCreateOrConnectWithoutProjectInput | ProjectAccessCreateOrConnectWithoutProjectInput[]
+    upsert?: ProjectAccessUpsertWithWhereUniqueWithoutProjectInput | ProjectAccessUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ProjectAccessCreateManyProjectInputEnvelope
+    set?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    disconnect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    delete?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    connect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    update?: ProjectAccessUpdateWithWhereUniqueWithoutProjectInput | ProjectAccessUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ProjectAccessUpdateManyWithWhereWithoutProjectInput | ProjectAccessUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ProjectAccessScalarWhereInput | ProjectAccessScalarWhereInput[]
+  }
+
+  export type PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<PartnerRequestCreateWithoutProjectInput, PartnerRequestUncheckedCreateWithoutProjectInput> | PartnerRequestCreateWithoutProjectInput[] | PartnerRequestUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutProjectInput | PartnerRequestCreateOrConnectWithoutProjectInput[]
+    upsert?: PartnerRequestUpsertWithWhereUniqueWithoutProjectInput | PartnerRequestUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: PartnerRequestCreateManyProjectInputEnvelope
+    set?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    disconnect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    delete?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    connect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    update?: PartnerRequestUpdateWithWhereUniqueWithoutProjectInput | PartnerRequestUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: PartnerRequestUpdateManyWithWhereWithoutProjectInput | PartnerRequestUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: PartnerRequestScalarWhereInput | PartnerRequestScalarWhereInput[]
+  }
+
+  export type PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutProjectInput, PartnerActivityLogUncheckedCreateWithoutProjectInput> | PartnerActivityLogCreateWithoutProjectInput[] | PartnerActivityLogUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutProjectInput | PartnerActivityLogCreateOrConnectWithoutProjectInput[]
+    upsert?: PartnerActivityLogUpsertWithWhereUniqueWithoutProjectInput | PartnerActivityLogUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: PartnerActivityLogCreateManyProjectInputEnvelope
+    set?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    disconnect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    delete?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    update?: PartnerActivityLogUpdateWithWhereUniqueWithoutProjectInput | PartnerActivityLogUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: PartnerActivityLogUpdateManyWithWhereWithoutProjectInput | PartnerActivityLogUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: PartnerActivityLogScalarWhereInput | PartnerActivityLogScalarWhereInput[]
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutProjectInput, UserRoleAssignmentUncheckedCreateWithoutProjectInput> | UserRoleAssignmentCreateWithoutProjectInput[] | UserRoleAssignmentUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutProjectInput | UserRoleAssignmentCreateOrConnectWithoutProjectInput[]
+    upsert?: UserRoleAssignmentUpsertWithWhereUniqueWithoutProjectInput | UserRoleAssignmentUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: UserRoleAssignmentCreateManyProjectInputEnvelope
+    set?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    disconnect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    delete?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    update?: UserRoleAssignmentUpdateWithWhereUniqueWithoutProjectInput | UserRoleAssignmentUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: UserRoleAssignmentUpdateManyWithWhereWithoutProjectInput | UserRoleAssignmentUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
   }
 
   export type TaskCreatedependenciesInput = {
@@ -27671,6 +38408,20 @@ export namespace Prisma {
     connect?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
   }
 
+  export type DocumentAccessCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentAccessCreateWithoutDocumentInput, DocumentAccessUncheckedCreateWithoutDocumentInput> | DocumentAccessCreateWithoutDocumentInput[] | DocumentAccessUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentAccessCreateOrConnectWithoutDocumentInput | DocumentAccessCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentAccessCreateManyDocumentInputEnvelope
+    connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+  }
+
+  export type PartnerActivityLogCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutDocumentInput, PartnerActivityLogUncheckedCreateWithoutDocumentInput> | PartnerActivityLogCreateWithoutDocumentInput[] | PartnerActivityLogUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutDocumentInput | PartnerActivityLogCreateOrConnectWithoutDocumentInput[]
+    createMany?: PartnerActivityLogCreateManyDocumentInputEnvelope
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+  }
+
   export type DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput = {
     create?: XOR<DocumentVersionCreateWithoutDocumentInput, DocumentVersionUncheckedCreateWithoutDocumentInput> | DocumentVersionCreateWithoutDocumentInput[] | DocumentVersionUncheckedCreateWithoutDocumentInput[]
     connectOrCreate?: DocumentVersionCreateOrConnectWithoutDocumentInput | DocumentVersionCreateOrConnectWithoutDocumentInput[]
@@ -27697,6 +38448,20 @@ export namespace Prisma {
     connectOrCreate?: DocumentSignatureCreateOrConnectWithoutDocumentInput | DocumentSignatureCreateOrConnectWithoutDocumentInput[]
     createMany?: DocumentSignatureCreateManyDocumentInputEnvelope
     connect?: DocumentSignatureWhereUniqueInput | DocumentSignatureWhereUniqueInput[]
+  }
+
+  export type DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<DocumentAccessCreateWithoutDocumentInput, DocumentAccessUncheckedCreateWithoutDocumentInput> | DocumentAccessCreateWithoutDocumentInput[] | DocumentAccessUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentAccessCreateOrConnectWithoutDocumentInput | DocumentAccessCreateOrConnectWithoutDocumentInput[]
+    createMany?: DocumentAccessCreateManyDocumentInputEnvelope
+    connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+  }
+
+  export type PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutDocumentInput, PartnerActivityLogUncheckedCreateWithoutDocumentInput> | PartnerActivityLogCreateWithoutDocumentInput[] | PartnerActivityLogUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutDocumentInput | PartnerActivityLogCreateOrConnectWithoutDocumentInput[]
+    createMany?: PartnerActivityLogCreateManyDocumentInputEnvelope
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
   }
 
   export type DocumentUpdatetagsInput = {
@@ -27778,6 +38543,34 @@ export namespace Prisma {
     deleteMany?: DocumentSignatureScalarWhereInput | DocumentSignatureScalarWhereInput[]
   }
 
+  export type DocumentAccessUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentAccessCreateWithoutDocumentInput, DocumentAccessUncheckedCreateWithoutDocumentInput> | DocumentAccessCreateWithoutDocumentInput[] | DocumentAccessUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentAccessCreateOrConnectWithoutDocumentInput | DocumentAccessCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentAccessUpsertWithWhereUniqueWithoutDocumentInput | DocumentAccessUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentAccessCreateManyDocumentInputEnvelope
+    set?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    disconnect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    delete?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    update?: DocumentAccessUpdateWithWhereUniqueWithoutDocumentInput | DocumentAccessUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentAccessUpdateManyWithWhereWithoutDocumentInput | DocumentAccessUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
+  }
+
+  export type PartnerActivityLogUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutDocumentInput, PartnerActivityLogUncheckedCreateWithoutDocumentInput> | PartnerActivityLogCreateWithoutDocumentInput[] | PartnerActivityLogUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutDocumentInput | PartnerActivityLogCreateOrConnectWithoutDocumentInput[]
+    upsert?: PartnerActivityLogUpsertWithWhereUniqueWithoutDocumentInput | PartnerActivityLogUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: PartnerActivityLogCreateManyDocumentInputEnvelope
+    set?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    disconnect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    delete?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    update?: PartnerActivityLogUpdateWithWhereUniqueWithoutDocumentInput | PartnerActivityLogUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: PartnerActivityLogUpdateManyWithWhereWithoutDocumentInput | PartnerActivityLogUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: PartnerActivityLogScalarWhereInput | PartnerActivityLogScalarWhereInput[]
+  }
+
   export type DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput = {
     create?: XOR<DocumentVersionCreateWithoutDocumentInput, DocumentVersionUncheckedCreateWithoutDocumentInput> | DocumentVersionCreateWithoutDocumentInput[] | DocumentVersionUncheckedCreateWithoutDocumentInput[]
     connectOrCreate?: DocumentVersionCreateOrConnectWithoutDocumentInput | DocumentVersionCreateOrConnectWithoutDocumentInput[]
@@ -27832,6 +38625,34 @@ export namespace Prisma {
     update?: DocumentSignatureUpdateWithWhereUniqueWithoutDocumentInput | DocumentSignatureUpdateWithWhereUniqueWithoutDocumentInput[]
     updateMany?: DocumentSignatureUpdateManyWithWhereWithoutDocumentInput | DocumentSignatureUpdateManyWithWhereWithoutDocumentInput[]
     deleteMany?: DocumentSignatureScalarWhereInput | DocumentSignatureScalarWhereInput[]
+  }
+
+  export type DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<DocumentAccessCreateWithoutDocumentInput, DocumentAccessUncheckedCreateWithoutDocumentInput> | DocumentAccessCreateWithoutDocumentInput[] | DocumentAccessUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: DocumentAccessCreateOrConnectWithoutDocumentInput | DocumentAccessCreateOrConnectWithoutDocumentInput[]
+    upsert?: DocumentAccessUpsertWithWhereUniqueWithoutDocumentInput | DocumentAccessUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: DocumentAccessCreateManyDocumentInputEnvelope
+    set?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    disconnect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    delete?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    update?: DocumentAccessUpdateWithWhereUniqueWithoutDocumentInput | DocumentAccessUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: DocumentAccessUpdateManyWithWhereWithoutDocumentInput | DocumentAccessUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
+  }
+
+  export type PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutDocumentInput, PartnerActivityLogUncheckedCreateWithoutDocumentInput> | PartnerActivityLogCreateWithoutDocumentInput[] | PartnerActivityLogUncheckedCreateWithoutDocumentInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutDocumentInput | PartnerActivityLogCreateOrConnectWithoutDocumentInput[]
+    upsert?: PartnerActivityLogUpsertWithWhereUniqueWithoutDocumentInput | PartnerActivityLogUpsertWithWhereUniqueWithoutDocumentInput[]
+    createMany?: PartnerActivityLogCreateManyDocumentInputEnvelope
+    set?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    disconnect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    delete?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    update?: PartnerActivityLogUpdateWithWhereUniqueWithoutDocumentInput | PartnerActivityLogUpdateWithWhereUniqueWithoutDocumentInput[]
+    updateMany?: PartnerActivityLogUpdateManyWithWhereWithoutDocumentInput | PartnerActivityLogUpdateManyWithWhereWithoutDocumentInput[]
+    deleteMany?: PartnerActivityLogScalarWhereInput | PartnerActivityLogScalarWhereInput[]
   }
 
   export type DocumentCreateNestedOneWithoutVersionsInput = {
@@ -27965,6 +38786,48 @@ export namespace Prisma {
     connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
   }
 
+  export type ProjectAccessCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProjectAccessCreateWithoutUserInput, ProjectAccessUncheckedCreateWithoutUserInput> | ProjectAccessCreateWithoutUserInput[] | ProjectAccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProjectAccessCreateOrConnectWithoutUserInput | ProjectAccessCreateOrConnectWithoutUserInput[]
+    createMany?: ProjectAccessCreateManyUserInputEnvelope
+    connect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+  }
+
+  export type DocumentAccessCreateNestedManyWithoutUserInput = {
+    create?: XOR<DocumentAccessCreateWithoutUserInput, DocumentAccessUncheckedCreateWithoutUserInput> | DocumentAccessCreateWithoutUserInput[] | DocumentAccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DocumentAccessCreateOrConnectWithoutUserInput | DocumentAccessCreateOrConnectWithoutUserInput[]
+    createMany?: DocumentAccessCreateManyUserInputEnvelope
+    connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+  }
+
+  export type PartnerRequestCreateNestedManyWithoutUserInput = {
+    create?: XOR<PartnerRequestCreateWithoutUserInput, PartnerRequestUncheckedCreateWithoutUserInput> | PartnerRequestCreateWithoutUserInput[] | PartnerRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutUserInput | PartnerRequestCreateOrConnectWithoutUserInput[]
+    createMany?: PartnerRequestCreateManyUserInputEnvelope
+    connect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+  }
+
+  export type PartnerRequestMessageCreateNestedManyWithoutSenderInput = {
+    create?: XOR<PartnerRequestMessageCreateWithoutSenderInput, PartnerRequestMessageUncheckedCreateWithoutSenderInput> | PartnerRequestMessageCreateWithoutSenderInput[] | PartnerRequestMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: PartnerRequestMessageCreateOrConnectWithoutSenderInput | PartnerRequestMessageCreateOrConnectWithoutSenderInput[]
+    createMany?: PartnerRequestMessageCreateManySenderInputEnvelope
+    connect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+  }
+
+  export type PartnerActivityLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutUserInput, PartnerActivityLogUncheckedCreateWithoutUserInput> | PartnerActivityLogCreateWithoutUserInput[] | PartnerActivityLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutUserInput | PartnerActivityLogCreateOrConnectWithoutUserInput[]
+    createMany?: PartnerActivityLogCreateManyUserInputEnvelope
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+  }
+
+  export type UserRoleAssignmentCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutUserInput, UserRoleAssignmentUncheckedCreateWithoutUserInput> | UserRoleAssignmentCreateWithoutUserInput[] | UserRoleAssignmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutUserInput | UserRoleAssignmentCreateOrConnectWithoutUserInput[]
+    createMany?: UserRoleAssignmentCreateManyUserInputEnvelope
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<ProjectCreateWithoutOwnerInput, ProjectUncheckedCreateWithoutOwnerInput> | ProjectCreateWithoutOwnerInput[] | ProjectUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutOwnerInput | ProjectCreateOrConnectWithoutOwnerInput[]
@@ -27998,6 +38861,48 @@ export namespace Prisma {
     connectOrCreate?: ProjectMemberCreateOrConnectWithoutUserInput | ProjectMemberCreateOrConnectWithoutUserInput[]
     createMany?: ProjectMemberCreateManyUserInputEnvelope
     connect?: ProjectMemberWhereUniqueInput | ProjectMemberWhereUniqueInput[]
+  }
+
+  export type ProjectAccessUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ProjectAccessCreateWithoutUserInput, ProjectAccessUncheckedCreateWithoutUserInput> | ProjectAccessCreateWithoutUserInput[] | ProjectAccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProjectAccessCreateOrConnectWithoutUserInput | ProjectAccessCreateOrConnectWithoutUserInput[]
+    createMany?: ProjectAccessCreateManyUserInputEnvelope
+    connect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+  }
+
+  export type DocumentAccessUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DocumentAccessCreateWithoutUserInput, DocumentAccessUncheckedCreateWithoutUserInput> | DocumentAccessCreateWithoutUserInput[] | DocumentAccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DocumentAccessCreateOrConnectWithoutUserInput | DocumentAccessCreateOrConnectWithoutUserInput[]
+    createMany?: DocumentAccessCreateManyUserInputEnvelope
+    connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+  }
+
+  export type PartnerRequestUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PartnerRequestCreateWithoutUserInput, PartnerRequestUncheckedCreateWithoutUserInput> | PartnerRequestCreateWithoutUserInput[] | PartnerRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutUserInput | PartnerRequestCreateOrConnectWithoutUserInput[]
+    createMany?: PartnerRequestCreateManyUserInputEnvelope
+    connect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+  }
+
+  export type PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<PartnerRequestMessageCreateWithoutSenderInput, PartnerRequestMessageUncheckedCreateWithoutSenderInput> | PartnerRequestMessageCreateWithoutSenderInput[] | PartnerRequestMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: PartnerRequestMessageCreateOrConnectWithoutSenderInput | PartnerRequestMessageCreateOrConnectWithoutSenderInput[]
+    createMany?: PartnerRequestMessageCreateManySenderInputEnvelope
+    connect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+  }
+
+  export type PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutUserInput, PartnerActivityLogUncheckedCreateWithoutUserInput> | PartnerActivityLogCreateWithoutUserInput[] | PartnerActivityLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutUserInput | PartnerActivityLogCreateOrConnectWithoutUserInput[]
+    createMany?: PartnerActivityLogCreateManyUserInputEnvelope
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+  }
+
+  export type UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutUserInput, UserRoleAssignmentUncheckedCreateWithoutUserInput> | UserRoleAssignmentCreateWithoutUserInput[] | UserRoleAssignmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutUserInput | UserRoleAssignmentCreateOrConnectWithoutUserInput[]
+    createMany?: UserRoleAssignmentCreateManyUserInputEnvelope
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -28079,6 +38984,90 @@ export namespace Prisma {
     deleteMany?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
   }
 
+  export type ProjectAccessUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProjectAccessCreateWithoutUserInput, ProjectAccessUncheckedCreateWithoutUserInput> | ProjectAccessCreateWithoutUserInput[] | ProjectAccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProjectAccessCreateOrConnectWithoutUserInput | ProjectAccessCreateOrConnectWithoutUserInput[]
+    upsert?: ProjectAccessUpsertWithWhereUniqueWithoutUserInput | ProjectAccessUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProjectAccessCreateManyUserInputEnvelope
+    set?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    disconnect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    delete?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    connect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    update?: ProjectAccessUpdateWithWhereUniqueWithoutUserInput | ProjectAccessUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProjectAccessUpdateManyWithWhereWithoutUserInput | ProjectAccessUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProjectAccessScalarWhereInput | ProjectAccessScalarWhereInput[]
+  }
+
+  export type DocumentAccessUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DocumentAccessCreateWithoutUserInput, DocumentAccessUncheckedCreateWithoutUserInput> | DocumentAccessCreateWithoutUserInput[] | DocumentAccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DocumentAccessCreateOrConnectWithoutUserInput | DocumentAccessCreateOrConnectWithoutUserInput[]
+    upsert?: DocumentAccessUpsertWithWhereUniqueWithoutUserInput | DocumentAccessUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DocumentAccessCreateManyUserInputEnvelope
+    set?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    disconnect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    delete?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    update?: DocumentAccessUpdateWithWhereUniqueWithoutUserInput | DocumentAccessUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DocumentAccessUpdateManyWithWhereWithoutUserInput | DocumentAccessUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
+  }
+
+  export type PartnerRequestUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PartnerRequestCreateWithoutUserInput, PartnerRequestUncheckedCreateWithoutUserInput> | PartnerRequestCreateWithoutUserInput[] | PartnerRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutUserInput | PartnerRequestCreateOrConnectWithoutUserInput[]
+    upsert?: PartnerRequestUpsertWithWhereUniqueWithoutUserInput | PartnerRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PartnerRequestCreateManyUserInputEnvelope
+    set?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    disconnect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    delete?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    connect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    update?: PartnerRequestUpdateWithWhereUniqueWithoutUserInput | PartnerRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PartnerRequestUpdateManyWithWhereWithoutUserInput | PartnerRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PartnerRequestScalarWhereInput | PartnerRequestScalarWhereInput[]
+  }
+
+  export type PartnerRequestMessageUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<PartnerRequestMessageCreateWithoutSenderInput, PartnerRequestMessageUncheckedCreateWithoutSenderInput> | PartnerRequestMessageCreateWithoutSenderInput[] | PartnerRequestMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: PartnerRequestMessageCreateOrConnectWithoutSenderInput | PartnerRequestMessageCreateOrConnectWithoutSenderInput[]
+    upsert?: PartnerRequestMessageUpsertWithWhereUniqueWithoutSenderInput | PartnerRequestMessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: PartnerRequestMessageCreateManySenderInputEnvelope
+    set?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    disconnect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    delete?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    connect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    update?: PartnerRequestMessageUpdateWithWhereUniqueWithoutSenderInput | PartnerRequestMessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: PartnerRequestMessageUpdateManyWithWhereWithoutSenderInput | PartnerRequestMessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: PartnerRequestMessageScalarWhereInput | PartnerRequestMessageScalarWhereInput[]
+  }
+
+  export type PartnerActivityLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutUserInput, PartnerActivityLogUncheckedCreateWithoutUserInput> | PartnerActivityLogCreateWithoutUserInput[] | PartnerActivityLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutUserInput | PartnerActivityLogCreateOrConnectWithoutUserInput[]
+    upsert?: PartnerActivityLogUpsertWithWhereUniqueWithoutUserInput | PartnerActivityLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PartnerActivityLogCreateManyUserInputEnvelope
+    set?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    disconnect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    delete?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    update?: PartnerActivityLogUpdateWithWhereUniqueWithoutUserInput | PartnerActivityLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PartnerActivityLogUpdateManyWithWhereWithoutUserInput | PartnerActivityLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PartnerActivityLogScalarWhereInput | PartnerActivityLogScalarWhereInput[]
+  }
+
+  export type UserRoleAssignmentUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutUserInput, UserRoleAssignmentUncheckedCreateWithoutUserInput> | UserRoleAssignmentCreateWithoutUserInput[] | UserRoleAssignmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutUserInput | UserRoleAssignmentCreateOrConnectWithoutUserInput[]
+    upsert?: UserRoleAssignmentUpsertWithWhereUniqueWithoutUserInput | UserRoleAssignmentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserRoleAssignmentCreateManyUserInputEnvelope
+    set?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    disconnect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    delete?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    update?: UserRoleAssignmentUpdateWithWhereUniqueWithoutUserInput | UserRoleAssignmentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserRoleAssignmentUpdateManyWithWhereWithoutUserInput | UserRoleAssignmentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<ProjectCreateWithoutOwnerInput, ProjectUncheckedCreateWithoutOwnerInput> | ProjectCreateWithoutOwnerInput[] | ProjectUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutOwnerInput | ProjectCreateOrConnectWithoutOwnerInput[]
@@ -28147,6 +39136,90 @@ export namespace Prisma {
     update?: ProjectMemberUpdateWithWhereUniqueWithoutUserInput | ProjectMemberUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ProjectMemberUpdateManyWithWhereWithoutUserInput | ProjectMemberUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ProjectMemberScalarWhereInput | ProjectMemberScalarWhereInput[]
+  }
+
+  export type ProjectAccessUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ProjectAccessCreateWithoutUserInput, ProjectAccessUncheckedCreateWithoutUserInput> | ProjectAccessCreateWithoutUserInput[] | ProjectAccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ProjectAccessCreateOrConnectWithoutUserInput | ProjectAccessCreateOrConnectWithoutUserInput[]
+    upsert?: ProjectAccessUpsertWithWhereUniqueWithoutUserInput | ProjectAccessUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ProjectAccessCreateManyUserInputEnvelope
+    set?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    disconnect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    delete?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    connect?: ProjectAccessWhereUniqueInput | ProjectAccessWhereUniqueInput[]
+    update?: ProjectAccessUpdateWithWhereUniqueWithoutUserInput | ProjectAccessUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ProjectAccessUpdateManyWithWhereWithoutUserInput | ProjectAccessUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ProjectAccessScalarWhereInput | ProjectAccessScalarWhereInput[]
+  }
+
+  export type DocumentAccessUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DocumentAccessCreateWithoutUserInput, DocumentAccessUncheckedCreateWithoutUserInput> | DocumentAccessCreateWithoutUserInput[] | DocumentAccessUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DocumentAccessCreateOrConnectWithoutUserInput | DocumentAccessCreateOrConnectWithoutUserInput[]
+    upsert?: DocumentAccessUpsertWithWhereUniqueWithoutUserInput | DocumentAccessUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DocumentAccessCreateManyUserInputEnvelope
+    set?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    disconnect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    delete?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    connect?: DocumentAccessWhereUniqueInput | DocumentAccessWhereUniqueInput[]
+    update?: DocumentAccessUpdateWithWhereUniqueWithoutUserInput | DocumentAccessUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DocumentAccessUpdateManyWithWhereWithoutUserInput | DocumentAccessUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
+  }
+
+  export type PartnerRequestUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PartnerRequestCreateWithoutUserInput, PartnerRequestUncheckedCreateWithoutUserInput> | PartnerRequestCreateWithoutUserInput[] | PartnerRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutUserInput | PartnerRequestCreateOrConnectWithoutUserInput[]
+    upsert?: PartnerRequestUpsertWithWhereUniqueWithoutUserInput | PartnerRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PartnerRequestCreateManyUserInputEnvelope
+    set?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    disconnect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    delete?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    connect?: PartnerRequestWhereUniqueInput | PartnerRequestWhereUniqueInput[]
+    update?: PartnerRequestUpdateWithWhereUniqueWithoutUserInput | PartnerRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PartnerRequestUpdateManyWithWhereWithoutUserInput | PartnerRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PartnerRequestScalarWhereInput | PartnerRequestScalarWhereInput[]
+  }
+
+  export type PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<PartnerRequestMessageCreateWithoutSenderInput, PartnerRequestMessageUncheckedCreateWithoutSenderInput> | PartnerRequestMessageCreateWithoutSenderInput[] | PartnerRequestMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: PartnerRequestMessageCreateOrConnectWithoutSenderInput | PartnerRequestMessageCreateOrConnectWithoutSenderInput[]
+    upsert?: PartnerRequestMessageUpsertWithWhereUniqueWithoutSenderInput | PartnerRequestMessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: PartnerRequestMessageCreateManySenderInputEnvelope
+    set?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    disconnect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    delete?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    connect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    update?: PartnerRequestMessageUpdateWithWhereUniqueWithoutSenderInput | PartnerRequestMessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: PartnerRequestMessageUpdateManyWithWhereWithoutSenderInput | PartnerRequestMessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: PartnerRequestMessageScalarWhereInput | PartnerRequestMessageScalarWhereInput[]
+  }
+
+  export type PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PartnerActivityLogCreateWithoutUserInput, PartnerActivityLogUncheckedCreateWithoutUserInput> | PartnerActivityLogCreateWithoutUserInput[] | PartnerActivityLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PartnerActivityLogCreateOrConnectWithoutUserInput | PartnerActivityLogCreateOrConnectWithoutUserInput[]
+    upsert?: PartnerActivityLogUpsertWithWhereUniqueWithoutUserInput | PartnerActivityLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PartnerActivityLogCreateManyUserInputEnvelope
+    set?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    disconnect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    delete?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    connect?: PartnerActivityLogWhereUniqueInput | PartnerActivityLogWhereUniqueInput[]
+    update?: PartnerActivityLogUpdateWithWhereUniqueWithoutUserInput | PartnerActivityLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PartnerActivityLogUpdateManyWithWhereWithoutUserInput | PartnerActivityLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PartnerActivityLogScalarWhereInput | PartnerActivityLogScalarWhereInput[]
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutUserInput, UserRoleAssignmentUncheckedCreateWithoutUserInput> | UserRoleAssignmentCreateWithoutUserInput[] | UserRoleAssignmentUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutUserInput | UserRoleAssignmentCreateOrConnectWithoutUserInput[]
+    upsert?: UserRoleAssignmentUpsertWithWhereUniqueWithoutUserInput | UserRoleAssignmentUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserRoleAssignmentCreateManyUserInputEnvelope
+    set?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    disconnect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    delete?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    update?: UserRoleAssignmentUpdateWithWhereUniqueWithoutUserInput | UserRoleAssignmentUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserRoleAssignmentUpdateManyWithWhereWithoutUserInput | UserRoleAssignmentUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
   }
 
   export type ProjectCreateNestedManyWithoutTemplateInput = {
@@ -28301,6 +39374,296 @@ export namespace Prisma {
     upsert?: TaskTemplateUpsertWithoutChecklistsInput
     connect?: TaskTemplateWhereUniqueInput
     update?: XOR<XOR<TaskTemplateUpdateToOneWithWhereWithoutChecklistsInput, TaskTemplateUpdateWithoutChecklistsInput>, TaskTemplateUncheckedUpdateWithoutChecklistsInput>
+  }
+
+  export type UserRoleAssignmentCreateNestedManyWithoutRoleInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutRoleInput, UserRoleAssignmentUncheckedCreateWithoutRoleInput> | UserRoleAssignmentCreateWithoutRoleInput[] | UserRoleAssignmentUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutRoleInput | UserRoleAssignmentCreateOrConnectWithoutRoleInput[]
+    createMany?: UserRoleAssignmentCreateManyRoleInputEnvelope
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+  }
+
+  export type UserRoleAssignmentUncheckedCreateNestedManyWithoutRoleInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutRoleInput, UserRoleAssignmentUncheckedCreateWithoutRoleInput> | UserRoleAssignmentCreateWithoutRoleInput[] | UserRoleAssignmentUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutRoleInput | UserRoleAssignmentCreateOrConnectWithoutRoleInput[]
+    createMany?: UserRoleAssignmentCreateManyRoleInputEnvelope
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+  }
+
+  export type UserRoleAssignmentUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutRoleInput, UserRoleAssignmentUncheckedCreateWithoutRoleInput> | UserRoleAssignmentCreateWithoutRoleInput[] | UserRoleAssignmentUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutRoleInput | UserRoleAssignmentCreateOrConnectWithoutRoleInput[]
+    upsert?: UserRoleAssignmentUpsertWithWhereUniqueWithoutRoleInput | UserRoleAssignmentUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: UserRoleAssignmentCreateManyRoleInputEnvelope
+    set?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    disconnect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    delete?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    update?: UserRoleAssignmentUpdateWithWhereUniqueWithoutRoleInput | UserRoleAssignmentUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: UserRoleAssignmentUpdateManyWithWhereWithoutRoleInput | UserRoleAssignmentUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateManyWithoutRoleNestedInput = {
+    create?: XOR<UserRoleAssignmentCreateWithoutRoleInput, UserRoleAssignmentUncheckedCreateWithoutRoleInput> | UserRoleAssignmentCreateWithoutRoleInput[] | UserRoleAssignmentUncheckedCreateWithoutRoleInput[]
+    connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutRoleInput | UserRoleAssignmentCreateOrConnectWithoutRoleInput[]
+    upsert?: UserRoleAssignmentUpsertWithWhereUniqueWithoutRoleInput | UserRoleAssignmentUpsertWithWhereUniqueWithoutRoleInput[]
+    createMany?: UserRoleAssignmentCreateManyRoleInputEnvelope
+    set?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    disconnect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    delete?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+    update?: UserRoleAssignmentUpdateWithWhereUniqueWithoutRoleInput | UserRoleAssignmentUpdateWithWhereUniqueWithoutRoleInput[]
+    updateMany?: UserRoleAssignmentUpdateManyWithWhereWithoutRoleInput | UserRoleAssignmentUpdateManyWithWhereWithoutRoleInput[]
+    deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutRoleAssignmentsInput = {
+    create?: XOR<UserCreateWithoutRoleAssignmentsInput, UserUncheckedCreateWithoutRoleAssignmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRoleAssignmentsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type RoleCreateNestedOneWithoutAssignmentsInput = {
+    create?: XOR<RoleCreateWithoutAssignmentsInput, RoleUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutAssignmentsInput
+    connect?: RoleWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedOneWithoutRoleAssignmentsInput = {
+    create?: XOR<ProjectCreateWithoutRoleAssignmentsInput, ProjectUncheckedCreateWithoutRoleAssignmentsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutRoleAssignmentsInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutRoleAssignmentsNestedInput = {
+    create?: XOR<UserCreateWithoutRoleAssignmentsInput, UserUncheckedCreateWithoutRoleAssignmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRoleAssignmentsInput
+    upsert?: UserUpsertWithoutRoleAssignmentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRoleAssignmentsInput, UserUpdateWithoutRoleAssignmentsInput>, UserUncheckedUpdateWithoutRoleAssignmentsInput>
+  }
+
+  export type RoleUpdateOneRequiredWithoutAssignmentsNestedInput = {
+    create?: XOR<RoleCreateWithoutAssignmentsInput, RoleUncheckedCreateWithoutAssignmentsInput>
+    connectOrCreate?: RoleCreateOrConnectWithoutAssignmentsInput
+    upsert?: RoleUpsertWithoutAssignmentsInput
+    connect?: RoleWhereUniqueInput
+    update?: XOR<XOR<RoleUpdateToOneWithWhereWithoutAssignmentsInput, RoleUpdateWithoutAssignmentsInput>, RoleUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type ProjectUpdateOneWithoutRoleAssignmentsNestedInput = {
+    create?: XOR<ProjectCreateWithoutRoleAssignmentsInput, ProjectUncheckedCreateWithoutRoleAssignmentsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutRoleAssignmentsInput
+    upsert?: ProjectUpsertWithoutRoleAssignmentsInput
+    disconnect?: ProjectWhereInput | boolean
+    delete?: ProjectWhereInput | boolean
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutRoleAssignmentsInput, ProjectUpdateWithoutRoleAssignmentsInput>, ProjectUncheckedUpdateWithoutRoleAssignmentsInput>
+  }
+
+  export type ProjectCreateNestedOneWithoutAccessesInput = {
+    create?: XOR<ProjectCreateWithoutAccessesInput, ProjectUncheckedCreateWithoutAccessesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutAccessesInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutProjectAccessInput = {
+    create?: XOR<UserCreateWithoutProjectAccessInput, UserUncheckedCreateWithoutProjectAccessInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProjectAccessInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ProjectUpdateOneRequiredWithoutAccessesNestedInput = {
+    create?: XOR<ProjectCreateWithoutAccessesInput, ProjectUncheckedCreateWithoutAccessesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutAccessesInput
+    upsert?: ProjectUpsertWithoutAccessesInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutAccessesInput, ProjectUpdateWithoutAccessesInput>, ProjectUncheckedUpdateWithoutAccessesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutProjectAccessNestedInput = {
+    create?: XOR<UserCreateWithoutProjectAccessInput, UserUncheckedCreateWithoutProjectAccessInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProjectAccessInput
+    upsert?: UserUpsertWithoutProjectAccessInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProjectAccessInput, UserUpdateWithoutProjectAccessInput>, UserUncheckedUpdateWithoutProjectAccessInput>
+  }
+
+  export type DocumentCreateNestedOneWithoutAccessesInput = {
+    create?: XOR<DocumentCreateWithoutAccessesInput, DocumentUncheckedCreateWithoutAccessesInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutAccessesInput
+    connect?: DocumentWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutDocumentAccessInput = {
+    create?: XOR<UserCreateWithoutDocumentAccessInput, UserUncheckedCreateWithoutDocumentAccessInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentAccessInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DocumentUpdateOneRequiredWithoutAccessesNestedInput = {
+    create?: XOR<DocumentCreateWithoutAccessesInput, DocumentUncheckedCreateWithoutAccessesInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutAccessesInput
+    upsert?: DocumentUpsertWithoutAccessesInput
+    connect?: DocumentWhereUniqueInput
+    update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutAccessesInput, DocumentUpdateWithoutAccessesInput>, DocumentUncheckedUpdateWithoutAccessesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutDocumentAccessNestedInput = {
+    create?: XOR<UserCreateWithoutDocumentAccessInput, UserUncheckedCreateWithoutDocumentAccessInput>
+    connectOrCreate?: UserCreateOrConnectWithoutDocumentAccessInput
+    upsert?: UserUpsertWithoutDocumentAccessInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutDocumentAccessInput, UserUpdateWithoutDocumentAccessInput>, UserUncheckedUpdateWithoutDocumentAccessInput>
+  }
+
+  export type UserCreateNestedOneWithoutActivityLogsInput = {
+    create?: XOR<UserCreateWithoutActivityLogsInput, UserUncheckedCreateWithoutActivityLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutActivityLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedOneWithoutActivityLogsInput = {
+    create?: XOR<ProjectCreateWithoutActivityLogsInput, ProjectUncheckedCreateWithoutActivityLogsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutActivityLogsInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type DocumentCreateNestedOneWithoutActivityLogsInput = {
+    create?: XOR<DocumentCreateWithoutActivityLogsInput, DocumentUncheckedCreateWithoutActivityLogsInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutActivityLogsInput
+    connect?: DocumentWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutActivityLogsNestedInput = {
+    create?: XOR<UserCreateWithoutActivityLogsInput, UserUncheckedCreateWithoutActivityLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutActivityLogsInput
+    upsert?: UserUpsertWithoutActivityLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutActivityLogsInput, UserUpdateWithoutActivityLogsInput>, UserUncheckedUpdateWithoutActivityLogsInput>
+  }
+
+  export type ProjectUpdateOneWithoutActivityLogsNestedInput = {
+    create?: XOR<ProjectCreateWithoutActivityLogsInput, ProjectUncheckedCreateWithoutActivityLogsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutActivityLogsInput
+    upsert?: ProjectUpsertWithoutActivityLogsInput
+    disconnect?: ProjectWhereInput | boolean
+    delete?: ProjectWhereInput | boolean
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutActivityLogsInput, ProjectUpdateWithoutActivityLogsInput>, ProjectUncheckedUpdateWithoutActivityLogsInput>
+  }
+
+  export type DocumentUpdateOneWithoutActivityLogsNestedInput = {
+    create?: XOR<DocumentCreateWithoutActivityLogsInput, DocumentUncheckedCreateWithoutActivityLogsInput>
+    connectOrCreate?: DocumentCreateOrConnectWithoutActivityLogsInput
+    upsert?: DocumentUpsertWithoutActivityLogsInput
+    disconnect?: DocumentWhereInput | boolean
+    delete?: DocumentWhereInput | boolean
+    connect?: DocumentWhereUniqueInput
+    update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutActivityLogsInput, DocumentUpdateWithoutActivityLogsInput>, DocumentUncheckedUpdateWithoutActivityLogsInput>
+  }
+
+  export type ProjectCreateNestedOneWithoutPartnerRequestsInput = {
+    create?: XOR<ProjectCreateWithoutPartnerRequestsInput, ProjectUncheckedCreateWithoutPartnerRequestsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutPartnerRequestsInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPartnerRequestsInput = {
+    create?: XOR<UserCreateWithoutPartnerRequestsInput, UserUncheckedCreateWithoutPartnerRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPartnerRequestsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PartnerRequestMessageCreateNestedManyWithoutRequestInput = {
+    create?: XOR<PartnerRequestMessageCreateWithoutRequestInput, PartnerRequestMessageUncheckedCreateWithoutRequestInput> | PartnerRequestMessageCreateWithoutRequestInput[] | PartnerRequestMessageUncheckedCreateWithoutRequestInput[]
+    connectOrCreate?: PartnerRequestMessageCreateOrConnectWithoutRequestInput | PartnerRequestMessageCreateOrConnectWithoutRequestInput[]
+    createMany?: PartnerRequestMessageCreateManyRequestInputEnvelope
+    connect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+  }
+
+  export type PartnerRequestMessageUncheckedCreateNestedManyWithoutRequestInput = {
+    create?: XOR<PartnerRequestMessageCreateWithoutRequestInput, PartnerRequestMessageUncheckedCreateWithoutRequestInput> | PartnerRequestMessageCreateWithoutRequestInput[] | PartnerRequestMessageUncheckedCreateWithoutRequestInput[]
+    connectOrCreate?: PartnerRequestMessageCreateOrConnectWithoutRequestInput | PartnerRequestMessageCreateOrConnectWithoutRequestInput[]
+    createMany?: PartnerRequestMessageCreateManyRequestInputEnvelope
+    connect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+  }
+
+  export type EnumRequestStatusFieldUpdateOperationsInput = {
+    set?: $Enums.RequestStatus
+  }
+
+  export type ProjectUpdateOneRequiredWithoutPartnerRequestsNestedInput = {
+    create?: XOR<ProjectCreateWithoutPartnerRequestsInput, ProjectUncheckedCreateWithoutPartnerRequestsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutPartnerRequestsInput
+    upsert?: ProjectUpsertWithoutPartnerRequestsInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutPartnerRequestsInput, ProjectUpdateWithoutPartnerRequestsInput>, ProjectUncheckedUpdateWithoutPartnerRequestsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPartnerRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutPartnerRequestsInput, UserUncheckedCreateWithoutPartnerRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPartnerRequestsInput
+    upsert?: UserUpsertWithoutPartnerRequestsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPartnerRequestsInput, UserUpdateWithoutPartnerRequestsInput>, UserUncheckedUpdateWithoutPartnerRequestsInput>
+  }
+
+  export type PartnerRequestMessageUpdateManyWithoutRequestNestedInput = {
+    create?: XOR<PartnerRequestMessageCreateWithoutRequestInput, PartnerRequestMessageUncheckedCreateWithoutRequestInput> | PartnerRequestMessageCreateWithoutRequestInput[] | PartnerRequestMessageUncheckedCreateWithoutRequestInput[]
+    connectOrCreate?: PartnerRequestMessageCreateOrConnectWithoutRequestInput | PartnerRequestMessageCreateOrConnectWithoutRequestInput[]
+    upsert?: PartnerRequestMessageUpsertWithWhereUniqueWithoutRequestInput | PartnerRequestMessageUpsertWithWhereUniqueWithoutRequestInput[]
+    createMany?: PartnerRequestMessageCreateManyRequestInputEnvelope
+    set?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    disconnect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    delete?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    connect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    update?: PartnerRequestMessageUpdateWithWhereUniqueWithoutRequestInput | PartnerRequestMessageUpdateWithWhereUniqueWithoutRequestInput[]
+    updateMany?: PartnerRequestMessageUpdateManyWithWhereWithoutRequestInput | PartnerRequestMessageUpdateManyWithWhereWithoutRequestInput[]
+    deleteMany?: PartnerRequestMessageScalarWhereInput | PartnerRequestMessageScalarWhereInput[]
+  }
+
+  export type PartnerRequestMessageUncheckedUpdateManyWithoutRequestNestedInput = {
+    create?: XOR<PartnerRequestMessageCreateWithoutRequestInput, PartnerRequestMessageUncheckedCreateWithoutRequestInput> | PartnerRequestMessageCreateWithoutRequestInput[] | PartnerRequestMessageUncheckedCreateWithoutRequestInput[]
+    connectOrCreate?: PartnerRequestMessageCreateOrConnectWithoutRequestInput | PartnerRequestMessageCreateOrConnectWithoutRequestInput[]
+    upsert?: PartnerRequestMessageUpsertWithWhereUniqueWithoutRequestInput | PartnerRequestMessageUpsertWithWhereUniqueWithoutRequestInput[]
+    createMany?: PartnerRequestMessageCreateManyRequestInputEnvelope
+    set?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    disconnect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    delete?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    connect?: PartnerRequestMessageWhereUniqueInput | PartnerRequestMessageWhereUniqueInput[]
+    update?: PartnerRequestMessageUpdateWithWhereUniqueWithoutRequestInput | PartnerRequestMessageUpdateWithWhereUniqueWithoutRequestInput[]
+    updateMany?: PartnerRequestMessageUpdateManyWithWhereWithoutRequestInput | PartnerRequestMessageUpdateManyWithWhereWithoutRequestInput[]
+    deleteMany?: PartnerRequestMessageScalarWhereInput | PartnerRequestMessageScalarWhereInput[]
+  }
+
+  export type PartnerRequestCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<PartnerRequestCreateWithoutMessagesInput, PartnerRequestUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutMessagesInput
+    connect?: PartnerRequestWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPartnerMessagesInput = {
+    create?: XOR<UserCreateWithoutPartnerMessagesInput, UserUncheckedCreateWithoutPartnerMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPartnerMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PartnerRequestUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<PartnerRequestCreateWithoutMessagesInput, PartnerRequestUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: PartnerRequestCreateOrConnectWithoutMessagesInput
+    upsert?: PartnerRequestUpsertWithoutMessagesInput
+    connect?: PartnerRequestWhereUniqueInput
+    update?: XOR<XOR<PartnerRequestUpdateToOneWithWhereWithoutMessagesInput, PartnerRequestUpdateWithoutMessagesInput>, PartnerRequestUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutPartnerMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutPartnerMessagesInput, UserUncheckedCreateWithoutPartnerMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPartnerMessagesInput
+    upsert?: UserUpsertWithoutPartnerMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPartnerMessagesInput, UserUpdateWithoutPartnerMessagesInput>, UserUncheckedUpdateWithoutPartnerMessagesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -28706,6 +40069,23 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type NestedEnumRequestStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.RequestStatus | EnumRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RequestStatus[] | ListEnumRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RequestStatus[] | ListEnumRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRequestStatusFilter<$PrismaModel> | $Enums.RequestStatus
+  }
+
+  export type NestedEnumRequestStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RequestStatus | EnumRequestStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.RequestStatus[] | ListEnumRequestStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RequestStatus[] | ListEnumRequestStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumRequestStatusWithAggregatesFilter<$PrismaModel> | $Enums.RequestStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRequestStatusFilter<$PrismaModel>
+    _max?: NestedEnumRequestStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutProjectsOwnedInput = {
     id?: string
     fullname: string
@@ -28719,10 +40099,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     comments?: CommentCreateNestedManyWithoutAuthorInput
     Task?: TaskCreateNestedManyWithoutAssigneeInput
     ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsOwnedInput = {
@@ -28738,10 +40127,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
     ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsOwnedInput = {
@@ -28894,6 +40292,8 @@ export namespace Prisma {
     comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateWithoutProjectInput = {
@@ -28911,6 +40311,8 @@ export namespace Prisma {
     comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentCreateOrConnectWithoutProjectInput = {
@@ -28946,6 +40348,120 @@ export namespace Prisma {
     create: XOR<ProjectTemplateCreateWithoutProjectsInput, ProjectTemplateUncheckedCreateWithoutProjectsInput>
   }
 
+  export type ProjectAccessCreateWithoutProjectInput = {
+    id?: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutProjectAccessInput
+  }
+
+  export type ProjectAccessUncheckedCreateWithoutProjectInput = {
+    id?: string
+    userId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectAccessCreateOrConnectWithoutProjectInput = {
+    where: ProjectAccessWhereUniqueInput
+    create: XOR<ProjectAccessCreateWithoutProjectInput, ProjectAccessUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ProjectAccessCreateManyProjectInputEnvelope = {
+    data: ProjectAccessCreateManyProjectInput | ProjectAccessCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PartnerRequestCreateWithoutProjectInput = {
+    id?: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutPartnerRequestsInput
+    messages?: PartnerRequestMessageCreateNestedManyWithoutRequestInput
+  }
+
+  export type PartnerRequestUncheckedCreateWithoutProjectInput = {
+    id?: string
+    userId: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutRequestInput
+  }
+
+  export type PartnerRequestCreateOrConnectWithoutProjectInput = {
+    where: PartnerRequestWhereUniqueInput
+    create: XOR<PartnerRequestCreateWithoutProjectInput, PartnerRequestUncheckedCreateWithoutProjectInput>
+  }
+
+  export type PartnerRequestCreateManyProjectInputEnvelope = {
+    data: PartnerRequestCreateManyProjectInput | PartnerRequestCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PartnerActivityLogCreateWithoutProjectInput = {
+    id?: string
+    action: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutActivityLogsInput
+    document?: DocumentCreateNestedOneWithoutActivityLogsInput
+  }
+
+  export type PartnerActivityLogUncheckedCreateWithoutProjectInput = {
+    id?: string
+    userId: string
+    documentId?: string | null
+    action: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerActivityLogCreateOrConnectWithoutProjectInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    create: XOR<PartnerActivityLogCreateWithoutProjectInput, PartnerActivityLogUncheckedCreateWithoutProjectInput>
+  }
+
+  export type PartnerActivityLogCreateManyProjectInputEnvelope = {
+    data: PartnerActivityLogCreateManyProjectInput | PartnerActivityLogCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserRoleAssignmentCreateWithoutProjectInput = {
+    id?: string
+    user: UserCreateNestedOneWithoutRoleAssignmentsInput
+    role: RoleCreateNestedOneWithoutAssignmentsInput
+  }
+
+  export type UserRoleAssignmentUncheckedCreateWithoutProjectInput = {
+    id?: string
+    userId: string
+    roleId: string
+  }
+
+  export type UserRoleAssignmentCreateOrConnectWithoutProjectInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    create: XOR<UserRoleAssignmentCreateWithoutProjectInput, UserRoleAssignmentUncheckedCreateWithoutProjectInput>
+  }
+
+  export type UserRoleAssignmentCreateManyProjectInputEnvelope = {
+    data: UserRoleAssignmentCreateManyProjectInput | UserRoleAssignmentCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutProjectsOwnedInput = {
     update: XOR<UserUpdateWithoutProjectsOwnedInput, UserUncheckedUpdateWithoutProjectsOwnedInput>
     create: XOR<UserCreateWithoutProjectsOwnedInput, UserUncheckedCreateWithoutProjectsOwnedInput>
@@ -28970,10 +40486,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     Task?: TaskUpdateManyWithoutAssigneeNestedInput
     ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsOwnedInput = {
@@ -28989,10 +40514,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
     ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectMemberUpsertWithWhereUniqueWithoutProjectInput = {
@@ -29177,6 +40711,122 @@ export namespace Prisma {
     tasks?: TaskTemplateUncheckedUpdateManyWithoutProjectTemplateNestedInput
   }
 
+  export type ProjectAccessUpsertWithWhereUniqueWithoutProjectInput = {
+    where: ProjectAccessWhereUniqueInput
+    update: XOR<ProjectAccessUpdateWithoutProjectInput, ProjectAccessUncheckedUpdateWithoutProjectInput>
+    create: XOR<ProjectAccessCreateWithoutProjectInput, ProjectAccessUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ProjectAccessUpdateWithWhereUniqueWithoutProjectInput = {
+    where: ProjectAccessWhereUniqueInput
+    data: XOR<ProjectAccessUpdateWithoutProjectInput, ProjectAccessUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type ProjectAccessUpdateManyWithWhereWithoutProjectInput = {
+    where: ProjectAccessScalarWhereInput
+    data: XOR<ProjectAccessUpdateManyMutationInput, ProjectAccessUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type ProjectAccessScalarWhereInput = {
+    AND?: ProjectAccessScalarWhereInput | ProjectAccessScalarWhereInput[]
+    OR?: ProjectAccessScalarWhereInput[]
+    NOT?: ProjectAccessScalarWhereInput | ProjectAccessScalarWhereInput[]
+    id?: StringFilter<"ProjectAccess"> | string
+    projectId?: StringFilter<"ProjectAccess"> | string
+    userId?: StringFilter<"ProjectAccess"> | string
+    canRead?: BoolFilter<"ProjectAccess"> | boolean
+    canWrite?: BoolFilter<"ProjectAccess"> | boolean
+    canComment?: BoolFilter<"ProjectAccess"> | boolean
+    canValidate?: BoolFilter<"ProjectAccess"> | boolean
+    createdAt?: DateTimeFilter<"ProjectAccess"> | Date | string
+    updatedAt?: DateTimeFilter<"ProjectAccess"> | Date | string
+  }
+
+  export type PartnerRequestUpsertWithWhereUniqueWithoutProjectInput = {
+    where: PartnerRequestWhereUniqueInput
+    update: XOR<PartnerRequestUpdateWithoutProjectInput, PartnerRequestUncheckedUpdateWithoutProjectInput>
+    create: XOR<PartnerRequestCreateWithoutProjectInput, PartnerRequestUncheckedCreateWithoutProjectInput>
+  }
+
+  export type PartnerRequestUpdateWithWhereUniqueWithoutProjectInput = {
+    where: PartnerRequestWhereUniqueInput
+    data: XOR<PartnerRequestUpdateWithoutProjectInput, PartnerRequestUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type PartnerRequestUpdateManyWithWhereWithoutProjectInput = {
+    where: PartnerRequestScalarWhereInput
+    data: XOR<PartnerRequestUpdateManyMutationInput, PartnerRequestUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type PartnerRequestScalarWhereInput = {
+    AND?: PartnerRequestScalarWhereInput | PartnerRequestScalarWhereInput[]
+    OR?: PartnerRequestScalarWhereInput[]
+    NOT?: PartnerRequestScalarWhereInput | PartnerRequestScalarWhereInput[]
+    id?: StringFilter<"PartnerRequest"> | string
+    projectId?: StringFilter<"PartnerRequest"> | string
+    userId?: StringFilter<"PartnerRequest"> | string
+    subject?: StringFilter<"PartnerRequest"> | string
+    message?: StringFilter<"PartnerRequest"> | string
+    attachment?: StringNullableFilter<"PartnerRequest"> | string | null
+    status?: EnumRequestStatusFilter<"PartnerRequest"> | $Enums.RequestStatus
+    createdAt?: DateTimeFilter<"PartnerRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"PartnerRequest"> | Date | string
+  }
+
+  export type PartnerActivityLogUpsertWithWhereUniqueWithoutProjectInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    update: XOR<PartnerActivityLogUpdateWithoutProjectInput, PartnerActivityLogUncheckedUpdateWithoutProjectInput>
+    create: XOR<PartnerActivityLogCreateWithoutProjectInput, PartnerActivityLogUncheckedCreateWithoutProjectInput>
+  }
+
+  export type PartnerActivityLogUpdateWithWhereUniqueWithoutProjectInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    data: XOR<PartnerActivityLogUpdateWithoutProjectInput, PartnerActivityLogUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type PartnerActivityLogUpdateManyWithWhereWithoutProjectInput = {
+    where: PartnerActivityLogScalarWhereInput
+    data: XOR<PartnerActivityLogUpdateManyMutationInput, PartnerActivityLogUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type PartnerActivityLogScalarWhereInput = {
+    AND?: PartnerActivityLogScalarWhereInput | PartnerActivityLogScalarWhereInput[]
+    OR?: PartnerActivityLogScalarWhereInput[]
+    NOT?: PartnerActivityLogScalarWhereInput | PartnerActivityLogScalarWhereInput[]
+    id?: StringFilter<"PartnerActivityLog"> | string
+    userId?: StringFilter<"PartnerActivityLog"> | string
+    projectId?: StringNullableFilter<"PartnerActivityLog"> | string | null
+    documentId?: StringNullableFilter<"PartnerActivityLog"> | string | null
+    action?: StringFilter<"PartnerActivityLog"> | string
+    createdAt?: DateTimeFilter<"PartnerActivityLog"> | Date | string
+  }
+
+  export type UserRoleAssignmentUpsertWithWhereUniqueWithoutProjectInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    update: XOR<UserRoleAssignmentUpdateWithoutProjectInput, UserRoleAssignmentUncheckedUpdateWithoutProjectInput>
+    create: XOR<UserRoleAssignmentCreateWithoutProjectInput, UserRoleAssignmentUncheckedCreateWithoutProjectInput>
+  }
+
+  export type UserRoleAssignmentUpdateWithWhereUniqueWithoutProjectInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    data: XOR<UserRoleAssignmentUpdateWithoutProjectInput, UserRoleAssignmentUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type UserRoleAssignmentUpdateManyWithWhereWithoutProjectInput = {
+    where: UserRoleAssignmentScalarWhereInput
+    data: XOR<UserRoleAssignmentUpdateManyMutationInput, UserRoleAssignmentUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type UserRoleAssignmentScalarWhereInput = {
+    AND?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
+    OR?: UserRoleAssignmentScalarWhereInput[]
+    NOT?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
+    id?: StringFilter<"UserRoleAssignment"> | string
+    userId?: StringFilter<"UserRoleAssignment"> | string
+    roleId?: StringFilter<"UserRoleAssignment"> | string
+    projectId?: StringNullableFilter<"UserRoleAssignment"> | string | null
+  }
+
   export type ProjectCreateWithoutTasksInput = {
     id?: string
     name: string
@@ -29201,6 +40851,10 @@ export namespace Prisma {
     columns?: TaskColumnCreateNestedManyWithoutProjectInput
     documents?: DocumentCreateNestedManyWithoutProjectInput
     template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutTasksInput = {
@@ -29227,6 +40881,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
     columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
     documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -29266,10 +40924,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     comments?: CommentCreateNestedManyWithoutAuthorInput
     ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTaskInput = {
@@ -29285,10 +40952,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTaskInput = {
@@ -29417,6 +41093,10 @@ export namespace Prisma {
     columns?: TaskColumnUpdateManyWithoutProjectNestedInput
     documents?: DocumentUpdateManyWithoutProjectNestedInput
     template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutTasksInput = {
@@ -29443,6 +41123,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type TaskColumnUpsertWithoutTasksInput = {
@@ -29494,10 +41178,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaskInput = {
@@ -29513,10 +41206,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CommentUpsertWithWhereUniqueWithoutTaskInput = {
@@ -29617,6 +41319,10 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutProjectInput
     documents?: DocumentCreateNestedManyWithoutProjectInput
     template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutColumnsInput = {
@@ -29643,6 +41349,10 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
     documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutColumnsInput = {
@@ -29739,6 +41449,10 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutProjectNestedInput
     documents?: DocumentUpdateManyWithoutProjectNestedInput
     template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutColumnsInput = {
@@ -29765,6 +41479,10 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type TaskUpsertWithWhereUniqueWithoutColumnInput = {
@@ -29856,6 +41574,10 @@ export namespace Prisma {
     columns?: TaskColumnCreateNestedManyWithoutProjectInput
     documents?: DocumentCreateNestedManyWithoutProjectInput
     template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutChecklistsInput = {
@@ -29882,6 +41604,10 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
     columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
     documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutChecklistsInput = {
@@ -30007,6 +41733,10 @@ export namespace Prisma {
     columns?: TaskColumnUpdateManyWithoutProjectNestedInput
     documents?: DocumentUpdateManyWithoutProjectNestedInput
     template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutChecklistsInput = {
@@ -30033,6 +41763,10 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput = {
@@ -30235,6 +41969,10 @@ export namespace Prisma {
     columns?: TaskColumnCreateNestedManyWithoutProjectInput
     documents?: DocumentCreateNestedManyWithoutProjectInput
     template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutMembersInput = {
@@ -30261,6 +41999,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
     columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
     documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutMembersInput = {
@@ -30281,10 +42023,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     comments?: CommentCreateNestedManyWithoutAuthorInput
     Task?: TaskCreateNestedManyWithoutAssigneeInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectMemberInput = {
@@ -30300,10 +42051,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectMemberInput = {
@@ -30346,6 +42106,10 @@ export namespace Prisma {
     columns?: TaskColumnUpdateManyWithoutProjectNestedInput
     documents?: DocumentUpdateManyWithoutProjectNestedInput
     template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutMembersInput = {
@@ -30372,6 +42136,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserUpsertWithoutProjectMemberInput = {
@@ -30398,10 +42166,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectMemberInput = {
@@ -30417,10 +42194,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -30436,10 +42222,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
     comments?: CommentCreateNestedManyWithoutAuthorInput
     Task?: TaskCreateNestedManyWithoutAssigneeInput
     ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -30455,10 +42250,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
     Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
     ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -30490,6 +42294,10 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutProjectInput
     columns?: TaskColumnCreateNestedManyWithoutProjectInput
     template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutDocumentsInput = {
@@ -30516,6 +42324,10 @@ export namespace Prisma {
     tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
     columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutDocumentsInput = {
@@ -30637,6 +42449,62 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DocumentAccessCreateWithoutDocumentInput = {
+    id?: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutDocumentAccessInput
+  }
+
+  export type DocumentAccessUncheckedCreateWithoutDocumentInput = {
+    id?: string
+    userId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentAccessCreateOrConnectWithoutDocumentInput = {
+    where: DocumentAccessWhereUniqueInput
+    create: XOR<DocumentAccessCreateWithoutDocumentInput, DocumentAccessUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentAccessCreateManyDocumentInputEnvelope = {
+    data: DocumentAccessCreateManyDocumentInput | DocumentAccessCreateManyDocumentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PartnerActivityLogCreateWithoutDocumentInput = {
+    id?: string
+    action: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutActivityLogsInput
+    project?: ProjectCreateNestedOneWithoutActivityLogsInput
+  }
+
+  export type PartnerActivityLogUncheckedCreateWithoutDocumentInput = {
+    id?: string
+    userId: string
+    projectId?: string | null
+    action: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerActivityLogCreateOrConnectWithoutDocumentInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    create: XOR<PartnerActivityLogCreateWithoutDocumentInput, PartnerActivityLogUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type PartnerActivityLogCreateManyDocumentInputEnvelope = {
+    data: PartnerActivityLogCreateManyDocumentInput | PartnerActivityLogCreateManyDocumentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutDocumentsInput = {
     update: XOR<UserUpdateWithoutDocumentsInput, UserUncheckedUpdateWithoutDocumentsInput>
     create: XOR<UserCreateWithoutDocumentsInput, UserUncheckedCreateWithoutDocumentsInput>
@@ -30661,10 +42529,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
     comments?: CommentUpdateManyWithoutAuthorNestedInput
     Task?: TaskUpdateManyWithoutAssigneeNestedInput
     ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -30680,10 +42557,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
     Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
     ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ProjectUpsertWithoutDocumentsInput = {
@@ -30721,6 +42607,10 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUpdateManyWithoutProjectNestedInput
     template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutDocumentsInput = {
@@ -30747,6 +42637,10 @@ export namespace Prisma {
     tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type DocumentVersionUpsertWithWhereUniqueWithoutDocumentInput = {
@@ -30866,6 +42760,52 @@ export namespace Prisma {
     signedAt?: DateTimeNullableFilter<"DocumentSignature"> | Date | string | null
   }
 
+  export type DocumentAccessUpsertWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentAccessWhereUniqueInput
+    update: XOR<DocumentAccessUpdateWithoutDocumentInput, DocumentAccessUncheckedUpdateWithoutDocumentInput>
+    create: XOR<DocumentAccessCreateWithoutDocumentInput, DocumentAccessUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type DocumentAccessUpdateWithWhereUniqueWithoutDocumentInput = {
+    where: DocumentAccessWhereUniqueInput
+    data: XOR<DocumentAccessUpdateWithoutDocumentInput, DocumentAccessUncheckedUpdateWithoutDocumentInput>
+  }
+
+  export type DocumentAccessUpdateManyWithWhereWithoutDocumentInput = {
+    where: DocumentAccessScalarWhereInput
+    data: XOR<DocumentAccessUpdateManyMutationInput, DocumentAccessUncheckedUpdateManyWithoutDocumentInput>
+  }
+
+  export type DocumentAccessScalarWhereInput = {
+    AND?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
+    OR?: DocumentAccessScalarWhereInput[]
+    NOT?: DocumentAccessScalarWhereInput | DocumentAccessScalarWhereInput[]
+    id?: StringFilter<"DocumentAccess"> | string
+    documentId?: StringFilter<"DocumentAccess"> | string
+    userId?: StringFilter<"DocumentAccess"> | string
+    canRead?: BoolFilter<"DocumentAccess"> | boolean
+    canWrite?: BoolFilter<"DocumentAccess"> | boolean
+    canComment?: BoolFilter<"DocumentAccess"> | boolean
+    createdAt?: DateTimeFilter<"DocumentAccess"> | Date | string
+    updatedAt?: DateTimeFilter<"DocumentAccess"> | Date | string
+  }
+
+  export type PartnerActivityLogUpsertWithWhereUniqueWithoutDocumentInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    update: XOR<PartnerActivityLogUpdateWithoutDocumentInput, PartnerActivityLogUncheckedUpdateWithoutDocumentInput>
+    create: XOR<PartnerActivityLogCreateWithoutDocumentInput, PartnerActivityLogUncheckedCreateWithoutDocumentInput>
+  }
+
+  export type PartnerActivityLogUpdateWithWhereUniqueWithoutDocumentInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    data: XOR<PartnerActivityLogUpdateWithoutDocumentInput, PartnerActivityLogUncheckedUpdateWithoutDocumentInput>
+  }
+
+  export type PartnerActivityLogUpdateManyWithWhereWithoutDocumentInput = {
+    where: PartnerActivityLogScalarWhereInput
+    data: XOR<PartnerActivityLogUpdateManyMutationInput, PartnerActivityLogUncheckedUpdateManyWithoutDocumentInput>
+  }
+
   export type DocumentCreateWithoutVersionsInput = {
     id?: string
     name: string
@@ -30881,6 +42821,8 @@ export namespace Prisma {
     comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateWithoutVersionsInput = {
@@ -30898,6 +42840,8 @@ export namespace Prisma {
     comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentCreateOrConnectWithoutVersionsInput = {
@@ -30931,6 +42875,8 @@ export namespace Prisma {
     comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutVersionsInput = {
@@ -30948,6 +42894,8 @@ export namespace Prisma {
     comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentCreateWithoutCommentsInput = {
@@ -30965,6 +42913,8 @@ export namespace Prisma {
     versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateWithoutCommentsInput = {
@@ -30982,6 +42932,8 @@ export namespace Prisma {
     versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentCreateOrConnectWithoutCommentsInput = {
@@ -31015,6 +42967,8 @@ export namespace Prisma {
     versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutCommentsInput = {
@@ -31032,6 +42986,8 @@ export namespace Prisma {
     versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentCreateWithoutNotificationRulesInput = {
@@ -31049,6 +43005,8 @@ export namespace Prisma {
     versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
     comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateWithoutNotificationRulesInput = {
@@ -31066,6 +43024,8 @@ export namespace Prisma {
     versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
     comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentCreateOrConnectWithoutNotificationRulesInput = {
@@ -31099,6 +43059,8 @@ export namespace Prisma {
     versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
     comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutNotificationRulesInput = {
@@ -31116,6 +43078,8 @@ export namespace Prisma {
     versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
     comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentCreateWithoutSignaturesInput = {
@@ -31133,6 +43097,8 @@ export namespace Prisma {
     versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
     comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateWithoutSignaturesInput = {
@@ -31150,6 +43116,8 @@ export namespace Prisma {
     versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
     comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentCreateOrConnectWithoutSignaturesInput = {
@@ -31183,6 +43151,8 @@ export namespace Prisma {
     versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
     comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutSignaturesInput = {
@@ -31200,6 +43170,8 @@ export namespace Prisma {
     versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
     comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type UserCreateWithoutCommentsInput = {
@@ -31215,10 +43187,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
     documents?: DocumentCreateNestedManyWithoutUploadedByInput
     Task?: TaskCreateNestedManyWithoutAssigneeInput
     ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -31234,10 +43215,19 @@ export namespace Prisma {
     googleId?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
     projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
     Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
     ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -31318,10 +43308,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
     documents?: DocumentUpdateManyWithoutUploadedByNestedInput
     Task?: TaskUpdateManyWithoutAssigneeNestedInput
     ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -31337,10 +43336,19 @@ export namespace Prisma {
     googleId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
     projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
     Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
     ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TaskUpsertWithoutCommentsInput = {
@@ -31422,6 +43430,10 @@ export namespace Prisma {
     columns?: TaskColumnCreateNestedManyWithoutProjectInput
     documents?: DocumentCreateNestedManyWithoutProjectInput
     template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutOwnerInput = {
@@ -31448,6 +43460,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
     columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
     documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutOwnerInput = {
@@ -31475,6 +43491,8 @@ export namespace Prisma {
     comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentUncheckedCreateWithoutUploadedByInput = {
@@ -31492,6 +43510,8 @@ export namespace Prisma {
     comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
     notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
     signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput
   }
 
   export type DocumentCreateOrConnectWithoutUploadedByInput = {
@@ -31608,6 +43628,174 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProjectAccessCreateWithoutUserInput = {
+    id?: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutAccessesInput
+  }
+
+  export type ProjectAccessUncheckedCreateWithoutUserInput = {
+    id?: string
+    projectId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProjectAccessCreateOrConnectWithoutUserInput = {
+    where: ProjectAccessWhereUniqueInput
+    create: XOR<ProjectAccessCreateWithoutUserInput, ProjectAccessUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProjectAccessCreateManyUserInputEnvelope = {
+    data: ProjectAccessCreateManyUserInput | ProjectAccessCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DocumentAccessCreateWithoutUserInput = {
+    id?: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    document: DocumentCreateNestedOneWithoutAccessesInput
+  }
+
+  export type DocumentAccessUncheckedCreateWithoutUserInput = {
+    id?: string
+    documentId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentAccessCreateOrConnectWithoutUserInput = {
+    where: DocumentAccessWhereUniqueInput
+    create: XOR<DocumentAccessCreateWithoutUserInput, DocumentAccessUncheckedCreateWithoutUserInput>
+  }
+
+  export type DocumentAccessCreateManyUserInputEnvelope = {
+    data: DocumentAccessCreateManyUserInput | DocumentAccessCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PartnerRequestCreateWithoutUserInput = {
+    id?: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutPartnerRequestsInput
+    messages?: PartnerRequestMessageCreateNestedManyWithoutRequestInput
+  }
+
+  export type PartnerRequestUncheckedCreateWithoutUserInput = {
+    id?: string
+    projectId: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutRequestInput
+  }
+
+  export type PartnerRequestCreateOrConnectWithoutUserInput = {
+    where: PartnerRequestWhereUniqueInput
+    create: XOR<PartnerRequestCreateWithoutUserInput, PartnerRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type PartnerRequestCreateManyUserInputEnvelope = {
+    data: PartnerRequestCreateManyUserInput | PartnerRequestCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PartnerRequestMessageCreateWithoutSenderInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    request: PartnerRequestCreateNestedOneWithoutMessagesInput
+  }
+
+  export type PartnerRequestMessageUncheckedCreateWithoutSenderInput = {
+    id?: string
+    requestId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerRequestMessageCreateOrConnectWithoutSenderInput = {
+    where: PartnerRequestMessageWhereUniqueInput
+    create: XOR<PartnerRequestMessageCreateWithoutSenderInput, PartnerRequestMessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type PartnerRequestMessageCreateManySenderInputEnvelope = {
+    data: PartnerRequestMessageCreateManySenderInput | PartnerRequestMessageCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PartnerActivityLogCreateWithoutUserInput = {
+    id?: string
+    action: string
+    createdAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutActivityLogsInput
+    document?: DocumentCreateNestedOneWithoutActivityLogsInput
+  }
+
+  export type PartnerActivityLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    projectId?: string | null
+    documentId?: string | null
+    action: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerActivityLogCreateOrConnectWithoutUserInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    create: XOR<PartnerActivityLogCreateWithoutUserInput, PartnerActivityLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type PartnerActivityLogCreateManyUserInputEnvelope = {
+    data: PartnerActivityLogCreateManyUserInput | PartnerActivityLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserRoleAssignmentCreateWithoutUserInput = {
+    id?: string
+    role: RoleCreateNestedOneWithoutAssignmentsInput
+    project?: ProjectCreateNestedOneWithoutRoleAssignmentsInput
+  }
+
+  export type UserRoleAssignmentUncheckedCreateWithoutUserInput = {
+    id?: string
+    roleId: string
+    projectId?: string | null
+  }
+
+  export type UserRoleAssignmentCreateOrConnectWithoutUserInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    create: XOR<UserRoleAssignmentCreateWithoutUserInput, UserRoleAssignmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserRoleAssignmentCreateManyUserInputEnvelope = {
+    data: UserRoleAssignmentCreateManyUserInput | UserRoleAssignmentCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProjectUpsertWithWhereUniqueWithoutOwnerInput = {
     where: ProjectWhereUniqueInput
     update: XOR<ProjectUpdateWithoutOwnerInput, ProjectUncheckedUpdateWithoutOwnerInput>
@@ -31713,6 +43901,113 @@ export namespace Prisma {
     data: XOR<ProjectMemberUpdateManyMutationInput, ProjectMemberUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type ProjectAccessUpsertWithWhereUniqueWithoutUserInput = {
+    where: ProjectAccessWhereUniqueInput
+    update: XOR<ProjectAccessUpdateWithoutUserInput, ProjectAccessUncheckedUpdateWithoutUserInput>
+    create: XOR<ProjectAccessCreateWithoutUserInput, ProjectAccessUncheckedCreateWithoutUserInput>
+  }
+
+  export type ProjectAccessUpdateWithWhereUniqueWithoutUserInput = {
+    where: ProjectAccessWhereUniqueInput
+    data: XOR<ProjectAccessUpdateWithoutUserInput, ProjectAccessUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ProjectAccessUpdateManyWithWhereWithoutUserInput = {
+    where: ProjectAccessScalarWhereInput
+    data: XOR<ProjectAccessUpdateManyMutationInput, ProjectAccessUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type DocumentAccessUpsertWithWhereUniqueWithoutUserInput = {
+    where: DocumentAccessWhereUniqueInput
+    update: XOR<DocumentAccessUpdateWithoutUserInput, DocumentAccessUncheckedUpdateWithoutUserInput>
+    create: XOR<DocumentAccessCreateWithoutUserInput, DocumentAccessUncheckedCreateWithoutUserInput>
+  }
+
+  export type DocumentAccessUpdateWithWhereUniqueWithoutUserInput = {
+    where: DocumentAccessWhereUniqueInput
+    data: XOR<DocumentAccessUpdateWithoutUserInput, DocumentAccessUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DocumentAccessUpdateManyWithWhereWithoutUserInput = {
+    where: DocumentAccessScalarWhereInput
+    data: XOR<DocumentAccessUpdateManyMutationInput, DocumentAccessUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PartnerRequestUpsertWithWhereUniqueWithoutUserInput = {
+    where: PartnerRequestWhereUniqueInput
+    update: XOR<PartnerRequestUpdateWithoutUserInput, PartnerRequestUncheckedUpdateWithoutUserInput>
+    create: XOR<PartnerRequestCreateWithoutUserInput, PartnerRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type PartnerRequestUpdateWithWhereUniqueWithoutUserInput = {
+    where: PartnerRequestWhereUniqueInput
+    data: XOR<PartnerRequestUpdateWithoutUserInput, PartnerRequestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PartnerRequestUpdateManyWithWhereWithoutUserInput = {
+    where: PartnerRequestScalarWhereInput
+    data: XOR<PartnerRequestUpdateManyMutationInput, PartnerRequestUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PartnerRequestMessageUpsertWithWhereUniqueWithoutSenderInput = {
+    where: PartnerRequestMessageWhereUniqueInput
+    update: XOR<PartnerRequestMessageUpdateWithoutSenderInput, PartnerRequestMessageUncheckedUpdateWithoutSenderInput>
+    create: XOR<PartnerRequestMessageCreateWithoutSenderInput, PartnerRequestMessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type PartnerRequestMessageUpdateWithWhereUniqueWithoutSenderInput = {
+    where: PartnerRequestMessageWhereUniqueInput
+    data: XOR<PartnerRequestMessageUpdateWithoutSenderInput, PartnerRequestMessageUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type PartnerRequestMessageUpdateManyWithWhereWithoutSenderInput = {
+    where: PartnerRequestMessageScalarWhereInput
+    data: XOR<PartnerRequestMessageUpdateManyMutationInput, PartnerRequestMessageUncheckedUpdateManyWithoutSenderInput>
+  }
+
+  export type PartnerRequestMessageScalarWhereInput = {
+    AND?: PartnerRequestMessageScalarWhereInput | PartnerRequestMessageScalarWhereInput[]
+    OR?: PartnerRequestMessageScalarWhereInput[]
+    NOT?: PartnerRequestMessageScalarWhereInput | PartnerRequestMessageScalarWhereInput[]
+    id?: StringFilter<"PartnerRequestMessage"> | string
+    requestId?: StringFilter<"PartnerRequestMessage"> | string
+    senderId?: StringFilter<"PartnerRequestMessage"> | string
+    content?: StringFilter<"PartnerRequestMessage"> | string
+    createdAt?: DateTimeFilter<"PartnerRequestMessage"> | Date | string
+  }
+
+  export type PartnerActivityLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    update: XOR<PartnerActivityLogUpdateWithoutUserInput, PartnerActivityLogUncheckedUpdateWithoutUserInput>
+    create: XOR<PartnerActivityLogCreateWithoutUserInput, PartnerActivityLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type PartnerActivityLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: PartnerActivityLogWhereUniqueInput
+    data: XOR<PartnerActivityLogUpdateWithoutUserInput, PartnerActivityLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PartnerActivityLogUpdateManyWithWhereWithoutUserInput = {
+    where: PartnerActivityLogScalarWhereInput
+    data: XOR<PartnerActivityLogUpdateManyMutationInput, PartnerActivityLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserRoleAssignmentUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    update: XOR<UserRoleAssignmentUpdateWithoutUserInput, UserRoleAssignmentUncheckedUpdateWithoutUserInput>
+    create: XOR<UserRoleAssignmentCreateWithoutUserInput, UserRoleAssignmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserRoleAssignmentUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    data: XOR<UserRoleAssignmentUpdateWithoutUserInput, UserRoleAssignmentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserRoleAssignmentUpdateManyWithWhereWithoutUserInput = {
+    where: UserRoleAssignmentScalarWhereInput
+    data: XOR<UserRoleAssignmentUpdateManyMutationInput, UserRoleAssignmentUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type ProjectCreateWithoutTemplateInput = {
     id?: string
     name: string
@@ -31737,6 +44032,10 @@ export namespace Prisma {
     checklists?: ChecklistCreateNestedManyWithoutProjectInput
     columns?: TaskColumnCreateNestedManyWithoutProjectInput
     documents?: DocumentCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutTemplateInput = {
@@ -31763,6 +44062,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
     columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
     documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutTemplateInput = {
@@ -32009,6 +44312,1720 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserRoleAssignmentCreateWithoutRoleInput = {
+    id?: string
+    user: UserCreateNestedOneWithoutRoleAssignmentsInput
+    project?: ProjectCreateNestedOneWithoutRoleAssignmentsInput
+  }
+
+  export type UserRoleAssignmentUncheckedCreateWithoutRoleInput = {
+    id?: string
+    userId: string
+    projectId?: string | null
+  }
+
+  export type UserRoleAssignmentCreateOrConnectWithoutRoleInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    create: XOR<UserRoleAssignmentCreateWithoutRoleInput, UserRoleAssignmentUncheckedCreateWithoutRoleInput>
+  }
+
+  export type UserRoleAssignmentCreateManyRoleInputEnvelope = {
+    data: UserRoleAssignmentCreateManyRoleInput | UserRoleAssignmentCreateManyRoleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserRoleAssignmentUpsertWithWhereUniqueWithoutRoleInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    update: XOR<UserRoleAssignmentUpdateWithoutRoleInput, UserRoleAssignmentUncheckedUpdateWithoutRoleInput>
+    create: XOR<UserRoleAssignmentCreateWithoutRoleInput, UserRoleAssignmentUncheckedCreateWithoutRoleInput>
+  }
+
+  export type UserRoleAssignmentUpdateWithWhereUniqueWithoutRoleInput = {
+    where: UserRoleAssignmentWhereUniqueInput
+    data: XOR<UserRoleAssignmentUpdateWithoutRoleInput, UserRoleAssignmentUncheckedUpdateWithoutRoleInput>
+  }
+
+  export type UserRoleAssignmentUpdateManyWithWhereWithoutRoleInput = {
+    where: UserRoleAssignmentScalarWhereInput
+    data: XOR<UserRoleAssignmentUpdateManyMutationInput, UserRoleAssignmentUncheckedUpdateManyWithoutRoleInput>
+  }
+
+  export type UserCreateWithoutRoleAssignmentsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRoleAssignmentsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRoleAssignmentsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRoleAssignmentsInput, UserUncheckedCreateWithoutRoleAssignmentsInput>
+  }
+
+  export type RoleCreateWithoutAssignmentsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RoleUncheckedCreateWithoutAssignmentsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    canDelete?: boolean
+    canUseVisio?: boolean
+    canUseDashboard?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type RoleCreateOrConnectWithoutAssignmentsInput = {
+    where: RoleWhereUniqueInput
+    create: XOR<RoleCreateWithoutAssignmentsInput, RoleUncheckedCreateWithoutAssignmentsInput>
+  }
+
+  export type ProjectCreateWithoutRoleAssignmentsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutProjectsOwnedInput
+    members?: ProjectMemberCreateNestedManyWithoutProjectInput
+    tasks?: TaskCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnCreateNestedManyWithoutProjectInput
+    documents?: DocumentCreateNestedManyWithoutProjectInput
+    template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutRoleAssignmentsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId?: string | null
+    templateId?: string | null
+    members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutRoleAssignmentsInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutRoleAssignmentsInput, ProjectUncheckedCreateWithoutRoleAssignmentsInput>
+  }
+
+  export type UserUpsertWithoutRoleAssignmentsInput = {
+    update: XOR<UserUpdateWithoutRoleAssignmentsInput, UserUncheckedUpdateWithoutRoleAssignmentsInput>
+    create: XOR<UserCreateWithoutRoleAssignmentsInput, UserUncheckedCreateWithoutRoleAssignmentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRoleAssignmentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRoleAssignmentsInput, UserUncheckedUpdateWithoutRoleAssignmentsInput>
+  }
+
+  export type UserUpdateWithoutRoleAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRoleAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type RoleUpsertWithoutAssignmentsInput = {
+    update: XOR<RoleUpdateWithoutAssignmentsInput, RoleUncheckedUpdateWithoutAssignmentsInput>
+    create: XOR<RoleCreateWithoutAssignmentsInput, RoleUncheckedCreateWithoutAssignmentsInput>
+    where?: RoleWhereInput
+  }
+
+  export type RoleUpdateToOneWithWhereWithoutAssignmentsInput = {
+    where?: RoleWhereInput
+    data: XOR<RoleUpdateWithoutAssignmentsInput, RoleUncheckedUpdateWithoutAssignmentsInput>
+  }
+
+  export type RoleUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
+    canUseVisio?: BoolFieldUpdateOperationsInput | boolean
+    canUseDashboard?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RoleUncheckedUpdateWithoutAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    canDelete?: BoolFieldUpdateOperationsInput | boolean
+    canUseVisio?: BoolFieldUpdateOperationsInput | boolean
+    canUseDashboard?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectUpsertWithoutRoleAssignmentsInput = {
+    update: XOR<ProjectUpdateWithoutRoleAssignmentsInput, ProjectUncheckedUpdateWithoutRoleAssignmentsInput>
+    create: XOR<ProjectCreateWithoutRoleAssignmentsInput, ProjectUncheckedCreateWithoutRoleAssignmentsInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutRoleAssignmentsInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutRoleAssignmentsInput, ProjectUncheckedUpdateWithoutRoleAssignmentsInput>
+  }
+
+  export type ProjectUpdateWithoutRoleAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
+    members?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUpdateManyWithoutProjectNestedInput
+    template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutRoleAssignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectCreateWithoutAccessesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutProjectsOwnedInput
+    members?: ProjectMemberCreateNestedManyWithoutProjectInput
+    tasks?: TaskCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnCreateNestedManyWithoutProjectInput
+    documents?: DocumentCreateNestedManyWithoutProjectInput
+    template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutAccessesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId?: string | null
+    templateId?: string | null
+    members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutAccessesInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutAccessesInput, ProjectUncheckedCreateWithoutAccessesInput>
+  }
+
+  export type UserCreateWithoutProjectAccessInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutProjectAccessInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutProjectAccessInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProjectAccessInput, UserUncheckedCreateWithoutProjectAccessInput>
+  }
+
+  export type ProjectUpsertWithoutAccessesInput = {
+    update: XOR<ProjectUpdateWithoutAccessesInput, ProjectUncheckedUpdateWithoutAccessesInput>
+    create: XOR<ProjectCreateWithoutAccessesInput, ProjectUncheckedCreateWithoutAccessesInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutAccessesInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutAccessesInput, ProjectUncheckedUpdateWithoutAccessesInput>
+  }
+
+  export type ProjectUpdateWithoutAccessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
+    members?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUpdateManyWithoutProjectNestedInput
+    template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutAccessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type UserUpsertWithoutProjectAccessInput = {
+    update: XOR<UserUpdateWithoutProjectAccessInput, UserUncheckedUpdateWithoutProjectAccessInput>
+    create: XOR<UserCreateWithoutProjectAccessInput, UserUncheckedCreateWithoutProjectAccessInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProjectAccessInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProjectAccessInput, UserUncheckedUpdateWithoutProjectAccessInput>
+  }
+
+  export type UserUpdateWithoutProjectAccessInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutProjectAccessInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DocumentCreateWithoutAccessesInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    uploadedBy?: UserCreateNestedOneWithoutDocumentsInput
+    project: ProjectCreateNestedOneWithoutDocumentsInput
+    versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentUncheckedCreateWithoutAccessesInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    uploadedById?: string | null
+    projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentCreateOrConnectWithoutAccessesInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutAccessesInput, DocumentUncheckedCreateWithoutAccessesInput>
+  }
+
+  export type UserCreateWithoutDocumentAccessInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDocumentAccessInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDocumentAccessInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDocumentAccessInput, UserUncheckedCreateWithoutDocumentAccessInput>
+  }
+
+  export type DocumentUpsertWithoutAccessesInput = {
+    update: XOR<DocumentUpdateWithoutAccessesInput, DocumentUncheckedUpdateWithoutAccessesInput>
+    create: XOR<DocumentCreateWithoutAccessesInput, DocumentUncheckedCreateWithoutAccessesInput>
+    where?: DocumentWhereInput
+  }
+
+  export type DocumentUpdateToOneWithWhereWithoutAccessesInput = {
+    where?: DocumentWhereInput
+    data: XOR<DocumentUpdateWithoutAccessesInput, DocumentUncheckedUpdateWithoutAccessesInput>
+  }
+
+  export type DocumentUpdateWithoutAccessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedBy?: UserUpdateOneWithoutDocumentsNestedInput
+    project?: ProjectUpdateOneRequiredWithoutDocumentsNestedInput
+    versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutAccessesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type UserUpsertWithoutDocumentAccessInput = {
+    update: XOR<UserUpdateWithoutDocumentAccessInput, UserUncheckedUpdateWithoutDocumentAccessInput>
+    create: XOR<UserCreateWithoutDocumentAccessInput, UserUncheckedCreateWithoutDocumentAccessInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutDocumentAccessInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutDocumentAccessInput, UserUncheckedUpdateWithoutDocumentAccessInput>
+  }
+
+  export type UserUpdateWithoutDocumentAccessInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDocumentAccessInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutActivityLogsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutActivityLogsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutActivityLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutActivityLogsInput, UserUncheckedCreateWithoutActivityLogsInput>
+  }
+
+  export type ProjectCreateWithoutActivityLogsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutProjectsOwnedInput
+    members?: ProjectMemberCreateNestedManyWithoutProjectInput
+    tasks?: TaskCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnCreateNestedManyWithoutProjectInput
+    documents?: DocumentCreateNestedManyWithoutProjectInput
+    template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutActivityLogsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId?: string | null
+    templateId?: string | null
+    members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutActivityLogsInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutActivityLogsInput, ProjectUncheckedCreateWithoutActivityLogsInput>
+  }
+
+  export type DocumentCreateWithoutActivityLogsInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    uploadedBy?: UserCreateNestedOneWithoutDocumentsInput
+    project: ProjectCreateNestedOneWithoutDocumentsInput
+    versions?: DocumentVersionCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentUncheckedCreateWithoutActivityLogsInput = {
+    id?: string
+    name: string
+    type?: string | null
+    url: string
+    uploadedById?: string | null
+    projectId: string
+    tags?: DocumentCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: boolean
+    uploadedAt?: Date | string
+    updatedAt?: Date | string
+    versions?: DocumentVersionUncheckedCreateNestedManyWithoutDocumentInput
+    comments?: DocumentCommentUncheckedCreateNestedManyWithoutDocumentInput
+    notificationRules?: DocumentNotificationRuleUncheckedCreateNestedManyWithoutDocumentInput
+    signatures?: DocumentSignatureUncheckedCreateNestedManyWithoutDocumentInput
+    accesses?: DocumentAccessUncheckedCreateNestedManyWithoutDocumentInput
+  }
+
+  export type DocumentCreateOrConnectWithoutActivityLogsInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutActivityLogsInput, DocumentUncheckedCreateWithoutActivityLogsInput>
+  }
+
+  export type UserUpsertWithoutActivityLogsInput = {
+    update: XOR<UserUpdateWithoutActivityLogsInput, UserUncheckedUpdateWithoutActivityLogsInput>
+    create: XOR<UserCreateWithoutActivityLogsInput, UserUncheckedCreateWithoutActivityLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutActivityLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutActivityLogsInput, UserUncheckedUpdateWithoutActivityLogsInput>
+  }
+
+  export type UserUpdateWithoutActivityLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutActivityLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ProjectUpsertWithoutActivityLogsInput = {
+    update: XOR<ProjectUpdateWithoutActivityLogsInput, ProjectUncheckedUpdateWithoutActivityLogsInput>
+    create: XOR<ProjectCreateWithoutActivityLogsInput, ProjectUncheckedCreateWithoutActivityLogsInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutActivityLogsInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutActivityLogsInput, ProjectUncheckedUpdateWithoutActivityLogsInput>
+  }
+
+  export type ProjectUpdateWithoutActivityLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
+    members?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUpdateManyWithoutProjectNestedInput
+    template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutActivityLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type DocumentUpsertWithoutActivityLogsInput = {
+    update: XOR<DocumentUpdateWithoutActivityLogsInput, DocumentUncheckedUpdateWithoutActivityLogsInput>
+    create: XOR<DocumentCreateWithoutActivityLogsInput, DocumentUncheckedCreateWithoutActivityLogsInput>
+    where?: DocumentWhereInput
+  }
+
+  export type DocumentUpdateToOneWithWhereWithoutActivityLogsInput = {
+    where?: DocumentWhereInput
+    data: XOR<DocumentUpdateWithoutActivityLogsInput, DocumentUncheckedUpdateWithoutActivityLogsInput>
+  }
+
+  export type DocumentUpdateWithoutActivityLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedBy?: UserUpdateOneWithoutDocumentsNestedInput
+    project?: ProjectUpdateOneRequiredWithoutDocumentsNestedInput
+    versions?: DocumentVersionUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutActivityLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
+    projectId?: StringFieldUpdateOperationsInput | string
+    tags?: DocumentUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    validationRequired?: BoolFieldUpdateOperationsInput | boolean
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: DocumentVersionUncheckedUpdateManyWithoutDocumentNestedInput
+    comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
+    notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
+    signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type ProjectCreateWithoutPartnerRequestsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutProjectsOwnedInput
+    members?: ProjectMemberCreateNestedManyWithoutProjectInput
+    tasks?: TaskCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnCreateNestedManyWithoutProjectInput
+    documents?: DocumentCreateNestedManyWithoutProjectInput
+    template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutPartnerRequestsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId?: string | null
+    templateId?: string | null
+    members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutPartnerRequestsInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutPartnerRequestsInput, ProjectUncheckedCreateWithoutPartnerRequestsInput>
+  }
+
+  export type UserCreateWithoutPartnerRequestsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPartnerRequestsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPartnerRequestsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPartnerRequestsInput, UserUncheckedCreateWithoutPartnerRequestsInput>
+  }
+
+  export type PartnerRequestMessageCreateWithoutRequestInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutPartnerMessagesInput
+  }
+
+  export type PartnerRequestMessageUncheckedCreateWithoutRequestInput = {
+    id?: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerRequestMessageCreateOrConnectWithoutRequestInput = {
+    where: PartnerRequestMessageWhereUniqueInput
+    create: XOR<PartnerRequestMessageCreateWithoutRequestInput, PartnerRequestMessageUncheckedCreateWithoutRequestInput>
+  }
+
+  export type PartnerRequestMessageCreateManyRequestInputEnvelope = {
+    data: PartnerRequestMessageCreateManyRequestInput | PartnerRequestMessageCreateManyRequestInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ProjectUpsertWithoutPartnerRequestsInput = {
+    update: XOR<ProjectUpdateWithoutPartnerRequestsInput, ProjectUncheckedUpdateWithoutPartnerRequestsInput>
+    create: XOR<ProjectCreateWithoutPartnerRequestsInput, ProjectUncheckedCreateWithoutPartnerRequestsInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutPartnerRequestsInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutPartnerRequestsInput, ProjectUncheckedUpdateWithoutPartnerRequestsInput>
+  }
+
+  export type ProjectUpdateWithoutPartnerRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
+    members?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUpdateManyWithoutProjectNestedInput
+    template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutPartnerRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type UserUpsertWithoutPartnerRequestsInput = {
+    update: XOR<UserUpdateWithoutPartnerRequestsInput, UserUncheckedUpdateWithoutPartnerRequestsInput>
+    create: XOR<UserCreateWithoutPartnerRequestsInput, UserUncheckedCreateWithoutPartnerRequestsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPartnerRequestsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPartnerRequestsInput, UserUncheckedUpdateWithoutPartnerRequestsInput>
+  }
+
+  export type UserUpdateWithoutPartnerRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPartnerRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PartnerRequestMessageUpsertWithWhereUniqueWithoutRequestInput = {
+    where: PartnerRequestMessageWhereUniqueInput
+    update: XOR<PartnerRequestMessageUpdateWithoutRequestInput, PartnerRequestMessageUncheckedUpdateWithoutRequestInput>
+    create: XOR<PartnerRequestMessageCreateWithoutRequestInput, PartnerRequestMessageUncheckedCreateWithoutRequestInput>
+  }
+
+  export type PartnerRequestMessageUpdateWithWhereUniqueWithoutRequestInput = {
+    where: PartnerRequestMessageWhereUniqueInput
+    data: XOR<PartnerRequestMessageUpdateWithoutRequestInput, PartnerRequestMessageUncheckedUpdateWithoutRequestInput>
+  }
+
+  export type PartnerRequestMessageUpdateManyWithWhereWithoutRequestInput = {
+    where: PartnerRequestMessageScalarWhereInput
+    data: XOR<PartnerRequestMessageUpdateManyMutationInput, PartnerRequestMessageUncheckedUpdateManyWithoutRequestInput>
+  }
+
+  export type PartnerRequestCreateWithoutMessagesInput = {
+    id?: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutPartnerRequestsInput
+    user: UserCreateNestedOneWithoutPartnerRequestsInput
+  }
+
+  export type PartnerRequestUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    projectId: string
+    userId: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PartnerRequestCreateOrConnectWithoutMessagesInput = {
+    where: PartnerRequestWhereUniqueInput
+    create: XOR<PartnerRequestCreateWithoutMessagesInput, PartnerRequestUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type UserCreateWithoutPartnerMessagesInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPartnerMessagesInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPartnerMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPartnerMessagesInput, UserUncheckedCreateWithoutPartnerMessagesInput>
+  }
+
+  export type PartnerRequestUpsertWithoutMessagesInput = {
+    update: XOR<PartnerRequestUpdateWithoutMessagesInput, PartnerRequestUncheckedUpdateWithoutMessagesInput>
+    create: XOR<PartnerRequestCreateWithoutMessagesInput, PartnerRequestUncheckedCreateWithoutMessagesInput>
+    where?: PartnerRequestWhereInput
+  }
+
+  export type PartnerRequestUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: PartnerRequestWhereInput
+    data: XOR<PartnerRequestUpdateWithoutMessagesInput, PartnerRequestUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type PartnerRequestUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutPartnerRequestsNestedInput
+    user?: UserUpdateOneRequiredWithoutPartnerRequestsNestedInput
+  }
+
+  export type PartnerRequestUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutPartnerMessagesInput = {
+    update: XOR<UserUpdateWithoutPartnerMessagesInput, UserUncheckedUpdateWithoutPartnerMessagesInput>
+    create: XOR<UserCreateWithoutPartnerMessagesInput, UserUncheckedCreateWithoutPartnerMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPartnerMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPartnerMessagesInput, UserUncheckedUpdateWithoutPartnerMessagesInput>
+  }
+
+  export type UserUpdateWithoutPartnerMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPartnerMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type ProjectMemberCreateManyProjectInput = {
     id?: string
     role?: $Enums.ProjectRole
@@ -32060,6 +46077,42 @@ export namespace Prisma {
     validationRequired?: boolean
     uploadedAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type ProjectAccessCreateManyProjectInput = {
+    id?: string
+    userId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PartnerRequestCreateManyProjectInput = {
+    id?: string
+    userId: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PartnerActivityLogCreateManyProjectInput = {
+    id?: string
+    userId: string
+    documentId?: string | null
+    action: string
+    createdAt?: Date | string
+  }
+
+  export type UserRoleAssignmentCreateManyProjectInput = {
+    id?: string
+    userId: string
+    roleId: string
   }
 
   export type ProjectMemberUpdateWithoutProjectInput = {
@@ -32207,6 +46260,8 @@ export namespace Prisma {
     comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutProjectInput = {
@@ -32224,6 +46279,8 @@ export namespace Prisma {
     comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateManyWithoutProjectInput = {
@@ -32237,6 +46294,116 @@ export namespace Prisma {
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectAccessUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProjectAccessNestedInput
+  }
+
+  export type ProjectAccessUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectAccessUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPartnerRequestsNestedInput
+    messages?: PartnerRequestMessageUpdateManyWithoutRequestNestedInput
+  }
+
+  export type PartnerRequestUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: PartnerRequestMessageUncheckedUpdateManyWithoutRequestNestedInput
+  }
+
+  export type PartnerRequestUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutActivityLogsNestedInput
+    document?: DocumentUpdateOneWithoutActivityLogsNestedInput
+  }
+
+  export type PartnerActivityLogUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    documentId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    documentId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleAssignmentUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutRoleAssignmentsNestedInput
+    role?: RoleUpdateOneRequiredWithoutAssignmentsNestedInput
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
   }
 
   export type CommentCreateManyTaskInput = {
@@ -32504,6 +46671,24 @@ export namespace Prisma {
     signedAt?: Date | string | null
   }
 
+  export type DocumentAccessCreateManyDocumentInput = {
+    id?: string
+    userId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PartnerActivityLogCreateManyDocumentInput = {
+    id?: string
+    userId: string
+    projectId?: string | null
+    action: string
+    createdAt?: Date | string
+  }
+
   export type DocumentVersionUpdateWithoutDocumentInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
@@ -32615,6 +46800,60 @@ export namespace Prisma {
     signedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type DocumentAccessUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutDocumentAccessNestedInput
+  }
+
+  export type DocumentAccessUncheckedUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentAccessUncheckedUpdateManyWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutActivityLogsNestedInput
+    project?: ProjectUpdateOneWithoutActivityLogsNestedInput
+  }
+
+  export type PartnerActivityLogUncheckedUpdateWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogUncheckedUpdateManyWithoutDocumentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProjectCreateManyOwnerInput = {
     id?: string
     name: string
@@ -32683,6 +46922,59 @@ export namespace Prisma {
     projectId: string
   }
 
+  export type ProjectAccessCreateManyUserInput = {
+    id?: string
+    projectId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    canValidate?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DocumentAccessCreateManyUserInput = {
+    id?: string
+    documentId: string
+    canRead?: boolean
+    canWrite?: boolean
+    canComment?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PartnerRequestCreateManyUserInput = {
+    id?: string
+    projectId: string
+    subject: string
+    message: string
+    attachment?: string | null
+    status?: $Enums.RequestStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PartnerRequestMessageCreateManySenderInput = {
+    id?: string
+    requestId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerActivityLogCreateManyUserInput = {
+    id?: string
+    projectId?: string | null
+    documentId?: string | null
+    action: string
+    createdAt?: Date | string
+  }
+
+  export type UserRoleAssignmentCreateManyUserInput = {
+    id?: string
+    roleId: string
+    projectId?: string | null
+  }
+
   export type ProjectUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -32707,6 +46999,10 @@ export namespace Prisma {
     columns?: TaskColumnUpdateManyWithoutProjectNestedInput
     documents?: DocumentUpdateManyWithoutProjectNestedInput
     template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutOwnerInput = {
@@ -32733,6 +47029,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
@@ -32771,6 +47071,8 @@ export namespace Prisma {
     comments?: DocumentCommentUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutUploadedByInput = {
@@ -32788,6 +47090,8 @@ export namespace Prisma {
     comments?: DocumentCommentUncheckedUpdateManyWithoutDocumentNestedInput
     notificationRules?: DocumentNotificationRuleUncheckedUpdateManyWithoutDocumentNestedInput
     signatures?: DocumentSignatureUncheckedUpdateManyWithoutDocumentNestedInput
+    accesses?: DocumentAccessUncheckedUpdateManyWithoutDocumentNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutDocumentNestedInput
   }
 
   export type DocumentUncheckedUpdateManyWithoutUploadedByInput = {
@@ -32911,6 +47215,167 @@ export namespace Prisma {
     projectId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type ProjectAccessUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutAccessesNestedInput
+  }
+
+  export type ProjectAccessUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectAccessUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    canValidate?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentAccessUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    document?: DocumentUpdateOneRequiredWithoutAccessesNestedInput
+  }
+
+  export type DocumentAccessUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentAccessUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentId?: StringFieldUpdateOperationsInput | string
+    canRead?: BoolFieldUpdateOperationsInput | boolean
+    canWrite?: BoolFieldUpdateOperationsInput | boolean
+    canComment?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutPartnerRequestsNestedInput
+    messages?: PartnerRequestMessageUpdateManyWithoutRequestNestedInput
+  }
+
+  export type PartnerRequestUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: PartnerRequestMessageUncheckedUpdateManyWithoutRequestNestedInput
+  }
+
+  export type PartnerRequestUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    subject?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    attachment?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestMessageUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    request?: PartnerRequestUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type PartnerRequestMessageUncheckedUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestMessageUncheckedUpdateManyWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    requestId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutActivityLogsNestedInput
+    document?: DocumentUpdateOneWithoutActivityLogsNestedInput
+  }
+
+  export type PartnerActivityLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    documentId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerActivityLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    documentId?: NullableStringFieldUpdateOperationsInput | string | null
+    action?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleAssignmentUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    role?: RoleUpdateOneRequiredWithoutAssignmentsNestedInput
+    project?: ProjectUpdateOneWithoutRoleAssignmentsNestedInput
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    roleId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type ProjectCreateManyTemplateInput = {
     id?: string
     name: string
@@ -32965,6 +47430,10 @@ export namespace Prisma {
     checklists?: ChecklistUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUpdateManyWithoutProjectNestedInput
     documents?: DocumentUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutTemplateInput = {
@@ -32991,6 +47460,10 @@ export namespace Prisma {
     checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
     columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutTemplateInput = {
@@ -33069,6 +47542,58 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserRoleAssignmentCreateManyRoleInput = {
+    id?: string
+    userId: string
+    projectId?: string | null
+  }
+
+  export type UserRoleAssignmentUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutRoleAssignmentsNestedInput
+    project?: ProjectUpdateOneWithoutRoleAssignmentsNestedInput
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserRoleAssignmentUncheckedUpdateManyWithoutRoleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PartnerRequestMessageCreateManyRequestInput = {
+    id?: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type PartnerRequestMessageUpdateWithoutRequestInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutPartnerMessagesNestedInput
+  }
+
+  export type PartnerRequestMessageUncheckedUpdateWithoutRequestInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PartnerRequestMessageUncheckedUpdateManyWithoutRequestInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

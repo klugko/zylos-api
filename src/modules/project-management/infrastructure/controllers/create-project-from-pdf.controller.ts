@@ -23,6 +23,8 @@ import {
     constructor(private readonly useCase: CreateProjectFromPdfUseCase) {}
   
     @Post('from-pdf')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('JWT-auth')
     @ApiConsumes('multipart/form-data')
     @ApiBody({ type: UploadPdfDto })
     @ApiOperation({ summary: 'Créer un projet automatiquement à partir d’un document PDF' })
@@ -48,6 +50,6 @@ import {
       if (!file) {
         throw new HttpException('Fichier PDF requis.', HttpStatus.BAD_REQUEST);
       }
-      return this.useCase.execute(file.path);
+      return this.useCase.execute(file.path, user.id);
     }
   }

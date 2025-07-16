@@ -53,7 +53,7 @@ export class CreateProjectFromPdfUseCase {
     private readonly openai: OpenAIService,
   ) {}
 
-  async execute(filePath: string): Promise<{ project: Project; taskCount: number }> {
+  async execute(filePath: string, ownerId: string): Promise<{ project: Project; taskCount: number }> {
     const now = new Date();
 
     try {
@@ -88,7 +88,7 @@ export class CreateProjectFromPdfUseCase {
         false,
         now,
         now,
-        null,
+        ownerId ?? null,
         null
       );
 

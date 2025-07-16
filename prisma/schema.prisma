@@ -8,269 +8,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Project {
-  id                  String             @id @default(uuid())
-  name                String
-  description         String?
-  clientType          ProjectClientType?
-  industry            String?            @db.VarChar(100)
-  color               String?            @db.VarChar(10)
-  startDate           DateTime?
-  endDate             DateTime?
-  budget              Decimal?           @db.Decimal(10, 2)
-  progress            Float              @default(0.0)
-  status              ProjectStatus      @default(NOT_STARTED)
-  priority            ProjectPriority    @default(MEDIUM)
-  isArchived          Boolean            @default(false)
-  aiSuggestions       Json?
-  aiGenerateStructure Boolean            @default(false)
-  createdAt           DateTime           @default(now())
-  updatedAt           DateTime           @updatedAt
-
-  // Relations
-  owner      User?            @relation("ProjectOwner", fields: [ownerId], references: [id])
-  ownerId    String?
-  members    ProjectMember[]
-  tasks      Task[]
-  checklists Checklist[]
-  columns    TaskColumn[]
-  documents  Document[]
-  template   ProjectTemplate? @relation(fields: [templateId], references: [id])
-  templateId String?
-}
-
-model Task {
-  id            String       @id @default(uuid())
-  title         String
-  description   String?
-  status        TaskStatus   @default(TODO)
-  priority      TaskPriority @default(MEDIUM)
-  dueDate       DateTime?
-  startDate     DateTime?
-  endDate       DateTime?
-  progress      Float        @default(0.0)
-  color         String?      @db.VarChar(10)
-  estimatedTime Int?
-
-  // Relations
-  project        Project?    @relation(fields: [projectId], references: [id])
-  projectId      String?
-  column         TaskColumn? @relation(fields: [columnId], references: [id])
-  columnId       String?
-  assignee       User?       @relation(fields: [assignedUserId], references: [id])
-  assignedUserId String?
-
-  comments       Comment[]
-  checklistItems ChecklistItem[]
-  checklists     Checklist[]
-
-  dependencies String[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model TaskColumn {
-  id        String  @id @default(uuid())
-  name      String
-  order     Int
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId String
-  tasks     Task[]
-}
-
-model Checklist {
-  id          String  @id @default(uuid())
-  title       String
-  isCompleted Boolean @default(false)
-
-  // Relations
-  task      Task    @relation(fields: [taskId], references: [id])
-  taskId    String
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId String
-
-  items     ChecklistItem[]
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @default(now())
-}
-
-model ChecklistItem {
-  id        String  @id @default(uuid())
-  title     String
-  isChecked Boolean @default(false)
-
-  task   Task   @relation(fields: [taskId], references: [id])
-  taskId String
-
-  checklist   Checklist? @relation(fields: [checklistId], references: [id])
-  checklistId String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
-}
-
-model ProjectMember {
-  id        String      @id @default(uuid())
-  role      ProjectRole @default(MEMBER)
-  project   Project     @relation(fields: [projectId], references: [id])
-  projectId String
-  user      User        @relation(fields: [userId], references: [id])
-  userId    String
-}
-
-model Document {
-  id           String   @id @default(uuid())
-  name         String
-  type         String?
-  url          String   @db.Text
-  uploadedBy   User?     @relation(fields: [uploadedById], references: [id])
-  uploadedById String?
-  project      Project  @relation(fields: [projectId], references: [id])
-  projectId    String
-  tags              String[] @default([])
-  metadata          Json?
-  validationRequired Boolean @default(false)
-  uploadedAt   DateTime @default(now())
-  updatedAt    DateTime @default(now())
-  versions     DocumentVersion[]
-  comments     DocumentComment[]
-  notificationRules DocumentNotificationRule[]
-  signatures   DocumentSignature[]
-}
-
-
-model DocumentVersion {
-  id          String   @id @default(uuid())
-  documentId  String
-  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-  url         String   @db.Text
-  versionAt   DateTime @default(now())
-  name        String
-  type        String?
-  size        Int
-  mimetype    String
-}
-
-model DocumentComment {
-  id          String   @id @default(uuid())
-  documentId  String
-  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-  content     String
-  zone        String? // ex: "page:1;line:3" ou "section:Résumé"
-  resolved    Boolean @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model DocumentNotificationRule {
-  id          String   @id @default(uuid())
-  documentId  String
-  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-
-  trigger     String   // 'new_comment' | 'new_version'
-  frequency   String   // 'immediate' | 'daily' | 'weekly'
-  channel     String   // 'in-app' | 'email' | 'webhook'
-
-  targetEmail String?  // si channel=email
-  targetUrl   String?  // si channel=webhook
-
-  createdAt   DateTime @default(now())
-}
-
-model DocumentSignature {
-  id          String   @id @default(uuid())
-  documentId  String
-  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-
-  status      String   // en_attente | signé | refusé | expiré
-  signatureUrl String? //  (base64 convertie en image)
-  requestedAt DateTime @default(now())
-  signedAt    DateTime?
-}
-
-
-enum CommentTargetType {
-  PROJECT
-  TASK
-  CHECKLIST
-}
-
-model Comment {
-  id         String            @id @default(uuid())
-  content    String
-  targetType CommentTargetType
-  targetId   String
-
-  authorId String?
-  author   User?   @relation(fields: [authorId], references: [id])
-
-  createdAt DateTime @default(now())
-  Task      Task?    @relation(fields: [taskId], references: [id])
-  taskId    String?
-}
-
-model User {
-  id               String   @id @default(uuid())
-  fullname         String   @db.VarChar(255)
-  email            String   @unique @db.VarChar(255)
-  password         String   @db.VarChar(255)
-  role             UserRole @default(USER)
-  isActive         Boolean  @default(true)
-  skills           String[]
-  availability     Int      @default(0)
-  performanceScore Float    @default(0.0)
-  googleId         String?  @unique
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @default(now())
-
-  // Relations
-  projectsOwned Project[]       @relation("ProjectOwner")
-  documents     Document[]
-  comments      Comment[]
-  Task          Task[]
-  ProjectMember ProjectMember[]
-}
-
-model ProjectTemplate {
-  id          String         @id @default(uuid())
-  name        String
-  description String?
-  projects    Project[]
-  tasks       TaskTemplate[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @default(now())
-}
-
-model TaskTemplate {
-  id                String              @id @default(uuid())
-  title             String
-  description       String?
-  order             Int
-  projectTemplate   ProjectTemplate     @relation(fields: [projectTemplateId], references: [id])
-  projectTemplateId String
-  checklists        ChecklistTemplate[]
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @default(now())
-}
-
-model ChecklistTemplate {
-  id             String       @id @default(uuid())
-  title          String
-  taskTemplate   TaskTemplate @relation(fields: [taskTemplateId], references: [id])
-  taskTemplateId String
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @default(now())
-}
-
-model ReminderNotification {
-  id        String   @id @default(uuid())
-  title     String
-  message   String
-  userId    String
-  taskId    String
-  createdAt DateTime @default(now())
-}
-
+// ======================================================
+// ENUMERATIONS
+// ======================================================
 enum TaskStatus {
   TODO
   IN_PROGRESS
@@ -315,8 +55,380 @@ enum UserRole {
   ADMIN
   COLLABORATOR
   MANAGER
+  PARTNER
+}
+
+enum CommentTargetType {
+  PROJECT
+  TASK
+  CHECKLIST
+}
+
+enum RequestStatus {
+  OPEN
+  ASSIGNED
+  CONVERTED_TO_TASK
+  CLOSED
+}
+
+// ======================================================
+// MODELS
+// ======================================================
+
+model Project {
+  id                  String             @id @default(uuid())
+  name                String
+  description         String?
+  clientType          ProjectClientType?
+  industry            String?            @db.VarChar(100)
+  color               String?            @db.VarChar(10)
+  startDate           DateTime?
+  endDate             DateTime?
+  budget              Decimal?           @db.Decimal(10, 2)
+  progress            Float              @default(0.0)
+  status              ProjectStatus      @default(NOT_STARTED)
+  priority            ProjectPriority    @default(MEDIUM)
+  isArchived          Boolean            @default(false)
+  aiSuggestions       Json?
+  aiGenerateStructure Boolean            @default(false)
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+
+  owner      User?            @relation("ProjectOwner", fields: [ownerId], references: [id])
+  ownerId    String?
+  members    ProjectMember[]
+  tasks      Task[]
+  checklists Checklist[]
+  columns    TaskColumn[]
+  documents  Document[]
+  template   ProjectTemplate? @relation(fields: [templateId], references: [id])
+  templateId String?
+
+  accesses        ProjectAccess[]
+  partnerRequests PartnerRequest[]
+  activityLogs    PartnerActivityLog[]
+  roleAssignments UserRoleAssignment[]
+}
+
+model Task {
+  id            String       @id @default(uuid())
+  title         String
+  description   String?
+  status        TaskStatus   @default(TODO)
+  priority      TaskPriority @default(MEDIUM)
+  dueDate       DateTime?
+  startDate     DateTime?
+  endDate       DateTime?
+  progress      Float        @default(0.0)
+  color         String?      @db.VarChar(10)
+  estimatedTime Int?
+
+  project        Project?    @relation(fields: [projectId], references: [id])
+  projectId      String?
+  column         TaskColumn? @relation(fields: [columnId], references: [id])
+  columnId       String?
+  assignee       User?       @relation(fields: [assignedUserId], references: [id])
+  assignedUserId String?
+
+  comments       Comment[]
+  checklistItems ChecklistItem[]
+  checklists     Checklist[]
+
+  dependencies String[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model TaskColumn {
+  id        String  @id @default(uuid())
+  name      String
+  order     Int
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+  tasks     Task[]
+}
+
+model Checklist {
+  id          String  @id @default(uuid())
+  title       String
+  isCompleted Boolean @default(false)
+
+  task      Task    @relation(fields: [taskId], references: [id])
+  taskId    String
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
+
+  items     ChecklistItem[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @default(now())
+}
+
+model ChecklistItem {
+  id        String  @id @default(uuid())
+  title     String
+  isChecked Boolean @default(false)
+
+  task   Task   @relation(fields: [taskId], references: [id])
+  taskId String
+
+  checklist   Checklist? @relation(fields: [checklistId], references: [id])
+  checklistId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model ProjectMember {
+  id        String      @id @default(uuid())
+  role      ProjectRole @default(MEMBER)
+  project   Project     @relation(fields: [projectId], references: [id])
+  projectId String
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Document {
+  id                 String   @id @default(uuid())
+  name               String
+  type               String?
+  url                String   @db.Text
+  uploadedBy         User?    @relation(fields: [uploadedById], references: [id])
+  uploadedById       String?
+  project            Project  @relation(fields: [projectId], references: [id])
+  projectId          String
+  tags               String[] @default([])
+  metadata           Json?
+  validationRequired Boolean  @default(false)
+  uploadedAt         DateTime @default(now())
+  updatedAt          DateTime @default(now())
+  versions           DocumentVersion[]
+  comments           DocumentComment[]
+  notificationRules  DocumentNotificationRule[]
+  signatures         DocumentSignature[]
+
+  accesses     DocumentAccess[]
+  activityLogs PartnerActivityLog[]
+}
+
+model DocumentVersion {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  url        String   @db.Text
+  versionAt  DateTime @default(now())
+  name       String
+  type       String?
+  size       Int
+  mimetype   String
+}
+
+model DocumentComment {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content    String
+  zone       String?
+  resolved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model DocumentNotificationRule {
+  id          String   @id @default(uuid())
+  documentId  String
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  trigger     String   // remain as string
+  frequency   String   // remain as string
+  channel     String   // remain as string
+  targetEmail String?
+  targetUrl   String?
+  createdAt   DateTime @default(now())
+}
+
+model DocumentSignature {
+  id           String   @id @default(uuid())
+  documentId   String
+  document     Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  status       String   // remain as string
+  signatureUrl String?
+  requestedAt  DateTime @default(now())
+  signedAt     DateTime?
+}
+
+model Comment {
+  id         String            @id @default(uuid())
+  content    String
+  targetType CommentTargetType
+  targetId   String
+
+  authorId String?
+  author   User?   @relation(fields: [authorId], references: [id])
+
+  createdAt DateTime @default(now())
+  Task      Task?    @relation(fields: [taskId], references: [id])
+  taskId    String?
+}
+
+model User {
+  id               String   @id @default(uuid())
+  fullname         String   @db.VarChar(255)
+  email            String   @unique @db.VarChar(255)
+  password         String   @db.VarChar(255)
+  role             UserRole @default(USER)
+  isActive         Boolean  @default(true)
+  skills           String[]
+  availability     Int      @default(0)
+  performanceScore Float    @default(0.0)
+  googleId         String?  @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now())
+
+  external        Boolean @default(false)
+  partnerType     String?
+  activationToken String?
+
+  projectsOwned   Project[]               @relation("ProjectOwner")
+  documents       Document[]
+  comments        Comment[]
+  Task            Task[]
+  ProjectMember   ProjectMember[]
+  projectAccess   ProjectAccess[]
+  documentAccess  DocumentAccess[]
+  partnerRequests PartnerRequest[]
+  partnerMessages PartnerRequestMessage[]
+  activityLogs    PartnerActivityLog[]
+  roleAssignments UserRoleAssignment[]
+}
+
+// Templates
+model ProjectTemplate {
+  id          String         @id @default(uuid())
+  name        String
+  description String?
+  projects    Project[]
+  tasks       TaskTemplate[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @default(now())
+}
+
+model TaskTemplate {
+  id                String              @id @default(uuid())
+  title             String
+  description       String?
+  order             Int
+  projectTemplate   ProjectTemplate     @relation(fields: [projectTemplateId], references: [id])
+  projectTemplateId String
+  checklists        ChecklistTemplate[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now())
+}
+
+model ChecklistTemplate {
+  id             String       @id @default(uuid())
+  title          String
+  taskTemplate   TaskTemplate @relation(fields: [taskTemplateId], references: [id])
+  taskTemplateId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
+}
+
+model ReminderNotification {
+  id        String   @id @default(uuid())
+  title     String
+  message   String
+  userId    String
+  taskId    String
+  createdAt DateTime @default(now())
 }
 
 
+model Role {
+  id              String   @id @default(uuid())
+  name            String
+  description     String?
+  canRead         Boolean  @default(false)
+  canWrite        Boolean  @default(false)
+  canComment      Boolean  @default(false)
+  canValidate     Boolean  @default(false)
+  canDelete       Boolean  @default(false)
+  canUseVisio     Boolean  @default(false)
+  canUseDashboard Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
+  assignments UserRoleAssignment[]
+}
 
+model UserRoleAssignment {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  roleId    String
+  role      Role     @relation(fields: [roleId], references: [id])
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+}
+
+model ProjectAccess {
+  id          String   @id @default(uuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  canRead     Boolean  @default(true)
+  canWrite    Boolean  @default(false)
+  canComment  Boolean  @default(false)
+  canValidate Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+}
+
+model DocumentAccess {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  canRead    Boolean  @default(true)
+  canWrite   Boolean  @default(false)
+  canComment Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+}
+
+model PartnerActivityLog {
+  id         String    @id @default(uuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  projectId  String?
+  project    Project?  @relation(fields: [projectId], references: [id])
+  documentId String?
+  document   Document? @relation(fields: [documentId], references: [id])
+  action     String
+  createdAt  DateTime  @default(now())
+}
+
+model PartnerRequest {
+  id         String                  @id @default(uuid())
+  projectId  String
+  project    Project                 @relation(fields: [projectId], references: [id])
+  userId     String
+  user       User                    @relation(fields: [userId], references: [id])
+  subject    String
+  message    String
+  attachment String?
+  status     RequestStatus           @default(OPEN)
+  createdAt  DateTime                @default(now())
+  updatedAt  DateTime                @updatedAt
+  messages   PartnerRequestMessage[]
+}
+
+model PartnerRequestMessage {
+  id        String         @id @default(uuid())
+  requestId String
+  request   PartnerRequest @relation(fields: [requestId], references: [id])
+  senderId  String
+  sender    User           @relation(fields: [senderId], references: [id])
+  content   String
+  createdAt DateTime       @default(now())
+}
