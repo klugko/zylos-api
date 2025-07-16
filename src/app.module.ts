@@ -4,6 +4,7 @@ import { ProjectManagementModule } from './modules/project-management/project-ma
 import { AuthModule } from './modules/auth/auth.module';
 import { RagModule } from './rag/rag.module';
 import { DocumentModule } from '@modules/document-management/document.module';
+import { CollaborationModule } from '@modules/collaboration/collaboration.module';
 // import { ScheduleModule } from '@nestjs/schedule';
 
 
@@ -14,6 +15,7 @@ import { DocumentModule } from '@modules/document-management/document.module';
     ProjectManagementModule,
     RagModule,
     DocumentModule,
+    CollaborationModule,
     // ScheduleModule.forRoot(),
   ],
   controllers: [],
