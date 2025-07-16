@@ -1,4 +1,4 @@
-import { IsEnum, IsString, IsUUID, MinLength, IsOptional } from 'class-validator';
+import { IsEnum, IsString, IsUUID, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { CommentTargetType } from '@modules/project-management/domain/enums/comment.enums';
 
@@ -16,8 +16,8 @@ export class CreateCommentDto {
   @IsUUID()
   targetId: string;
 
-  @ApiProperty({ required: false, description: 'Auteur (optionnel)' })
-  @IsOptional()
-  @IsUUID()
-  authorId?: string;
+  // @ApiProperty({ required: false, description: 'Auteur (optionnel)' })
+  // @IsOptional()
+  // @IsUUID()
+  // authorId?: string;
 }

@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { RagModule } from './rag/rag.module';
 import { DocumentModule } from '@modules/document-management/document.module';
 import { CollaborationModule } from '@modules/collaboration/collaboration.module';
+import { HealthCheckController } from './health-check.controller';
 // import { ScheduleModule } from '@nestjs/schedule';
 
 
@@ -18,6 +19,6 @@ import { CollaborationModule } from '@modules/collaboration/collaboration.module
     CollaborationModule,
     // ScheduleModule.forRoot(),
   ],
-  controllers: [],
+  controllers: [HealthCheckController],
 })
 export class AppModule {}

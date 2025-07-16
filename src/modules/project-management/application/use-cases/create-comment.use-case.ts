@@ -11,11 +11,11 @@ export class CreateCommentUseCase {
     private readonly commentRepo: CommentRepository,
   ) {}
 
-  async execute(dto: CreateCommentDto): Promise<Comment> {
+  async execute(dto: CreateCommentDto, authorId: string): Promise<Comment> {
     const comment = new Comment(
       uuid(),
       dto.content,
-      dto.authorId ?? null,
+      authorId ?? null,
       new Date(),
       dto.targetType,
       dto.targetId,
