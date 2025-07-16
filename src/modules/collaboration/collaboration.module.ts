@@ -16,6 +16,12 @@ import { UpdatePartnerUseCase } from './application/use-cases/update-partener.us
 import { DeletePartnerUseCase } from './application/use-cases/delete-partener.usecase';
 import { GetAllRolesUseCase } from './application/use-cases/get-all-role.usecase';
 import { GetRoleByIdUseCase } from './application/use-cases/get-role-id.usecase';
+import { AccessControlService } from './application/services/access-control.service';
+import { RolePermissionGuard } from './application/services/role-permission.guard';
+import { ProjectAccessGuard } from './application/services/document-access.guard';
+import { ProjectProtectedController } from './infrastructure/controllers/project-protected.controller';
+import { DocumentProtectedController } from './infrastructure/controllers/document-protected.controller';
+import { DocumentAccessGuard } from './application/services/document-acces.guard';
 
 
 @Module({
@@ -23,6 +29,8 @@ import { GetRoleByIdUseCase } from './application/use-cases/get-role-id.usecase'
   controllers: [
     PartnerController,
     RoleController,
+    ProjectProtectedController,
+    DocumentProtectedController,
   ],
   providers: [
     CreatePartnerUseCase,
@@ -35,7 +43,10 @@ import { GetRoleByIdUseCase } from './application/use-cases/get-role-id.usecase'
     AssignRoleUseCase,
     GetAllRolesUseCase,
     GetRoleByIdUseCase,
-
+    AccessControlService,
+    ProjectAccessGuard,
+    DocumentAccessGuard,
+    RolePermissionGuard,
     {
       provide: PARTNER_REPOSITORY,
       useClass: PrismaPartnerRepository,
