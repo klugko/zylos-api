@@ -64,30 +64,6 @@ enum CommentTargetType {
   CHECKLIST
 }
 
-enum DocumentSignatureStatus {
-  EN_ATTENTE
-  SIGNE
-  REFUSE
-  EXPIRE
-}
-
-enum NotificationTrigger {
-  NEW_COMMENT
-  NEW_VERSION
-}
-
-enum NotificationFrequency {
-  IMMEDIATE
-  DAILY
-  WEEKLY
-}
-
-enum NotificationChannel {
-  IN_APP
-  EMAIL
-  WEBHOOK
-}
-
 enum RequestStatus {
   OPEN
   ASSIGNED
@@ -212,19 +188,19 @@ model ProjectMember {
 }
 
 model Document {
-  id                 String                     @id @default(uuid())
+  id                 String   @id @default(uuid())
   name               String
   type               String?
-  url                String                     @db.Text
-  uploadedBy         User?                      @relation(fields: [uploadedById], references: [id])
+  url                String   @db.Text
+  uploadedBy         User?    @relation(fields: [uploadedById], references: [id])
   uploadedById       String?
-  project            Project                    @relation(fields: [projectId], references: [id])
+  project            Project  @relation(fields: [projectId], references: [id])
   projectId          String
-  tags               String[]                   @default([])
+  tags               String[] @default([])
   metadata           Json?
-  validationRequired Boolean                    @default(false)
-  uploadedAt         DateTime                   @default(now())
-  updatedAt          DateTime                   @default(now())
+  validationRequired Boolean  @default(false)
+  uploadedAt         DateTime @default(now())
+  updatedAt          DateTime @default(now())
   versions           DocumentVersion[]
   comments           DocumentComment[]
   notificationRules  DocumentNotificationRule[]
@@ -258,24 +234,24 @@ model DocumentComment {
 }
 
 model DocumentNotificationRule {
-  id          String                @id @default(uuid())
+  id          String   @id @default(uuid())
   documentId  String
-  document    Document              @relation(fields: [documentId], references: [id], onDelete: Cascade)
-  trigger     NotificationTrigger
-  frequency   NotificationFrequency
-  channel     NotificationChannel
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  trigger     String   // remain as string
+  frequency   String   // remain as string
+  channel     String   // remain as string
   targetEmail String?
   targetUrl   String?
-  createdAt   DateTime              @default(now())
+  createdAt   DateTime @default(now())
 }
 
 model DocumentSignature {
-  id           String                  @id @default(uuid())
+  id           String   @id @default(uuid())
   documentId   String
-  document     Document                @relation(fields: [documentId], references: [id], onDelete: Cascade)
-  status       DocumentSignatureStatus
+  document     Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  status       String   // remain as string
   signatureUrl String?
-  requestedAt  DateTime                @default(now())
+  requestedAt  DateTime @default(now())
   signedAt     DateTime?
 }
 
@@ -311,7 +287,6 @@ model User {
   partnerType     String?
   activationToken String?
 
-  // Relations
   projectsOwned   Project[]               @relation("ProjectOwner")
   documents       Document[]
   comments        Comment[]
@@ -325,6 +300,7 @@ model User {
   roleAssignments UserRoleAssignment[]
 }
 
+// Templates
 model ProjectTemplate {
   id          String         @id @default(uuid())
   name        String
@@ -365,6 +341,7 @@ model ReminderNotification {
   createdAt DateTime @default(now())
 }
 
+
 model Role {
   id              String   @id @default(uuid())
   name            String
@@ -403,7 +380,7 @@ model ProjectAccess {
   canComment  Boolean  @default(false)
   canValidate Boolean  @default(false)
   createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  updatedAt   DateTime @default(now())
 }
 
 model DocumentAccess {
@@ -416,7 +393,7 @@ model DocumentAccess {
   canWrite   Boolean  @default(false)
   canComment Boolean  @default(false)
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  updatedAt  DateTime @default(now())
 }
 
 model PartnerActivityLog {
@@ -427,7 +404,7 @@ model PartnerActivityLog {
   project    Project?  @relation(fields: [projectId], references: [id])
   documentId String?
   document   Document? @relation(fields: [documentId], references: [id])
-  action     String // ex: VIEWED_DOCUMENT, COMMENTED_TASK
+  action     String
   createdAt  DateTime  @default(now())
 }
 
