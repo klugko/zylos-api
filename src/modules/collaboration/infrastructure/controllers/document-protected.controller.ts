@@ -19,6 +19,7 @@ import {
   import { CurrentUser } from 'src/modules/auth/application/decorators/current-user.decorator';
   import { User } from 'src/modules/auth/domain/entities/user.entity';
   import { AccessControlService } from '../../application/services/access-control.service';
+import { ActivityLogService } from '@modules/collaboration/application/services/activity-log.service';
   
   @ApiTags('Collaboration - Documents')
   @Controller('api/v1/collaboration/documents')
@@ -26,6 +27,7 @@ import {
     constructor(
       private readonly prisma: PrismaService,
       private readonly accessService: AccessControlService,
+      private readonly activityLogService: ActivityLogService,
     ) {}
   
     @Get(':documentId/details')
@@ -42,6 +44,8 @@ import {
         if (!document) {
           throw new HttpException(`Document ${documentId} introuvable`, HttpStatus.NOT_FOUND);
         }
+        // Log l'accès au document
+        await this.activityLogService.logAction(user.id, 'VIEW_DOCUMENT', document.projectId, document.id);
         return document;
       } catch (error) {
         if (error instanceof ForbiddenException) {

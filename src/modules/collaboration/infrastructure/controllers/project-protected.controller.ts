@@ -19,6 +19,7 @@ import {
   import { CurrentUser } from 'src/modules/auth/application/decorators/current-user.decorator';
   import { User } from 'src/modules/auth/domain/entities/user.entity';
   import { AccessControlService } from '../../application/services/access-control.service';
+import { ActivityLogService } from '@modules/collaboration/application/services/activity-log.service';
   
   @ApiTags('Collaboration - Projects')
   @Controller('api/v1/collaboration/projects')
@@ -26,6 +27,7 @@ import {
     constructor(
       private readonly prisma: PrismaService,
       private readonly accessService: AccessControlService,
+      private readonly activityLogService: ActivityLogService,
     ) {}
   
     @Get(':projectId/details')
@@ -42,6 +44,8 @@ import {
         if (!project) {
           throw new HttpException(`Projet ${projectId} introuvable`, HttpStatus.NOT_FOUND);
         }
+        // Log l'accès au projet
+        await this.activityLogService.logAction(user.id, 'VIEW_PROJECT', project.id, null);
         return project;
       } catch (error) {
         if (error instanceof ForbiddenException) {
@@ -60,7 +64,7 @@ import {
     @ApiOperation({ summary: 'Lister tous les projets accessibles à l’utilisateur' })
     @ApiResponse({ status: 200, description: 'Liste des projets accessibles' })
     async getAccessibleProjects(@CurrentUser() user: User) {
-      // On filtre les projets auxquels l’utilisateur a accès (propriétaire ou ProjectAccess)
+      // filtre les projets auxquels l’utilisateur a accès (propriétaire ou ProjectAccess)
       const owned = await this.prisma.project.findMany({ where: { ownerId: user.id } });
       const accessRecords = await this.prisma.projectAccess.findMany({ where: { userId: user.id } });
       const accessibleIds = accessRecords.map(a => a.projectId);

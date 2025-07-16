@@ -22,6 +22,8 @@ import { ProjectAccessGuard } from './application/services/document-access.guard
 import { ProjectProtectedController } from './infrastructure/controllers/project-protected.controller';
 import { DocumentProtectedController } from './infrastructure/controllers/document-protected.controller';
 import { DocumentAccessGuard } from './application/services/document-acces.guard';
+import { ActivityLogController } from './infrastructure/controllers/activity-log.controller';
+import { ActivityLogService } from './application/services/activity-log.service';
 
 
 @Module({
@@ -31,6 +33,7 @@ import { DocumentAccessGuard } from './application/services/document-acces.guard
     RoleController,
     ProjectProtectedController,
     DocumentProtectedController,
+    ActivityLogController,
   ],
   providers: [
     CreatePartnerUseCase,
@@ -47,6 +50,7 @@ import { DocumentAccessGuard } from './application/services/document-acces.guard
     ProjectAccessGuard,
     DocumentAccessGuard,
     RolePermissionGuard,
+    ActivityLogService,
     {
       provide: PARTNER_REPOSITORY,
       useClass: PrismaPartnerRepository,
