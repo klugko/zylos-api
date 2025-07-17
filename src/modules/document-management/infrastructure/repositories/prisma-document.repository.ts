@@ -70,6 +70,16 @@ export class PrismaDocumentRepository extends DocumentRepository {
     return this.mapToEntity(doc);
   }
 
+  async findByUrl(url: string): Promise<DocumentEntity | null> {
+    const doc = await this.prisma.document.findFirst({
+      where: { url },
+    });
+  
+    if (!doc) return null;
+  
+    return this.mapToEntity(doc);
+  }
+
   private mapToEntity(doc: any): DocumentEntity {
     return new DocumentEntity(
       doc.id,

@@ -71,4 +71,56 @@ import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.g
   
       return new StreamableFile(fileStream);
     }
+
+    @Get('document/:filePath')
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('JWT-auth')
+    @ApiOperation({ summary: 'Get document file by URL path' })
+    @ApiParam({ name: 'filePath', description: 'URL-encoded file path' })
+    @Header('Cache-Control', 'public, max-age=3600')
+    async getDocumentByPath(
+      @Param('filePath') filePath: string,
+      @Res({ passthrough: true }) res: Response
+    ): Promise<StreamableFile> {
+      // Decode URL path
+      const decodedPath = decodeURIComponent(filePath);
+      const fullPath = join(process.cwd(), decodedPath);
+  
+      // Verify document exists in database
+      const document = await this.documentRepo.findByUrl(decodedPath);
+      if (!document) {
+        throw new NotFoundException('Document not found or access denied');
+      }
+  
+      // Determine content type
+      const contentType = this.getContentType(decodedPath);
+      res.set({
+        'Content-Type': contentType,
+        'Content-Disposition': `inline; filename="${document.name}"`,
+      });
+  
+      return new StreamableFile(createReadStream(fullPath));
+    }
+  
+    private getContentType(filePath: string): string {
+      const extension = filePath.split('.').pop()?.toLowerCase() || 'bin';
+      const typeMap: Record<string, string> = {
+        pdf: 'application/pdf',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        png: 'image/png',
+        gif: 'image/gif',
+        doc: 'application/msword',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        xls: 'application/vnd.ms-excel',
+        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ppt: 'application/vnd.ms-powerpoint',
+        pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        txt: 'text/plain',
+        csv: 'text/csv',
+        html: 'text/html',
+      };
+  
+      return typeMap[extension] || 'application/octet-stream';
+    }
   }
