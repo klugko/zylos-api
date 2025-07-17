@@ -1,19 +1,21 @@
+// file-storage.service.ts
 import { Injectable } from '@nestjs/common';
-import { writeFile, mkdir } from 'fs/promises';
-import { randomUUID } from 'crypto';
-import { join } from 'path';
+import * as fs from 'fs/promises';
+import * as path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class FileStorageService {
-  private readonly basePath = './uploads/documents';
+  private readonly uploadDir = 'uploads/documents';
 
   async save(file: Express.Multer.File): Promise<string> {
-    await mkdir(this.basePath, { recursive: true });
-
-    const fileName = `${randomUUID()}-${file.originalname}`;
-    const filePath = join(this.basePath, fileName);
-
-    await writeFile(filePath, file.buffer);
+    await fs.mkdir(this.uploadDir, { recursive: true });
+    
+    const uniqueFilename = `${uuidv4()}-${file.originalname}`;
+    const filePath = path.join(this.uploadDir, uniqueFilename);
+    
+    await fs.writeFile(filePath, file.buffer);
+    
     return filePath;
   }
 }

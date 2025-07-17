@@ -23,7 +23,7 @@ export class PrismaDocumentRepository extends DocumentRepository {
         url: data.url,
         uploadedById: data.uploadedById,
         projectId: data.projectId,
-        tags: data.tags as DocumentTag[], // Cast to Prisma enum array
+        tags: data.tags, 
         metadata: data.metadata,
         validationRequired: data.validationRequired,
       },
@@ -59,7 +59,17 @@ export class PrismaDocumentRepository extends DocumentRepository {
 
     return docs.map(this.mapToEntity);
   }
-  
+
+  async findById(id: string): Promise<DocumentEntity | null> {
+    const doc = await this.prisma.document.findUnique({
+      where: { id },
+    });
+
+    if (!doc) return null;
+
+    return this.mapToEntity(doc);
+  }
+
   private mapToEntity(doc: any): DocumentEntity {
     return new DocumentEntity(
       doc.id,

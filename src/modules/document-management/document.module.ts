@@ -34,6 +34,7 @@ import { OpenAiClassifierService } from './infrastructure/services/openai-classi
 import { GetDocumentClassificationUseCase } from './application/use-cases/get-document-classification.usecase';
 import { TextExtractorService } from './infrastructure/services/text-extractor.service';
 import { GetDocumentsByTagsUseCase } from './application/use-cases/get-documents-by-tags.usecase';
+import { FileController } from './presentation/controllers/file.controller';
 
 
 @Module({
@@ -45,6 +46,8 @@ import { GetDocumentsByTagsUseCase } from './application/use-cases/get-documents
     DocumentNotificationController,
     DocumentSignatureController,
     DocumentClassificationController,
+    FileController,
+
   ],
   providers: [
     UploadDocumentUseCase,
