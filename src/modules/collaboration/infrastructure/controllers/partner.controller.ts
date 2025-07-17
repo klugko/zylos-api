@@ -8,7 +8,7 @@ import { UpdatePartnerUseCase } from '@modules/collaboration/application/use-cas
 import { DeletePartnerUseCase } from '@modules/collaboration/application/use-cases/delete-partener.usecase';
 
 @ApiTags('collaboration/partners')
-@Controller('collaboration/partners')
+@Controller('api/v1/collaboration/partners')
 export class PartnerController {
   constructor(
     private readonly createPartner: CreatePartnerUseCase,

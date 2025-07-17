@@ -11,7 +11,7 @@ import { GetAllRolesUseCase } from '@modules/collaboration/application/use-cases
 import { GetRoleByIdUseCase } from '@modules/collaboration/application/use-cases/get-role-id.usecase';
 
 @ApiTags('collaboration/roles')
-@Controller('collaboration/roles')
+@Controller('api/v1/collaboration/roles')
 export class RoleController {
   constructor(
     private readonly createRole: CreateRoleUseCase,

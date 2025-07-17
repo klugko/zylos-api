@@ -6,7 +6,7 @@ import { ClassificationResultDto } from '../../dto/classification-result.dto';
 import { GetDocumentClassificationUseCase } from '@modules/document-management/application/use-cases/get-document-classification.usecase';
 
 @ApiTags('Documents - Classification IA')
-@Controller('api/documents')
+@Controller('api/v1/documents')
 export class DocumentClassificationController {
   constructor(
     private readonly classifyUC: ClassifyDocumentUseCase,
