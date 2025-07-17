@@ -33,6 +33,7 @@ import { ReclassifyDocumentUseCase } from './application/use-cases/reclassify-do
 import { OpenAiClassifierService } from './infrastructure/services/openai-classifier.service';
 import { GetDocumentClassificationUseCase } from './application/use-cases/get-document-classification.usecase';
 import { TextExtractorService } from './infrastructure/services/text-extractor.service';
+import { GetDocumentsByTagsUseCase } from './application/use-cases/get-documents-by-tags.usecase';
 
 
 @Module({
@@ -63,6 +64,7 @@ import { TextExtractorService } from './infrastructure/services/text-extractor.s
     OpenAiClassifierService,
     GetDocumentClassificationUseCase,
     TextExtractorService,
+    GetDocumentsByTagsUseCase,
     {
       provide: DocumentRepository,
       useClass: PrismaDocumentRepository,

@@ -41,6 +41,25 @@ export class PrismaDocumentRepository extends DocumentRepository {
     return docs.map(this.mapToEntity);
   }
 
+  async findByTags(tags: DocumentTag[], projectId?: string): Promise<DocumentEntity[]> {
+    const whereClause: any = {
+      tags: {
+        hasSome: tags
+      }
+    };
+
+    if (projectId) {
+      whereClause.projectId = projectId;
+    }
+
+    const docs = await this.prisma.document.findMany({
+      where: whereClause,
+      orderBy: { uploadedAt: 'desc' },
+    });
+
+    return docs.map(this.mapToEntity);
+  }
+  
   private mapToEntity(doc: any): DocumentEntity {
     return new DocumentEntity(
       doc.id,

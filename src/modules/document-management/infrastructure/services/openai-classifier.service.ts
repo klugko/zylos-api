@@ -38,40 +38,40 @@ export class OpenAiClassifierService {
 
     const prompt = `Analyze the document below and perform automated classification:
 
-1. TAGS (REQUIRED):
-Select 1-3 relevant tags from this list:
-${tagList}
+    1. TAGS (REQUIRED):
+    Select 1-3 relevant tags from this list:
+    ${tagList}
 
-2. METADATA EXTRACTION:
-Extract ONLY if explicitly present:
-- amount (currency format)
-- date (YYYY-MM-DD)
-- contractNumber (alphanumeric code)
-- stakeholder (entity name)
-- holder (signatory name)
-- projectName (exact project reference)
-- fileType (detected: ${fileType})
+    2. METADATA EXTRACTION:
+    Extract ONLY if explicitly present:
+    - amount (currency format)
+    - date (YYYY-MM-DD)
+    - contractNumber (alphanumeric code)
+    - stakeholder (entity name)
+    - holder (signatory name)
+    - projectName (exact project reference)
+    - fileType (detected: ${fileType})
 
-3. VALIDATION FLAG:
-Set validationRequired: true if:
-- Content is ambiguous
-- Key elements are missing
-- Contradictory information exists
+    3. VALIDATION FLAG:
+    Set validationRequired: true if:
+    - Content is ambiguous
+    - Key elements are missing
+    - Contradictory information exists
 
-OUTPUT FORMAT (STRICT JSON):
-{
-  "tags": ["TAG_CODE1", "TAG_CODE2"],
-  "metadata": { ... },
-  "validationRequired": boolean
-}
+    OUTPUT FORMAT (STRICT JSON):
+    {
+      "tags": ["TAG_CODE1", "TAG_CODE2"],
+      "metadata": { ... },
+      "validationRequired": boolean
+    }
 
-RULES:
-- Never invent missing data
-- Omit empty metadata fields
-- Use only valid tag codes from the list
+    RULES:
+    - Never invent missing data
+    - Omit empty metadata fields
+    - Use only valid tag codes from the list
 
-DOCUMENT CONTENT:
-"""${optimizedContent}"""`;
+    DOCUMENT CONTENT:
+    """${optimizedContent}"""`;
 
     try {
       const response = await axios.post(
