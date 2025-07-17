@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
 export class UploadDocumentDto {
   @ApiProperty({ description: 'Identifiant du projet', example: 'proj_123' })
@@ -7,6 +7,6 @@ export class UploadDocumentDto {
   projectId: string;
 
   @ApiProperty({ description: 'Type de document', example: 'Contrat' })
-  @IsNotEmpty()
-  type: string;
+  @IsOptional()
+  type?: string;
 }

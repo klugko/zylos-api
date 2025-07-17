@@ -452,6 +452,30 @@ exports.ProjectRole = exports.$Enums.ProjectRole = {
   OBSERVER: 'OBSERVER'
 };
 
+exports.DocumentTag = exports.$Enums.DocumentTag = {
+  CC: 'CC',
+  CTC: 'CTC',
+  CTF: 'CTF',
+  OC: 'OC',
+  PVR: 'PVR',
+  DV: 'DV',
+  FA: 'FA',
+  DJ: 'DJ',
+  DC: 'DC',
+  NI: 'NI',
+  BDG: 'BDG',
+  RAP: 'RAP',
+  PLN: 'PLN',
+  CRR: 'CRR',
+  SPF: 'SPF',
+  SPT: 'SPT',
+  ETU: 'ETU',
+  CHP: 'CHP',
+  AVC: 'AVC',
+  MNT: 'MNT',
+  RCX: 'RCX'
+};
+
 exports.CommentTargetType = exports.$Enums.CommentTargetType = {
   PROJECT: 'PROJECT',
   TASK: 'TASK',

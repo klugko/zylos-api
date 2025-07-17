@@ -224,6 +224,33 @@ export const RequestStatus: {
 
 export type RequestStatus = (typeof RequestStatus)[keyof typeof RequestStatus]
 
+
+export const DocumentTag: {
+  CC: 'CC',
+  CTC: 'CTC',
+  CTF: 'CTF',
+  OC: 'OC',
+  PVR: 'PVR',
+  DV: 'DV',
+  FA: 'FA',
+  DJ: 'DJ',
+  DC: 'DC',
+  NI: 'NI',
+  BDG: 'BDG',
+  RAP: 'RAP',
+  PLN: 'PLN',
+  CRR: 'CRR',
+  SPF: 'SPF',
+  SPT: 'SPT',
+  ETU: 'ETU',
+  CHP: 'CHP',
+  AVC: 'AVC',
+  MNT: 'MNT',
+  RCX: 'RCX'
+};
+
+export type DocumentTag = (typeof DocumentTag)[keyof typeof DocumentTag]
+
 }
 
 export type TaskStatus = $Enums.TaskStatus
@@ -261,6 +288,10 @@ export const CommentTargetType: typeof $Enums.CommentTargetType
 export type RequestStatus = $Enums.RequestStatus
 
 export const RequestStatus: typeof $Enums.RequestStatus
+
+export type DocumentTag = $Enums.DocumentTag
+
+export const DocumentTag: typeof $Enums.DocumentTag
 
 /**
  * ##  Prisma Client ʲˢ
@@ -11177,7 +11208,7 @@ export namespace Prisma {
     url: string
     uploadedById: string | null
     projectId: string
-    tags: string[]
+    tags: $Enums.DocumentTag[]
     metadata: JsonValue | null
     validationRequired: boolean
     uploadedAt: Date
@@ -11310,7 +11341,7 @@ export namespace Prisma {
       url: string
       uploadedById: string | null
       projectId: string
-      tags: string[]
+      tags: $Enums.DocumentTag[]
       metadata: Prisma.JsonValue | null
       validationRequired: boolean
       uploadedAt: Date
@@ -11752,7 +11783,7 @@ export namespace Prisma {
     readonly url: FieldRef<"Document", 'String'>
     readonly uploadedById: FieldRef<"Document", 'String'>
     readonly projectId: FieldRef<"Document", 'String'>
-    readonly tags: FieldRef<"Document", 'String[]'>
+    readonly tags: FieldRef<"Document", 'DocumentTag[]'>
     readonly metadata: FieldRef<"Document", 'Json'>
     readonly validationRequired: FieldRef<"Document", 'Boolean'>
     readonly uploadedAt: FieldRef<"Document", 'DateTime'>
@@ -32052,6 +32083,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DocumentTag[]'
+   */
+  export type ListEnumDocumentTagFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentTag[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DocumentTag'
+   */
+  export type EnumDocumentTagFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DocumentTag'>
+    
+
+
+  /**
    * Reference to a field of type 'CommentTargetType'
    */
   export type EnumCommentTargetTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommentTargetType'>
@@ -32642,7 +32687,7 @@ export namespace Prisma {
     url?: StringFilter<"Document"> | string
     uploadedById?: StringNullableFilter<"Document"> | string | null
     projectId?: StringFilter<"Document"> | string
-    tags?: StringNullableListFilter<"Document">
+    tags?: EnumDocumentTagNullableListFilter<"Document">
     metadata?: JsonNullableFilter<"Document">
     validationRequired?: BoolFilter<"Document"> | boolean
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
@@ -32689,7 +32734,7 @@ export namespace Prisma {
     url?: StringFilter<"Document"> | string
     uploadedById?: StringNullableFilter<"Document"> | string | null
     projectId?: StringFilter<"Document"> | string
-    tags?: StringNullableListFilter<"Document">
+    tags?: EnumDocumentTagNullableListFilter<"Document">
     metadata?: JsonNullableFilter<"Document">
     validationRequired?: BoolFilter<"Document"> | boolean
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
@@ -32731,7 +32776,7 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter<"Document"> | string
     uploadedById?: StringNullableWithAggregatesFilter<"Document"> | string | null
     projectId?: StringWithAggregatesFilter<"Document"> | string
-    tags?: StringNullableListFilter<"Document">
+    tags?: EnumDocumentTagNullableListFilter<"Document">
     metadata?: JsonNullableWithAggregatesFilter<"Document">
     validationRequired?: BoolWithAggregatesFilter<"Document"> | boolean
     uploadedAt?: DateTimeWithAggregatesFilter<"Document"> | Date | string
@@ -34533,7 +34578,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -34555,7 +34600,7 @@ export namespace Prisma {
     url: string
     uploadedById?: string | null
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -34573,7 +34618,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34595,7 +34640,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34615,7 +34660,7 @@ export namespace Prisma {
     url: string
     uploadedById?: string | null
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -34627,7 +34672,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34641,7 +34686,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -36739,6 +36784,14 @@ export namespace Prisma {
     _max?: NestedEnumProjectRoleFilter<$PrismaModel>
   }
 
+  export type EnumDocumentTagNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.DocumentTag[] | ListEnumDocumentTagFieldRefInput<$PrismaModel> | null
+    has?: $Enums.DocumentTag | EnumDocumentTagFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.DocumentTag[] | ListEnumDocumentTagFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.DocumentTag[] | ListEnumDocumentTagFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type DocumentVersionListRelationFilter = {
     every?: DocumentVersionWhereInput
     some?: DocumentVersionWhereInput
@@ -38365,7 +38418,7 @@ export namespace Prisma {
   }
 
   export type DocumentCreatetagsInput = {
-    set: string[]
+    set: $Enums.DocumentTag[]
   }
 
   export type UserCreateNestedOneWithoutDocumentsInput = {
@@ -38465,8 +38518,8 @@ export namespace Prisma {
   }
 
   export type DocumentUpdatetagsInput = {
-    set?: string[]
-    push?: string | string[]
+    set?: $Enums.DocumentTag[]
+    push?: $Enums.DocumentTag | $Enums.DocumentTag[]
   }
 
   export type UserUpdateOneWithoutDocumentsNestedInput = {
@@ -40282,7 +40335,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -40302,7 +40355,7 @@ export namespace Prisma {
     type?: string | null
     url: string
     uploadedById?: string | null
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -40675,7 +40728,7 @@ export namespace Prisma {
     url?: StringFilter<"Document"> | string
     uploadedById?: StringNullableFilter<"Document"> | string | null
     projectId?: StringFilter<"Document"> | string
-    tags?: StringNullableListFilter<"Document">
+    tags?: EnumDocumentTagNullableListFilter<"Document">
     metadata?: JsonNullableFilter<"Document">
     validationRequired?: BoolFilter<"Document"> | boolean
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
@@ -42811,7 +42864,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -42832,7 +42885,7 @@ export namespace Prisma {
     url: string
     uploadedById?: string | null
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -42865,7 +42918,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42886,7 +42939,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42903,7 +42956,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -42924,7 +42977,7 @@ export namespace Prisma {
     url: string
     uploadedById?: string | null
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -42957,7 +43010,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42978,7 +43031,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42995,7 +43048,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -43016,7 +43069,7 @@ export namespace Prisma {
     url: string
     uploadedById?: string | null
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -43049,7 +43102,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43070,7 +43123,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43087,7 +43140,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -43108,7 +43161,7 @@ export namespace Prisma {
     url: string
     uploadedById?: string | null
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -43141,7 +43194,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43162,7 +43215,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43481,7 +43534,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -43501,7 +43554,7 @@ export namespace Prisma {
     type?: string | null
     url: string
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -44959,7 +45012,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -44980,7 +45033,7 @@ export namespace Prisma {
     url: string
     uploadedById?: string | null
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -45074,7 +45127,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45095,7 +45148,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45305,7 +45358,7 @@ export namespace Prisma {
     name: string
     type?: string | null
     url: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -45326,7 +45379,7 @@ export namespace Prisma {
     url: string
     uploadedById?: string | null
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -45497,7 +45550,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -45518,7 +45571,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46072,7 +46125,7 @@ export namespace Prisma {
     type?: string | null
     url: string
     uploadedById?: string | null
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -46250,7 +46303,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46270,7 +46323,7 @@ export namespace Prisma {
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46289,7 +46342,7 @@ export namespace Prisma {
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -46881,7 +46934,7 @@ export namespace Prisma {
     type?: string | null
     url: string
     projectId: string
-    tags?: DocumentCreatetagsInput | string[]
+    tags?: DocumentCreatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: boolean
     uploadedAt?: Date | string
@@ -47061,7 +47114,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47081,7 +47134,7 @@ export namespace Prisma {
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -47100,7 +47153,7 @@ export namespace Prisma {
     type?: NullableStringFieldUpdateOperationsInput | string | null
     url?: StringFieldUpdateOperationsInput | string
     projectId?: StringFieldUpdateOperationsInput | string
-    tags?: DocumentUpdatetagsInput | string[]
+    tags?: DocumentUpdatetagsInput | $Enums.DocumentTag[]
     metadata?: NullableJsonNullValueInput | InputJsonValue
     validationRequired?: BoolFieldUpdateOperationsInput | boolean
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string

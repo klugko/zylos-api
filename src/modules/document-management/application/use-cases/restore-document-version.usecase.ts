@@ -15,13 +15,15 @@ export class RestoreDocumentVersionUseCase {
       throw new NotFoundException('Version introuvable pour ce document.');
     }
 
-    // Met à jour le document avec les données de la version choisie
     return this.docRepo.save({
       name: version.name,
       type: version.type,
       url: version.url,
       uploadedById: null,
-      projectId: version.documentId, 
+      projectId: version.documentId,
+      validationRequired: false,
+      tags: [],
+      metadata: undefined
     });
   }
 }

@@ -71,6 +71,31 @@ enum RequestStatus {
   CLOSED
 }
 
+enum DocumentTag {
+  CC
+  CTC
+  CTF
+  OC
+  PVR
+  DV
+  FA
+  DJ
+  DC
+  NI
+  BDG
+  RAP
+  PLN
+  CRR
+  SPF
+  SPT
+  ETU
+  CHP
+  AVC
+  MNT
+  RCX
+}
+
+
 // ======================================================
 // MODELS
 // ======================================================
@@ -196,7 +221,7 @@ model Document {
   uploadedById       String?
   project            Project  @relation(fields: [projectId], references: [id])
   projectId          String
-  tags               String[] @default([])
+  tags               DocumentTag[] @default([])
   metadata           Json?
   validationRequired Boolean  @default(false)
   uploadedAt         DateTime @default(now())

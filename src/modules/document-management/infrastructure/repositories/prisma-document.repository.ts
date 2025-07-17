@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DocumentRepository } from '../../domain/interfaces/document.repository.interface';
 import { DocumentEntity } from '../../domain/entities/document.entity';
 import { PrismaService } from '@core/prisma/prisma.service';
+import { DocumentTag } from '../../domain/enums/document-tags.enum';
 
 @Injectable()
 export class PrismaDocumentRepository extends DocumentRepository {
@@ -9,17 +10,38 @@ export class PrismaDocumentRepository extends DocumentRepository {
     super();
   }
 
-  async save(data: Omit<DocumentEntity, 'id' | 'uploadedAt' | 'updatedAt'>): Promise<DocumentEntity> {
+  async save(
+    data: Omit<
+      DocumentEntity, 
+      'id' | 'uploadedAt' | 'updatedAt'
+    >
+  ): Promise<DocumentEntity> {
     const doc = await this.prisma.document.create({
       data: {
         name: data.name,
         type: data.type,
         url: data.url,
-        uploadedById: null, // auth inactive
+        uploadedById: data.uploadedById,
         projectId: data.projectId,
+        tags: data.tags as DocumentTag[], // Cast to Prisma enum array
+        metadata: data.metadata,
+        validationRequired: data.validationRequired,
       },
     });
 
+    return this.mapToEntity(doc);
+  }
+
+  async findAllByProject(projectId: string): Promise<DocumentEntity[]> {
+    const docs = await this.prisma.document.findMany({
+      where: { projectId },
+      orderBy: { uploadedAt: 'desc' },
+    });
+
+    return docs.map(this.mapToEntity);
+  }
+
+  private mapToEntity(doc: any): DocumentEntity {
     return new DocumentEntity(
       doc.id,
       doc.name,
@@ -29,27 +51,9 @@ export class PrismaDocumentRepository extends DocumentRepository {
       doc.projectId,
       doc.uploadedAt,
       doc.updatedAt,
-    );
-  }
-
-  async findAllByProject(projectId: string): Promise<DocumentEntity[]> {
-    const docs = await this.prisma.document.findMany({
-      where: { projectId },
-      orderBy: { uploadedAt: 'desc' },
-    });
-
-    return docs.map(
-      (doc) =>
-        new DocumentEntity(
-          doc.id,
-          doc.name,
-          doc.type,
-          doc.url,
-          doc.uploadedById,
-          doc.projectId,
-          doc.uploadedAt,
-          doc.updatedAt,
-        ),
+      doc.tags as DocumentTag[], 
+      doc.metadata,
+      doc.validationRequired
     );
   }
 }
