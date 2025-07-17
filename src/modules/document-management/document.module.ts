@@ -32,6 +32,9 @@ import { ClassifyDocumentUseCase } from './application/use-cases/classify-docume
 import { ReclassifyDocumentUseCase } from './application/use-cases/reclassify-document.usecase';
 import { OpenAiClassifierService } from './infrastructure/services/openai-classifier.service';
 import { GetDocumentClassificationUseCase } from './application/use-cases/get-document-classification.usecase';
+import { TextExtractorService } from './infrastructure/services/text-extractor.service';
+import { GetDocumentsByTagsUseCase } from './application/use-cases/get-documents-by-tags.usecase';
+import { FileController } from './presentation/controllers/file.controller';
 
 
 @Module({
@@ -43,6 +46,8 @@ import { GetDocumentClassificationUseCase } from './application/use-cases/get-do
     DocumentNotificationController,
     DocumentSignatureController,
     DocumentClassificationController,
+    FileController,
+
   ],
   providers: [
     UploadDocumentUseCase,
@@ -61,6 +66,8 @@ import { GetDocumentClassificationUseCase } from './application/use-cases/get-do
     ReclassifyDocumentUseCase,
     OpenAiClassifierService,
     GetDocumentClassificationUseCase,
+    TextExtractorService,
+    GetDocumentsByTagsUseCase,
     {
       provide: DocumentRepository,
       useClass: PrismaDocumentRepository,

@@ -9,7 +9,7 @@ datasource db {
 }
 
 // ======================================================
-// ENUMERATIONS (nouvelles uniquement, sans casser l'existant)
+// ENUMERATIONS
 // ======================================================
 enum TaskStatus {
   TODO
@@ -71,6 +71,30 @@ enum RequestStatus {
   CLOSED
 }
 
+enum DocumentTag {
+  CC
+  CTC
+  CTF
+  OC
+  PVR
+  DV
+  FA
+  DJ
+  DC
+  NI
+  BDG
+  RAP
+  PLN
+  CRR
+  SPF
+  SPT
+  ETU
+  CHP
+  AVC
+  MNT
+  RCX
+}
+
 // ======================================================
 // MODELS
 // ======================================================
@@ -104,7 +128,6 @@ model Project {
   template   ProjectTemplate? @relation(fields: [templateId], references: [id])
   templateId String?
 
-  // Bloc 3 relations
   accesses        ProjectAccess[]
   partnerRequests PartnerRequest[]
   activityLogs    PartnerActivityLog[]
@@ -197,7 +220,7 @@ model Document {
   uploadedById       String?
   project            Project                    @relation(fields: [projectId], references: [id])
   projectId          String
-  tags               String[]                   @default([])
+  tags               DocumentTag[]              @default([])
   metadata           Json?
   validationRequired Boolean                    @default(false)
   uploadedAt         DateTime                   @default(now())
@@ -207,7 +230,6 @@ model Document {
   notificationRules  DocumentNotificationRule[]
   signatures         DocumentSignature[]
 
-  // Bloc 3
   accesses     DocumentAccess[]
   activityLogs PartnerActivityLog[]
 }
@@ -235,7 +257,6 @@ model DocumentComment {
   updatedAt  DateTime @updatedAt
 }
 
-// ⚠️ Garder les champs en String pour éviter la perte de données
 model DocumentNotificationRule {
   id          String   @id @default(uuid())
   documentId  String
@@ -286,7 +307,6 @@ model User {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @default(now())
 
-  // Bloc 3
   external        Boolean @default(false)
   partnerType     String?
   activationToken String?
@@ -344,10 +364,6 @@ model ReminderNotification {
   taskId    String
   createdAt DateTime @default(now())
 }
-
-// ======================================================
-// NOUVEAUX MODELS BLOC 3
-// ======================================================
 
 model Role {
   id              String   @id @default(uuid())

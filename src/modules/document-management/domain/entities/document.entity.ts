@@ -1,3 +1,5 @@
+import { DocumentTag } from "../enums/document-tags.enum";
+
 export class DocumentEntity {
   constructor(
     public readonly id: string,
@@ -8,5 +10,8 @@ export class DocumentEntity {
     public readonly projectId: string,
     public readonly uploadedAt: Date,
     public readonly updatedAt: Date,
+    public readonly tags: DocumentTag[],
+    public readonly metadata: Record<string, any> | null,
+    public readonly validationRequired: boolean,
   ) {}
 }
