@@ -5,7 +5,7 @@ import { ApiTags, ApiOperation, ApiParam, ApiBody } from '@nestjs/swagger';
 import { GetNotificationRulesUseCase } from '@modules/document-management/application/use-cases/get-notification-rules.usecase';
 
 @ApiTags('Documents - Notifications')
-@Controller('api/documents')
+@Controller('api/v1/documents')
 export class DocumentNotificationController {
   constructor(
     private readonly setUC: SetNotificationRuleUseCase,

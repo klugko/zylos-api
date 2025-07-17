@@ -7,7 +7,7 @@ import { DocumentCommentRepository } from '../../domain/interfaces/document-comm
 
 
 @ApiTags('Documents - Commentaires')
-@Controller('api/documents')
+@Controller('api/v1/documents')
 export class DocumentCommentController {
   constructor(
     private readonly createUC: CreateDocumentCommentUseCase,

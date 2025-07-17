@@ -6,7 +6,7 @@ import { SubmitSignatureDto } from '../../dto/submit-signature.dto';
 import { DocumentSignatureRepository } from '../../domain/interfaces/document-signature.repository.interface';
 
 @ApiTags('Documents - Signature')
-@Controller('api/documents')
+@Controller('api/v1/documents')
 export class DocumentSignatureController {
   constructor(
     private readonly initiateUC: InitiateSignatureUseCase,

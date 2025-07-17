@@ -4,7 +4,7 @@ import { RestoreDocumentVersionUseCase } from '../../application/use-cases/resto
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Documents - Versions')
-@Controller('api/documents')
+@Controller('api/v1/documents')
 export class DocumentVersionController {
   constructor(
     private readonly getUC: GetDocumentVersionsUseCase,

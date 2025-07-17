@@ -20,7 +20,7 @@ import {
   } from '@nestjs/swagger';
   
   @ApiTags('Documents')
-  @Controller('api/documents')
+  @Controller('api/v1/documents')
   export class DocumentController {
     constructor(
       private readonly uploadUC: UploadDocumentUseCase,
