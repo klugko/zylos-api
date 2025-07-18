@@ -8,7 +8,7 @@ import { User } from '@modules/auth/domain/entities/user.entity';
 @ApiTags('Chat Projet')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('projects/:projectId/chat')
+@Controller('api/v1/projects/:projectId/chat')
 export class ProjectChatController {
   constructor(private readonly getMessagesUseCase: GetProjectMessagesUseCase) {}
 

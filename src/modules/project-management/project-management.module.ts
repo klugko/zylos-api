@@ -106,6 +106,10 @@ import { ReminderController } from './infrastructure/controllers/reminder.contro
     },
   ],
   
-  exports: ['ProjectRepository', 'TaskRepository', 'ChecklistRepository'],
+  exports: [
+    'ProjectRepository', 
+    'TaskRepository', 
+    'ChecklistRepository', 
+    CreateTaskUseCase],
 })
 export class ProjectManagementModule {}

@@ -10,7 +10,7 @@ import { User } from '@modules/auth/domain/entities/user.entity';
 @ApiTags('Visio / Jitsi')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
-@Controller('projects/:projectId/visio')
+@Controller('api/v1/projects/:projectId/visio')
 export class JitsiController {
   constructor(
     private readonly createSessionUseCase: CreateJitsiSessionUseCase,
