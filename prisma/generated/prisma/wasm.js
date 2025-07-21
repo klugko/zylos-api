@@ -136,6 +136,7 @@ exports.Prisma.ProjectScalarFieldEnum = {
   isArchived: 'isArchived',
   aiSuggestions: 'aiSuggestions',
   aiGenerateStructure: 'aiGenerateStructure',
+  meetingUrl: 'meetingUrl',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   ownerId: 'ownerId',
@@ -388,6 +389,14 @@ exports.Prisma.PartnerRequestMessageScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ProjectChatMessageScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  senderId: 'senderId',
+  content: 'content',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -521,7 +530,8 @@ exports.Prisma.ModelName = {
   DocumentAccess: 'DocumentAccess',
   PartnerActivityLog: 'PartnerActivityLog',
   PartnerRequest: 'PartnerRequest',
-  PartnerRequestMessage: 'PartnerRequestMessage'
+  PartnerRequestMessage: 'PartnerRequestMessage',
+  ProjectChatMessage: 'ProjectChatMessage'
 };
 
 /**

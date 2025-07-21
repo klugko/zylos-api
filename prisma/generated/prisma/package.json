@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "prisma-client-97f5cde6c89ef79d21ade2f1bf83eeb2bb44335034777af03d22b9ec69dc1905",
+=======
+  "name": "prisma-client-e0277c23bccda20cb1a381fc5211e40f63e598fc5ccaa00b8d1669e6ee6401dc",
+>>>>>>> chat
   "main": "index.js",
   "types": "index.d.ts",
   "browser": "index-browser.js",

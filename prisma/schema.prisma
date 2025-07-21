@@ -116,6 +116,7 @@ model Project {
   isArchived          Boolean            @default(false)
   aiSuggestions       Json?
   aiGenerateStructure Boolean            @default(false)
+  meetingUrl String?  @db.Text
   createdAt           DateTime           @default(now())
   updatedAt           DateTime           @updatedAt
 
@@ -133,6 +134,7 @@ model Project {
   partnerRequests PartnerRequest[]
   activityLogs    PartnerActivityLog[]
   roleAssignments UserRoleAssignment[]
+  chatMessages ProjectChatMessage[]
 }
 
 model Task {
@@ -323,6 +325,7 @@ model User {
   partnerMessages PartnerRequestMessage[]
   activityLogs    PartnerActivityLog[]
   roleAssignments UserRoleAssignment[]
+  projectChatMessages ProjectChatMessage[]
 }
 
 // Templates
@@ -456,4 +459,14 @@ model PartnerRequestMessage {
   sender    User           @relation(fields: [senderId], references: [id])
   content   String
   createdAt DateTime       @default(now())
+}
+
+model ProjectChatMessage {
+  id         String   @id @default(uuid())
+  projectId  String
+  project    Project  @relation(fields: [projectId], references: [id])
+  senderId   String
+  sender     User     @relation(fields: [senderId], references: [id])
+  content    String
+  createdAt  DateTime @default(now())
 }

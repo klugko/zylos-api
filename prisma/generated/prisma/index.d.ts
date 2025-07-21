@@ -133,6 +133,11 @@ export type PartnerRequest = $Result.DefaultSelection<Prisma.$PartnerRequestPayl
  * 
  */
 export type PartnerRequestMessage = $Result.DefaultSelection<Prisma.$PartnerRequestMessagePayload>
+/**
+ * Model ProjectChatMessage
+ * 
+ */
+export type ProjectChatMessage = $Result.DefaultSelection<Prisma.$ProjectChatMessagePayload>
 
 /**
  * Enums
@@ -657,6 +662,16 @@ export class PrismaClient<
     * ```
     */
   get partnerRequestMessage(): Prisma.PartnerRequestMessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.projectChatMessage`: Exposes CRUD operations for the **ProjectChatMessage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProjectChatMessages
+    * const projectChatMessages = await prisma.projectChatMessage.findMany()
+    * ```
+    */
+  get projectChatMessage(): Prisma.ProjectChatMessageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1120,7 +1135,8 @@ export namespace Prisma {
     DocumentAccess: 'DocumentAccess',
     PartnerActivityLog: 'PartnerActivityLog',
     PartnerRequest: 'PartnerRequest',
-    PartnerRequestMessage: 'PartnerRequestMessage'
+    PartnerRequestMessage: 'PartnerRequestMessage',
+    ProjectChatMessage: 'ProjectChatMessage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1139,7 +1155,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "documentVersion" | "documentComment" | "documentNotificationRule" | "documentSignature" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate" | "reminderNotification" | "role" | "userRoleAssignment" | "projectAccess" | "documentAccess" | "partnerActivityLog" | "partnerRequest" | "partnerRequestMessage"
+      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "documentVersion" | "documentComment" | "documentNotificationRule" | "documentSignature" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate" | "reminderNotification" | "role" | "userRoleAssignment" | "projectAccess" | "documentAccess" | "partnerActivityLog" | "partnerRequest" | "partnerRequestMessage" | "projectChatMessage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2919,6 +2935,80 @@ export namespace Prisma {
           }
         }
       }
+      ProjectChatMessage: {
+        payload: Prisma.$ProjectChatMessagePayload<ExtArgs>
+        fields: Prisma.ProjectChatMessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProjectChatMessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProjectChatMessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>
+          }
+          findFirst: {
+            args: Prisma.ProjectChatMessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProjectChatMessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>
+          }
+          findMany: {
+            args: Prisma.ProjectChatMessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>[]
+          }
+          create: {
+            args: Prisma.ProjectChatMessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>
+          }
+          createMany: {
+            args: Prisma.ProjectChatMessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProjectChatMessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>[]
+          }
+          delete: {
+            args: Prisma.ProjectChatMessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>
+          }
+          update: {
+            args: Prisma.ProjectChatMessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.ProjectChatMessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProjectChatMessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProjectChatMessageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>[]
+          }
+          upsert: {
+            args: Prisma.ProjectChatMessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProjectChatMessagePayload>
+          }
+          aggregate: {
+            args: Prisma.ProjectChatMessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProjectChatMessage>
+          }
+          groupBy: {
+            args: Prisma.ProjectChatMessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProjectChatMessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProjectChatMessageCountArgs<ExtArgs>
+            result: $Utils.Optional<ProjectChatMessageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3027,6 +3117,7 @@ export namespace Prisma {
     partnerActivityLog?: PartnerActivityLogOmit
     partnerRequest?: PartnerRequestOmit
     partnerRequestMessage?: PartnerRequestMessageOmit
+    projectChatMessage?: ProjectChatMessageOmit
   }
 
   /* Types for Logging */
@@ -3130,6 +3221,7 @@ export namespace Prisma {
     partnerRequests: number
     activityLogs: number
     roleAssignments: number
+    chatMessages: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3142,6 +3234,7 @@ export namespace Prisma {
     partnerRequests?: boolean | ProjectCountOutputTypeCountPartnerRequestsArgs
     activityLogs?: boolean | ProjectCountOutputTypeCountActivityLogsArgs
     roleAssignments?: boolean | ProjectCountOutputTypeCountRoleAssignmentsArgs
+    chatMessages?: boolean | ProjectCountOutputTypeCountChatMessagesArgs
   }
 
   // Custom InputTypes
@@ -3216,6 +3309,13 @@ export namespace Prisma {
    */
   export type ProjectCountOutputTypeCountRoleAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserRoleAssignmentWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectChatMessageWhereInput
   }
 
 
@@ -3422,6 +3522,7 @@ export namespace Prisma {
     partnerMessages: number
     activityLogs: number
     roleAssignments: number
+    projectChatMessages: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3436,6 +3537,7 @@ export namespace Prisma {
     partnerMessages?: boolean | UserCountOutputTypeCountPartnerMessagesArgs
     activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs
     roleAssignments?: boolean | UserCountOutputTypeCountRoleAssignmentsArgs
+    projectChatMessages?: boolean | UserCountOutputTypeCountProjectChatMessagesArgs
   }
 
   // Custom InputTypes
@@ -3524,6 +3626,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountRoleAssignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserRoleAssignmentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountProjectChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectChatMessageWhereInput
   }
 
 
@@ -3701,6 +3810,7 @@ export namespace Prisma {
     priority: $Enums.ProjectPriority | null
     isArchived: boolean | null
     aiGenerateStructure: boolean | null
+    meetingUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
     ownerId: string | null
@@ -3722,6 +3832,7 @@ export namespace Prisma {
     priority: $Enums.ProjectPriority | null
     isArchived: boolean | null
     aiGenerateStructure: boolean | null
+    meetingUrl: string | null
     createdAt: Date | null
     updatedAt: Date | null
     ownerId: string | null
@@ -3744,6 +3855,7 @@ export namespace Prisma {
     isArchived: number
     aiSuggestions: number
     aiGenerateStructure: number
+    meetingUrl: number
     createdAt: number
     updatedAt: number
     ownerId: number
@@ -3777,6 +3889,7 @@ export namespace Prisma {
     priority?: true
     isArchived?: true
     aiGenerateStructure?: true
+    meetingUrl?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -3798,6 +3911,7 @@ export namespace Prisma {
     priority?: true
     isArchived?: true
     aiGenerateStructure?: true
+    meetingUrl?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -3820,6 +3934,7 @@ export namespace Prisma {
     isArchived?: true
     aiSuggestions?: true
     aiGenerateStructure?: true
+    meetingUrl?: true
     createdAt?: true
     updatedAt?: true
     ownerId?: true
@@ -3929,6 +4044,7 @@ export namespace Prisma {
     isArchived: boolean
     aiSuggestions: JsonValue | null
     aiGenerateStructure: boolean
+    meetingUrl: string | null
     createdAt: Date
     updatedAt: Date
     ownerId: string | null
@@ -3970,6 +4086,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: boolean
     aiGenerateStructure?: boolean
+    meetingUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
@@ -3985,6 +4102,7 @@ export namespace Prisma {
     partnerRequests?: boolean | Project$partnerRequestsArgs<ExtArgs>
     activityLogs?: boolean | Project$activityLogsArgs<ExtArgs>
     roleAssignments?: boolean | Project$roleAssignmentsArgs<ExtArgs>
+    chatMessages?: boolean | Project$chatMessagesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -4004,6 +4122,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: boolean
     aiGenerateStructure?: boolean
+    meetingUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
@@ -4028,6 +4147,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: boolean
     aiGenerateStructure?: boolean
+    meetingUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
@@ -4052,13 +4172,14 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: boolean
     aiGenerateStructure?: boolean
+    meetingUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     ownerId?: boolean
     templateId?: boolean
   }
 
-  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "clientType" | "industry" | "color" | "startDate" | "endDate" | "budget" | "progress" | "status" | "priority" | "isArchived" | "aiSuggestions" | "aiGenerateStructure" | "createdAt" | "updatedAt" | "ownerId" | "templateId", ExtArgs["result"]["project"]>
+  export type ProjectOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "clientType" | "industry" | "color" | "startDate" | "endDate" | "budget" | "progress" | "status" | "priority" | "isArchived" | "aiSuggestions" | "aiGenerateStructure" | "meetingUrl" | "createdAt" | "updatedAt" | "ownerId" | "templateId", ExtArgs["result"]["project"]>
   export type ProjectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | Project$ownerArgs<ExtArgs>
     members?: boolean | Project$membersArgs<ExtArgs>
@@ -4071,6 +4192,7 @@ export namespace Prisma {
     partnerRequests?: boolean | Project$partnerRequestsArgs<ExtArgs>
     activityLogs?: boolean | Project$activityLogsArgs<ExtArgs>
     roleAssignments?: boolean | Project$roleAssignmentsArgs<ExtArgs>
+    chatMessages?: boolean | Project$chatMessagesArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4096,6 +4218,7 @@ export namespace Prisma {
       partnerRequests: Prisma.$PartnerRequestPayload<ExtArgs>[]
       activityLogs: Prisma.$PartnerActivityLogPayload<ExtArgs>[]
       roleAssignments: Prisma.$UserRoleAssignmentPayload<ExtArgs>[]
+      chatMessages: Prisma.$ProjectChatMessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4113,6 +4236,7 @@ export namespace Prisma {
       isArchived: boolean
       aiSuggestions: Prisma.JsonValue | null
       aiGenerateStructure: boolean
+      meetingUrl: string | null
       createdAt: Date
       updatedAt: Date
       ownerId: string | null
@@ -4522,6 +4646,7 @@ export namespace Prisma {
     partnerRequests<T extends Project$partnerRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Project$partnerRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     activityLogs<T extends Project$activityLogsArgs<ExtArgs> = {}>(args?: Subset<T, Project$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roleAssignments<T extends Project$roleAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Project$roleAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chatMessages<T extends Project$chatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Project$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4566,6 +4691,7 @@ export namespace Prisma {
     readonly isArchived: FieldRef<"Project", 'Boolean'>
     readonly aiSuggestions: FieldRef<"Project", 'Json'>
     readonly aiGenerateStructure: FieldRef<"Project", 'Boolean'>
+    readonly meetingUrl: FieldRef<"Project", 'String'>
     readonly createdAt: FieldRef<"Project", 'DateTime'>
     readonly updatedAt: FieldRef<"Project", 'DateTime'>
     readonly ownerId: FieldRef<"Project", 'String'>
@@ -5217,6 +5343,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserRoleAssignmentScalarFieldEnum | UserRoleAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * Project.chatMessages
+   */
+  export type Project$chatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    where?: ProjectChatMessageWhereInput
+    orderBy?: ProjectChatMessageOrderByWithRelationInput | ProjectChatMessageOrderByWithRelationInput[]
+    cursor?: ProjectChatMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectChatMessageScalarFieldEnum | ProjectChatMessageScalarFieldEnum[]
   }
 
   /**
@@ -18167,6 +18317,7 @@ export namespace Prisma {
     partnerMessages?: boolean | User$partnerMessagesArgs<ExtArgs>
     activityLogs?: boolean | User$activityLogsArgs<ExtArgs>
     roleAssignments?: boolean | User$roleAssignmentsArgs<ExtArgs>
+    projectChatMessages?: boolean | User$projectChatMessagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -18237,6 +18388,7 @@ export namespace Prisma {
     partnerMessages?: boolean | User$partnerMessagesArgs<ExtArgs>
     activityLogs?: boolean | User$activityLogsArgs<ExtArgs>
     roleAssignments?: boolean | User$roleAssignmentsArgs<ExtArgs>
+    projectChatMessages?: boolean | User$projectChatMessagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -18256,6 +18408,7 @@ export namespace Prisma {
       partnerMessages: Prisma.$PartnerRequestMessagePayload<ExtArgs>[]
       activityLogs: Prisma.$PartnerActivityLogPayload<ExtArgs>[]
       roleAssignments: Prisma.$UserRoleAssignmentPayload<ExtArgs>[]
+      projectChatMessages: Prisma.$ProjectChatMessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18678,6 +18831,7 @@ export namespace Prisma {
     partnerMessages<T extends User$partnerMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$partnerMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerRequestMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     activityLogs<T extends User$activityLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roleAssignments<T extends User$roleAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$roleAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    projectChatMessages<T extends User$projectChatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$projectChatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19371,6 +19525,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserRoleAssignmentScalarFieldEnum | UserRoleAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * User.projectChatMessages
+   */
+  export type User$projectChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    where?: ProjectChatMessageWhereInput
+    orderBy?: ProjectChatMessageOrderByWithRelationInput | ProjectChatMessageOrderByWithRelationInput[]
+    cursor?: ProjectChatMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProjectChatMessageScalarFieldEnum | ProjectChatMessageScalarFieldEnum[]
   }
 
   /**
@@ -31508,6 +31686,1072 @@ export namespace Prisma {
 
 
   /**
+   * Model ProjectChatMessage
+   */
+
+  export type AggregateProjectChatMessage = {
+    _count: ProjectChatMessageCountAggregateOutputType | null
+    _min: ProjectChatMessageMinAggregateOutputType | null
+    _max: ProjectChatMessageMaxAggregateOutputType | null
+  }
+
+  export type ProjectChatMessageMinAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    senderId: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type ProjectChatMessageMaxAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    senderId: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type ProjectChatMessageCountAggregateOutputType = {
+    id: number
+    projectId: number
+    senderId: number
+    content: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ProjectChatMessageMinAggregateInputType = {
+    id?: true
+    projectId?: true
+    senderId?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type ProjectChatMessageMaxAggregateInputType = {
+    id?: true
+    projectId?: true
+    senderId?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type ProjectChatMessageCountAggregateInputType = {
+    id?: true
+    projectId?: true
+    senderId?: true
+    content?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ProjectChatMessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectChatMessage to aggregate.
+     */
+    where?: ProjectChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectChatMessages to fetch.
+     */
+    orderBy?: ProjectChatMessageOrderByWithRelationInput | ProjectChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProjectChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProjectChatMessages
+    **/
+    _count?: true | ProjectChatMessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProjectChatMessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProjectChatMessageMaxAggregateInputType
+  }
+
+  export type GetProjectChatMessageAggregateType<T extends ProjectChatMessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateProjectChatMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProjectChatMessage[P]>
+      : GetScalarType<T[P], AggregateProjectChatMessage[P]>
+  }
+
+
+
+
+  export type ProjectChatMessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProjectChatMessageWhereInput
+    orderBy?: ProjectChatMessageOrderByWithAggregationInput | ProjectChatMessageOrderByWithAggregationInput[]
+    by: ProjectChatMessageScalarFieldEnum[] | ProjectChatMessageScalarFieldEnum
+    having?: ProjectChatMessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProjectChatMessageCountAggregateInputType | true
+    _min?: ProjectChatMessageMinAggregateInputType
+    _max?: ProjectChatMessageMaxAggregateInputType
+  }
+
+  export type ProjectChatMessageGroupByOutputType = {
+    id: string
+    projectId: string
+    senderId: string
+    content: string
+    createdAt: Date
+    _count: ProjectChatMessageCountAggregateOutputType | null
+    _min: ProjectChatMessageMinAggregateOutputType | null
+    _max: ProjectChatMessageMaxAggregateOutputType | null
+  }
+
+  type GetProjectChatMessageGroupByPayload<T extends ProjectChatMessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProjectChatMessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProjectChatMessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProjectChatMessageGroupByOutputType[P]>
+            : GetScalarType<T[P], ProjectChatMessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProjectChatMessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    senderId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectChatMessage"]>
+
+  export type ProjectChatMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    senderId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectChatMessage"]>
+
+  export type ProjectChatMessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    senderId?: boolean
+    content?: boolean
+    createdAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["projectChatMessage"]>
+
+  export type ProjectChatMessageSelectScalar = {
+    id?: boolean
+    projectId?: boolean
+    senderId?: boolean
+    content?: boolean
+    createdAt?: boolean
+  }
+
+  export type ProjectChatMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "projectId" | "senderId" | "content" | "createdAt", ExtArgs["result"]["projectChatMessage"]>
+  export type ProjectChatMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ProjectChatMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ProjectChatMessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    sender?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ProjectChatMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProjectChatMessage"
+    objects: {
+      project: Prisma.$ProjectPayload<ExtArgs>
+      sender: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      projectId: string
+      senderId: string
+      content: string
+      createdAt: Date
+    }, ExtArgs["result"]["projectChatMessage"]>
+    composites: {}
+  }
+
+  type ProjectChatMessageGetPayload<S extends boolean | null | undefined | ProjectChatMessageDefaultArgs> = $Result.GetResult<Prisma.$ProjectChatMessagePayload, S>
+
+  type ProjectChatMessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProjectChatMessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProjectChatMessageCountAggregateInputType | true
+    }
+
+  export interface ProjectChatMessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProjectChatMessage'], meta: { name: 'ProjectChatMessage' } }
+    /**
+     * Find zero or one ProjectChatMessage that matches the filter.
+     * @param {ProjectChatMessageFindUniqueArgs} args - Arguments to find a ProjectChatMessage
+     * @example
+     * // Get one ProjectChatMessage
+     * const projectChatMessage = await prisma.projectChatMessage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProjectChatMessageFindUniqueArgs>(args: SelectSubset<T, ProjectChatMessageFindUniqueArgs<ExtArgs>>): Prisma__ProjectChatMessageClient<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ProjectChatMessage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProjectChatMessageFindUniqueOrThrowArgs} args - Arguments to find a ProjectChatMessage
+     * @example
+     * // Get one ProjectChatMessage
+     * const projectChatMessage = await prisma.projectChatMessage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProjectChatMessageFindUniqueOrThrowArgs>(args: SelectSubset<T, ProjectChatMessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProjectChatMessageClient<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProjectChatMessage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectChatMessageFindFirstArgs} args - Arguments to find a ProjectChatMessage
+     * @example
+     * // Get one ProjectChatMessage
+     * const projectChatMessage = await prisma.projectChatMessage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProjectChatMessageFindFirstArgs>(args?: SelectSubset<T, ProjectChatMessageFindFirstArgs<ExtArgs>>): Prisma__ProjectChatMessageClient<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ProjectChatMessage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectChatMessageFindFirstOrThrowArgs} args - Arguments to find a ProjectChatMessage
+     * @example
+     * // Get one ProjectChatMessage
+     * const projectChatMessage = await prisma.projectChatMessage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProjectChatMessageFindFirstOrThrowArgs>(args?: SelectSubset<T, ProjectChatMessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProjectChatMessageClient<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ProjectChatMessages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectChatMessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProjectChatMessages
+     * const projectChatMessages = await prisma.projectChatMessage.findMany()
+     * 
+     * // Get first 10 ProjectChatMessages
+     * const projectChatMessages = await prisma.projectChatMessage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const projectChatMessageWithIdOnly = await prisma.projectChatMessage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProjectChatMessageFindManyArgs>(args?: SelectSubset<T, ProjectChatMessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ProjectChatMessage.
+     * @param {ProjectChatMessageCreateArgs} args - Arguments to create a ProjectChatMessage.
+     * @example
+     * // Create one ProjectChatMessage
+     * const ProjectChatMessage = await prisma.projectChatMessage.create({
+     *   data: {
+     *     // ... data to create a ProjectChatMessage
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProjectChatMessageCreateArgs>(args: SelectSubset<T, ProjectChatMessageCreateArgs<ExtArgs>>): Prisma__ProjectChatMessageClient<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ProjectChatMessages.
+     * @param {ProjectChatMessageCreateManyArgs} args - Arguments to create many ProjectChatMessages.
+     * @example
+     * // Create many ProjectChatMessages
+     * const projectChatMessage = await prisma.projectChatMessage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProjectChatMessageCreateManyArgs>(args?: SelectSubset<T, ProjectChatMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ProjectChatMessages and returns the data saved in the database.
+     * @param {ProjectChatMessageCreateManyAndReturnArgs} args - Arguments to create many ProjectChatMessages.
+     * @example
+     * // Create many ProjectChatMessages
+     * const projectChatMessage = await prisma.projectChatMessage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ProjectChatMessages and only return the `id`
+     * const projectChatMessageWithIdOnly = await prisma.projectChatMessage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProjectChatMessageCreateManyAndReturnArgs>(args?: SelectSubset<T, ProjectChatMessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ProjectChatMessage.
+     * @param {ProjectChatMessageDeleteArgs} args - Arguments to delete one ProjectChatMessage.
+     * @example
+     * // Delete one ProjectChatMessage
+     * const ProjectChatMessage = await prisma.projectChatMessage.delete({
+     *   where: {
+     *     // ... filter to delete one ProjectChatMessage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProjectChatMessageDeleteArgs>(args: SelectSubset<T, ProjectChatMessageDeleteArgs<ExtArgs>>): Prisma__ProjectChatMessageClient<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ProjectChatMessage.
+     * @param {ProjectChatMessageUpdateArgs} args - Arguments to update one ProjectChatMessage.
+     * @example
+     * // Update one ProjectChatMessage
+     * const projectChatMessage = await prisma.projectChatMessage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProjectChatMessageUpdateArgs>(args: SelectSubset<T, ProjectChatMessageUpdateArgs<ExtArgs>>): Prisma__ProjectChatMessageClient<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ProjectChatMessages.
+     * @param {ProjectChatMessageDeleteManyArgs} args - Arguments to filter ProjectChatMessages to delete.
+     * @example
+     * // Delete a few ProjectChatMessages
+     * const { count } = await prisma.projectChatMessage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProjectChatMessageDeleteManyArgs>(args?: SelectSubset<T, ProjectChatMessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectChatMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectChatMessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProjectChatMessages
+     * const projectChatMessage = await prisma.projectChatMessage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProjectChatMessageUpdateManyArgs>(args: SelectSubset<T, ProjectChatMessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProjectChatMessages and returns the data updated in the database.
+     * @param {ProjectChatMessageUpdateManyAndReturnArgs} args - Arguments to update many ProjectChatMessages.
+     * @example
+     * // Update many ProjectChatMessages
+     * const projectChatMessage = await prisma.projectChatMessage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ProjectChatMessages and only return the `id`
+     * const projectChatMessageWithIdOnly = await prisma.projectChatMessage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProjectChatMessageUpdateManyAndReturnArgs>(args: SelectSubset<T, ProjectChatMessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ProjectChatMessage.
+     * @param {ProjectChatMessageUpsertArgs} args - Arguments to update or create a ProjectChatMessage.
+     * @example
+     * // Update or create a ProjectChatMessage
+     * const projectChatMessage = await prisma.projectChatMessage.upsert({
+     *   create: {
+     *     // ... data to create a ProjectChatMessage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProjectChatMessage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProjectChatMessageUpsertArgs>(args: SelectSubset<T, ProjectChatMessageUpsertArgs<ExtArgs>>): Prisma__ProjectChatMessageClient<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ProjectChatMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectChatMessageCountArgs} args - Arguments to filter ProjectChatMessages to count.
+     * @example
+     * // Count the number of ProjectChatMessages
+     * const count = await prisma.projectChatMessage.count({
+     *   where: {
+     *     // ... the filter for the ProjectChatMessages we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProjectChatMessageCountArgs>(
+      args?: Subset<T, ProjectChatMessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProjectChatMessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProjectChatMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectChatMessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProjectChatMessageAggregateArgs>(args: Subset<T, ProjectChatMessageAggregateArgs>): Prisma.PrismaPromise<GetProjectChatMessageAggregateType<T>>
+
+    /**
+     * Group by ProjectChatMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProjectChatMessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProjectChatMessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProjectChatMessageGroupByArgs['orderBy'] }
+        : { orderBy?: ProjectChatMessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProjectChatMessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProjectChatMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProjectChatMessage model
+   */
+  readonly fields: ProjectChatMessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProjectChatMessage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProjectChatMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sender<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ProjectChatMessage model
+   */
+  interface ProjectChatMessageFieldRefs {
+    readonly id: FieldRef<"ProjectChatMessage", 'String'>
+    readonly projectId: FieldRef<"ProjectChatMessage", 'String'>
+    readonly senderId: FieldRef<"ProjectChatMessage", 'String'>
+    readonly content: FieldRef<"ProjectChatMessage", 'String'>
+    readonly createdAt: FieldRef<"ProjectChatMessage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ProjectChatMessage findUnique
+   */
+  export type ProjectChatMessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectChatMessage to fetch.
+     */
+    where: ProjectChatMessageWhereUniqueInput
+  }
+
+  /**
+   * ProjectChatMessage findUniqueOrThrow
+   */
+  export type ProjectChatMessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectChatMessage to fetch.
+     */
+    where: ProjectChatMessageWhereUniqueInput
+  }
+
+  /**
+   * ProjectChatMessage findFirst
+   */
+  export type ProjectChatMessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectChatMessage to fetch.
+     */
+    where?: ProjectChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectChatMessages to fetch.
+     */
+    orderBy?: ProjectChatMessageOrderByWithRelationInput | ProjectChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectChatMessages.
+     */
+    cursor?: ProjectChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectChatMessages.
+     */
+    distinct?: ProjectChatMessageScalarFieldEnum | ProjectChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectChatMessage findFirstOrThrow
+   */
+  export type ProjectChatMessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectChatMessage to fetch.
+     */
+    where?: ProjectChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectChatMessages to fetch.
+     */
+    orderBy?: ProjectChatMessageOrderByWithRelationInput | ProjectChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProjectChatMessages.
+     */
+    cursor?: ProjectChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectChatMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProjectChatMessages.
+     */
+    distinct?: ProjectChatMessageScalarFieldEnum | ProjectChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectChatMessage findMany
+   */
+  export type ProjectChatMessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which ProjectChatMessages to fetch.
+     */
+    where?: ProjectChatMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProjectChatMessages to fetch.
+     */
+    orderBy?: ProjectChatMessageOrderByWithRelationInput | ProjectChatMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProjectChatMessages.
+     */
+    cursor?: ProjectChatMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProjectChatMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProjectChatMessages.
+     */
+    skip?: number
+    distinct?: ProjectChatMessageScalarFieldEnum | ProjectChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * ProjectChatMessage create
+   */
+  export type ProjectChatMessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProjectChatMessage.
+     */
+    data: XOR<ProjectChatMessageCreateInput, ProjectChatMessageUncheckedCreateInput>
+  }
+
+  /**
+   * ProjectChatMessage createMany
+   */
+  export type ProjectChatMessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProjectChatMessages.
+     */
+    data: ProjectChatMessageCreateManyInput | ProjectChatMessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ProjectChatMessage createManyAndReturn
+   */
+  export type ProjectChatMessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * The data used to create many ProjectChatMessages.
+     */
+    data: ProjectChatMessageCreateManyInput | ProjectChatMessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProjectChatMessage update
+   */
+  export type ProjectChatMessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProjectChatMessage.
+     */
+    data: XOR<ProjectChatMessageUpdateInput, ProjectChatMessageUncheckedUpdateInput>
+    /**
+     * Choose, which ProjectChatMessage to update.
+     */
+    where: ProjectChatMessageWhereUniqueInput
+  }
+
+  /**
+   * ProjectChatMessage updateMany
+   */
+  export type ProjectChatMessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProjectChatMessages.
+     */
+    data: XOR<ProjectChatMessageUpdateManyMutationInput, ProjectChatMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectChatMessages to update
+     */
+    where?: ProjectChatMessageWhereInput
+    /**
+     * Limit how many ProjectChatMessages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectChatMessage updateManyAndReturn
+   */
+  export type ProjectChatMessageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * The data used to update ProjectChatMessages.
+     */
+    data: XOR<ProjectChatMessageUpdateManyMutationInput, ProjectChatMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which ProjectChatMessages to update
+     */
+    where?: ProjectChatMessageWhereInput
+    /**
+     * Limit how many ProjectChatMessages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ProjectChatMessage upsert
+   */
+  export type ProjectChatMessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProjectChatMessage to update in case it exists.
+     */
+    where: ProjectChatMessageWhereUniqueInput
+    /**
+     * In case the ProjectChatMessage found by the `where` argument doesn't exist, create a new ProjectChatMessage with this data.
+     */
+    create: XOR<ProjectChatMessageCreateInput, ProjectChatMessageUncheckedCreateInput>
+    /**
+     * In case the ProjectChatMessage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProjectChatMessageUpdateInput, ProjectChatMessageUncheckedUpdateInput>
+  }
+
+  /**
+   * ProjectChatMessage delete
+   */
+  export type ProjectChatMessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+    /**
+     * Filter which ProjectChatMessage to delete.
+     */
+    where: ProjectChatMessageWhereUniqueInput
+  }
+
+  /**
+   * ProjectChatMessage deleteMany
+   */
+  export type ProjectChatMessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProjectChatMessages to delete
+     */
+    where?: ProjectChatMessageWhereInput
+    /**
+     * Limit how many ProjectChatMessages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ProjectChatMessage without action
+   */
+  export type ProjectChatMessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProjectChatMessage
+     */
+    select?: ProjectChatMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ProjectChatMessage
+     */
+    omit?: ProjectChatMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProjectChatMessageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -31537,6 +32781,7 @@ export namespace Prisma {
     isArchived: 'isArchived',
     aiSuggestions: 'aiSuggestions',
     aiGenerateStructure: 'aiGenerateStructure',
+    meetingUrl: 'meetingUrl',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     ownerId: 'ownerId',
@@ -31861,6 +33106,17 @@ export namespace Prisma {
   export type PartnerRequestMessageScalarFieldEnum = (typeof PartnerRequestMessageScalarFieldEnum)[keyof typeof PartnerRequestMessageScalarFieldEnum]
 
 
+  export const ProjectChatMessageScalarFieldEnum: {
+    id: 'id',
+    projectId: 'projectId',
+    senderId: 'senderId',
+    content: 'content',
+    createdAt: 'createdAt'
+  };
+
+  export type ProjectChatMessageScalarFieldEnum = (typeof ProjectChatMessageScalarFieldEnum)[keyof typeof ProjectChatMessageScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -32160,6 +33416,7 @@ export namespace Prisma {
     isArchived?: BoolFilter<"Project"> | boolean
     aiSuggestions?: JsonNullableFilter<"Project">
     aiGenerateStructure?: BoolFilter<"Project"> | boolean
+    meetingUrl?: StringNullableFilter<"Project"> | string | null
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     ownerId?: StringNullableFilter<"Project"> | string | null
@@ -32175,6 +33432,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestListRelationFilter
     activityLogs?: PartnerActivityLogListRelationFilter
     roleAssignments?: UserRoleAssignmentListRelationFilter
+    chatMessages?: ProjectChatMessageListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -32193,6 +33451,7 @@ export namespace Prisma {
     isArchived?: SortOrder
     aiSuggestions?: SortOrderInput | SortOrder
     aiGenerateStructure?: SortOrder
+    meetingUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrderInput | SortOrder
@@ -32208,6 +33467,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestOrderByRelationAggregateInput
     activityLogs?: PartnerActivityLogOrderByRelationAggregateInput
     roleAssignments?: UserRoleAssignmentOrderByRelationAggregateInput
+    chatMessages?: ProjectChatMessageOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -32229,6 +33489,7 @@ export namespace Prisma {
     isArchived?: BoolFilter<"Project"> | boolean
     aiSuggestions?: JsonNullableFilter<"Project">
     aiGenerateStructure?: BoolFilter<"Project"> | boolean
+    meetingUrl?: StringNullableFilter<"Project"> | string | null
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     ownerId?: StringNullableFilter<"Project"> | string | null
@@ -32244,6 +33505,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestListRelationFilter
     activityLogs?: PartnerActivityLogListRelationFilter
     roleAssignments?: UserRoleAssignmentListRelationFilter
+    chatMessages?: ProjectChatMessageListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -32262,6 +33524,7 @@ export namespace Prisma {
     isArchived?: SortOrder
     aiSuggestions?: SortOrderInput | SortOrder
     aiGenerateStructure?: SortOrder
+    meetingUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrderInput | SortOrder
@@ -32292,6 +33555,7 @@ export namespace Prisma {
     isArchived?: BoolWithAggregatesFilter<"Project"> | boolean
     aiSuggestions?: JsonNullableWithAggregatesFilter<"Project">
     aiGenerateStructure?: BoolWithAggregatesFilter<"Project"> | boolean
+    meetingUrl?: StringNullableWithAggregatesFilter<"Project"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Project"> | Date | string
     ownerId?: StringNullableWithAggregatesFilter<"Project"> | string | null
@@ -33148,6 +34412,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageListRelationFilter
     activityLogs?: PartnerActivityLogListRelationFilter
     roleAssignments?: UserRoleAssignmentListRelationFilter
+    projectChatMessages?: ProjectChatMessageListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -33177,6 +34442,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageOrderByRelationAggregateInput
     activityLogs?: PartnerActivityLogOrderByRelationAggregateInput
     roleAssignments?: UserRoleAssignmentOrderByRelationAggregateInput
+    projectChatMessages?: ProjectChatMessageOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -33209,6 +34475,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageListRelationFilter
     activityLogs?: PartnerActivityLogListRelationFilter
     roleAssignments?: UserRoleAssignmentListRelationFilter
+    projectChatMessages?: ProjectChatMessageListRelationFilter
   }, "id" | "email" | "googleId">
 
   export type UserOrderByWithAggregationInput = {
@@ -33997,6 +35264,64 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PartnerRequestMessage"> | Date | string
   }
 
+  export type ProjectChatMessageWhereInput = {
+    AND?: ProjectChatMessageWhereInput | ProjectChatMessageWhereInput[]
+    OR?: ProjectChatMessageWhereInput[]
+    NOT?: ProjectChatMessageWhereInput | ProjectChatMessageWhereInput[]
+    id?: StringFilter<"ProjectChatMessage"> | string
+    projectId?: StringFilter<"ProjectChatMessage"> | string
+    senderId?: StringFilter<"ProjectChatMessage"> | string
+    content?: StringFilter<"ProjectChatMessage"> | string
+    createdAt?: DateTimeFilter<"ProjectChatMessage"> | Date | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ProjectChatMessageOrderByWithRelationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    project?: ProjectOrderByWithRelationInput
+    sender?: UserOrderByWithRelationInput
+  }
+
+  export type ProjectChatMessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProjectChatMessageWhereInput | ProjectChatMessageWhereInput[]
+    OR?: ProjectChatMessageWhereInput[]
+    NOT?: ProjectChatMessageWhereInput | ProjectChatMessageWhereInput[]
+    projectId?: StringFilter<"ProjectChatMessage"> | string
+    senderId?: StringFilter<"ProjectChatMessage"> | string
+    content?: StringFilter<"ProjectChatMessage"> | string
+    createdAt?: DateTimeFilter<"ProjectChatMessage"> | Date | string
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    sender?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ProjectChatMessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    _count?: ProjectChatMessageCountOrderByAggregateInput
+    _max?: ProjectChatMessageMaxOrderByAggregateInput
+    _min?: ProjectChatMessageMinOrderByAggregateInput
+  }
+
+  export type ProjectChatMessageScalarWhereWithAggregatesInput = {
+    AND?: ProjectChatMessageScalarWhereWithAggregatesInput | ProjectChatMessageScalarWhereWithAggregatesInput[]
+    OR?: ProjectChatMessageScalarWhereWithAggregatesInput[]
+    NOT?: ProjectChatMessageScalarWhereWithAggregatesInput | ProjectChatMessageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ProjectChatMessage"> | string
+    projectId?: StringWithAggregatesFilter<"ProjectChatMessage"> | string
+    senderId?: StringWithAggregatesFilter<"ProjectChatMessage"> | string
+    content?: StringWithAggregatesFilter<"ProjectChatMessage"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"ProjectChatMessage"> | Date | string
+  }
+
   export type ProjectCreateInput = {
     id?: string
     name: string
@@ -34013,6 +35338,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -34026,6 +35352,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -34044,6 +35371,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -34057,6 +35385,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -34075,6 +35404,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -34088,6 +35418,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -34106,6 +35437,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34119,6 +35451,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -34137,6 +35470,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -34159,6 +35493,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34179,6 +35514,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35071,6 +36407,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -35100,6 +36437,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserUpdateInput = {
@@ -35129,6 +36467,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -35158,6 +36497,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -35981,6 +37321,60 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ProjectChatMessageCreateInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    project: ProjectCreateNestedOneWithoutChatMessagesInput
+    sender: UserCreateNestedOneWithoutProjectChatMessagesInput
+  }
+
+  export type ProjectChatMessageUncheckedCreateInput = {
+    id?: string
+    projectId: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type ProjectChatMessageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutChatMessagesNestedInput
+    sender?: UserUpdateOneRequiredWithoutProjectChatMessagesNestedInput
+  }
+
+  export type ProjectChatMessageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectChatMessageCreateManyInput = {
+    id?: string
+    projectId: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type ProjectChatMessageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectChatMessageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -36168,6 +37562,12 @@ export namespace Prisma {
     none?: UserRoleAssignmentWhereInput
   }
 
+  export type ProjectChatMessageListRelationFilter = {
+    every?: ProjectChatMessageWhereInput
+    some?: ProjectChatMessageWhereInput
+    none?: ProjectChatMessageWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -36209,6 +37609,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ProjectChatMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProjectCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -36225,6 +37629,7 @@ export namespace Prisma {
     isArchived?: SortOrder
     aiSuggestions?: SortOrder
     aiGenerateStructure?: SortOrder
+    meetingUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -36251,6 +37656,7 @@ export namespace Prisma {
     priority?: SortOrder
     isArchived?: SortOrder
     aiGenerateStructure?: SortOrder
+    meetingUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -36272,6 +37678,7 @@ export namespace Prisma {
     priority?: SortOrder
     isArchived?: SortOrder
     aiGenerateStructure?: SortOrder
+    meetingUrl?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     ownerId?: SortOrder
@@ -37564,6 +38971,30 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type ProjectChatMessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ProjectChatMessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ProjectChatMessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    senderId?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutProjectsOwnedInput = {
     create?: XOR<UserCreateWithoutProjectsOwnedInput, UserUncheckedCreateWithoutProjectsOwnedInput>
     connectOrCreate?: UserCreateOrConnectWithoutProjectsOwnedInput
@@ -37639,6 +39070,13 @@ export namespace Prisma {
     connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
   }
 
+  export type ProjectChatMessageCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ProjectChatMessageCreateWithoutProjectInput, ProjectChatMessageUncheckedCreateWithoutProjectInput> | ProjectChatMessageCreateWithoutProjectInput[] | ProjectChatMessageUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutProjectInput | ProjectChatMessageCreateOrConnectWithoutProjectInput[]
+    createMany?: ProjectChatMessageCreateManyProjectInputEnvelope
+    connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+  }
+
   export type ProjectMemberUncheckedCreateNestedManyWithoutProjectInput = {
     create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
@@ -37700,6 +39138,13 @@ export namespace Prisma {
     connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutProjectInput | UserRoleAssignmentCreateOrConnectWithoutProjectInput[]
     createMany?: UserRoleAssignmentCreateManyProjectInputEnvelope
     connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+  }
+
+  export type ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<ProjectChatMessageCreateWithoutProjectInput, ProjectChatMessageUncheckedCreateWithoutProjectInput> | ProjectChatMessageCreateWithoutProjectInput[] | ProjectChatMessageUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutProjectInput | ProjectChatMessageCreateOrConnectWithoutProjectInput[]
+    createMany?: ProjectChatMessageCreateManyProjectInputEnvelope
+    connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -37896,6 +39341,20 @@ export namespace Prisma {
     deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
   }
 
+  export type ProjectChatMessageUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ProjectChatMessageCreateWithoutProjectInput, ProjectChatMessageUncheckedCreateWithoutProjectInput> | ProjectChatMessageCreateWithoutProjectInput[] | ProjectChatMessageUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutProjectInput | ProjectChatMessageCreateOrConnectWithoutProjectInput[]
+    upsert?: ProjectChatMessageUpsertWithWhereUniqueWithoutProjectInput | ProjectChatMessageUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ProjectChatMessageCreateManyProjectInputEnvelope
+    set?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    disconnect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    delete?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    update?: ProjectChatMessageUpdateWithWhereUniqueWithoutProjectInput | ProjectChatMessageUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ProjectChatMessageUpdateManyWithWhereWithoutProjectInput | ProjectChatMessageUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
+  }
+
   export type ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput = {
     create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
@@ -38020,6 +39479,20 @@ export namespace Prisma {
     update?: UserRoleAssignmentUpdateWithWhereUniqueWithoutProjectInput | UserRoleAssignmentUpdateWithWhereUniqueWithoutProjectInput[]
     updateMany?: UserRoleAssignmentUpdateManyWithWhereWithoutProjectInput | UserRoleAssignmentUpdateManyWithWhereWithoutProjectInput[]
     deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
+  }
+
+  export type ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<ProjectChatMessageCreateWithoutProjectInput, ProjectChatMessageUncheckedCreateWithoutProjectInput> | ProjectChatMessageCreateWithoutProjectInput[] | ProjectChatMessageUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutProjectInput | ProjectChatMessageCreateOrConnectWithoutProjectInput[]
+    upsert?: ProjectChatMessageUpsertWithWhereUniqueWithoutProjectInput | ProjectChatMessageUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: ProjectChatMessageCreateManyProjectInputEnvelope
+    set?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    disconnect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    delete?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    update?: ProjectChatMessageUpdateWithWhereUniqueWithoutProjectInput | ProjectChatMessageUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: ProjectChatMessageUpdateManyWithWhereWithoutProjectInput | ProjectChatMessageUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
   }
 
   export type TaskCreatedependenciesInput = {
@@ -38881,6 +40354,13 @@ export namespace Prisma {
     connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
   }
 
+  export type ProjectChatMessageCreateNestedManyWithoutSenderInput = {
+    create?: XOR<ProjectChatMessageCreateWithoutSenderInput, ProjectChatMessageUncheckedCreateWithoutSenderInput> | ProjectChatMessageCreateWithoutSenderInput[] | ProjectChatMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutSenderInput | ProjectChatMessageCreateOrConnectWithoutSenderInput[]
+    createMany?: ProjectChatMessageCreateManySenderInputEnvelope
+    connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<ProjectCreateWithoutOwnerInput, ProjectUncheckedCreateWithoutOwnerInput> | ProjectCreateWithoutOwnerInput[] | ProjectUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutOwnerInput | ProjectCreateOrConnectWithoutOwnerInput[]
@@ -38956,6 +40436,13 @@ export namespace Prisma {
     connectOrCreate?: UserRoleAssignmentCreateOrConnectWithoutUserInput | UserRoleAssignmentCreateOrConnectWithoutUserInput[]
     createMany?: UserRoleAssignmentCreateManyUserInputEnvelope
     connect?: UserRoleAssignmentWhereUniqueInput | UserRoleAssignmentWhereUniqueInput[]
+  }
+
+  export type ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput = {
+    create?: XOR<ProjectChatMessageCreateWithoutSenderInput, ProjectChatMessageUncheckedCreateWithoutSenderInput> | ProjectChatMessageCreateWithoutSenderInput[] | ProjectChatMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutSenderInput | ProjectChatMessageCreateOrConnectWithoutSenderInput[]
+    createMany?: ProjectChatMessageCreateManySenderInputEnvelope
+    connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -39121,6 +40608,20 @@ export namespace Prisma {
     deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
   }
 
+  export type ProjectChatMessageUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<ProjectChatMessageCreateWithoutSenderInput, ProjectChatMessageUncheckedCreateWithoutSenderInput> | ProjectChatMessageCreateWithoutSenderInput[] | ProjectChatMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutSenderInput | ProjectChatMessageCreateOrConnectWithoutSenderInput[]
+    upsert?: ProjectChatMessageUpsertWithWhereUniqueWithoutSenderInput | ProjectChatMessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: ProjectChatMessageCreateManySenderInputEnvelope
+    set?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    disconnect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    delete?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    update?: ProjectChatMessageUpdateWithWhereUniqueWithoutSenderInput | ProjectChatMessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: ProjectChatMessageUpdateManyWithWhereWithoutSenderInput | ProjectChatMessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<ProjectCreateWithoutOwnerInput, ProjectUncheckedCreateWithoutOwnerInput> | ProjectCreateWithoutOwnerInput[] | ProjectUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutOwnerInput | ProjectCreateOrConnectWithoutOwnerInput[]
@@ -39273,6 +40774,20 @@ export namespace Prisma {
     update?: UserRoleAssignmentUpdateWithWhereUniqueWithoutUserInput | UserRoleAssignmentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UserRoleAssignmentUpdateManyWithWhereWithoutUserInput | UserRoleAssignmentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UserRoleAssignmentScalarWhereInput | UserRoleAssignmentScalarWhereInput[]
+  }
+
+  export type ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput = {
+    create?: XOR<ProjectChatMessageCreateWithoutSenderInput, ProjectChatMessageUncheckedCreateWithoutSenderInput> | ProjectChatMessageCreateWithoutSenderInput[] | ProjectChatMessageUncheckedCreateWithoutSenderInput[]
+    connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutSenderInput | ProjectChatMessageCreateOrConnectWithoutSenderInput[]
+    upsert?: ProjectChatMessageUpsertWithWhereUniqueWithoutSenderInput | ProjectChatMessageUpsertWithWhereUniqueWithoutSenderInput[]
+    createMany?: ProjectChatMessageCreateManySenderInputEnvelope
+    set?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    disconnect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    delete?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+    update?: ProjectChatMessageUpdateWithWhereUniqueWithoutSenderInput | ProjectChatMessageUpdateWithWhereUniqueWithoutSenderInput[]
+    updateMany?: ProjectChatMessageUpdateManyWithWhereWithoutSenderInput | ProjectChatMessageUpdateManyWithWhereWithoutSenderInput[]
+    deleteMany?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
   }
 
   export type ProjectCreateNestedManyWithoutTemplateInput = {
@@ -39717,6 +41232,34 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutPartnerMessagesInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPartnerMessagesInput, UserUpdateWithoutPartnerMessagesInput>, UserUncheckedUpdateWithoutPartnerMessagesInput>
+  }
+
+  export type ProjectCreateNestedOneWithoutChatMessagesInput = {
+    create?: XOR<ProjectCreateWithoutChatMessagesInput, ProjectUncheckedCreateWithoutChatMessagesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutChatMessagesInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutProjectChatMessagesInput = {
+    create?: XOR<UserCreateWithoutProjectChatMessagesInput, UserUncheckedCreateWithoutProjectChatMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProjectChatMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ProjectUpdateOneRequiredWithoutChatMessagesNestedInput = {
+    create?: XOR<ProjectCreateWithoutChatMessagesInput, ProjectUncheckedCreateWithoutChatMessagesInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutChatMessagesInput
+    upsert?: ProjectUpsertWithoutChatMessagesInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutChatMessagesInput, ProjectUpdateWithoutChatMessagesInput>, ProjectUncheckedUpdateWithoutChatMessagesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutProjectChatMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutProjectChatMessagesInput, UserUncheckedCreateWithoutProjectChatMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProjectChatMessagesInput
+    upsert?: UserUpsertWithoutProjectChatMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProjectChatMessagesInput, UserUpdateWithoutProjectChatMessagesInput>, UserUncheckedUpdateWithoutProjectChatMessagesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -40165,6 +41708,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutProjectsOwnedInput = {
@@ -40193,6 +41737,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutProjectsOwnedInput = {
@@ -40515,6 +42060,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProjectChatMessageCreateWithoutProjectInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    sender: UserCreateNestedOneWithoutProjectChatMessagesInput
+  }
+
+  export type ProjectChatMessageUncheckedCreateWithoutProjectInput = {
+    id?: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type ProjectChatMessageCreateOrConnectWithoutProjectInput = {
+    where: ProjectChatMessageWhereUniqueInput
+    create: XOR<ProjectChatMessageCreateWithoutProjectInput, ProjectChatMessageUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ProjectChatMessageCreateManyProjectInputEnvelope = {
+    data: ProjectChatMessageCreateManyProjectInput | ProjectChatMessageCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutProjectsOwnedInput = {
     update: XOR<UserUpdateWithoutProjectsOwnedInput, UserUncheckedUpdateWithoutProjectsOwnedInput>
     create: XOR<UserCreateWithoutProjectsOwnedInput, UserUncheckedCreateWithoutProjectsOwnedInput>
@@ -40552,6 +42121,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsOwnedInput = {
@@ -40580,6 +42150,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type ProjectMemberUpsertWithWhereUniqueWithoutProjectInput = {
@@ -40880,6 +42451,33 @@ export namespace Prisma {
     projectId?: StringNullableFilter<"UserRoleAssignment"> | string | null
   }
 
+  export type ProjectChatMessageUpsertWithWhereUniqueWithoutProjectInput = {
+    where: ProjectChatMessageWhereUniqueInput
+    update: XOR<ProjectChatMessageUpdateWithoutProjectInput, ProjectChatMessageUncheckedUpdateWithoutProjectInput>
+    create: XOR<ProjectChatMessageCreateWithoutProjectInput, ProjectChatMessageUncheckedCreateWithoutProjectInput>
+  }
+
+  export type ProjectChatMessageUpdateWithWhereUniqueWithoutProjectInput = {
+    where: ProjectChatMessageWhereUniqueInput
+    data: XOR<ProjectChatMessageUpdateWithoutProjectInput, ProjectChatMessageUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type ProjectChatMessageUpdateManyWithWhereWithoutProjectInput = {
+    where: ProjectChatMessageScalarWhereInput
+    data: XOR<ProjectChatMessageUpdateManyMutationInput, ProjectChatMessageUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type ProjectChatMessageScalarWhereInput = {
+    AND?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
+    OR?: ProjectChatMessageScalarWhereInput[]
+    NOT?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
+    id?: StringFilter<"ProjectChatMessage"> | string
+    projectId?: StringFilter<"ProjectChatMessage"> | string
+    senderId?: StringFilter<"ProjectChatMessage"> | string
+    content?: StringFilter<"ProjectChatMessage"> | string
+    createdAt?: DateTimeFilter<"ProjectChatMessage"> | Date | string
+  }
+
   export type ProjectCreateWithoutTasksInput = {
     id?: string
     name: string
@@ -40896,6 +42494,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -40908,6 +42507,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutTasksInput = {
@@ -40926,6 +42526,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -40938,6 +42539,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -40990,6 +42592,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutTaskInput = {
@@ -41018,6 +42621,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutTaskInput = {
@@ -41138,6 +42742,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -41150,6 +42755,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutTasksInput = {
@@ -41168,6 +42774,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41180,6 +42787,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type TaskColumnUpsertWithoutTasksInput = {
@@ -41244,6 +42852,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaskInput = {
@@ -41272,6 +42881,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type CommentUpsertWithWhereUniqueWithoutTaskInput = {
@@ -41364,6 +42974,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -41376,6 +42987,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutColumnsInput = {
@@ -41394,6 +43006,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -41406,6 +43019,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutColumnsInput = {
@@ -41494,6 +43108,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -41506,6 +43121,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutColumnsInput = {
@@ -41524,6 +43140,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41536,6 +43153,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type TaskUpsertWithWhereUniqueWithoutColumnInput = {
@@ -41619,6 +43237,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -41631,6 +43250,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutChecklistsInput = {
@@ -41649,6 +43269,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -41661,6 +43282,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutChecklistsInput = {
@@ -41778,6 +43400,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -41790,6 +43413,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutChecklistsInput = {
@@ -41808,6 +43432,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41820,6 +43445,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput = {
@@ -42014,6 +43640,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -42026,6 +43653,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutMembersInput = {
@@ -42044,6 +43672,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -42056,6 +43685,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutMembersInput = {
@@ -42089,6 +43719,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutProjectMemberInput = {
@@ -42117,6 +43748,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutProjectMemberInput = {
@@ -42151,6 +43783,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -42163,6 +43796,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutMembersInput = {
@@ -42181,6 +43815,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42193,6 +43828,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserUpsertWithoutProjectMemberInput = {
@@ -42232,6 +43868,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectMemberInput = {
@@ -42260,6 +43897,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -42288,6 +43926,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -42316,6 +43955,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -42339,6 +43979,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -42351,6 +43992,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutDocumentsInput = {
@@ -42369,6 +44011,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -42381,6 +44024,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutDocumentsInput = {
@@ -42595,6 +44239,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -42623,6 +44268,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type ProjectUpsertWithoutDocumentsInput = {
@@ -42652,6 +44298,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -42664,6 +44311,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutDocumentsInput = {
@@ -42682,6 +44330,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -42694,6 +44343,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type DocumentVersionUpsertWithWhereUniqueWithoutDocumentInput = {
@@ -43253,6 +44903,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -43281,6 +44932,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -43374,6 +45026,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -43402,6 +45055,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type TaskUpsertWithoutCommentsInput = {
@@ -43475,6 +45129,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: ProjectMemberCreateNestedManyWithoutProjectInput
@@ -43487,6 +45142,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutOwnerInput = {
@@ -43505,6 +45161,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     templateId?: string | null
@@ -43517,6 +45174,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutOwnerInput = {
@@ -43849,6 +45507,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProjectChatMessageCreateWithoutSenderInput = {
+    id?: string
+    content: string
+    createdAt?: Date | string
+    project: ProjectCreateNestedOneWithoutChatMessagesInput
+  }
+
+  export type ProjectChatMessageUncheckedCreateWithoutSenderInput = {
+    id?: string
+    projectId: string
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type ProjectChatMessageCreateOrConnectWithoutSenderInput = {
+    where: ProjectChatMessageWhereUniqueInput
+    create: XOR<ProjectChatMessageCreateWithoutSenderInput, ProjectChatMessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type ProjectChatMessageCreateManySenderInputEnvelope = {
+    data: ProjectChatMessageCreateManySenderInput | ProjectChatMessageCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProjectUpsertWithWhereUniqueWithoutOwnerInput = {
     where: ProjectWhereUniqueInput
     update: XOR<ProjectUpdateWithoutOwnerInput, ProjectUncheckedUpdateWithoutOwnerInput>
@@ -43884,6 +45566,7 @@ export namespace Prisma {
     isArchived?: BoolFilter<"Project"> | boolean
     aiSuggestions?: JsonNullableFilter<"Project">
     aiGenerateStructure?: BoolFilter<"Project"> | boolean
+    meetingUrl?: StringNullableFilter<"Project"> | string | null
     createdAt?: DateTimeFilter<"Project"> | Date | string
     updatedAt?: DateTimeFilter<"Project"> | Date | string
     ownerId?: StringNullableFilter<"Project"> | string | null
@@ -44061,6 +45744,22 @@ export namespace Prisma {
     data: XOR<UserRoleAssignmentUpdateManyMutationInput, UserRoleAssignmentUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type ProjectChatMessageUpsertWithWhereUniqueWithoutSenderInput = {
+    where: ProjectChatMessageWhereUniqueInput
+    update: XOR<ProjectChatMessageUpdateWithoutSenderInput, ProjectChatMessageUncheckedUpdateWithoutSenderInput>
+    create: XOR<ProjectChatMessageCreateWithoutSenderInput, ProjectChatMessageUncheckedCreateWithoutSenderInput>
+  }
+
+  export type ProjectChatMessageUpdateWithWhereUniqueWithoutSenderInput = {
+    where: ProjectChatMessageWhereUniqueInput
+    data: XOR<ProjectChatMessageUpdateWithoutSenderInput, ProjectChatMessageUncheckedUpdateWithoutSenderInput>
+  }
+
+  export type ProjectChatMessageUpdateManyWithWhereWithoutSenderInput = {
+    where: ProjectChatMessageScalarWhereInput
+    data: XOR<ProjectChatMessageUpdateManyMutationInput, ProjectChatMessageUncheckedUpdateManyWithoutSenderInput>
+  }
+
   export type ProjectCreateWithoutTemplateInput = {
     id?: string
     name: string
@@ -44077,6 +45776,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -44089,6 +45789,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutTemplateInput = {
@@ -44107,6 +45808,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -44119,6 +45821,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutTemplateInput = {
@@ -44429,6 +46132,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutRoleAssignmentsInput = {
@@ -44457,6 +46161,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutRoleAssignmentsInput = {
@@ -44515,6 +46220,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -44527,6 +46233,7 @@ export namespace Prisma {
     accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutRoleAssignmentsInput = {
@@ -44545,6 +46252,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -44557,6 +46265,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutRoleAssignmentsInput = {
@@ -44601,6 +46310,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleAssignmentsInput = {
@@ -44629,6 +46339,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type RoleUpsertWithoutAssignmentsInput = {
@@ -44699,6 +46410,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -44711,6 +46423,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutRoleAssignmentsInput = {
@@ -44729,6 +46442,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44741,6 +46455,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateWithoutAccessesInput = {
@@ -44759,6 +46474,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -44771,6 +46487,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutAccessesInput = {
@@ -44789,6 +46506,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -44801,6 +46519,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutAccessesInput = {
@@ -44834,6 +46553,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutProjectAccessInput = {
@@ -44862,6 +46582,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutProjectAccessInput = {
@@ -44896,6 +46617,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -44908,6 +46630,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutAccessesInput = {
@@ -44926,6 +46649,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -44938,6 +46662,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserUpsertWithoutProjectAccessInput = {
@@ -44977,6 +46702,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectAccessInput = {
@@ -45005,6 +46731,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type DocumentCreateWithoutAccessesInput = {
@@ -45076,6 +46803,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutDocumentAccessInput = {
@@ -45104,6 +46832,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutDocumentAccessInput = {
@@ -45197,6 +46926,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentAccessInput = {
@@ -45225,6 +46955,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type UserCreateWithoutActivityLogsInput = {
@@ -45253,6 +46984,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutActivityLogsInput = {
@@ -45281,6 +47013,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutActivityLogsInput = {
@@ -45304,6 +47037,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -45316,6 +47050,7 @@ export namespace Prisma {
     accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutActivityLogsInput = {
@@ -45334,6 +47069,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -45346,6 +47082,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutActivityLogsInput = {
@@ -45433,6 +47170,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutActivityLogsInput = {
@@ -45461,6 +47199,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type ProjectUpsertWithoutActivityLogsInput = {
@@ -45490,6 +47229,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -45502,6 +47242,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutActivityLogsInput = {
@@ -45520,6 +47261,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45532,6 +47274,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type DocumentUpsertWithoutActivityLogsInput = {
@@ -45599,6 +47342,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     owner?: UserCreateNestedOneWithoutProjectsOwnedInput
@@ -45611,6 +47355,7 @@ export namespace Prisma {
     accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutPartnerRequestsInput = {
@@ -45629,6 +47374,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -45641,6 +47387,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutPartnerRequestsInput = {
@@ -45674,6 +47421,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutPartnerRequestsInput = {
@@ -45702,6 +47450,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutPartnerRequestsInput = {
@@ -45760,6 +47509,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -45772,6 +47522,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutPartnerRequestsInput = {
@@ -45790,6 +47541,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -45802,6 +47554,7 @@ export namespace Prisma {
     accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserUpsertWithoutPartnerRequestsInput = {
@@ -45841,6 +47594,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPartnerRequestsInput = {
@@ -45869,6 +47623,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type PartnerRequestMessageUpsertWithWhereUniqueWithoutRequestInput = {
@@ -45942,6 +47697,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
   }
 
   export type UserUncheckedCreateWithoutPartnerMessagesInput = {
@@ -45970,6 +47726,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
   }
 
   export type UserCreateOrConnectWithoutPartnerMessagesInput = {
@@ -46049,6 +47806,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPartnerMessagesInput = {
@@ -46075,6 +47833,283 @@ export namespace Prisma {
     projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
     documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+  }
+
+  export type ProjectCreateWithoutChatMessagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    meetingUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutProjectsOwnedInput
+    members?: ProjectMemberCreateNestedManyWithoutProjectInput
+    tasks?: TaskCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnCreateNestedManyWithoutProjectInput
+    documents?: DocumentCreateNestedManyWithoutProjectInput
+    template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutChatMessagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    meetingUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId?: string | null
+    templateId?: string | null
+    members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutChatMessagesInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutChatMessagesInput, ProjectUncheckedCreateWithoutChatMessagesInput>
+  }
+
+  export type UserCreateWithoutProjectChatMessagesInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutProjectChatMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProjectChatMessagesInput, UserUncheckedCreateWithoutProjectChatMessagesInput>
+  }
+
+  export type ProjectUpsertWithoutChatMessagesInput = {
+    update: XOR<ProjectUpdateWithoutChatMessagesInput, ProjectUncheckedUpdateWithoutChatMessagesInput>
+    create: XOR<ProjectCreateWithoutChatMessagesInput, ProjectUncheckedCreateWithoutChatMessagesInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutChatMessagesInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutChatMessagesInput, ProjectUncheckedUpdateWithoutChatMessagesInput>
+  }
+
+  export type ProjectUpdateWithoutChatMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
+    members?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUpdateManyWithoutProjectNestedInput
+    template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutChatMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type UserUpsertWithoutProjectChatMessagesInput = {
+    update: XOR<UserUpdateWithoutProjectChatMessagesInput, UserUncheckedUpdateWithoutProjectChatMessagesInput>
+    create: XOR<UserCreateWithoutProjectChatMessagesInput, UserUncheckedCreateWithoutProjectChatMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProjectChatMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProjectChatMessagesInput, UserUncheckedUpdateWithoutProjectChatMessagesInput>
+  }
+
+  export type UserUpdateWithoutProjectChatMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -46166,6 +48201,13 @@ export namespace Prisma {
     id?: string
     userId: string
     roleId: string
+  }
+
+  export type ProjectChatMessageCreateManyProjectInput = {
+    id?: string
+    senderId: string
+    content: string
+    createdAt?: Date | string
   }
 
   export type ProjectMemberUpdateWithoutProjectInput = {
@@ -46457,6 +48499,27 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     roleId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProjectChatMessageUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sender?: UserUpdateOneRequiredWithoutProjectChatMessagesNestedInput
+  }
+
+  export type ProjectChatMessageUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectChatMessageUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommentCreateManyTaskInput = {
@@ -46923,6 +48986,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     templateId?: string | null
@@ -47028,6 +49092,13 @@ export namespace Prisma {
     projectId?: string | null
   }
 
+  export type ProjectChatMessageCreateManySenderInput = {
+    id?: string
+    projectId: string
+    content: string
+    createdAt?: Date | string
+  }
+
   export type ProjectUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -47044,6 +49115,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: ProjectMemberUpdateManyWithoutProjectNestedInput
@@ -47056,6 +49128,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutOwnerInput = {
@@ -47074,6 +49147,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     templateId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47086,6 +49160,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
@@ -47104,6 +49179,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     templateId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47429,6 +49505,27 @@ export namespace Prisma {
     projectId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ProjectChatMessageUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutChatMessagesNestedInput
+  }
+
+  export type ProjectChatMessageUncheckedUpdateWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectChatMessageUncheckedUpdateManyWithoutSenderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ProjectCreateManyTemplateInput = {
     id?: string
     name: string
@@ -47445,6 +49542,7 @@ export namespace Prisma {
     isArchived?: boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: boolean
+    meetingUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId?: string | null
@@ -47475,6 +49573,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
@@ -47487,6 +49586,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutTemplateInput = {
@@ -47505,6 +49605,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -47517,6 +49618,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutTemplateInput = {
@@ -47535,6 +49637,7 @@ export namespace Prisma {
     isArchived?: BoolFieldUpdateOperationsInput | boolean
     aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
     aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: NullableStringFieldUpdateOperationsInput | string | null
