@@ -25,7 +25,7 @@ export class CreateTaskDto {
   @IsDateString()
   endDate?: Date;
 
-  @ApiProperty({ example: ['uuid-task-1', 'uuid-task-2'], required: false })
+  @ApiProperty({ example: [], required: false })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

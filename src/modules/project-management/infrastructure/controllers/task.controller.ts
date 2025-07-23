@@ -16,6 +16,7 @@ import {
   ApiResponse,
   ApiParam,
   ApiBody,
+  ApiBearerAuth,
 } from '@nestjs/swagger';
 import { PrismaTaskRepository } from '../repositories/prisma-task.repository';
 import { CreateTaskDto } from '../../application/dto/create-task.dto';
@@ -23,6 +24,9 @@ import { CreateTaskUseCase } from '../../application/use-cases/create-task.use-c
 import { AssignTaskToBestUserUseCase } from '../../application/use-cases/assign-task.use-case';
 import { ProjectGateway } from '../websocket/project.gateway';
 import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
+import { UpdateTaskUseCase } from '@modules/project-management/application/use-cases/update-task.use-case';
+import { UpdateTaskDto } from '@modules/project-management/application/dto/update-task.dto';
+import { TaskPriority, TaskStatus } from '@modules/project-management/domain/enums/task.enums';
 
 
 @ApiTags('Tasks')
@@ -33,11 +37,13 @@ export class TaskController {
     private readonly taskRepo: PrismaTaskRepository,
     private readonly assignTask: AssignTaskToBestUserUseCase,
     private readonly gateway: ProjectGateway,
+    private readonly updateTaskUseCase: UpdateTaskUseCase,
 
   ) {}
 
   @Post()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Créer une tâche' })
   @ApiBody({ type: CreateTaskDto })
   @ApiResponse({ status: 201, description: 'Tâche créée avec succès' })
@@ -45,8 +51,29 @@ export class TaskController {
     return await this.createTaskUseCase.execute(dto);
   }
 
+
+  @Get('enums')
+  @ApiOperation({ summary: 'Lister les valeurs autorisées des énumérations Task' })
+  @ApiResponse({
+    status: 200,
+    description: 'Tableau des statuts et priorités disponibles',
+    schema: {
+      example: {
+        statuses:   ['TODO', 'IN_PROGRESS', 'DONE', 'CANCELLED'],
+        priorities: ['LOW',  'MEDIUM',      'HIGH', 'URGENT'],
+      },
+    },
+  })
+  getEnums() {
+    return {
+      statuses:   Object.values(TaskStatus),
+      priorities: Object.values(TaskPriority),
+    };
+  }
+
   @Get('project/:projectId')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Lister les tâches d’un projet' })
   @ApiParam({ name: 'projectId', description: 'ID du projet' })
   @ApiResponse({ status: 200, description: 'Liste des tâches retournée' })
@@ -55,7 +82,8 @@ export class TaskController {
   }
 
   @Get(':id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Récupérer une tâche par ID' })
   @ApiParam({ name: 'id', description: 'ID de la tâche' })
   @ApiResponse({ status: 200, description: 'Tâche trouvée' })
@@ -66,8 +94,28 @@ export class TaskController {
     return task;
   }
 
+
+  @Put(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Mettre à jour une tâche (titre, dates, statut, etc.)' })
+  @ApiParam({ name: 'id', description: 'Identifiant unique de la tâche' })
+  @ApiBody({
+    description: 'Champs modifiables : titre, description, dates, statut, priorité, assignation, colonne.',
+    type: UpdateTaskDto,
+  })
+  @ApiResponse({ status: 200, description: 'Tâche mise à jour' })
+  async updateTask(
+    @Param('id') id: string,
+    @Body() dto: UpdateTaskDto,
+  ) {
+    return this.updateTaskUseCase.execute(id, dto);
+  }
+
+
   @Put(':id/status')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Changer le statut d’une tâche' })
   @ApiParam({ name: 'id', description: 'ID de la tâche' })
   @ApiBody({
@@ -95,7 +143,8 @@ export class TaskController {
   }
 
   @Delete(':id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Supprimer une tâche' })
   @ApiParam({ name: 'id', description: 'ID de la tâche' })
   @ApiResponse({ status: 200, description: 'Tâche supprimée' })

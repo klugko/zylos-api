@@ -35,6 +35,7 @@ import { TrackingService } from './application/use-cases/tracking-progress';
 import { SmartReminderService } from './application/use-cases/smart-reminder';
 import { PrismaReminderNotificationRepository } from './infrastructure/repositories/prisma-reminder-notification.repository';
 import { ReminderController } from './infrastructure/controllers/reminder.controller';
+import { UpdateTaskUseCase } from './application/use-cases/update-task.use-case';
 
 @Module({
   imports: [AuthModule],
@@ -72,6 +73,7 @@ import { ReminderController } from './infrastructure/controllers/reminder.contro
     TrackingService,
     SmartReminderService,
     PrismaReminderNotificationRepository,
+    UpdateTaskUseCase,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,

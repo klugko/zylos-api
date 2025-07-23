@@ -113,6 +113,42 @@ export class PrismaTaskRepository implements TaskRepository {
     );
   }
 
+
+async updateFull(id: string, data: Partial<Task>): Promise<Task> {
+  const updated = await this.prisma.task.update({
+    where: { id },
+    data: {
+      title:           data.title,
+      description:     data.description,
+      status:          data.status,
+      priority:        data.priority,
+      startDate:       data.startDate,
+      endDate:         data.endDate,
+      assignedUserId:  data.assignedUserId,
+      columnId:        data.columnId,
+      updatedAt:       new Date(),
+    },
+  });
+
+  return new Task(
+    updated.id,
+    updated.title,
+    updated.description,
+    updated.status   as TaskStatus,
+    updated.priority as TaskPriority,
+    updated.projectId,          
+    updated.createdAt,
+    updated.updatedAt,
+    updated.startDate,
+    updated.endDate,
+    updated.dependencies,       
+    updated.assignedUserId,
+    updated.columnId,
+  );
+}
+
+
+
   async delete(id: string): Promise<void> {
     await this.prisma.task.delete({ where: { id } });
   }

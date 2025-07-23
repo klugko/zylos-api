@@ -71,4 +71,5 @@ dump.rdb
 *.pem
 
 *.pdf
-prisma/generated
+prisma/generated/prisma
+uploads/documents/*

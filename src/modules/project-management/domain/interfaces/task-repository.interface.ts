@@ -8,6 +8,7 @@ export interface TaskRepository {
   create(task: Task): Promise<Task>;
   bulkCreate(tasks: Task[]): Promise<void>;
   update(task: Task): Promise<Task>;
+  updateFull(id: string, data: Partial<Task>): Promise<Task>;
   delete(id: string): Promise<void>;
   exists(taskId: string): Promise<boolean>;
   countByProject(projectId: string): Promise<number>;
