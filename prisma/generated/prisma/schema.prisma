@@ -134,6 +134,7 @@ model Project {
   activityLogs    PartnerActivityLog[]
   roleAssignments UserRoleAssignment[]
   chatMessages    ProjectChatMessage[]
+  taskBlockers    TaskBlocker[]
 }
 
 model Task {
@@ -159,6 +160,7 @@ model Task {
   comments       Comment[]
   checklistItems ChecklistItem[]
   checklists     Checklist[]
+  blockers       TaskBlocker[]
 
   dependencies String[]
   createdAt    DateTime @default(now())
@@ -325,6 +327,7 @@ model User {
   activityLogs        PartnerActivityLog[]
   roleAssignments     UserRoleAssignment[]
   projectChatMessages ProjectChatMessage[]
+  blockerSolutions    BlockerSolution[]
 }
 
 // Templates
@@ -467,4 +470,62 @@ model ProjectChatMessage {
   sender    User     @relation(fields: [senderId], references: [id])
   content   String
   createdAt DateTime @default(now())
+}
+
+model TaskBlocker {
+  id          String            @id @default(uuid())
+  task        Task              @relation(fields: [taskId], references: [id])
+  taskId      String
+  project     Project           @relation(fields: [projectId], references: [id])
+  projectId   String
+  blockerType BlockerType
+  severity    BlockerSeverity   @default(MEDIUM)
+  description String?
+  aiAnalysis  Json?
+  isResolved  Boolean           @default(false)
+  detectedAt  DateTime          @default(now())
+  resolvedAt  DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  solutions   BlockerSolution[]
+}
+
+model BlockerSolution {
+  id              String         @id @default(uuid())
+  blocker         TaskBlocker    @relation(fields: [blockerId], references: [id])
+  blockerId       String
+  solutionType    String // REASSIGN, SPLIT…
+  description     String?
+  aiReasoning     String?
+  confidence      Float?
+  status          SolutionStatus @default(SUGGESTED)
+  suggestedUser   User?          @relation(fields: [suggestedUserId], references: [id])
+  suggestedUserId String?
+  metadata        Json?
+  createdAt       DateTime       @default(now())
+  appliedAt       DateTime?
+}
+
+enum BlockerType {
+  INACTIVE_TASK
+  CIRCULAR_DEPENDENCY
+  SKILL_MISMATCH
+  WORKLOAD_OVERLOAD
+  UNCLEAR_REQUIREMENTS
+  DEPENDENCY_BLOCKED
+  RESOURCE_UNAVAILABLE
+}
+
+enum BlockerSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum SolutionStatus {
+  SUGGESTED
+  APPLIED
+  REJECTED
+  EXPIRED
 }

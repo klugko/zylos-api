@@ -397,6 +397,35 @@ exports.Prisma.ProjectChatMessageScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TaskBlockerScalarFieldEnum = {
+  id: 'id',
+  taskId: 'taskId',
+  projectId: 'projectId',
+  blockerType: 'blockerType',
+  severity: 'severity',
+  description: 'description',
+  aiAnalysis: 'aiAnalysis',
+  isResolved: 'isResolved',
+  detectedAt: 'detectedAt',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BlockerSolutionScalarFieldEnum = {
+  id: 'id',
+  blockerId: 'blockerId',
+  solutionType: 'solutionType',
+  description: 'description',
+  aiReasoning: 'aiReasoning',
+  confidence: 'confidence',
+  status: 'status',
+  suggestedUserId: 'suggestedUserId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  appliedAt: 'appliedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -506,6 +535,30 @@ exports.RequestStatus = exports.$Enums.RequestStatus = {
   CLOSED: 'CLOSED'
 };
 
+exports.BlockerType = exports.$Enums.BlockerType = {
+  INACTIVE_TASK: 'INACTIVE_TASK',
+  CIRCULAR_DEPENDENCY: 'CIRCULAR_DEPENDENCY',
+  SKILL_MISMATCH: 'SKILL_MISMATCH',
+  WORKLOAD_OVERLOAD: 'WORKLOAD_OVERLOAD',
+  UNCLEAR_REQUIREMENTS: 'UNCLEAR_REQUIREMENTS',
+  DEPENDENCY_BLOCKED: 'DEPENDENCY_BLOCKED',
+  RESOURCE_UNAVAILABLE: 'RESOURCE_UNAVAILABLE'
+};
+
+exports.BlockerSeverity = exports.$Enums.BlockerSeverity = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  CRITICAL: 'CRITICAL'
+};
+
+exports.SolutionStatus = exports.$Enums.SolutionStatus = {
+  SUGGESTED: 'SUGGESTED',
+  APPLIED: 'APPLIED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+};
+
 exports.Prisma.ModelName = {
   Project: 'Project',
   Task: 'Task',
@@ -531,7 +584,9 @@ exports.Prisma.ModelName = {
   PartnerActivityLog: 'PartnerActivityLog',
   PartnerRequest: 'PartnerRequest',
   PartnerRequestMessage: 'PartnerRequestMessage',
-  ProjectChatMessage: 'ProjectChatMessage'
+  ProjectChatMessage: 'ProjectChatMessage',
+  TaskBlocker: 'TaskBlocker',
+  BlockerSolution: 'BlockerSolution'
 };
 
 /**

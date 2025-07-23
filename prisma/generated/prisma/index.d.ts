@@ -138,6 +138,16 @@ export type PartnerRequestMessage = $Result.DefaultSelection<Prisma.$PartnerRequ
  * 
  */
 export type ProjectChatMessage = $Result.DefaultSelection<Prisma.$ProjectChatMessagePayload>
+/**
+ * Model TaskBlocker
+ * 
+ */
+export type TaskBlocker = $Result.DefaultSelection<Prisma.$TaskBlockerPayload>
+/**
+ * Model BlockerSolution
+ * 
+ */
+export type BlockerSolution = $Result.DefaultSelection<Prisma.$BlockerSolutionPayload>
 
 /**
  * Enums
@@ -256,6 +266,39 @@ export const DocumentTag: {
 
 export type DocumentTag = (typeof DocumentTag)[keyof typeof DocumentTag]
 
+
+export const BlockerType: {
+  INACTIVE_TASK: 'INACTIVE_TASK',
+  CIRCULAR_DEPENDENCY: 'CIRCULAR_DEPENDENCY',
+  SKILL_MISMATCH: 'SKILL_MISMATCH',
+  WORKLOAD_OVERLOAD: 'WORKLOAD_OVERLOAD',
+  UNCLEAR_REQUIREMENTS: 'UNCLEAR_REQUIREMENTS',
+  DEPENDENCY_BLOCKED: 'DEPENDENCY_BLOCKED',
+  RESOURCE_UNAVAILABLE: 'RESOURCE_UNAVAILABLE'
+};
+
+export type BlockerType = (typeof BlockerType)[keyof typeof BlockerType]
+
+
+export const BlockerSeverity: {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  CRITICAL: 'CRITICAL'
+};
+
+export type BlockerSeverity = (typeof BlockerSeverity)[keyof typeof BlockerSeverity]
+
+
+export const SolutionStatus: {
+  SUGGESTED: 'SUGGESTED',
+  APPLIED: 'APPLIED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+};
+
+export type SolutionStatus = (typeof SolutionStatus)[keyof typeof SolutionStatus]
+
 }
 
 export type TaskStatus = $Enums.TaskStatus
@@ -297,6 +340,18 @@ export const RequestStatus: typeof $Enums.RequestStatus
 export type DocumentTag = $Enums.DocumentTag
 
 export const DocumentTag: typeof $Enums.DocumentTag
+
+export type BlockerType = $Enums.BlockerType
+
+export const BlockerType: typeof $Enums.BlockerType
+
+export type BlockerSeverity = $Enums.BlockerSeverity
+
+export const BlockerSeverity: typeof $Enums.BlockerSeverity
+
+export type SolutionStatus = $Enums.SolutionStatus
+
+export const SolutionStatus: typeof $Enums.SolutionStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -672,6 +727,26 @@ export class PrismaClient<
     * ```
     */
   get projectChatMessage(): Prisma.ProjectChatMessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.taskBlocker`: Exposes CRUD operations for the **TaskBlocker** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TaskBlockers
+    * const taskBlockers = await prisma.taskBlocker.findMany()
+    * ```
+    */
+  get taskBlocker(): Prisma.TaskBlockerDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.blockerSolution`: Exposes CRUD operations for the **BlockerSolution** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BlockerSolutions
+    * const blockerSolutions = await prisma.blockerSolution.findMany()
+    * ```
+    */
+  get blockerSolution(): Prisma.BlockerSolutionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -1136,7 +1211,9 @@ export namespace Prisma {
     PartnerActivityLog: 'PartnerActivityLog',
     PartnerRequest: 'PartnerRequest',
     PartnerRequestMessage: 'PartnerRequestMessage',
-    ProjectChatMessage: 'ProjectChatMessage'
+    ProjectChatMessage: 'ProjectChatMessage',
+    TaskBlocker: 'TaskBlocker',
+    BlockerSolution: 'BlockerSolution'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1155,7 +1232,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "documentVersion" | "documentComment" | "documentNotificationRule" | "documentSignature" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate" | "reminderNotification" | "role" | "userRoleAssignment" | "projectAccess" | "documentAccess" | "partnerActivityLog" | "partnerRequest" | "partnerRequestMessage" | "projectChatMessage"
+      modelProps: "project" | "task" | "taskColumn" | "checklist" | "checklistItem" | "projectMember" | "document" | "documentVersion" | "documentComment" | "documentNotificationRule" | "documentSignature" | "comment" | "user" | "projectTemplate" | "taskTemplate" | "checklistTemplate" | "reminderNotification" | "role" | "userRoleAssignment" | "projectAccess" | "documentAccess" | "partnerActivityLog" | "partnerRequest" | "partnerRequestMessage" | "projectChatMessage" | "taskBlocker" | "blockerSolution"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -3009,6 +3086,154 @@ export namespace Prisma {
           }
         }
       }
+      TaskBlocker: {
+        payload: Prisma.$TaskBlockerPayload<ExtArgs>
+        fields: Prisma.TaskBlockerFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TaskBlockerFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TaskBlockerFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>
+          }
+          findFirst: {
+            args: Prisma.TaskBlockerFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TaskBlockerFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>
+          }
+          findMany: {
+            args: Prisma.TaskBlockerFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>[]
+          }
+          create: {
+            args: Prisma.TaskBlockerCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>
+          }
+          createMany: {
+            args: Prisma.TaskBlockerCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TaskBlockerCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>[]
+          }
+          delete: {
+            args: Prisma.TaskBlockerDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>
+          }
+          update: {
+            args: Prisma.TaskBlockerUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>
+          }
+          deleteMany: {
+            args: Prisma.TaskBlockerDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TaskBlockerUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TaskBlockerUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>[]
+          }
+          upsert: {
+            args: Prisma.TaskBlockerUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TaskBlockerPayload>
+          }
+          aggregate: {
+            args: Prisma.TaskBlockerAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTaskBlocker>
+          }
+          groupBy: {
+            args: Prisma.TaskBlockerGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TaskBlockerGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TaskBlockerCountArgs<ExtArgs>
+            result: $Utils.Optional<TaskBlockerCountAggregateOutputType> | number
+          }
+        }
+      }
+      BlockerSolution: {
+        payload: Prisma.$BlockerSolutionPayload<ExtArgs>
+        fields: Prisma.BlockerSolutionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BlockerSolutionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BlockerSolutionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>
+          }
+          findFirst: {
+            args: Prisma.BlockerSolutionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BlockerSolutionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>
+          }
+          findMany: {
+            args: Prisma.BlockerSolutionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>[]
+          }
+          create: {
+            args: Prisma.BlockerSolutionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>
+          }
+          createMany: {
+            args: Prisma.BlockerSolutionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BlockerSolutionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>[]
+          }
+          delete: {
+            args: Prisma.BlockerSolutionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>
+          }
+          update: {
+            args: Prisma.BlockerSolutionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>
+          }
+          deleteMany: {
+            args: Prisma.BlockerSolutionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BlockerSolutionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BlockerSolutionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>[]
+          }
+          upsert: {
+            args: Prisma.BlockerSolutionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BlockerSolutionPayload>
+          }
+          aggregate: {
+            args: Prisma.BlockerSolutionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBlockerSolution>
+          }
+          groupBy: {
+            args: Prisma.BlockerSolutionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BlockerSolutionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BlockerSolutionCountArgs<ExtArgs>
+            result: $Utils.Optional<BlockerSolutionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -3118,6 +3343,8 @@ export namespace Prisma {
     partnerRequest?: PartnerRequestOmit
     partnerRequestMessage?: PartnerRequestMessageOmit
     projectChatMessage?: ProjectChatMessageOmit
+    taskBlocker?: TaskBlockerOmit
+    blockerSolution?: BlockerSolutionOmit
   }
 
   /* Types for Logging */
@@ -3222,6 +3449,7 @@ export namespace Prisma {
     activityLogs: number
     roleAssignments: number
     chatMessages: number
+    taskBlockers: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3235,6 +3463,7 @@ export namespace Prisma {
     activityLogs?: boolean | ProjectCountOutputTypeCountActivityLogsArgs
     roleAssignments?: boolean | ProjectCountOutputTypeCountRoleAssignmentsArgs
     chatMessages?: boolean | ProjectCountOutputTypeCountChatMessagesArgs
+    taskBlockers?: boolean | ProjectCountOutputTypeCountTaskBlockersArgs
   }
 
   // Custom InputTypes
@@ -3318,6 +3547,13 @@ export namespace Prisma {
     where?: ProjectChatMessageWhereInput
   }
 
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountTaskBlockersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskBlockerWhereInput
+  }
+
 
   /**
    * Count Type TaskCountOutputType
@@ -3327,12 +3563,14 @@ export namespace Prisma {
     comments: number
     checklistItems: number
     checklists: number
+    blockers: number
   }
 
   export type TaskCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | TaskCountOutputTypeCountCommentsArgs
     checklistItems?: boolean | TaskCountOutputTypeCountChecklistItemsArgs
     checklists?: boolean | TaskCountOutputTypeCountChecklistsArgs
+    blockers?: boolean | TaskCountOutputTypeCountBlockersArgs
   }
 
   // Custom InputTypes
@@ -3365,6 +3603,13 @@ export namespace Prisma {
    */
   export type TaskCountOutputTypeCountChecklistsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChecklistWhereInput
+  }
+
+  /**
+   * TaskCountOutputType without action
+   */
+  export type TaskCountOutputTypeCountBlockersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskBlockerWhereInput
   }
 
 
@@ -3523,6 +3768,7 @@ export namespace Prisma {
     activityLogs: number
     roleAssignments: number
     projectChatMessages: number
+    blockerSolutions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3538,6 +3784,7 @@ export namespace Prisma {
     activityLogs?: boolean | UserCountOutputTypeCountActivityLogsArgs
     roleAssignments?: boolean | UserCountOutputTypeCountRoleAssignmentsArgs
     projectChatMessages?: boolean | UserCountOutputTypeCountProjectChatMessagesArgs
+    blockerSolutions?: boolean | UserCountOutputTypeCountBlockerSolutionsArgs
   }
 
   // Custom InputTypes
@@ -3633,6 +3880,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountProjectChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProjectChatMessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBlockerSolutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockerSolutionWhereInput
   }
 
 
@@ -3766,6 +4020,37 @@ export namespace Prisma {
    */
   export type PartnerRequestCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PartnerRequestMessageWhereInput
+  }
+
+
+  /**
+   * Count Type TaskBlockerCountOutputType
+   */
+
+  export type TaskBlockerCountOutputType = {
+    solutions: number
+  }
+
+  export type TaskBlockerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    solutions?: boolean | TaskBlockerCountOutputTypeCountSolutionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaskBlockerCountOutputType without action
+   */
+  export type TaskBlockerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlockerCountOutputType
+     */
+    select?: TaskBlockerCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaskBlockerCountOutputType without action
+   */
+  export type TaskBlockerCountOutputTypeCountSolutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockerSolutionWhereInput
   }
 
 
@@ -4103,6 +4388,7 @@ export namespace Prisma {
     activityLogs?: boolean | Project$activityLogsArgs<ExtArgs>
     roleAssignments?: boolean | Project$roleAssignmentsArgs<ExtArgs>
     chatMessages?: boolean | Project$chatMessagesArgs<ExtArgs>
+    taskBlockers?: boolean | Project$taskBlockersArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -4193,6 +4479,7 @@ export namespace Prisma {
     activityLogs?: boolean | Project$activityLogsArgs<ExtArgs>
     roleAssignments?: boolean | Project$roleAssignmentsArgs<ExtArgs>
     chatMessages?: boolean | Project$chatMessagesArgs<ExtArgs>
+    taskBlockers?: boolean | Project$taskBlockersArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProjectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4219,6 +4506,7 @@ export namespace Prisma {
       activityLogs: Prisma.$PartnerActivityLogPayload<ExtArgs>[]
       roleAssignments: Prisma.$UserRoleAssignmentPayload<ExtArgs>[]
       chatMessages: Prisma.$ProjectChatMessagePayload<ExtArgs>[]
+      taskBlockers: Prisma.$TaskBlockerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4647,6 +4935,7 @@ export namespace Prisma {
     activityLogs<T extends Project$activityLogsArgs<ExtArgs> = {}>(args?: Subset<T, Project$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roleAssignments<T extends Project$roleAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Project$roleAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     chatMessages<T extends Project$chatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Project$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    taskBlockers<T extends Project$taskBlockersArgs<ExtArgs> = {}>(args?: Subset<T, Project$taskBlockersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5370,6 +5659,30 @@ export namespace Prisma {
   }
 
   /**
+   * Project.taskBlockers
+   */
+  export type Project$taskBlockersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    where?: TaskBlockerWhereInput
+    orderBy?: TaskBlockerOrderByWithRelationInput | TaskBlockerOrderByWithRelationInput[]
+    cursor?: TaskBlockerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskBlockerScalarFieldEnum | TaskBlockerScalarFieldEnum[]
+  }
+
+  /**
    * Project without action
    */
   export type ProjectDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5688,6 +6001,7 @@ export namespace Prisma {
     comments?: boolean | Task$commentsArgs<ExtArgs>
     checklistItems?: boolean | Task$checklistItemsArgs<ExtArgs>
     checklists?: boolean | Task$checklistsArgs<ExtArgs>
+    blockers?: boolean | Task$blockersArgs<ExtArgs>
     _count?: boolean | TaskCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["task"]>
 
@@ -5765,6 +6079,7 @@ export namespace Prisma {
     comments?: boolean | Task$commentsArgs<ExtArgs>
     checklistItems?: boolean | Task$checklistItemsArgs<ExtArgs>
     checklists?: boolean | Task$checklistsArgs<ExtArgs>
+    blockers?: boolean | Task$blockersArgs<ExtArgs>
     _count?: boolean | TaskCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5787,6 +6102,7 @@ export namespace Prisma {
       comments: Prisma.$CommentPayload<ExtArgs>[]
       checklistItems: Prisma.$ChecklistItemPayload<ExtArgs>[]
       checklists: Prisma.$ChecklistPayload<ExtArgs>[]
+      blockers: Prisma.$TaskBlockerPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6206,6 +6522,7 @@ export namespace Prisma {
     comments<T extends Task$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Task$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     checklistItems<T extends Task$checklistItemsArgs<ExtArgs> = {}>(args?: Subset<T, Task$checklistItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     checklists<T extends Task$checklistsArgs<ExtArgs> = {}>(args?: Subset<T, Task$checklistsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChecklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    blockers<T extends Task$blockersArgs<ExtArgs> = {}>(args?: Subset<T, Task$blockersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6774,6 +7091,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChecklistScalarFieldEnum | ChecklistScalarFieldEnum[]
+  }
+
+  /**
+   * Task.blockers
+   */
+  export type Task$blockersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    where?: TaskBlockerWhereInput
+    orderBy?: TaskBlockerOrderByWithRelationInput | TaskBlockerOrderByWithRelationInput[]
+    cursor?: TaskBlockerWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskBlockerScalarFieldEnum | TaskBlockerScalarFieldEnum[]
   }
 
   /**
@@ -18318,6 +18659,7 @@ export namespace Prisma {
     activityLogs?: boolean | User$activityLogsArgs<ExtArgs>
     roleAssignments?: boolean | User$roleAssignmentsArgs<ExtArgs>
     projectChatMessages?: boolean | User$projectChatMessagesArgs<ExtArgs>
+    blockerSolutions?: boolean | User$blockerSolutionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -18389,6 +18731,7 @@ export namespace Prisma {
     activityLogs?: boolean | User$activityLogsArgs<ExtArgs>
     roleAssignments?: boolean | User$roleAssignmentsArgs<ExtArgs>
     projectChatMessages?: boolean | User$projectChatMessagesArgs<ExtArgs>
+    blockerSolutions?: boolean | User$blockerSolutionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -18409,6 +18752,7 @@ export namespace Prisma {
       activityLogs: Prisma.$PartnerActivityLogPayload<ExtArgs>[]
       roleAssignments: Prisma.$UserRoleAssignmentPayload<ExtArgs>[]
       projectChatMessages: Prisma.$ProjectChatMessagePayload<ExtArgs>[]
+      blockerSolutions: Prisma.$BlockerSolutionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18832,6 +19176,7 @@ export namespace Prisma {
     activityLogs<T extends User$activityLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$activityLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PartnerActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     roleAssignments<T extends User$roleAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$roleAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRoleAssignmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     projectChatMessages<T extends User$projectChatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$projectChatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProjectChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    blockerSolutions<T extends User$blockerSolutionsArgs<ExtArgs> = {}>(args?: Subset<T, User$blockerSolutionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19549,6 +19894,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ProjectChatMessageScalarFieldEnum | ProjectChatMessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.blockerSolutions
+   */
+  export type User$blockerSolutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    where?: BlockerSolutionWhereInput
+    orderBy?: BlockerSolutionOrderByWithRelationInput | BlockerSolutionOrderByWithRelationInput[]
+    cursor?: BlockerSolutionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlockerSolutionScalarFieldEnum | BlockerSolutionScalarFieldEnum[]
   }
 
   /**
@@ -32752,6 +33121,2382 @@ export namespace Prisma {
 
 
   /**
+   * Model TaskBlocker
+   */
+
+  export type AggregateTaskBlocker = {
+    _count: TaskBlockerCountAggregateOutputType | null
+    _min: TaskBlockerMinAggregateOutputType | null
+    _max: TaskBlockerMaxAggregateOutputType | null
+  }
+
+  export type TaskBlockerMinAggregateOutputType = {
+    id: string | null
+    taskId: string | null
+    projectId: string | null
+    blockerType: $Enums.BlockerType | null
+    severity: $Enums.BlockerSeverity | null
+    description: string | null
+    isResolved: boolean | null
+    detectedAt: Date | null
+    resolvedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TaskBlockerMaxAggregateOutputType = {
+    id: string | null
+    taskId: string | null
+    projectId: string | null
+    blockerType: $Enums.BlockerType | null
+    severity: $Enums.BlockerSeverity | null
+    description: string | null
+    isResolved: boolean | null
+    detectedAt: Date | null
+    resolvedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TaskBlockerCountAggregateOutputType = {
+    id: number
+    taskId: number
+    projectId: number
+    blockerType: number
+    severity: number
+    description: number
+    aiAnalysis: number
+    isResolved: number
+    detectedAt: number
+    resolvedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TaskBlockerMinAggregateInputType = {
+    id?: true
+    taskId?: true
+    projectId?: true
+    blockerType?: true
+    severity?: true
+    description?: true
+    isResolved?: true
+    detectedAt?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TaskBlockerMaxAggregateInputType = {
+    id?: true
+    taskId?: true
+    projectId?: true
+    blockerType?: true
+    severity?: true
+    description?: true
+    isResolved?: true
+    detectedAt?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TaskBlockerCountAggregateInputType = {
+    id?: true
+    taskId?: true
+    projectId?: true
+    blockerType?: true
+    severity?: true
+    description?: true
+    aiAnalysis?: true
+    isResolved?: true
+    detectedAt?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TaskBlockerAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaskBlocker to aggregate.
+     */
+    where?: TaskBlockerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskBlockers to fetch.
+     */
+    orderBy?: TaskBlockerOrderByWithRelationInput | TaskBlockerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TaskBlockerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskBlockers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskBlockers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TaskBlockers
+    **/
+    _count?: true | TaskBlockerCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TaskBlockerMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TaskBlockerMaxAggregateInputType
+  }
+
+  export type GetTaskBlockerAggregateType<T extends TaskBlockerAggregateArgs> = {
+        [P in keyof T & keyof AggregateTaskBlocker]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTaskBlocker[P]>
+      : GetScalarType<T[P], AggregateTaskBlocker[P]>
+  }
+
+
+
+
+  export type TaskBlockerGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskBlockerWhereInput
+    orderBy?: TaskBlockerOrderByWithAggregationInput | TaskBlockerOrderByWithAggregationInput[]
+    by: TaskBlockerScalarFieldEnum[] | TaskBlockerScalarFieldEnum
+    having?: TaskBlockerScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TaskBlockerCountAggregateInputType | true
+    _min?: TaskBlockerMinAggregateInputType
+    _max?: TaskBlockerMaxAggregateInputType
+  }
+
+  export type TaskBlockerGroupByOutputType = {
+    id: string
+    taskId: string
+    projectId: string
+    blockerType: $Enums.BlockerType
+    severity: $Enums.BlockerSeverity
+    description: string | null
+    aiAnalysis: JsonValue | null
+    isResolved: boolean
+    detectedAt: Date
+    resolvedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TaskBlockerCountAggregateOutputType | null
+    _min: TaskBlockerMinAggregateOutputType | null
+    _max: TaskBlockerMaxAggregateOutputType | null
+  }
+
+  type GetTaskBlockerGroupByPayload<T extends TaskBlockerGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TaskBlockerGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TaskBlockerGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TaskBlockerGroupByOutputType[P]>
+            : GetScalarType<T[P], TaskBlockerGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TaskBlockerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    projectId?: boolean
+    blockerType?: boolean
+    severity?: boolean
+    description?: boolean
+    aiAnalysis?: boolean
+    isResolved?: boolean
+    detectedAt?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    task?: boolean | TaskDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    solutions?: boolean | TaskBlocker$solutionsArgs<ExtArgs>
+    _count?: boolean | TaskBlockerCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskBlocker"]>
+
+  export type TaskBlockerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    projectId?: boolean
+    blockerType?: boolean
+    severity?: boolean
+    description?: boolean
+    aiAnalysis?: boolean
+    isResolved?: boolean
+    detectedAt?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    task?: boolean | TaskDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskBlocker"]>
+
+  export type TaskBlockerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    taskId?: boolean
+    projectId?: boolean
+    blockerType?: boolean
+    severity?: boolean
+    description?: boolean
+    aiAnalysis?: boolean
+    isResolved?: boolean
+    detectedAt?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    task?: boolean | TaskDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["taskBlocker"]>
+
+  export type TaskBlockerSelectScalar = {
+    id?: boolean
+    taskId?: boolean
+    projectId?: boolean
+    blockerType?: boolean
+    severity?: boolean
+    description?: boolean
+    aiAnalysis?: boolean
+    isResolved?: boolean
+    detectedAt?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TaskBlockerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "taskId" | "projectId" | "blockerType" | "severity" | "description" | "aiAnalysis" | "isResolved" | "detectedAt" | "resolvedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["taskBlocker"]>
+  export type TaskBlockerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | TaskDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+    solutions?: boolean | TaskBlocker$solutionsArgs<ExtArgs>
+    _count?: boolean | TaskBlockerCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TaskBlockerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | TaskDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+  export type TaskBlockerIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task?: boolean | TaskDefaultArgs<ExtArgs>
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+
+  export type $TaskBlockerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TaskBlocker"
+    objects: {
+      task: Prisma.$TaskPayload<ExtArgs>
+      project: Prisma.$ProjectPayload<ExtArgs>
+      solutions: Prisma.$BlockerSolutionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      taskId: string
+      projectId: string
+      blockerType: $Enums.BlockerType
+      severity: $Enums.BlockerSeverity
+      description: string | null
+      aiAnalysis: Prisma.JsonValue | null
+      isResolved: boolean
+      detectedAt: Date
+      resolvedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["taskBlocker"]>
+    composites: {}
+  }
+
+  type TaskBlockerGetPayload<S extends boolean | null | undefined | TaskBlockerDefaultArgs> = $Result.GetResult<Prisma.$TaskBlockerPayload, S>
+
+  type TaskBlockerCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TaskBlockerFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TaskBlockerCountAggregateInputType | true
+    }
+
+  export interface TaskBlockerDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TaskBlocker'], meta: { name: 'TaskBlocker' } }
+    /**
+     * Find zero or one TaskBlocker that matches the filter.
+     * @param {TaskBlockerFindUniqueArgs} args - Arguments to find a TaskBlocker
+     * @example
+     * // Get one TaskBlocker
+     * const taskBlocker = await prisma.taskBlocker.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TaskBlockerFindUniqueArgs>(args: SelectSubset<T, TaskBlockerFindUniqueArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TaskBlocker that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TaskBlockerFindUniqueOrThrowArgs} args - Arguments to find a TaskBlocker
+     * @example
+     * // Get one TaskBlocker
+     * const taskBlocker = await prisma.taskBlocker.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TaskBlockerFindUniqueOrThrowArgs>(args: SelectSubset<T, TaskBlockerFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaskBlocker that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskBlockerFindFirstArgs} args - Arguments to find a TaskBlocker
+     * @example
+     * // Get one TaskBlocker
+     * const taskBlocker = await prisma.taskBlocker.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TaskBlockerFindFirstArgs>(args?: SelectSubset<T, TaskBlockerFindFirstArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TaskBlocker that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskBlockerFindFirstOrThrowArgs} args - Arguments to find a TaskBlocker
+     * @example
+     * // Get one TaskBlocker
+     * const taskBlocker = await prisma.taskBlocker.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TaskBlockerFindFirstOrThrowArgs>(args?: SelectSubset<T, TaskBlockerFindFirstOrThrowArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TaskBlockers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskBlockerFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TaskBlockers
+     * const taskBlockers = await prisma.taskBlocker.findMany()
+     * 
+     * // Get first 10 TaskBlockers
+     * const taskBlockers = await prisma.taskBlocker.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const taskBlockerWithIdOnly = await prisma.taskBlocker.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TaskBlockerFindManyArgs>(args?: SelectSubset<T, TaskBlockerFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TaskBlocker.
+     * @param {TaskBlockerCreateArgs} args - Arguments to create a TaskBlocker.
+     * @example
+     * // Create one TaskBlocker
+     * const TaskBlocker = await prisma.taskBlocker.create({
+     *   data: {
+     *     // ... data to create a TaskBlocker
+     *   }
+     * })
+     * 
+     */
+    create<T extends TaskBlockerCreateArgs>(args: SelectSubset<T, TaskBlockerCreateArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TaskBlockers.
+     * @param {TaskBlockerCreateManyArgs} args - Arguments to create many TaskBlockers.
+     * @example
+     * // Create many TaskBlockers
+     * const taskBlocker = await prisma.taskBlocker.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TaskBlockerCreateManyArgs>(args?: SelectSubset<T, TaskBlockerCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TaskBlockers and returns the data saved in the database.
+     * @param {TaskBlockerCreateManyAndReturnArgs} args - Arguments to create many TaskBlockers.
+     * @example
+     * // Create many TaskBlockers
+     * const taskBlocker = await prisma.taskBlocker.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TaskBlockers and only return the `id`
+     * const taskBlockerWithIdOnly = await prisma.taskBlocker.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TaskBlockerCreateManyAndReturnArgs>(args?: SelectSubset<T, TaskBlockerCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TaskBlocker.
+     * @param {TaskBlockerDeleteArgs} args - Arguments to delete one TaskBlocker.
+     * @example
+     * // Delete one TaskBlocker
+     * const TaskBlocker = await prisma.taskBlocker.delete({
+     *   where: {
+     *     // ... filter to delete one TaskBlocker
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TaskBlockerDeleteArgs>(args: SelectSubset<T, TaskBlockerDeleteArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TaskBlocker.
+     * @param {TaskBlockerUpdateArgs} args - Arguments to update one TaskBlocker.
+     * @example
+     * // Update one TaskBlocker
+     * const taskBlocker = await prisma.taskBlocker.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TaskBlockerUpdateArgs>(args: SelectSubset<T, TaskBlockerUpdateArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TaskBlockers.
+     * @param {TaskBlockerDeleteManyArgs} args - Arguments to filter TaskBlockers to delete.
+     * @example
+     * // Delete a few TaskBlockers
+     * const { count } = await prisma.taskBlocker.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TaskBlockerDeleteManyArgs>(args?: SelectSubset<T, TaskBlockerDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaskBlockers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskBlockerUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TaskBlockers
+     * const taskBlocker = await prisma.taskBlocker.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TaskBlockerUpdateManyArgs>(args: SelectSubset<T, TaskBlockerUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TaskBlockers and returns the data updated in the database.
+     * @param {TaskBlockerUpdateManyAndReturnArgs} args - Arguments to update many TaskBlockers.
+     * @example
+     * // Update many TaskBlockers
+     * const taskBlocker = await prisma.taskBlocker.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TaskBlockers and only return the `id`
+     * const taskBlockerWithIdOnly = await prisma.taskBlocker.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TaskBlockerUpdateManyAndReturnArgs>(args: SelectSubset<T, TaskBlockerUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TaskBlocker.
+     * @param {TaskBlockerUpsertArgs} args - Arguments to update or create a TaskBlocker.
+     * @example
+     * // Update or create a TaskBlocker
+     * const taskBlocker = await prisma.taskBlocker.upsert({
+     *   create: {
+     *     // ... data to create a TaskBlocker
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TaskBlocker we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TaskBlockerUpsertArgs>(args: SelectSubset<T, TaskBlockerUpsertArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TaskBlockers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskBlockerCountArgs} args - Arguments to filter TaskBlockers to count.
+     * @example
+     * // Count the number of TaskBlockers
+     * const count = await prisma.taskBlocker.count({
+     *   where: {
+     *     // ... the filter for the TaskBlockers we want to count
+     *   }
+     * })
+    **/
+    count<T extends TaskBlockerCountArgs>(
+      args?: Subset<T, TaskBlockerCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TaskBlockerCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TaskBlocker.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskBlockerAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TaskBlockerAggregateArgs>(args: Subset<T, TaskBlockerAggregateArgs>): Prisma.PrismaPromise<GetTaskBlockerAggregateType<T>>
+
+    /**
+     * Group by TaskBlocker.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TaskBlockerGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TaskBlockerGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TaskBlockerGroupByArgs['orderBy'] }
+        : { orderBy?: TaskBlockerGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TaskBlockerGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTaskBlockerGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TaskBlocker model
+   */
+  readonly fields: TaskBlockerFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TaskBlocker.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TaskBlockerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    solutions<T extends TaskBlocker$solutionsArgs<ExtArgs> = {}>(args?: Subset<T, TaskBlocker$solutionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TaskBlocker model
+   */
+  interface TaskBlockerFieldRefs {
+    readonly id: FieldRef<"TaskBlocker", 'String'>
+    readonly taskId: FieldRef<"TaskBlocker", 'String'>
+    readonly projectId: FieldRef<"TaskBlocker", 'String'>
+    readonly blockerType: FieldRef<"TaskBlocker", 'BlockerType'>
+    readonly severity: FieldRef<"TaskBlocker", 'BlockerSeverity'>
+    readonly description: FieldRef<"TaskBlocker", 'String'>
+    readonly aiAnalysis: FieldRef<"TaskBlocker", 'Json'>
+    readonly isResolved: FieldRef<"TaskBlocker", 'Boolean'>
+    readonly detectedAt: FieldRef<"TaskBlocker", 'DateTime'>
+    readonly resolvedAt: FieldRef<"TaskBlocker", 'DateTime'>
+    readonly createdAt: FieldRef<"TaskBlocker", 'DateTime'>
+    readonly updatedAt: FieldRef<"TaskBlocker", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TaskBlocker findUnique
+   */
+  export type TaskBlockerFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskBlocker to fetch.
+     */
+    where: TaskBlockerWhereUniqueInput
+  }
+
+  /**
+   * TaskBlocker findUniqueOrThrow
+   */
+  export type TaskBlockerFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskBlocker to fetch.
+     */
+    where: TaskBlockerWhereUniqueInput
+  }
+
+  /**
+   * TaskBlocker findFirst
+   */
+  export type TaskBlockerFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskBlocker to fetch.
+     */
+    where?: TaskBlockerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskBlockers to fetch.
+     */
+    orderBy?: TaskBlockerOrderByWithRelationInput | TaskBlockerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaskBlockers.
+     */
+    cursor?: TaskBlockerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskBlockers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskBlockers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaskBlockers.
+     */
+    distinct?: TaskBlockerScalarFieldEnum | TaskBlockerScalarFieldEnum[]
+  }
+
+  /**
+   * TaskBlocker findFirstOrThrow
+   */
+  export type TaskBlockerFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskBlocker to fetch.
+     */
+    where?: TaskBlockerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskBlockers to fetch.
+     */
+    orderBy?: TaskBlockerOrderByWithRelationInput | TaskBlockerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TaskBlockers.
+     */
+    cursor?: TaskBlockerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskBlockers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskBlockers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TaskBlockers.
+     */
+    distinct?: TaskBlockerScalarFieldEnum | TaskBlockerScalarFieldEnum[]
+  }
+
+  /**
+   * TaskBlocker findMany
+   */
+  export type TaskBlockerFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * Filter, which TaskBlockers to fetch.
+     */
+    where?: TaskBlockerWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TaskBlockers to fetch.
+     */
+    orderBy?: TaskBlockerOrderByWithRelationInput | TaskBlockerOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TaskBlockers.
+     */
+    cursor?: TaskBlockerWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TaskBlockers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TaskBlockers.
+     */
+    skip?: number
+    distinct?: TaskBlockerScalarFieldEnum | TaskBlockerScalarFieldEnum[]
+  }
+
+  /**
+   * TaskBlocker create
+   */
+  export type TaskBlockerCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TaskBlocker.
+     */
+    data: XOR<TaskBlockerCreateInput, TaskBlockerUncheckedCreateInput>
+  }
+
+  /**
+   * TaskBlocker createMany
+   */
+  export type TaskBlockerCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TaskBlockers.
+     */
+    data: TaskBlockerCreateManyInput | TaskBlockerCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TaskBlocker createManyAndReturn
+   */
+  export type TaskBlockerCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * The data used to create many TaskBlockers.
+     */
+    data: TaskBlockerCreateManyInput | TaskBlockerCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaskBlocker update
+   */
+  export type TaskBlockerUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TaskBlocker.
+     */
+    data: XOR<TaskBlockerUpdateInput, TaskBlockerUncheckedUpdateInput>
+    /**
+     * Choose, which TaskBlocker to update.
+     */
+    where: TaskBlockerWhereUniqueInput
+  }
+
+  /**
+   * TaskBlocker updateMany
+   */
+  export type TaskBlockerUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TaskBlockers.
+     */
+    data: XOR<TaskBlockerUpdateManyMutationInput, TaskBlockerUncheckedUpdateManyInput>
+    /**
+     * Filter which TaskBlockers to update
+     */
+    where?: TaskBlockerWhereInput
+    /**
+     * Limit how many TaskBlockers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaskBlocker updateManyAndReturn
+   */
+  export type TaskBlockerUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * The data used to update TaskBlockers.
+     */
+    data: XOR<TaskBlockerUpdateManyMutationInput, TaskBlockerUncheckedUpdateManyInput>
+    /**
+     * Filter which TaskBlockers to update
+     */
+    where?: TaskBlockerWhereInput
+    /**
+     * Limit how many TaskBlockers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TaskBlocker upsert
+   */
+  export type TaskBlockerUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TaskBlocker to update in case it exists.
+     */
+    where: TaskBlockerWhereUniqueInput
+    /**
+     * In case the TaskBlocker found by the `where` argument doesn't exist, create a new TaskBlocker with this data.
+     */
+    create: XOR<TaskBlockerCreateInput, TaskBlockerUncheckedCreateInput>
+    /**
+     * In case the TaskBlocker was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TaskBlockerUpdateInput, TaskBlockerUncheckedUpdateInput>
+  }
+
+  /**
+   * TaskBlocker delete
+   */
+  export type TaskBlockerDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+    /**
+     * Filter which TaskBlocker to delete.
+     */
+    where: TaskBlockerWhereUniqueInput
+  }
+
+  /**
+   * TaskBlocker deleteMany
+   */
+  export type TaskBlockerDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TaskBlockers to delete
+     */
+    where?: TaskBlockerWhereInput
+    /**
+     * Limit how many TaskBlockers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TaskBlocker.solutions
+   */
+  export type TaskBlocker$solutionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    where?: BlockerSolutionWhereInput
+    orderBy?: BlockerSolutionOrderByWithRelationInput | BlockerSolutionOrderByWithRelationInput[]
+    cursor?: BlockerSolutionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlockerSolutionScalarFieldEnum | BlockerSolutionScalarFieldEnum[]
+  }
+
+  /**
+   * TaskBlocker without action
+   */
+  export type TaskBlockerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskBlocker
+     */
+    select?: TaskBlockerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskBlocker
+     */
+    omit?: TaskBlockerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskBlockerInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BlockerSolution
+   */
+
+  export type AggregateBlockerSolution = {
+    _count: BlockerSolutionCountAggregateOutputType | null
+    _avg: BlockerSolutionAvgAggregateOutputType | null
+    _sum: BlockerSolutionSumAggregateOutputType | null
+    _min: BlockerSolutionMinAggregateOutputType | null
+    _max: BlockerSolutionMaxAggregateOutputType | null
+  }
+
+  export type BlockerSolutionAvgAggregateOutputType = {
+    confidence: number | null
+  }
+
+  export type BlockerSolutionSumAggregateOutputType = {
+    confidence: number | null
+  }
+
+  export type BlockerSolutionMinAggregateOutputType = {
+    id: string | null
+    blockerId: string | null
+    solutionType: string | null
+    description: string | null
+    aiReasoning: string | null
+    confidence: number | null
+    status: $Enums.SolutionStatus | null
+    suggestedUserId: string | null
+    createdAt: Date | null
+    appliedAt: Date | null
+  }
+
+  export type BlockerSolutionMaxAggregateOutputType = {
+    id: string | null
+    blockerId: string | null
+    solutionType: string | null
+    description: string | null
+    aiReasoning: string | null
+    confidence: number | null
+    status: $Enums.SolutionStatus | null
+    suggestedUserId: string | null
+    createdAt: Date | null
+    appliedAt: Date | null
+  }
+
+  export type BlockerSolutionCountAggregateOutputType = {
+    id: number
+    blockerId: number
+    solutionType: number
+    description: number
+    aiReasoning: number
+    confidence: number
+    status: number
+    suggestedUserId: number
+    metadata: number
+    createdAt: number
+    appliedAt: number
+    _all: number
+  }
+
+
+  export type BlockerSolutionAvgAggregateInputType = {
+    confidence?: true
+  }
+
+  export type BlockerSolutionSumAggregateInputType = {
+    confidence?: true
+  }
+
+  export type BlockerSolutionMinAggregateInputType = {
+    id?: true
+    blockerId?: true
+    solutionType?: true
+    description?: true
+    aiReasoning?: true
+    confidence?: true
+    status?: true
+    suggestedUserId?: true
+    createdAt?: true
+    appliedAt?: true
+  }
+
+  export type BlockerSolutionMaxAggregateInputType = {
+    id?: true
+    blockerId?: true
+    solutionType?: true
+    description?: true
+    aiReasoning?: true
+    confidence?: true
+    status?: true
+    suggestedUserId?: true
+    createdAt?: true
+    appliedAt?: true
+  }
+
+  export type BlockerSolutionCountAggregateInputType = {
+    id?: true
+    blockerId?: true
+    solutionType?: true
+    description?: true
+    aiReasoning?: true
+    confidence?: true
+    status?: true
+    suggestedUserId?: true
+    metadata?: true
+    createdAt?: true
+    appliedAt?: true
+    _all?: true
+  }
+
+  export type BlockerSolutionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BlockerSolution to aggregate.
+     */
+    where?: BlockerSolutionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlockerSolutions to fetch.
+     */
+    orderBy?: BlockerSolutionOrderByWithRelationInput | BlockerSolutionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BlockerSolutionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlockerSolutions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlockerSolutions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BlockerSolutions
+    **/
+    _count?: true | BlockerSolutionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BlockerSolutionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BlockerSolutionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BlockerSolutionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BlockerSolutionMaxAggregateInputType
+  }
+
+  export type GetBlockerSolutionAggregateType<T extends BlockerSolutionAggregateArgs> = {
+        [P in keyof T & keyof AggregateBlockerSolution]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBlockerSolution[P]>
+      : GetScalarType<T[P], AggregateBlockerSolution[P]>
+  }
+
+
+
+
+  export type BlockerSolutionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockerSolutionWhereInput
+    orderBy?: BlockerSolutionOrderByWithAggregationInput | BlockerSolutionOrderByWithAggregationInput[]
+    by: BlockerSolutionScalarFieldEnum[] | BlockerSolutionScalarFieldEnum
+    having?: BlockerSolutionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BlockerSolutionCountAggregateInputType | true
+    _avg?: BlockerSolutionAvgAggregateInputType
+    _sum?: BlockerSolutionSumAggregateInputType
+    _min?: BlockerSolutionMinAggregateInputType
+    _max?: BlockerSolutionMaxAggregateInputType
+  }
+
+  export type BlockerSolutionGroupByOutputType = {
+    id: string
+    blockerId: string
+    solutionType: string
+    description: string | null
+    aiReasoning: string | null
+    confidence: number | null
+    status: $Enums.SolutionStatus
+    suggestedUserId: string | null
+    metadata: JsonValue | null
+    createdAt: Date
+    appliedAt: Date | null
+    _count: BlockerSolutionCountAggregateOutputType | null
+    _avg: BlockerSolutionAvgAggregateOutputType | null
+    _sum: BlockerSolutionSumAggregateOutputType | null
+    _min: BlockerSolutionMinAggregateOutputType | null
+    _max: BlockerSolutionMaxAggregateOutputType | null
+  }
+
+  type GetBlockerSolutionGroupByPayload<T extends BlockerSolutionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BlockerSolutionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BlockerSolutionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BlockerSolutionGroupByOutputType[P]>
+            : GetScalarType<T[P], BlockerSolutionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BlockerSolutionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    blockerId?: boolean
+    solutionType?: boolean
+    description?: boolean
+    aiReasoning?: boolean
+    confidence?: boolean
+    status?: boolean
+    suggestedUserId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    appliedAt?: boolean
+    blocker?: boolean | TaskBlockerDefaultArgs<ExtArgs>
+    suggestedUser?: boolean | BlockerSolution$suggestedUserArgs<ExtArgs>
+  }, ExtArgs["result"]["blockerSolution"]>
+
+  export type BlockerSolutionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    blockerId?: boolean
+    solutionType?: boolean
+    description?: boolean
+    aiReasoning?: boolean
+    confidence?: boolean
+    status?: boolean
+    suggestedUserId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    appliedAt?: boolean
+    blocker?: boolean | TaskBlockerDefaultArgs<ExtArgs>
+    suggestedUser?: boolean | BlockerSolution$suggestedUserArgs<ExtArgs>
+  }, ExtArgs["result"]["blockerSolution"]>
+
+  export type BlockerSolutionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    blockerId?: boolean
+    solutionType?: boolean
+    description?: boolean
+    aiReasoning?: boolean
+    confidence?: boolean
+    status?: boolean
+    suggestedUserId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    appliedAt?: boolean
+    blocker?: boolean | TaskBlockerDefaultArgs<ExtArgs>
+    suggestedUser?: boolean | BlockerSolution$suggestedUserArgs<ExtArgs>
+  }, ExtArgs["result"]["blockerSolution"]>
+
+  export type BlockerSolutionSelectScalar = {
+    id?: boolean
+    blockerId?: boolean
+    solutionType?: boolean
+    description?: boolean
+    aiReasoning?: boolean
+    confidence?: boolean
+    status?: boolean
+    suggestedUserId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    appliedAt?: boolean
+  }
+
+  export type BlockerSolutionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "blockerId" | "solutionType" | "description" | "aiReasoning" | "confidence" | "status" | "suggestedUserId" | "metadata" | "createdAt" | "appliedAt", ExtArgs["result"]["blockerSolution"]>
+  export type BlockerSolutionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blocker?: boolean | TaskBlockerDefaultArgs<ExtArgs>
+    suggestedUser?: boolean | BlockerSolution$suggestedUserArgs<ExtArgs>
+  }
+  export type BlockerSolutionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blocker?: boolean | TaskBlockerDefaultArgs<ExtArgs>
+    suggestedUser?: boolean | BlockerSolution$suggestedUserArgs<ExtArgs>
+  }
+  export type BlockerSolutionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    blocker?: boolean | TaskBlockerDefaultArgs<ExtArgs>
+    suggestedUser?: boolean | BlockerSolution$suggestedUserArgs<ExtArgs>
+  }
+
+  export type $BlockerSolutionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BlockerSolution"
+    objects: {
+      blocker: Prisma.$TaskBlockerPayload<ExtArgs>
+      suggestedUser: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      blockerId: string
+      solutionType: string
+      description: string | null
+      aiReasoning: string | null
+      confidence: number | null
+      status: $Enums.SolutionStatus
+      suggestedUserId: string | null
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+      appliedAt: Date | null
+    }, ExtArgs["result"]["blockerSolution"]>
+    composites: {}
+  }
+
+  type BlockerSolutionGetPayload<S extends boolean | null | undefined | BlockerSolutionDefaultArgs> = $Result.GetResult<Prisma.$BlockerSolutionPayload, S>
+
+  type BlockerSolutionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BlockerSolutionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BlockerSolutionCountAggregateInputType | true
+    }
+
+  export interface BlockerSolutionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BlockerSolution'], meta: { name: 'BlockerSolution' } }
+    /**
+     * Find zero or one BlockerSolution that matches the filter.
+     * @param {BlockerSolutionFindUniqueArgs} args - Arguments to find a BlockerSolution
+     * @example
+     * // Get one BlockerSolution
+     * const blockerSolution = await prisma.blockerSolution.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BlockerSolutionFindUniqueArgs>(args: SelectSubset<T, BlockerSolutionFindUniqueArgs<ExtArgs>>): Prisma__BlockerSolutionClient<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BlockerSolution that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BlockerSolutionFindUniqueOrThrowArgs} args - Arguments to find a BlockerSolution
+     * @example
+     * // Get one BlockerSolution
+     * const blockerSolution = await prisma.blockerSolution.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BlockerSolutionFindUniqueOrThrowArgs>(args: SelectSubset<T, BlockerSolutionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BlockerSolutionClient<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BlockerSolution that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockerSolutionFindFirstArgs} args - Arguments to find a BlockerSolution
+     * @example
+     * // Get one BlockerSolution
+     * const blockerSolution = await prisma.blockerSolution.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BlockerSolutionFindFirstArgs>(args?: SelectSubset<T, BlockerSolutionFindFirstArgs<ExtArgs>>): Prisma__BlockerSolutionClient<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BlockerSolution that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockerSolutionFindFirstOrThrowArgs} args - Arguments to find a BlockerSolution
+     * @example
+     * // Get one BlockerSolution
+     * const blockerSolution = await prisma.blockerSolution.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BlockerSolutionFindFirstOrThrowArgs>(args?: SelectSubset<T, BlockerSolutionFindFirstOrThrowArgs<ExtArgs>>): Prisma__BlockerSolutionClient<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BlockerSolutions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockerSolutionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BlockerSolutions
+     * const blockerSolutions = await prisma.blockerSolution.findMany()
+     * 
+     * // Get first 10 BlockerSolutions
+     * const blockerSolutions = await prisma.blockerSolution.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const blockerSolutionWithIdOnly = await prisma.blockerSolution.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BlockerSolutionFindManyArgs>(args?: SelectSubset<T, BlockerSolutionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BlockerSolution.
+     * @param {BlockerSolutionCreateArgs} args - Arguments to create a BlockerSolution.
+     * @example
+     * // Create one BlockerSolution
+     * const BlockerSolution = await prisma.blockerSolution.create({
+     *   data: {
+     *     // ... data to create a BlockerSolution
+     *   }
+     * })
+     * 
+     */
+    create<T extends BlockerSolutionCreateArgs>(args: SelectSubset<T, BlockerSolutionCreateArgs<ExtArgs>>): Prisma__BlockerSolutionClient<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BlockerSolutions.
+     * @param {BlockerSolutionCreateManyArgs} args - Arguments to create many BlockerSolutions.
+     * @example
+     * // Create many BlockerSolutions
+     * const blockerSolution = await prisma.blockerSolution.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BlockerSolutionCreateManyArgs>(args?: SelectSubset<T, BlockerSolutionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BlockerSolutions and returns the data saved in the database.
+     * @param {BlockerSolutionCreateManyAndReturnArgs} args - Arguments to create many BlockerSolutions.
+     * @example
+     * // Create many BlockerSolutions
+     * const blockerSolution = await prisma.blockerSolution.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BlockerSolutions and only return the `id`
+     * const blockerSolutionWithIdOnly = await prisma.blockerSolution.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BlockerSolutionCreateManyAndReturnArgs>(args?: SelectSubset<T, BlockerSolutionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BlockerSolution.
+     * @param {BlockerSolutionDeleteArgs} args - Arguments to delete one BlockerSolution.
+     * @example
+     * // Delete one BlockerSolution
+     * const BlockerSolution = await prisma.blockerSolution.delete({
+     *   where: {
+     *     // ... filter to delete one BlockerSolution
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BlockerSolutionDeleteArgs>(args: SelectSubset<T, BlockerSolutionDeleteArgs<ExtArgs>>): Prisma__BlockerSolutionClient<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BlockerSolution.
+     * @param {BlockerSolutionUpdateArgs} args - Arguments to update one BlockerSolution.
+     * @example
+     * // Update one BlockerSolution
+     * const blockerSolution = await prisma.blockerSolution.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BlockerSolutionUpdateArgs>(args: SelectSubset<T, BlockerSolutionUpdateArgs<ExtArgs>>): Prisma__BlockerSolutionClient<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BlockerSolutions.
+     * @param {BlockerSolutionDeleteManyArgs} args - Arguments to filter BlockerSolutions to delete.
+     * @example
+     * // Delete a few BlockerSolutions
+     * const { count } = await prisma.blockerSolution.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BlockerSolutionDeleteManyArgs>(args?: SelectSubset<T, BlockerSolutionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BlockerSolutions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockerSolutionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BlockerSolutions
+     * const blockerSolution = await prisma.blockerSolution.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BlockerSolutionUpdateManyArgs>(args: SelectSubset<T, BlockerSolutionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BlockerSolutions and returns the data updated in the database.
+     * @param {BlockerSolutionUpdateManyAndReturnArgs} args - Arguments to update many BlockerSolutions.
+     * @example
+     * // Update many BlockerSolutions
+     * const blockerSolution = await prisma.blockerSolution.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BlockerSolutions and only return the `id`
+     * const blockerSolutionWithIdOnly = await prisma.blockerSolution.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BlockerSolutionUpdateManyAndReturnArgs>(args: SelectSubset<T, BlockerSolutionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BlockerSolution.
+     * @param {BlockerSolutionUpsertArgs} args - Arguments to update or create a BlockerSolution.
+     * @example
+     * // Update or create a BlockerSolution
+     * const blockerSolution = await prisma.blockerSolution.upsert({
+     *   create: {
+     *     // ... data to create a BlockerSolution
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BlockerSolution we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BlockerSolutionUpsertArgs>(args: SelectSubset<T, BlockerSolutionUpsertArgs<ExtArgs>>): Prisma__BlockerSolutionClient<$Result.GetResult<Prisma.$BlockerSolutionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BlockerSolutions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockerSolutionCountArgs} args - Arguments to filter BlockerSolutions to count.
+     * @example
+     * // Count the number of BlockerSolutions
+     * const count = await prisma.blockerSolution.count({
+     *   where: {
+     *     // ... the filter for the BlockerSolutions we want to count
+     *   }
+     * })
+    **/
+    count<T extends BlockerSolutionCountArgs>(
+      args?: Subset<T, BlockerSolutionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BlockerSolutionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BlockerSolution.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockerSolutionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BlockerSolutionAggregateArgs>(args: Subset<T, BlockerSolutionAggregateArgs>): Prisma.PrismaPromise<GetBlockerSolutionAggregateType<T>>
+
+    /**
+     * Group by BlockerSolution.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockerSolutionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BlockerSolutionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BlockerSolutionGroupByArgs['orderBy'] }
+        : { orderBy?: BlockerSolutionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BlockerSolutionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBlockerSolutionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BlockerSolution model
+   */
+  readonly fields: BlockerSolutionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BlockerSolution.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BlockerSolutionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    blocker<T extends TaskBlockerDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskBlockerDefaultArgs<ExtArgs>>): Prisma__TaskBlockerClient<$Result.GetResult<Prisma.$TaskBlockerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    suggestedUser<T extends BlockerSolution$suggestedUserArgs<ExtArgs> = {}>(args?: Subset<T, BlockerSolution$suggestedUserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BlockerSolution model
+   */
+  interface BlockerSolutionFieldRefs {
+    readonly id: FieldRef<"BlockerSolution", 'String'>
+    readonly blockerId: FieldRef<"BlockerSolution", 'String'>
+    readonly solutionType: FieldRef<"BlockerSolution", 'String'>
+    readonly description: FieldRef<"BlockerSolution", 'String'>
+    readonly aiReasoning: FieldRef<"BlockerSolution", 'String'>
+    readonly confidence: FieldRef<"BlockerSolution", 'Float'>
+    readonly status: FieldRef<"BlockerSolution", 'SolutionStatus'>
+    readonly suggestedUserId: FieldRef<"BlockerSolution", 'String'>
+    readonly metadata: FieldRef<"BlockerSolution", 'Json'>
+    readonly createdAt: FieldRef<"BlockerSolution", 'DateTime'>
+    readonly appliedAt: FieldRef<"BlockerSolution", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BlockerSolution findUnique
+   */
+  export type BlockerSolutionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockerSolution to fetch.
+     */
+    where: BlockerSolutionWhereUniqueInput
+  }
+
+  /**
+   * BlockerSolution findUniqueOrThrow
+   */
+  export type BlockerSolutionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockerSolution to fetch.
+     */
+    where: BlockerSolutionWhereUniqueInput
+  }
+
+  /**
+   * BlockerSolution findFirst
+   */
+  export type BlockerSolutionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockerSolution to fetch.
+     */
+    where?: BlockerSolutionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlockerSolutions to fetch.
+     */
+    orderBy?: BlockerSolutionOrderByWithRelationInput | BlockerSolutionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BlockerSolutions.
+     */
+    cursor?: BlockerSolutionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlockerSolutions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlockerSolutions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlockerSolutions.
+     */
+    distinct?: BlockerSolutionScalarFieldEnum | BlockerSolutionScalarFieldEnum[]
+  }
+
+  /**
+   * BlockerSolution findFirstOrThrow
+   */
+  export type BlockerSolutionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockerSolution to fetch.
+     */
+    where?: BlockerSolutionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlockerSolutions to fetch.
+     */
+    orderBy?: BlockerSolutionOrderByWithRelationInput | BlockerSolutionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BlockerSolutions.
+     */
+    cursor?: BlockerSolutionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlockerSolutions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlockerSolutions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlockerSolutions.
+     */
+    distinct?: BlockerSolutionScalarFieldEnum | BlockerSolutionScalarFieldEnum[]
+  }
+
+  /**
+   * BlockerSolution findMany
+   */
+  export type BlockerSolutionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockerSolutions to fetch.
+     */
+    where?: BlockerSolutionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlockerSolutions to fetch.
+     */
+    orderBy?: BlockerSolutionOrderByWithRelationInput | BlockerSolutionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BlockerSolutions.
+     */
+    cursor?: BlockerSolutionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlockerSolutions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlockerSolutions.
+     */
+    skip?: number
+    distinct?: BlockerSolutionScalarFieldEnum | BlockerSolutionScalarFieldEnum[]
+  }
+
+  /**
+   * BlockerSolution create
+   */
+  export type BlockerSolutionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BlockerSolution.
+     */
+    data: XOR<BlockerSolutionCreateInput, BlockerSolutionUncheckedCreateInput>
+  }
+
+  /**
+   * BlockerSolution createMany
+   */
+  export type BlockerSolutionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BlockerSolutions.
+     */
+    data: BlockerSolutionCreateManyInput | BlockerSolutionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BlockerSolution createManyAndReturn
+   */
+  export type BlockerSolutionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * The data used to create many BlockerSolutions.
+     */
+    data: BlockerSolutionCreateManyInput | BlockerSolutionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BlockerSolution update
+   */
+  export type BlockerSolutionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BlockerSolution.
+     */
+    data: XOR<BlockerSolutionUpdateInput, BlockerSolutionUncheckedUpdateInput>
+    /**
+     * Choose, which BlockerSolution to update.
+     */
+    where: BlockerSolutionWhereUniqueInput
+  }
+
+  /**
+   * BlockerSolution updateMany
+   */
+  export type BlockerSolutionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BlockerSolutions.
+     */
+    data: XOR<BlockerSolutionUpdateManyMutationInput, BlockerSolutionUncheckedUpdateManyInput>
+    /**
+     * Filter which BlockerSolutions to update
+     */
+    where?: BlockerSolutionWhereInput
+    /**
+     * Limit how many BlockerSolutions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BlockerSolution updateManyAndReturn
+   */
+  export type BlockerSolutionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * The data used to update BlockerSolutions.
+     */
+    data: XOR<BlockerSolutionUpdateManyMutationInput, BlockerSolutionUncheckedUpdateManyInput>
+    /**
+     * Filter which BlockerSolutions to update
+     */
+    where?: BlockerSolutionWhereInput
+    /**
+     * Limit how many BlockerSolutions to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BlockerSolution upsert
+   */
+  export type BlockerSolutionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BlockerSolution to update in case it exists.
+     */
+    where: BlockerSolutionWhereUniqueInput
+    /**
+     * In case the BlockerSolution found by the `where` argument doesn't exist, create a new BlockerSolution with this data.
+     */
+    create: XOR<BlockerSolutionCreateInput, BlockerSolutionUncheckedCreateInput>
+    /**
+     * In case the BlockerSolution was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BlockerSolutionUpdateInput, BlockerSolutionUncheckedUpdateInput>
+  }
+
+  /**
+   * BlockerSolution delete
+   */
+  export type BlockerSolutionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+    /**
+     * Filter which BlockerSolution to delete.
+     */
+    where: BlockerSolutionWhereUniqueInput
+  }
+
+  /**
+   * BlockerSolution deleteMany
+   */
+  export type BlockerSolutionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BlockerSolutions to delete
+     */
+    where?: BlockerSolutionWhereInput
+    /**
+     * Limit how many BlockerSolutions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BlockerSolution.suggestedUser
+   */
+  export type BlockerSolution$suggestedUserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * BlockerSolution without action
+   */
+  export type BlockerSolutionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockerSolution
+     */
+    select?: BlockerSolutionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockerSolution
+     */
+    omit?: BlockerSolutionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockerSolutionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -33117,6 +35862,41 @@ export namespace Prisma {
   export type ProjectChatMessageScalarFieldEnum = (typeof ProjectChatMessageScalarFieldEnum)[keyof typeof ProjectChatMessageScalarFieldEnum]
 
 
+  export const TaskBlockerScalarFieldEnum: {
+    id: 'id',
+    taskId: 'taskId',
+    projectId: 'projectId',
+    blockerType: 'blockerType',
+    severity: 'severity',
+    description: 'description',
+    aiAnalysis: 'aiAnalysis',
+    isResolved: 'isResolved',
+    detectedAt: 'detectedAt',
+    resolvedAt: 'resolvedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TaskBlockerScalarFieldEnum = (typeof TaskBlockerScalarFieldEnum)[keyof typeof TaskBlockerScalarFieldEnum]
+
+
+  export const BlockerSolutionScalarFieldEnum: {
+    id: 'id',
+    blockerId: 'blockerId',
+    solutionType: 'solutionType',
+    description: 'description',
+    aiReasoning: 'aiReasoning',
+    confidence: 'confidence',
+    status: 'status',
+    suggestedUserId: 'suggestedUserId',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    appliedAt: 'appliedAt'
+  };
+
+  export type BlockerSolutionScalarFieldEnum = (typeof BlockerSolutionScalarFieldEnum)[keyof typeof BlockerSolutionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -33392,6 +36172,48 @@ export namespace Prisma {
    */
   export type ListEnumRequestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RequestStatus[]'>
     
+
+
+  /**
+   * Reference to a field of type 'BlockerType'
+   */
+  export type EnumBlockerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockerType'>
+    
+
+
+  /**
+   * Reference to a field of type 'BlockerType[]'
+   */
+  export type ListEnumBlockerTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockerType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BlockerSeverity'
+   */
+  export type EnumBlockerSeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockerSeverity'>
+    
+
+
+  /**
+   * Reference to a field of type 'BlockerSeverity[]'
+   */
+  export type ListEnumBlockerSeverityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlockerSeverity[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SolutionStatus'
+   */
+  export type EnumSolutionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SolutionStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'SolutionStatus[]'
+   */
+  export type ListEnumSolutionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SolutionStatus[]'>
+    
   /**
    * Deep Input Types
    */
@@ -33433,6 +36255,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogListRelationFilter
     roleAssignments?: UserRoleAssignmentListRelationFilter
     chatMessages?: ProjectChatMessageListRelationFilter
+    taskBlockers?: TaskBlockerListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -33468,6 +36291,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogOrderByRelationAggregateInput
     roleAssignments?: UserRoleAssignmentOrderByRelationAggregateInput
     chatMessages?: ProjectChatMessageOrderByRelationAggregateInput
+    taskBlockers?: TaskBlockerOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -33506,6 +36330,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogListRelationFilter
     roleAssignments?: UserRoleAssignmentListRelationFilter
     chatMessages?: ProjectChatMessageListRelationFilter
+    taskBlockers?: TaskBlockerListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -33589,6 +36414,7 @@ export namespace Prisma {
     comments?: CommentListRelationFilter
     checklistItems?: ChecklistItemListRelationFilter
     checklists?: ChecklistListRelationFilter
+    blockers?: TaskBlockerListRelationFilter
   }
 
   export type TaskOrderByWithRelationInput = {
@@ -33615,6 +36441,7 @@ export namespace Prisma {
     comments?: CommentOrderByRelationAggregateInput
     checklistItems?: ChecklistItemOrderByRelationAggregateInput
     checklists?: ChecklistOrderByRelationAggregateInput
+    blockers?: TaskBlockerOrderByRelationAggregateInput
   }
 
   export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -33644,6 +36471,7 @@ export namespace Prisma {
     comments?: CommentListRelationFilter
     checklistItems?: ChecklistItemListRelationFilter
     checklists?: ChecklistListRelationFilter
+    blockers?: TaskBlockerListRelationFilter
   }, "id">
 
   export type TaskOrderByWithAggregationInput = {
@@ -34413,6 +37241,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogListRelationFilter
     roleAssignments?: UserRoleAssignmentListRelationFilter
     projectChatMessages?: ProjectChatMessageListRelationFilter
+    blockerSolutions?: BlockerSolutionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -34443,6 +37272,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogOrderByRelationAggregateInput
     roleAssignments?: UserRoleAssignmentOrderByRelationAggregateInput
     projectChatMessages?: ProjectChatMessageOrderByRelationAggregateInput
+    blockerSolutions?: BlockerSolutionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -34476,6 +37306,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogListRelationFilter
     roleAssignments?: UserRoleAssignmentListRelationFilter
     projectChatMessages?: ProjectChatMessageListRelationFilter
+    blockerSolutions?: BlockerSolutionListRelationFilter
   }, "id" | "email" | "googleId">
 
   export type UserOrderByWithAggregationInput = {
@@ -35322,6 +38153,192 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ProjectChatMessage"> | Date | string
   }
 
+  export type TaskBlockerWhereInput = {
+    AND?: TaskBlockerWhereInput | TaskBlockerWhereInput[]
+    OR?: TaskBlockerWhereInput[]
+    NOT?: TaskBlockerWhereInput | TaskBlockerWhereInput[]
+    id?: StringFilter<"TaskBlocker"> | string
+    taskId?: StringFilter<"TaskBlocker"> | string
+    projectId?: StringFilter<"TaskBlocker"> | string
+    blockerType?: EnumBlockerTypeFilter<"TaskBlocker"> | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFilter<"TaskBlocker"> | $Enums.BlockerSeverity
+    description?: StringNullableFilter<"TaskBlocker"> | string | null
+    aiAnalysis?: JsonNullableFilter<"TaskBlocker">
+    isResolved?: BoolFilter<"TaskBlocker"> | boolean
+    detectedAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+    resolvedAt?: DateTimeNullableFilter<"TaskBlocker"> | Date | string | null
+    createdAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+    updatedAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+    task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    solutions?: BlockerSolutionListRelationFilter
+  }
+
+  export type TaskBlockerOrderByWithRelationInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    projectId?: SortOrder
+    blockerType?: SortOrder
+    severity?: SortOrder
+    description?: SortOrderInput | SortOrder
+    aiAnalysis?: SortOrderInput | SortOrder
+    isResolved?: SortOrder
+    detectedAt?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    task?: TaskOrderByWithRelationInput
+    project?: ProjectOrderByWithRelationInput
+    solutions?: BlockerSolutionOrderByRelationAggregateInput
+  }
+
+  export type TaskBlockerWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TaskBlockerWhereInput | TaskBlockerWhereInput[]
+    OR?: TaskBlockerWhereInput[]
+    NOT?: TaskBlockerWhereInput | TaskBlockerWhereInput[]
+    taskId?: StringFilter<"TaskBlocker"> | string
+    projectId?: StringFilter<"TaskBlocker"> | string
+    blockerType?: EnumBlockerTypeFilter<"TaskBlocker"> | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFilter<"TaskBlocker"> | $Enums.BlockerSeverity
+    description?: StringNullableFilter<"TaskBlocker"> | string | null
+    aiAnalysis?: JsonNullableFilter<"TaskBlocker">
+    isResolved?: BoolFilter<"TaskBlocker"> | boolean
+    detectedAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+    resolvedAt?: DateTimeNullableFilter<"TaskBlocker"> | Date | string | null
+    createdAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+    updatedAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+    task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
+    project?: XOR<ProjectScalarRelationFilter, ProjectWhereInput>
+    solutions?: BlockerSolutionListRelationFilter
+  }, "id">
+
+  export type TaskBlockerOrderByWithAggregationInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    projectId?: SortOrder
+    blockerType?: SortOrder
+    severity?: SortOrder
+    description?: SortOrderInput | SortOrder
+    aiAnalysis?: SortOrderInput | SortOrder
+    isResolved?: SortOrder
+    detectedAt?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TaskBlockerCountOrderByAggregateInput
+    _max?: TaskBlockerMaxOrderByAggregateInput
+    _min?: TaskBlockerMinOrderByAggregateInput
+  }
+
+  export type TaskBlockerScalarWhereWithAggregatesInput = {
+    AND?: TaskBlockerScalarWhereWithAggregatesInput | TaskBlockerScalarWhereWithAggregatesInput[]
+    OR?: TaskBlockerScalarWhereWithAggregatesInput[]
+    NOT?: TaskBlockerScalarWhereWithAggregatesInput | TaskBlockerScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TaskBlocker"> | string
+    taskId?: StringWithAggregatesFilter<"TaskBlocker"> | string
+    projectId?: StringWithAggregatesFilter<"TaskBlocker"> | string
+    blockerType?: EnumBlockerTypeWithAggregatesFilter<"TaskBlocker"> | $Enums.BlockerType
+    severity?: EnumBlockerSeverityWithAggregatesFilter<"TaskBlocker"> | $Enums.BlockerSeverity
+    description?: StringNullableWithAggregatesFilter<"TaskBlocker"> | string | null
+    aiAnalysis?: JsonNullableWithAggregatesFilter<"TaskBlocker">
+    isResolved?: BoolWithAggregatesFilter<"TaskBlocker"> | boolean
+    detectedAt?: DateTimeWithAggregatesFilter<"TaskBlocker"> | Date | string
+    resolvedAt?: DateTimeNullableWithAggregatesFilter<"TaskBlocker"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TaskBlocker"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TaskBlocker"> | Date | string
+  }
+
+  export type BlockerSolutionWhereInput = {
+    AND?: BlockerSolutionWhereInput | BlockerSolutionWhereInput[]
+    OR?: BlockerSolutionWhereInput[]
+    NOT?: BlockerSolutionWhereInput | BlockerSolutionWhereInput[]
+    id?: StringFilter<"BlockerSolution"> | string
+    blockerId?: StringFilter<"BlockerSolution"> | string
+    solutionType?: StringFilter<"BlockerSolution"> | string
+    description?: StringNullableFilter<"BlockerSolution"> | string | null
+    aiReasoning?: StringNullableFilter<"BlockerSolution"> | string | null
+    confidence?: FloatNullableFilter<"BlockerSolution"> | number | null
+    status?: EnumSolutionStatusFilter<"BlockerSolution"> | $Enums.SolutionStatus
+    suggestedUserId?: StringNullableFilter<"BlockerSolution"> | string | null
+    metadata?: JsonNullableFilter<"BlockerSolution">
+    createdAt?: DateTimeFilter<"BlockerSolution"> | Date | string
+    appliedAt?: DateTimeNullableFilter<"BlockerSolution"> | Date | string | null
+    blocker?: XOR<TaskBlockerScalarRelationFilter, TaskBlockerWhereInput>
+    suggestedUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type BlockerSolutionOrderByWithRelationInput = {
+    id?: SortOrder
+    blockerId?: SortOrder
+    solutionType?: SortOrder
+    description?: SortOrderInput | SortOrder
+    aiReasoning?: SortOrderInput | SortOrder
+    confidence?: SortOrderInput | SortOrder
+    status?: SortOrder
+    suggestedUserId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    appliedAt?: SortOrderInput | SortOrder
+    blocker?: TaskBlockerOrderByWithRelationInput
+    suggestedUser?: UserOrderByWithRelationInput
+  }
+
+  export type BlockerSolutionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BlockerSolutionWhereInput | BlockerSolutionWhereInput[]
+    OR?: BlockerSolutionWhereInput[]
+    NOT?: BlockerSolutionWhereInput | BlockerSolutionWhereInput[]
+    blockerId?: StringFilter<"BlockerSolution"> | string
+    solutionType?: StringFilter<"BlockerSolution"> | string
+    description?: StringNullableFilter<"BlockerSolution"> | string | null
+    aiReasoning?: StringNullableFilter<"BlockerSolution"> | string | null
+    confidence?: FloatNullableFilter<"BlockerSolution"> | number | null
+    status?: EnumSolutionStatusFilter<"BlockerSolution"> | $Enums.SolutionStatus
+    suggestedUserId?: StringNullableFilter<"BlockerSolution"> | string | null
+    metadata?: JsonNullableFilter<"BlockerSolution">
+    createdAt?: DateTimeFilter<"BlockerSolution"> | Date | string
+    appliedAt?: DateTimeNullableFilter<"BlockerSolution"> | Date | string | null
+    blocker?: XOR<TaskBlockerScalarRelationFilter, TaskBlockerWhereInput>
+    suggestedUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type BlockerSolutionOrderByWithAggregationInput = {
+    id?: SortOrder
+    blockerId?: SortOrder
+    solutionType?: SortOrder
+    description?: SortOrderInput | SortOrder
+    aiReasoning?: SortOrderInput | SortOrder
+    confidence?: SortOrderInput | SortOrder
+    status?: SortOrder
+    suggestedUserId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    appliedAt?: SortOrderInput | SortOrder
+    _count?: BlockerSolutionCountOrderByAggregateInput
+    _avg?: BlockerSolutionAvgOrderByAggregateInput
+    _max?: BlockerSolutionMaxOrderByAggregateInput
+    _min?: BlockerSolutionMinOrderByAggregateInput
+    _sum?: BlockerSolutionSumOrderByAggregateInput
+  }
+
+  export type BlockerSolutionScalarWhereWithAggregatesInput = {
+    AND?: BlockerSolutionScalarWhereWithAggregatesInput | BlockerSolutionScalarWhereWithAggregatesInput[]
+    OR?: BlockerSolutionScalarWhereWithAggregatesInput[]
+    NOT?: BlockerSolutionScalarWhereWithAggregatesInput | BlockerSolutionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BlockerSolution"> | string
+    blockerId?: StringWithAggregatesFilter<"BlockerSolution"> | string
+    solutionType?: StringWithAggregatesFilter<"BlockerSolution"> | string
+    description?: StringNullableWithAggregatesFilter<"BlockerSolution"> | string | null
+    aiReasoning?: StringNullableWithAggregatesFilter<"BlockerSolution"> | string | null
+    confidence?: FloatNullableWithAggregatesFilter<"BlockerSolution"> | number | null
+    status?: EnumSolutionStatusWithAggregatesFilter<"BlockerSolution"> | $Enums.SolutionStatus
+    suggestedUserId?: StringNullableWithAggregatesFilter<"BlockerSolution"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"BlockerSolution">
+    createdAt?: DateTimeWithAggregatesFilter<"BlockerSolution"> | Date | string
+    appliedAt?: DateTimeNullableWithAggregatesFilter<"BlockerSolution"> | Date | string | null
+  }
+
   export type ProjectCreateInput = {
     id?: string
     name: string
@@ -35353,6 +38370,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -35386,6 +38404,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -35419,6 +38438,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -35452,6 +38472,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -35542,6 +38563,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
     checklists?: ChecklistCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateInput = {
@@ -35565,6 +38587,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUpdateInput = {
@@ -35588,6 +38611,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateInput = {
@@ -35611,6 +38635,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskCreateManyInput = {
@@ -36408,6 +39433,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -36438,6 +39464,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUpdateInput = {
@@ -36468,6 +39495,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -36498,6 +39526,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -37375,6 +40404,209 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TaskBlockerCreateInput = {
+    id?: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    task: TaskCreateNestedOneWithoutBlockersInput
+    project: ProjectCreateNestedOneWithoutTaskBlockersInput
+    solutions?: BlockerSolutionCreateNestedManyWithoutBlockerInput
+  }
+
+  export type TaskBlockerUncheckedCreateInput = {
+    id?: string
+    taskId: string
+    projectId: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solutions?: BlockerSolutionUncheckedCreateNestedManyWithoutBlockerInput
+  }
+
+  export type TaskBlockerUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    task?: TaskUpdateOneRequiredWithoutBlockersNestedInput
+    project?: ProjectUpdateOneRequiredWithoutTaskBlockersNestedInput
+    solutions?: BlockerSolutionUpdateManyWithoutBlockerNestedInput
+  }
+
+  export type TaskBlockerUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solutions?: BlockerSolutionUncheckedUpdateManyWithoutBlockerNestedInput
+  }
+
+  export type TaskBlockerCreateManyInput = {
+    id?: string
+    taskId: string
+    projectId: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TaskBlockerUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TaskBlockerUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockerSolutionCreateInput = {
+    id?: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+    blocker: TaskBlockerCreateNestedOneWithoutSolutionsInput
+    suggestedUser?: UserCreateNestedOneWithoutBlockerSolutionsInput
+  }
+
+  export type BlockerSolutionUncheckedCreateInput = {
+    id?: string
+    blockerId: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    suggestedUserId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+  }
+
+  export type BlockerSolutionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    blocker?: TaskBlockerUpdateOneRequiredWithoutSolutionsNestedInput
+    suggestedUser?: UserUpdateOneWithoutBlockerSolutionsNestedInput
+  }
+
+  export type BlockerSolutionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerId?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    suggestedUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BlockerSolutionCreateManyInput = {
+    id?: string
+    blockerId: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    suggestedUserId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+  }
+
+  export type BlockerSolutionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BlockerSolutionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerId?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    suggestedUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -37568,6 +40800,12 @@ export namespace Prisma {
     none?: ProjectChatMessageWhereInput
   }
 
+  export type TaskBlockerListRelationFilter = {
+    every?: TaskBlockerWhereInput
+    some?: TaskBlockerWhereInput
+    none?: TaskBlockerWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -37610,6 +40848,10 @@ export namespace Prisma {
   }
 
   export type ProjectChatMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TaskBlockerOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -38494,11 +41736,21 @@ export namespace Prisma {
     none?: PartnerRequestMessageWhereInput
   }
 
+  export type BlockerSolutionListRelationFilter = {
+    every?: BlockerSolutionWhereInput
+    some?: BlockerSolutionWhereInput
+    none?: BlockerSolutionWhereInput
+  }
+
   export type ProjectOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type PartnerRequestMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BlockerSolutionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -38995,6 +42247,180 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumBlockerTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockerType | EnumBlockerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockerType[] | ListEnumBlockerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockerType[] | ListEnumBlockerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockerTypeFilter<$PrismaModel> | $Enums.BlockerType
+  }
+
+  export type EnumBlockerSeverityFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockerSeverity | EnumBlockerSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockerSeverity[] | ListEnumBlockerSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockerSeverity[] | ListEnumBlockerSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockerSeverityFilter<$PrismaModel> | $Enums.BlockerSeverity
+  }
+
+  export type TaskBlockerCountOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    projectId?: SortOrder
+    blockerType?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    aiAnalysis?: SortOrder
+    isResolved?: SortOrder
+    detectedAt?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TaskBlockerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    projectId?: SortOrder
+    blockerType?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    isResolved?: SortOrder
+    detectedAt?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TaskBlockerMinOrderByAggregateInput = {
+    id?: SortOrder
+    taskId?: SortOrder
+    projectId?: SortOrder
+    blockerType?: SortOrder
+    severity?: SortOrder
+    description?: SortOrder
+    isResolved?: SortOrder
+    detectedAt?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumBlockerTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockerType | EnumBlockerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockerType[] | ListEnumBlockerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockerType[] | ListEnumBlockerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockerTypeWithAggregatesFilter<$PrismaModel> | $Enums.BlockerType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBlockerTypeFilter<$PrismaModel>
+    _max?: NestedEnumBlockerTypeFilter<$PrismaModel>
+  }
+
+  export type EnumBlockerSeverityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockerSeverity | EnumBlockerSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockerSeverity[] | ListEnumBlockerSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockerSeverity[] | ListEnumBlockerSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockerSeverityWithAggregatesFilter<$PrismaModel> | $Enums.BlockerSeverity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBlockerSeverityFilter<$PrismaModel>
+    _max?: NestedEnumBlockerSeverityFilter<$PrismaModel>
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumSolutionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SolutionStatus | EnumSolutionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SolutionStatus[] | ListEnumSolutionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SolutionStatus[] | ListEnumSolutionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSolutionStatusFilter<$PrismaModel> | $Enums.SolutionStatus
+  }
+
+  export type TaskBlockerScalarRelationFilter = {
+    is?: TaskBlockerWhereInput
+    isNot?: TaskBlockerWhereInput
+  }
+
+  export type BlockerSolutionCountOrderByAggregateInput = {
+    id?: SortOrder
+    blockerId?: SortOrder
+    solutionType?: SortOrder
+    description?: SortOrder
+    aiReasoning?: SortOrder
+    confidence?: SortOrder
+    status?: SortOrder
+    suggestedUserId?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    appliedAt?: SortOrder
+  }
+
+  export type BlockerSolutionAvgOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type BlockerSolutionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    blockerId?: SortOrder
+    solutionType?: SortOrder
+    description?: SortOrder
+    aiReasoning?: SortOrder
+    confidence?: SortOrder
+    status?: SortOrder
+    suggestedUserId?: SortOrder
+    createdAt?: SortOrder
+    appliedAt?: SortOrder
+  }
+
+  export type BlockerSolutionMinOrderByAggregateInput = {
+    id?: SortOrder
+    blockerId?: SortOrder
+    solutionType?: SortOrder
+    description?: SortOrder
+    aiReasoning?: SortOrder
+    confidence?: SortOrder
+    status?: SortOrder
+    suggestedUserId?: SortOrder
+    createdAt?: SortOrder
+    appliedAt?: SortOrder
+  }
+
+  export type BlockerSolutionSumOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type EnumSolutionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SolutionStatus | EnumSolutionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SolutionStatus[] | ListEnumSolutionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SolutionStatus[] | ListEnumSolutionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSolutionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SolutionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSolutionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSolutionStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedOneWithoutProjectsOwnedInput = {
     create?: XOR<UserCreateWithoutProjectsOwnedInput, UserUncheckedCreateWithoutProjectsOwnedInput>
     connectOrCreate?: UserCreateOrConnectWithoutProjectsOwnedInput
@@ -39077,6 +42503,13 @@ export namespace Prisma {
     connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
   }
 
+  export type TaskBlockerCreateNestedManyWithoutProjectInput = {
+    create?: XOR<TaskBlockerCreateWithoutProjectInput, TaskBlockerUncheckedCreateWithoutProjectInput> | TaskBlockerCreateWithoutProjectInput[] | TaskBlockerUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutProjectInput | TaskBlockerCreateOrConnectWithoutProjectInput[]
+    createMany?: TaskBlockerCreateManyProjectInputEnvelope
+    connect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+  }
+
   export type ProjectMemberUncheckedCreateNestedManyWithoutProjectInput = {
     create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
@@ -39145,6 +42578,13 @@ export namespace Prisma {
     connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutProjectInput | ProjectChatMessageCreateOrConnectWithoutProjectInput[]
     createMany?: ProjectChatMessageCreateManyProjectInputEnvelope
     connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+  }
+
+  export type TaskBlockerUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<TaskBlockerCreateWithoutProjectInput, TaskBlockerUncheckedCreateWithoutProjectInput> | TaskBlockerCreateWithoutProjectInput[] | TaskBlockerUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutProjectInput | TaskBlockerCreateOrConnectWithoutProjectInput[]
+    createMany?: TaskBlockerCreateManyProjectInputEnvelope
+    connect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -39355,6 +42795,20 @@ export namespace Prisma {
     deleteMany?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
   }
 
+  export type TaskBlockerUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<TaskBlockerCreateWithoutProjectInput, TaskBlockerUncheckedCreateWithoutProjectInput> | TaskBlockerCreateWithoutProjectInput[] | TaskBlockerUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutProjectInput | TaskBlockerCreateOrConnectWithoutProjectInput[]
+    upsert?: TaskBlockerUpsertWithWhereUniqueWithoutProjectInput | TaskBlockerUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: TaskBlockerCreateManyProjectInputEnvelope
+    set?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    disconnect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    delete?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    connect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    update?: TaskBlockerUpdateWithWhereUniqueWithoutProjectInput | TaskBlockerUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: TaskBlockerUpdateManyWithWhereWithoutProjectInput | TaskBlockerUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: TaskBlockerScalarWhereInput | TaskBlockerScalarWhereInput[]
+  }
+
   export type ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput = {
     create?: XOR<ProjectMemberCreateWithoutProjectInput, ProjectMemberUncheckedCreateWithoutProjectInput> | ProjectMemberCreateWithoutProjectInput[] | ProjectMemberUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: ProjectMemberCreateOrConnectWithoutProjectInput | ProjectMemberCreateOrConnectWithoutProjectInput[]
@@ -39495,6 +42949,20 @@ export namespace Prisma {
     deleteMany?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
   }
 
+  export type TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<TaskBlockerCreateWithoutProjectInput, TaskBlockerUncheckedCreateWithoutProjectInput> | TaskBlockerCreateWithoutProjectInput[] | TaskBlockerUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutProjectInput | TaskBlockerCreateOrConnectWithoutProjectInput[]
+    upsert?: TaskBlockerUpsertWithWhereUniqueWithoutProjectInput | TaskBlockerUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: TaskBlockerCreateManyProjectInputEnvelope
+    set?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    disconnect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    delete?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    connect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    update?: TaskBlockerUpdateWithWhereUniqueWithoutProjectInput | TaskBlockerUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: TaskBlockerUpdateManyWithWhereWithoutProjectInput | TaskBlockerUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: TaskBlockerScalarWhereInput | TaskBlockerScalarWhereInput[]
+  }
+
   export type TaskCreatedependenciesInput = {
     set: string[]
   }
@@ -39538,6 +43006,13 @@ export namespace Prisma {
     connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
   }
 
+  export type TaskBlockerCreateNestedManyWithoutTaskInput = {
+    create?: XOR<TaskBlockerCreateWithoutTaskInput, TaskBlockerUncheckedCreateWithoutTaskInput> | TaskBlockerCreateWithoutTaskInput[] | TaskBlockerUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutTaskInput | TaskBlockerCreateOrConnectWithoutTaskInput[]
+    createMany?: TaskBlockerCreateManyTaskInputEnvelope
+    connect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+  }
+
   export type CommentUncheckedCreateNestedManyWithoutTaskInput = {
     create?: XOR<CommentCreateWithoutTaskInput, CommentUncheckedCreateWithoutTaskInput> | CommentCreateWithoutTaskInput[] | CommentUncheckedCreateWithoutTaskInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutTaskInput | CommentCreateOrConnectWithoutTaskInput[]
@@ -39557,6 +43032,13 @@ export namespace Prisma {
     connectOrCreate?: ChecklistCreateOrConnectWithoutTaskInput | ChecklistCreateOrConnectWithoutTaskInput[]
     createMany?: ChecklistCreateManyTaskInputEnvelope
     connect?: ChecklistWhereUniqueInput | ChecklistWhereUniqueInput[]
+  }
+
+  export type TaskBlockerUncheckedCreateNestedManyWithoutTaskInput = {
+    create?: XOR<TaskBlockerCreateWithoutTaskInput, TaskBlockerUncheckedCreateWithoutTaskInput> | TaskBlockerCreateWithoutTaskInput[] | TaskBlockerUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutTaskInput | TaskBlockerCreateOrConnectWithoutTaskInput[]
+    createMany?: TaskBlockerCreateManyTaskInputEnvelope
+    connect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
   }
 
   export type EnumTaskStatusFieldUpdateOperationsInput = {
@@ -39652,6 +43134,20 @@ export namespace Prisma {
     deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
   }
 
+  export type TaskBlockerUpdateManyWithoutTaskNestedInput = {
+    create?: XOR<TaskBlockerCreateWithoutTaskInput, TaskBlockerUncheckedCreateWithoutTaskInput> | TaskBlockerCreateWithoutTaskInput[] | TaskBlockerUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutTaskInput | TaskBlockerCreateOrConnectWithoutTaskInput[]
+    upsert?: TaskBlockerUpsertWithWhereUniqueWithoutTaskInput | TaskBlockerUpsertWithWhereUniqueWithoutTaskInput[]
+    createMany?: TaskBlockerCreateManyTaskInputEnvelope
+    set?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    disconnect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    delete?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    connect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    update?: TaskBlockerUpdateWithWhereUniqueWithoutTaskInput | TaskBlockerUpdateWithWhereUniqueWithoutTaskInput[]
+    updateMany?: TaskBlockerUpdateManyWithWhereWithoutTaskInput | TaskBlockerUpdateManyWithWhereWithoutTaskInput[]
+    deleteMany?: TaskBlockerScalarWhereInput | TaskBlockerScalarWhereInput[]
+  }
+
   export type CommentUncheckedUpdateManyWithoutTaskNestedInput = {
     create?: XOR<CommentCreateWithoutTaskInput, CommentUncheckedCreateWithoutTaskInput> | CommentCreateWithoutTaskInput[] | CommentUncheckedCreateWithoutTaskInput[]
     connectOrCreate?: CommentCreateOrConnectWithoutTaskInput | CommentCreateOrConnectWithoutTaskInput[]
@@ -39692,6 +43188,20 @@ export namespace Prisma {
     update?: ChecklistUpdateWithWhereUniqueWithoutTaskInput | ChecklistUpdateWithWhereUniqueWithoutTaskInput[]
     updateMany?: ChecklistUpdateManyWithWhereWithoutTaskInput | ChecklistUpdateManyWithWhereWithoutTaskInput[]
     deleteMany?: ChecklistScalarWhereInput | ChecklistScalarWhereInput[]
+  }
+
+  export type TaskBlockerUncheckedUpdateManyWithoutTaskNestedInput = {
+    create?: XOR<TaskBlockerCreateWithoutTaskInput, TaskBlockerUncheckedCreateWithoutTaskInput> | TaskBlockerCreateWithoutTaskInput[] | TaskBlockerUncheckedCreateWithoutTaskInput[]
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutTaskInput | TaskBlockerCreateOrConnectWithoutTaskInput[]
+    upsert?: TaskBlockerUpsertWithWhereUniqueWithoutTaskInput | TaskBlockerUpsertWithWhereUniqueWithoutTaskInput[]
+    createMany?: TaskBlockerCreateManyTaskInputEnvelope
+    set?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    disconnect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    delete?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    connect?: TaskBlockerWhereUniqueInput | TaskBlockerWhereUniqueInput[]
+    update?: TaskBlockerUpdateWithWhereUniqueWithoutTaskInput | TaskBlockerUpdateWithWhereUniqueWithoutTaskInput[]
+    updateMany?: TaskBlockerUpdateManyWithWhereWithoutTaskInput | TaskBlockerUpdateManyWithWhereWithoutTaskInput[]
+    deleteMany?: TaskBlockerScalarWhereInput | TaskBlockerScalarWhereInput[]
   }
 
   export type ProjectCreateNestedOneWithoutColumnsInput = {
@@ -40361,6 +43871,13 @@ export namespace Prisma {
     connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
   }
 
+  export type BlockerSolutionCreateNestedManyWithoutSuggestedUserInput = {
+    create?: XOR<BlockerSolutionCreateWithoutSuggestedUserInput, BlockerSolutionUncheckedCreateWithoutSuggestedUserInput> | BlockerSolutionCreateWithoutSuggestedUserInput[] | BlockerSolutionUncheckedCreateWithoutSuggestedUserInput[]
+    connectOrCreate?: BlockerSolutionCreateOrConnectWithoutSuggestedUserInput | BlockerSolutionCreateOrConnectWithoutSuggestedUserInput[]
+    createMany?: BlockerSolutionCreateManySuggestedUserInputEnvelope
+    connect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+  }
+
   export type ProjectUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<ProjectCreateWithoutOwnerInput, ProjectUncheckedCreateWithoutOwnerInput> | ProjectCreateWithoutOwnerInput[] | ProjectUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutOwnerInput | ProjectCreateOrConnectWithoutOwnerInput[]
@@ -40443,6 +43960,13 @@ export namespace Prisma {
     connectOrCreate?: ProjectChatMessageCreateOrConnectWithoutSenderInput | ProjectChatMessageCreateOrConnectWithoutSenderInput[]
     createMany?: ProjectChatMessageCreateManySenderInputEnvelope
     connect?: ProjectChatMessageWhereUniqueInput | ProjectChatMessageWhereUniqueInput[]
+  }
+
+  export type BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput = {
+    create?: XOR<BlockerSolutionCreateWithoutSuggestedUserInput, BlockerSolutionUncheckedCreateWithoutSuggestedUserInput> | BlockerSolutionCreateWithoutSuggestedUserInput[] | BlockerSolutionUncheckedCreateWithoutSuggestedUserInput[]
+    connectOrCreate?: BlockerSolutionCreateOrConnectWithoutSuggestedUserInput | BlockerSolutionCreateOrConnectWithoutSuggestedUserInput[]
+    createMany?: BlockerSolutionCreateManySuggestedUserInputEnvelope
+    connect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -40622,6 +44146,20 @@ export namespace Prisma {
     deleteMany?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
   }
 
+  export type BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput = {
+    create?: XOR<BlockerSolutionCreateWithoutSuggestedUserInput, BlockerSolutionUncheckedCreateWithoutSuggestedUserInput> | BlockerSolutionCreateWithoutSuggestedUserInput[] | BlockerSolutionUncheckedCreateWithoutSuggestedUserInput[]
+    connectOrCreate?: BlockerSolutionCreateOrConnectWithoutSuggestedUserInput | BlockerSolutionCreateOrConnectWithoutSuggestedUserInput[]
+    upsert?: BlockerSolutionUpsertWithWhereUniqueWithoutSuggestedUserInput | BlockerSolutionUpsertWithWhereUniqueWithoutSuggestedUserInput[]
+    createMany?: BlockerSolutionCreateManySuggestedUserInputEnvelope
+    set?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    disconnect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    delete?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    connect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    update?: BlockerSolutionUpdateWithWhereUniqueWithoutSuggestedUserInput | BlockerSolutionUpdateWithWhereUniqueWithoutSuggestedUserInput[]
+    updateMany?: BlockerSolutionUpdateManyWithWhereWithoutSuggestedUserInput | BlockerSolutionUpdateManyWithWhereWithoutSuggestedUserInput[]
+    deleteMany?: BlockerSolutionScalarWhereInput | BlockerSolutionScalarWhereInput[]
+  }
+
   export type ProjectUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<ProjectCreateWithoutOwnerInput, ProjectUncheckedCreateWithoutOwnerInput> | ProjectCreateWithoutOwnerInput[] | ProjectUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: ProjectCreateOrConnectWithoutOwnerInput | ProjectCreateOrConnectWithoutOwnerInput[]
@@ -40788,6 +44326,20 @@ export namespace Prisma {
     update?: ProjectChatMessageUpdateWithWhereUniqueWithoutSenderInput | ProjectChatMessageUpdateWithWhereUniqueWithoutSenderInput[]
     updateMany?: ProjectChatMessageUpdateManyWithWhereWithoutSenderInput | ProjectChatMessageUpdateManyWithWhereWithoutSenderInput[]
     deleteMany?: ProjectChatMessageScalarWhereInput | ProjectChatMessageScalarWhereInput[]
+  }
+
+  export type BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput = {
+    create?: XOR<BlockerSolutionCreateWithoutSuggestedUserInput, BlockerSolutionUncheckedCreateWithoutSuggestedUserInput> | BlockerSolutionCreateWithoutSuggestedUserInput[] | BlockerSolutionUncheckedCreateWithoutSuggestedUserInput[]
+    connectOrCreate?: BlockerSolutionCreateOrConnectWithoutSuggestedUserInput | BlockerSolutionCreateOrConnectWithoutSuggestedUserInput[]
+    upsert?: BlockerSolutionUpsertWithWhereUniqueWithoutSuggestedUserInput | BlockerSolutionUpsertWithWhereUniqueWithoutSuggestedUserInput[]
+    createMany?: BlockerSolutionCreateManySuggestedUserInputEnvelope
+    set?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    disconnect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    delete?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    connect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    update?: BlockerSolutionUpdateWithWhereUniqueWithoutSuggestedUserInput | BlockerSolutionUpdateWithWhereUniqueWithoutSuggestedUserInput[]
+    updateMany?: BlockerSolutionUpdateManyWithWhereWithoutSuggestedUserInput | BlockerSolutionUpdateManyWithWhereWithoutSuggestedUserInput[]
+    deleteMany?: BlockerSolutionScalarWhereInput | BlockerSolutionScalarWhereInput[]
   }
 
   export type ProjectCreateNestedManyWithoutTemplateInput = {
@@ -41262,6 +44814,126 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProjectChatMessagesInput, UserUpdateWithoutProjectChatMessagesInput>, UserUncheckedUpdateWithoutProjectChatMessagesInput>
   }
 
+  export type TaskCreateNestedOneWithoutBlockersInput = {
+    create?: XOR<TaskCreateWithoutBlockersInput, TaskUncheckedCreateWithoutBlockersInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutBlockersInput
+    connect?: TaskWhereUniqueInput
+  }
+
+  export type ProjectCreateNestedOneWithoutTaskBlockersInput = {
+    create?: XOR<ProjectCreateWithoutTaskBlockersInput, ProjectUncheckedCreateWithoutTaskBlockersInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutTaskBlockersInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type BlockerSolutionCreateNestedManyWithoutBlockerInput = {
+    create?: XOR<BlockerSolutionCreateWithoutBlockerInput, BlockerSolutionUncheckedCreateWithoutBlockerInput> | BlockerSolutionCreateWithoutBlockerInput[] | BlockerSolutionUncheckedCreateWithoutBlockerInput[]
+    connectOrCreate?: BlockerSolutionCreateOrConnectWithoutBlockerInput | BlockerSolutionCreateOrConnectWithoutBlockerInput[]
+    createMany?: BlockerSolutionCreateManyBlockerInputEnvelope
+    connect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+  }
+
+  export type BlockerSolutionUncheckedCreateNestedManyWithoutBlockerInput = {
+    create?: XOR<BlockerSolutionCreateWithoutBlockerInput, BlockerSolutionUncheckedCreateWithoutBlockerInput> | BlockerSolutionCreateWithoutBlockerInput[] | BlockerSolutionUncheckedCreateWithoutBlockerInput[]
+    connectOrCreate?: BlockerSolutionCreateOrConnectWithoutBlockerInput | BlockerSolutionCreateOrConnectWithoutBlockerInput[]
+    createMany?: BlockerSolutionCreateManyBlockerInputEnvelope
+    connect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+  }
+
+  export type EnumBlockerTypeFieldUpdateOperationsInput = {
+    set?: $Enums.BlockerType
+  }
+
+  export type EnumBlockerSeverityFieldUpdateOperationsInput = {
+    set?: $Enums.BlockerSeverity
+  }
+
+  export type TaskUpdateOneRequiredWithoutBlockersNestedInput = {
+    create?: XOR<TaskCreateWithoutBlockersInput, TaskUncheckedCreateWithoutBlockersInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutBlockersInput
+    upsert?: TaskUpsertWithoutBlockersInput
+    connect?: TaskWhereUniqueInput
+    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutBlockersInput, TaskUpdateWithoutBlockersInput>, TaskUncheckedUpdateWithoutBlockersInput>
+  }
+
+  export type ProjectUpdateOneRequiredWithoutTaskBlockersNestedInput = {
+    create?: XOR<ProjectCreateWithoutTaskBlockersInput, ProjectUncheckedCreateWithoutTaskBlockersInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutTaskBlockersInput
+    upsert?: ProjectUpsertWithoutTaskBlockersInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutTaskBlockersInput, ProjectUpdateWithoutTaskBlockersInput>, ProjectUncheckedUpdateWithoutTaskBlockersInput>
+  }
+
+  export type BlockerSolutionUpdateManyWithoutBlockerNestedInput = {
+    create?: XOR<BlockerSolutionCreateWithoutBlockerInput, BlockerSolutionUncheckedCreateWithoutBlockerInput> | BlockerSolutionCreateWithoutBlockerInput[] | BlockerSolutionUncheckedCreateWithoutBlockerInput[]
+    connectOrCreate?: BlockerSolutionCreateOrConnectWithoutBlockerInput | BlockerSolutionCreateOrConnectWithoutBlockerInput[]
+    upsert?: BlockerSolutionUpsertWithWhereUniqueWithoutBlockerInput | BlockerSolutionUpsertWithWhereUniqueWithoutBlockerInput[]
+    createMany?: BlockerSolutionCreateManyBlockerInputEnvelope
+    set?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    disconnect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    delete?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    connect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    update?: BlockerSolutionUpdateWithWhereUniqueWithoutBlockerInput | BlockerSolutionUpdateWithWhereUniqueWithoutBlockerInput[]
+    updateMany?: BlockerSolutionUpdateManyWithWhereWithoutBlockerInput | BlockerSolutionUpdateManyWithWhereWithoutBlockerInput[]
+    deleteMany?: BlockerSolutionScalarWhereInput | BlockerSolutionScalarWhereInput[]
+  }
+
+  export type BlockerSolutionUncheckedUpdateManyWithoutBlockerNestedInput = {
+    create?: XOR<BlockerSolutionCreateWithoutBlockerInput, BlockerSolutionUncheckedCreateWithoutBlockerInput> | BlockerSolutionCreateWithoutBlockerInput[] | BlockerSolutionUncheckedCreateWithoutBlockerInput[]
+    connectOrCreate?: BlockerSolutionCreateOrConnectWithoutBlockerInput | BlockerSolutionCreateOrConnectWithoutBlockerInput[]
+    upsert?: BlockerSolutionUpsertWithWhereUniqueWithoutBlockerInput | BlockerSolutionUpsertWithWhereUniqueWithoutBlockerInput[]
+    createMany?: BlockerSolutionCreateManyBlockerInputEnvelope
+    set?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    disconnect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    delete?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    connect?: BlockerSolutionWhereUniqueInput | BlockerSolutionWhereUniqueInput[]
+    update?: BlockerSolutionUpdateWithWhereUniqueWithoutBlockerInput | BlockerSolutionUpdateWithWhereUniqueWithoutBlockerInput[]
+    updateMany?: BlockerSolutionUpdateManyWithWhereWithoutBlockerInput | BlockerSolutionUpdateManyWithWhereWithoutBlockerInput[]
+    deleteMany?: BlockerSolutionScalarWhereInput | BlockerSolutionScalarWhereInput[]
+  }
+
+  export type TaskBlockerCreateNestedOneWithoutSolutionsInput = {
+    create?: XOR<TaskBlockerCreateWithoutSolutionsInput, TaskBlockerUncheckedCreateWithoutSolutionsInput>
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutSolutionsInput
+    connect?: TaskBlockerWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutBlockerSolutionsInput = {
+    create?: XOR<UserCreateWithoutBlockerSolutionsInput, UserUncheckedCreateWithoutBlockerSolutionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBlockerSolutionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EnumSolutionStatusFieldUpdateOperationsInput = {
+    set?: $Enums.SolutionStatus
+  }
+
+  export type TaskBlockerUpdateOneRequiredWithoutSolutionsNestedInput = {
+    create?: XOR<TaskBlockerCreateWithoutSolutionsInput, TaskBlockerUncheckedCreateWithoutSolutionsInput>
+    connectOrCreate?: TaskBlockerCreateOrConnectWithoutSolutionsInput
+    upsert?: TaskBlockerUpsertWithoutSolutionsInput
+    connect?: TaskBlockerWhereUniqueInput
+    update?: XOR<XOR<TaskBlockerUpdateToOneWithWhereWithoutSolutionsInput, TaskBlockerUpdateWithoutSolutionsInput>, TaskBlockerUncheckedUpdateWithoutSolutionsInput>
+  }
+
+  export type UserUpdateOneWithoutBlockerSolutionsNestedInput = {
+    create?: XOR<UserCreateWithoutBlockerSolutionsInput, UserUncheckedCreateWithoutBlockerSolutionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBlockerSolutionsInput
+    upsert?: UserUpsertWithoutBlockerSolutionsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBlockerSolutionsInput, UserUpdateWithoutBlockerSolutionsInput>, UserUncheckedUpdateWithoutBlockerSolutionsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -41682,6 +45354,73 @@ export namespace Prisma {
     _max?: NestedEnumRequestStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumBlockerTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockerType | EnumBlockerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockerType[] | ListEnumBlockerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockerType[] | ListEnumBlockerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockerTypeFilter<$PrismaModel> | $Enums.BlockerType
+  }
+
+  export type NestedEnumBlockerSeverityFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockerSeverity | EnumBlockerSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockerSeverity[] | ListEnumBlockerSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockerSeverity[] | ListEnumBlockerSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockerSeverityFilter<$PrismaModel> | $Enums.BlockerSeverity
+  }
+
+  export type NestedEnumBlockerTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockerType | EnumBlockerTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockerType[] | ListEnumBlockerTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockerType[] | ListEnumBlockerTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockerTypeWithAggregatesFilter<$PrismaModel> | $Enums.BlockerType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBlockerTypeFilter<$PrismaModel>
+    _max?: NestedEnumBlockerTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumBlockerSeverityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.BlockerSeverity | EnumBlockerSeverityFieldRefInput<$PrismaModel>
+    in?: $Enums.BlockerSeverity[] | ListEnumBlockerSeverityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.BlockerSeverity[] | ListEnumBlockerSeverityFieldRefInput<$PrismaModel>
+    not?: NestedEnumBlockerSeverityWithAggregatesFilter<$PrismaModel> | $Enums.BlockerSeverity
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumBlockerSeverityFilter<$PrismaModel>
+    _max?: NestedEnumBlockerSeverityFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSolutionStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.SolutionStatus | EnumSolutionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SolutionStatus[] | ListEnumSolutionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SolutionStatus[] | ListEnumSolutionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSolutionStatusFilter<$PrismaModel> | $Enums.SolutionStatus
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumSolutionStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SolutionStatus | EnumSolutionStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.SolutionStatus[] | ListEnumSolutionStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.SolutionStatus[] | ListEnumSolutionStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumSolutionStatusWithAggregatesFilter<$PrismaModel> | $Enums.SolutionStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumSolutionStatusFilter<$PrismaModel>
+    _max?: NestedEnumSolutionStatusFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutProjectsOwnedInput = {
     id?: string
     fullname: string
@@ -41709,6 +45448,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectsOwnedInput = {
@@ -41738,6 +45478,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectsOwnedInput = {
@@ -41787,6 +45528,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
     checklists?: ChecklistCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutProjectInput = {
@@ -41809,6 +45551,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutProjectInput = {
@@ -42084,6 +45827,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TaskBlockerCreateWithoutProjectInput = {
+    id?: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    task: TaskCreateNestedOneWithoutBlockersInput
+    solutions?: BlockerSolutionCreateNestedManyWithoutBlockerInput
+  }
+
+  export type TaskBlockerUncheckedCreateWithoutProjectInput = {
+    id?: string
+    taskId: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solutions?: BlockerSolutionUncheckedCreateNestedManyWithoutBlockerInput
+  }
+
+  export type TaskBlockerCreateOrConnectWithoutProjectInput = {
+    where: TaskBlockerWhereUniqueInput
+    create: XOR<TaskBlockerCreateWithoutProjectInput, TaskBlockerUncheckedCreateWithoutProjectInput>
+  }
+
+  export type TaskBlockerCreateManyProjectInputEnvelope = {
+    data: TaskBlockerCreateManyProjectInput | TaskBlockerCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutProjectsOwnedInput = {
     update: XOR<UserUpdateWithoutProjectsOwnedInput, UserUncheckedUpdateWithoutProjectsOwnedInput>
     create: XOR<UserCreateWithoutProjectsOwnedInput, UserUncheckedCreateWithoutProjectsOwnedInput>
@@ -42122,6 +45905,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectsOwnedInput = {
@@ -42151,6 +45935,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type ProjectMemberUpsertWithWhereUniqueWithoutProjectInput = {
@@ -42478,6 +46263,40 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"ProjectChatMessage"> | Date | string
   }
 
+  export type TaskBlockerUpsertWithWhereUniqueWithoutProjectInput = {
+    where: TaskBlockerWhereUniqueInput
+    update: XOR<TaskBlockerUpdateWithoutProjectInput, TaskBlockerUncheckedUpdateWithoutProjectInput>
+    create: XOR<TaskBlockerCreateWithoutProjectInput, TaskBlockerUncheckedCreateWithoutProjectInput>
+  }
+
+  export type TaskBlockerUpdateWithWhereUniqueWithoutProjectInput = {
+    where: TaskBlockerWhereUniqueInput
+    data: XOR<TaskBlockerUpdateWithoutProjectInput, TaskBlockerUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type TaskBlockerUpdateManyWithWhereWithoutProjectInput = {
+    where: TaskBlockerScalarWhereInput
+    data: XOR<TaskBlockerUpdateManyMutationInput, TaskBlockerUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type TaskBlockerScalarWhereInput = {
+    AND?: TaskBlockerScalarWhereInput | TaskBlockerScalarWhereInput[]
+    OR?: TaskBlockerScalarWhereInput[]
+    NOT?: TaskBlockerScalarWhereInput | TaskBlockerScalarWhereInput[]
+    id?: StringFilter<"TaskBlocker"> | string
+    taskId?: StringFilter<"TaskBlocker"> | string
+    projectId?: StringFilter<"TaskBlocker"> | string
+    blockerType?: EnumBlockerTypeFilter<"TaskBlocker"> | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFilter<"TaskBlocker"> | $Enums.BlockerSeverity
+    description?: StringNullableFilter<"TaskBlocker"> | string | null
+    aiAnalysis?: JsonNullableFilter<"TaskBlocker">
+    isResolved?: BoolFilter<"TaskBlocker"> | boolean
+    detectedAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+    resolvedAt?: DateTimeNullableFilter<"TaskBlocker"> | Date | string | null
+    createdAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+    updatedAt?: DateTimeFilter<"TaskBlocker"> | Date | string
+  }
+
   export type ProjectCreateWithoutTasksInput = {
     id?: string
     name: string
@@ -42508,6 +46327,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutTasksInput = {
@@ -42540,6 +46360,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutTasksInput = {
@@ -42593,6 +46414,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutTaskInput = {
@@ -42622,6 +46444,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutTaskInput = {
@@ -42715,6 +46538,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TaskBlockerCreateWithoutTaskInput = {
+    id?: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project: ProjectCreateNestedOneWithoutTaskBlockersInput
+    solutions?: BlockerSolutionCreateNestedManyWithoutBlockerInput
+  }
+
+  export type TaskBlockerUncheckedCreateWithoutTaskInput = {
+    id?: string
+    projectId: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    solutions?: BlockerSolutionUncheckedCreateNestedManyWithoutBlockerInput
+  }
+
+  export type TaskBlockerCreateOrConnectWithoutTaskInput = {
+    where: TaskBlockerWhereUniqueInput
+    create: XOR<TaskBlockerCreateWithoutTaskInput, TaskBlockerUncheckedCreateWithoutTaskInput>
+  }
+
+  export type TaskBlockerCreateManyTaskInputEnvelope = {
+    data: TaskBlockerCreateManyTaskInput | TaskBlockerCreateManyTaskInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProjectUpsertWithoutTasksInput = {
     update: XOR<ProjectUpdateWithoutTasksInput, ProjectUncheckedUpdateWithoutTasksInput>
     create: XOR<ProjectCreateWithoutTasksInput, ProjectUncheckedCreateWithoutTasksInput>
@@ -42756,6 +46619,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutTasksInput = {
@@ -42788,6 +46652,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type TaskColumnUpsertWithoutTasksInput = {
@@ -42853,6 +46718,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTaskInput = {
@@ -42882,6 +46748,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type CommentUpsertWithWhereUniqueWithoutTaskInput = {
@@ -42958,6 +46825,22 @@ export namespace Prisma {
     data: XOR<ChecklistUpdateManyMutationInput, ChecklistUncheckedUpdateManyWithoutTaskInput>
   }
 
+  export type TaskBlockerUpsertWithWhereUniqueWithoutTaskInput = {
+    where: TaskBlockerWhereUniqueInput
+    update: XOR<TaskBlockerUpdateWithoutTaskInput, TaskBlockerUncheckedUpdateWithoutTaskInput>
+    create: XOR<TaskBlockerCreateWithoutTaskInput, TaskBlockerUncheckedCreateWithoutTaskInput>
+  }
+
+  export type TaskBlockerUpdateWithWhereUniqueWithoutTaskInput = {
+    where: TaskBlockerWhereUniqueInput
+    data: XOR<TaskBlockerUpdateWithoutTaskInput, TaskBlockerUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type TaskBlockerUpdateManyWithWhereWithoutTaskInput = {
+    where: TaskBlockerScalarWhereInput
+    data: XOR<TaskBlockerUpdateManyMutationInput, TaskBlockerUncheckedUpdateManyWithoutTaskInput>
+  }
+
   export type ProjectCreateWithoutColumnsInput = {
     id?: string
     name: string
@@ -42988,6 +46871,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutColumnsInput = {
@@ -43020,6 +46904,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutColumnsInput = {
@@ -43047,6 +46932,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
     checklists?: ChecklistCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutColumnInput = {
@@ -43069,6 +46955,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutColumnInput = {
@@ -43122,6 +47009,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutColumnsInput = {
@@ -43154,6 +47042,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type TaskUpsertWithWhereUniqueWithoutColumnInput = {
@@ -43192,6 +47081,7 @@ export namespace Prisma {
     assignee?: UserCreateNestedOneWithoutTaskInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutChecklistsInput = {
@@ -43214,6 +47104,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutChecklistsInput = {
@@ -43251,6 +47142,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutChecklistsInput = {
@@ -43283,6 +47175,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutChecklistsInput = {
@@ -43349,6 +47242,7 @@ export namespace Prisma {
     assignee?: UserUpdateOneWithoutTaskNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutChecklistsInput = {
@@ -43371,6 +47265,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type ProjectUpsertWithoutChecklistsInput = {
@@ -43414,6 +47309,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutChecklistsInput = {
@@ -43446,6 +47342,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ChecklistItemUpsertWithWhereUniqueWithoutChecklistInput = {
@@ -43484,6 +47381,7 @@ export namespace Prisma {
     assignee?: UserCreateNestedOneWithoutTaskInput
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklists?: ChecklistCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutChecklistItemsInput = {
@@ -43506,6 +47404,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutChecklistItemsInput = {
@@ -43569,6 +47468,7 @@ export namespace Prisma {
     assignee?: UserUpdateOneWithoutTaskNestedInput
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutChecklistItemsInput = {
@@ -43591,6 +47491,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type ChecklistUpsertWithoutItemsInput = {
@@ -43654,6 +47555,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutMembersInput = {
@@ -43686,6 +47588,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutMembersInput = {
@@ -43720,6 +47623,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectMemberInput = {
@@ -43749,6 +47653,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectMemberInput = {
@@ -43797,6 +47702,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutMembersInput = {
@@ -43829,6 +47735,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserUpsertWithoutProjectMemberInput = {
@@ -43869,6 +47776,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectMemberInput = {
@@ -43898,6 +47806,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -43927,6 +47836,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -43956,6 +47866,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -43993,6 +47904,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutDocumentsInput = {
@@ -44025,6 +47937,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutDocumentsInput = {
@@ -44240,6 +48153,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -44269,6 +48183,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type ProjectUpsertWithoutDocumentsInput = {
@@ -44312,6 +48227,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutDocumentsInput = {
@@ -44344,6 +48260,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type DocumentVersionUpsertWithWhereUniqueWithoutDocumentInput = {
@@ -44904,6 +48821,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutCommentsInput = {
@@ -44933,6 +48851,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutCommentsInput = {
@@ -44960,6 +48879,7 @@ export namespace Prisma {
     assignee?: UserCreateNestedOneWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
     checklists?: ChecklistCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutCommentsInput = {
@@ -44982,6 +48902,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutCommentsInput = {
@@ -45027,6 +48948,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCommentsInput = {
@@ -45056,6 +48978,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type TaskUpsertWithoutCommentsInput = {
@@ -45089,6 +49012,7 @@ export namespace Prisma {
     assignee?: UserUpdateOneWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutCommentsInput = {
@@ -45111,6 +49035,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type ProjectCreateWithoutOwnerInput = {
@@ -45143,6 +49068,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutOwnerInput = {
@@ -45175,6 +49101,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutOwnerInput = {
@@ -45283,6 +49210,7 @@ export namespace Prisma {
     comments?: CommentCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
     checklists?: ChecklistCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerCreateNestedManyWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutAssigneeInput = {
@@ -45305,6 +49233,7 @@ export namespace Prisma {
     comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
     checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
     checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
+    blockers?: TaskBlockerUncheckedCreateNestedManyWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutAssigneeInput = {
@@ -45528,6 +49457,42 @@ export namespace Prisma {
 
   export type ProjectChatMessageCreateManySenderInputEnvelope = {
     data: ProjectChatMessageCreateManySenderInput | ProjectChatMessageCreateManySenderInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BlockerSolutionCreateWithoutSuggestedUserInput = {
+    id?: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+    blocker: TaskBlockerCreateNestedOneWithoutSolutionsInput
+  }
+
+  export type BlockerSolutionUncheckedCreateWithoutSuggestedUserInput = {
+    id?: string
+    blockerId: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+  }
+
+  export type BlockerSolutionCreateOrConnectWithoutSuggestedUserInput = {
+    where: BlockerSolutionWhereUniqueInput
+    create: XOR<BlockerSolutionCreateWithoutSuggestedUserInput, BlockerSolutionUncheckedCreateWithoutSuggestedUserInput>
+  }
+
+  export type BlockerSolutionCreateManySuggestedUserInputEnvelope = {
+    data: BlockerSolutionCreateManySuggestedUserInput | BlockerSolutionCreateManySuggestedUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -45760,6 +49725,39 @@ export namespace Prisma {
     data: XOR<ProjectChatMessageUpdateManyMutationInput, ProjectChatMessageUncheckedUpdateManyWithoutSenderInput>
   }
 
+  export type BlockerSolutionUpsertWithWhereUniqueWithoutSuggestedUserInput = {
+    where: BlockerSolutionWhereUniqueInput
+    update: XOR<BlockerSolutionUpdateWithoutSuggestedUserInput, BlockerSolutionUncheckedUpdateWithoutSuggestedUserInput>
+    create: XOR<BlockerSolutionCreateWithoutSuggestedUserInput, BlockerSolutionUncheckedCreateWithoutSuggestedUserInput>
+  }
+
+  export type BlockerSolutionUpdateWithWhereUniqueWithoutSuggestedUserInput = {
+    where: BlockerSolutionWhereUniqueInput
+    data: XOR<BlockerSolutionUpdateWithoutSuggestedUserInput, BlockerSolutionUncheckedUpdateWithoutSuggestedUserInput>
+  }
+
+  export type BlockerSolutionUpdateManyWithWhereWithoutSuggestedUserInput = {
+    where: BlockerSolutionScalarWhereInput
+    data: XOR<BlockerSolutionUpdateManyMutationInput, BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserInput>
+  }
+
+  export type BlockerSolutionScalarWhereInput = {
+    AND?: BlockerSolutionScalarWhereInput | BlockerSolutionScalarWhereInput[]
+    OR?: BlockerSolutionScalarWhereInput[]
+    NOT?: BlockerSolutionScalarWhereInput | BlockerSolutionScalarWhereInput[]
+    id?: StringFilter<"BlockerSolution"> | string
+    blockerId?: StringFilter<"BlockerSolution"> | string
+    solutionType?: StringFilter<"BlockerSolution"> | string
+    description?: StringNullableFilter<"BlockerSolution"> | string | null
+    aiReasoning?: StringNullableFilter<"BlockerSolution"> | string | null
+    confidence?: FloatNullableFilter<"BlockerSolution"> | number | null
+    status?: EnumSolutionStatusFilter<"BlockerSolution"> | $Enums.SolutionStatus
+    suggestedUserId?: StringNullableFilter<"BlockerSolution"> | string | null
+    metadata?: JsonNullableFilter<"BlockerSolution">
+    createdAt?: DateTimeFilter<"BlockerSolution"> | Date | string
+    appliedAt?: DateTimeNullableFilter<"BlockerSolution"> | Date | string | null
+  }
+
   export type ProjectCreateWithoutTemplateInput = {
     id?: string
     name: string
@@ -45790,6 +49788,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutTemplateInput = {
@@ -45822,6 +49821,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutTemplateInput = {
@@ -46133,6 +50133,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutRoleAssignmentsInput = {
@@ -46162,6 +50163,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutRoleAssignmentsInput = {
@@ -46234,6 +50236,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutRoleAssignmentsInput = {
@@ -46266,6 +50269,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutRoleAssignmentsInput = {
@@ -46311,6 +50315,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoleAssignmentsInput = {
@@ -46340,6 +50345,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type RoleUpsertWithoutAssignmentsInput = {
@@ -46424,6 +50430,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutRoleAssignmentsInput = {
@@ -46456,6 +50463,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateWithoutAccessesInput = {
@@ -46488,6 +50496,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutAccessesInput = {
@@ -46520,6 +50529,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutAccessesInput = {
@@ -46554,6 +50564,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectAccessInput = {
@@ -46583,6 +50594,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectAccessInput = {
@@ -46631,6 +50643,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutAccessesInput = {
@@ -46663,6 +50676,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserUpsertWithoutProjectAccessInput = {
@@ -46703,6 +50717,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectAccessInput = {
@@ -46732,6 +50747,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type DocumentCreateWithoutAccessesInput = {
@@ -46804,6 +50820,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutDocumentAccessInput = {
@@ -46833,6 +50850,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutDocumentAccessInput = {
@@ -46927,6 +50945,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentAccessInput = {
@@ -46956,6 +50975,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserCreateWithoutActivityLogsInput = {
@@ -46985,6 +51005,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutActivityLogsInput = {
@@ -47014,6 +51035,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutActivityLogsInput = {
@@ -47051,6 +51073,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutActivityLogsInput = {
@@ -47083,6 +51106,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutActivityLogsInput = {
@@ -47171,6 +51195,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutActivityLogsInput = {
@@ -47200,6 +51225,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type ProjectUpsertWithoutActivityLogsInput = {
@@ -47243,6 +51269,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutActivityLogsInput = {
@@ -47275,6 +51302,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type DocumentUpsertWithoutActivityLogsInput = {
@@ -47356,6 +51384,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutPartnerRequestsInput = {
@@ -47388,6 +51417,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
     chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutPartnerRequestsInput = {
@@ -47422,6 +51452,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutPartnerRequestsInput = {
@@ -47451,6 +51482,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutPartnerRequestsInput = {
@@ -47523,6 +51555,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutPartnerRequestsInput = {
@@ -47555,6 +51588,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserUpsertWithoutPartnerRequestsInput = {
@@ -47595,6 +51629,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPartnerRequestsInput = {
@@ -47624,6 +51659,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type PartnerRequestMessageUpsertWithWhereUniqueWithoutRequestInput = {
@@ -47698,6 +51734,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutPartnerMessagesInput = {
@@ -47727,6 +51764,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
     projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutPartnerMessagesInput = {
@@ -47807,6 +51845,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPartnerMessagesInput = {
@@ -47836,6 +51875,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
     projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type ProjectCreateWithoutChatMessagesInput = {
@@ -47868,6 +51908,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutChatMessagesInput = {
@@ -47900,6 +51941,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    taskBlockers?: TaskBlockerUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutChatMessagesInput = {
@@ -47934,6 +51976,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    blockerSolutions?: BlockerSolutionCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserUncheckedCreateWithoutProjectChatMessagesInput = {
@@ -47963,6 +52006,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
     activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
     roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    blockerSolutions?: BlockerSolutionUncheckedCreateNestedManyWithoutSuggestedUserInput
   }
 
   export type UserCreateOrConnectWithoutProjectChatMessagesInput = {
@@ -48011,6 +52055,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutChatMessagesInput = {
@@ -48043,6 +52088,7 @@ export namespace Prisma {
     partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserUpsertWithoutProjectChatMessagesInput = {
@@ -48083,6 +52129,7 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    blockerSolutions?: BlockerSolutionUpdateManyWithoutSuggestedUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutProjectChatMessagesInput = {
@@ -48112,6 +52159,527 @@ export namespace Prisma {
     partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    blockerSolutions?: BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserNestedInput
+  }
+
+  export type TaskCreateWithoutBlockersInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TaskStatus
+    priority?: $Enums.TaskPriority
+    dueDate?: Date | string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    progress?: number
+    color?: string | null
+    estimatedTime?: number | null
+    dependencies?: TaskCreatedependenciesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    project?: ProjectCreateNestedOneWithoutTasksInput
+    column?: TaskColumnCreateNestedOneWithoutTasksInput
+    assignee?: UserCreateNestedOneWithoutTaskInput
+    comments?: CommentCreateNestedManyWithoutTaskInput
+    checklistItems?: ChecklistItemCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistCreateNestedManyWithoutTaskInput
+  }
+
+  export type TaskUncheckedCreateWithoutBlockersInput = {
+    id?: string
+    title: string
+    description?: string | null
+    status?: $Enums.TaskStatus
+    priority?: $Enums.TaskPriority
+    dueDate?: Date | string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    progress?: number
+    color?: string | null
+    estimatedTime?: number | null
+    projectId?: string | null
+    columnId?: string | null
+    assignedUserId?: string | null
+    dependencies?: TaskCreatedependenciesInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    comments?: CommentUncheckedCreateNestedManyWithoutTaskInput
+    checklistItems?: ChecklistItemUncheckedCreateNestedManyWithoutTaskInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutTaskInput
+  }
+
+  export type TaskCreateOrConnectWithoutBlockersInput = {
+    where: TaskWhereUniqueInput
+    create: XOR<TaskCreateWithoutBlockersInput, TaskUncheckedCreateWithoutBlockersInput>
+  }
+
+  export type ProjectCreateWithoutTaskBlockersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    meetingUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner?: UserCreateNestedOneWithoutProjectsOwnedInput
+    members?: ProjectMemberCreateNestedManyWithoutProjectInput
+    tasks?: TaskCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnCreateNestedManyWithoutProjectInput
+    documents?: DocumentCreateNestedManyWithoutProjectInput
+    template?: ProjectTemplateCreateNestedOneWithoutProjectsInput
+    accesses?: ProjectAccessCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutTaskBlockersInput = {
+    id?: string
+    name: string
+    description?: string | null
+    clientType?: $Enums.ProjectClientType | null
+    industry?: string | null
+    color?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    budget?: Decimal | DecimalJsLike | number | string | null
+    progress?: number
+    status?: $Enums.ProjectStatus
+    priority?: $Enums.ProjectPriority
+    isArchived?: boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: boolean
+    meetingUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId?: string | null
+    templateId?: string | null
+    members?: ProjectMemberUncheckedCreateNestedManyWithoutProjectInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput
+    checklists?: ChecklistUncheckedCreateNestedManyWithoutProjectInput
+    columns?: TaskColumnUncheckedCreateNestedManyWithoutProjectInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutProjectInput
+    accesses?: ProjectAccessUncheckedCreateNestedManyWithoutProjectInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutProjectInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutProjectInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutProjectInput
+    chatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutTaskBlockersInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutTaskBlockersInput, ProjectUncheckedCreateWithoutTaskBlockersInput>
+  }
+
+  export type BlockerSolutionCreateWithoutBlockerInput = {
+    id?: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+    suggestedUser?: UserCreateNestedOneWithoutBlockerSolutionsInput
+  }
+
+  export type BlockerSolutionUncheckedCreateWithoutBlockerInput = {
+    id?: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    suggestedUserId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+  }
+
+  export type BlockerSolutionCreateOrConnectWithoutBlockerInput = {
+    where: BlockerSolutionWhereUniqueInput
+    create: XOR<BlockerSolutionCreateWithoutBlockerInput, BlockerSolutionUncheckedCreateWithoutBlockerInput>
+  }
+
+  export type BlockerSolutionCreateManyBlockerInputEnvelope = {
+    data: BlockerSolutionCreateManyBlockerInput | BlockerSolutionCreateManyBlockerInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TaskUpsertWithoutBlockersInput = {
+    update: XOR<TaskUpdateWithoutBlockersInput, TaskUncheckedUpdateWithoutBlockersInput>
+    create: XOR<TaskCreateWithoutBlockersInput, TaskUncheckedCreateWithoutBlockersInput>
+    where?: TaskWhereInput
+  }
+
+  export type TaskUpdateToOneWithWhereWithoutBlockersInput = {
+    where?: TaskWhereInput
+    data: XOR<TaskUpdateWithoutBlockersInput, TaskUncheckedUpdateWithoutBlockersInput>
+  }
+
+  export type TaskUpdateWithoutBlockersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFieldUpdateOperationsInput | $Enums.TaskPriority
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
+    dependencies?: TaskUpdatedependenciesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneWithoutTasksNestedInput
+    column?: TaskColumnUpdateOneWithoutTasksNestedInput
+    assignee?: UserUpdateOneWithoutTaskNestedInput
+    comments?: CommentUpdateManyWithoutTaskNestedInput
+    checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUpdateManyWithoutTaskNestedInput
+  }
+
+  export type TaskUncheckedUpdateWithoutBlockersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
+    priority?: EnumTaskPriorityFieldUpdateOperationsInput | $Enums.TaskPriority
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    estimatedTime?: NullableIntFieldUpdateOperationsInput | number | null
+    projectId?: NullableStringFieldUpdateOperationsInput | string | null
+    columnId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    dependencies?: TaskUpdatedependenciesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
+    checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
+  }
+
+  export type ProjectUpsertWithoutTaskBlockersInput = {
+    update: XOR<ProjectUpdateWithoutTaskBlockersInput, ProjectUncheckedUpdateWithoutTaskBlockersInput>
+    create: XOR<ProjectCreateWithoutTaskBlockersInput, ProjectUncheckedCreateWithoutTaskBlockersInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutTaskBlockersInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutTaskBlockersInput, ProjectUncheckedUpdateWithoutTaskBlockersInput>
+  }
+
+  export type ProjectUpdateWithoutTaskBlockersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneWithoutProjectsOwnedNestedInput
+    members?: ProjectMemberUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUpdateManyWithoutProjectNestedInput
+    template?: ProjectTemplateUpdateOneWithoutProjectsNestedInput
+    accesses?: ProjectAccessUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutTaskBlockersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    clientType?: NullableEnumProjectClientTypeFieldUpdateOperationsInput | $Enums.ProjectClientType | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    budget?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    progress?: FloatFieldUpdateOperationsInput | number
+    status?: EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
+    priority?: EnumProjectPriorityFieldUpdateOperationsInput | $Enums.ProjectPriority
+    isArchived?: BoolFieldUpdateOperationsInput | boolean
+    aiSuggestions?: NullableJsonNullValueInput | InputJsonValue
+    aiGenerateStructure?: BoolFieldUpdateOperationsInput | boolean
+    meetingUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: NullableStringFieldUpdateOperationsInput | string | null
+    templateId?: NullableStringFieldUpdateOperationsInput | string | null
+    members?: ProjectMemberUncheckedUpdateManyWithoutProjectNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput
+    checklists?: ChecklistUncheckedUpdateManyWithoutProjectNestedInput
+    columns?: TaskColumnUncheckedUpdateManyWithoutProjectNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutProjectNestedInput
+    accesses?: ProjectAccessUncheckedUpdateManyWithoutProjectNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutProjectNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
+    chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type BlockerSolutionUpsertWithWhereUniqueWithoutBlockerInput = {
+    where: BlockerSolutionWhereUniqueInput
+    update: XOR<BlockerSolutionUpdateWithoutBlockerInput, BlockerSolutionUncheckedUpdateWithoutBlockerInput>
+    create: XOR<BlockerSolutionCreateWithoutBlockerInput, BlockerSolutionUncheckedCreateWithoutBlockerInput>
+  }
+
+  export type BlockerSolutionUpdateWithWhereUniqueWithoutBlockerInput = {
+    where: BlockerSolutionWhereUniqueInput
+    data: XOR<BlockerSolutionUpdateWithoutBlockerInput, BlockerSolutionUncheckedUpdateWithoutBlockerInput>
+  }
+
+  export type BlockerSolutionUpdateManyWithWhereWithoutBlockerInput = {
+    where: BlockerSolutionScalarWhereInput
+    data: XOR<BlockerSolutionUpdateManyMutationInput, BlockerSolutionUncheckedUpdateManyWithoutBlockerInput>
+  }
+
+  export type TaskBlockerCreateWithoutSolutionsInput = {
+    id?: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    task: TaskCreateNestedOneWithoutBlockersInput
+    project: ProjectCreateNestedOneWithoutTaskBlockersInput
+  }
+
+  export type TaskBlockerUncheckedCreateWithoutSolutionsInput = {
+    id?: string
+    taskId: string
+    projectId: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TaskBlockerCreateOrConnectWithoutSolutionsInput = {
+    where: TaskBlockerWhereUniqueInput
+    create: XOR<TaskBlockerCreateWithoutSolutionsInput, TaskBlockerUncheckedCreateWithoutSolutionsInput>
+  }
+
+  export type UserCreateWithoutBlockerSolutionsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectCreateNestedManyWithoutOwnerInput
+    documents?: DocumentCreateNestedManyWithoutUploadedByInput
+    comments?: CommentCreateNestedManyWithoutAuthorInput
+    Task?: TaskCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageCreateNestedManyWithoutSenderInput
+  }
+
+  export type UserUncheckedCreateWithoutBlockerSolutionsInput = {
+    id?: string
+    fullname: string
+    email: string
+    password: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    skills?: UserCreateskillsInput | string[]
+    availability?: number
+    performanceScore?: number
+    googleId?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    external?: boolean
+    partnerType?: string | null
+    activationToken?: string | null
+    projectsOwned?: ProjectUncheckedCreateNestedManyWithoutOwnerInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUploadedByInput
+    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
+    Task?: TaskUncheckedCreateNestedManyWithoutAssigneeInput
+    ProjectMember?: ProjectMemberUncheckedCreateNestedManyWithoutUserInput
+    projectAccess?: ProjectAccessUncheckedCreateNestedManyWithoutUserInput
+    documentAccess?: DocumentAccessUncheckedCreateNestedManyWithoutUserInput
+    partnerRequests?: PartnerRequestUncheckedCreateNestedManyWithoutUserInput
+    partnerMessages?: PartnerRequestMessageUncheckedCreateNestedManyWithoutSenderInput
+    activityLogs?: PartnerActivityLogUncheckedCreateNestedManyWithoutUserInput
+    roleAssignments?: UserRoleAssignmentUncheckedCreateNestedManyWithoutUserInput
+    projectChatMessages?: ProjectChatMessageUncheckedCreateNestedManyWithoutSenderInput
+  }
+
+  export type UserCreateOrConnectWithoutBlockerSolutionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBlockerSolutionsInput, UserUncheckedCreateWithoutBlockerSolutionsInput>
+  }
+
+  export type TaskBlockerUpsertWithoutSolutionsInput = {
+    update: XOR<TaskBlockerUpdateWithoutSolutionsInput, TaskBlockerUncheckedUpdateWithoutSolutionsInput>
+    create: XOR<TaskBlockerCreateWithoutSolutionsInput, TaskBlockerUncheckedCreateWithoutSolutionsInput>
+    where?: TaskBlockerWhereInput
+  }
+
+  export type TaskBlockerUpdateToOneWithWhereWithoutSolutionsInput = {
+    where?: TaskBlockerWhereInput
+    data: XOR<TaskBlockerUpdateWithoutSolutionsInput, TaskBlockerUncheckedUpdateWithoutSolutionsInput>
+  }
+
+  export type TaskBlockerUpdateWithoutSolutionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    task?: TaskUpdateOneRequiredWithoutBlockersNestedInput
+    project?: ProjectUpdateOneRequiredWithoutTaskBlockersNestedInput
+  }
+
+  export type TaskBlockerUncheckedUpdateWithoutSolutionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutBlockerSolutionsInput = {
+    update: XOR<UserUpdateWithoutBlockerSolutionsInput, UserUncheckedUpdateWithoutBlockerSolutionsInput>
+    create: XOR<UserCreateWithoutBlockerSolutionsInput, UserUncheckedCreateWithoutBlockerSolutionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBlockerSolutionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBlockerSolutionsInput, UserUncheckedUpdateWithoutBlockerSolutionsInput>
+  }
+
+  export type UserUpdateWithoutBlockerSolutionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUpdateManyWithoutSenderNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBlockerSolutionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullname?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    skills?: UserUpdateskillsInput | string[]
+    availability?: IntFieldUpdateOperationsInput | number
+    performanceScore?: FloatFieldUpdateOperationsInput | number
+    googleId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    external?: BoolFieldUpdateOperationsInput | boolean
+    partnerType?: NullableStringFieldUpdateOperationsInput | string | null
+    activationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    projectsOwned?: ProjectUncheckedUpdateManyWithoutOwnerNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUploadedByNestedInput
+    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
+    Task?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput
+    ProjectMember?: ProjectMemberUncheckedUpdateManyWithoutUserNestedInput
+    projectAccess?: ProjectAccessUncheckedUpdateManyWithoutUserNestedInput
+    documentAccess?: DocumentAccessUncheckedUpdateManyWithoutUserNestedInput
+    partnerRequests?: PartnerRequestUncheckedUpdateManyWithoutUserNestedInput
+    partnerMessages?: PartnerRequestMessageUncheckedUpdateManyWithoutSenderNestedInput
+    activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutUserNestedInput
+    roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutUserNestedInput
+    projectChatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutSenderNestedInput
   }
 
   export type ProjectMemberCreateManyProjectInput = {
@@ -48210,6 +52778,20 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type TaskBlockerCreateManyProjectInput = {
+    id?: string
+    taskId: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ProjectMemberUpdateWithoutProjectInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumProjectRoleFieldUpdateOperationsInput | $Enums.ProjectRole
@@ -48248,6 +52830,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutProjectInput = {
@@ -48270,6 +52853,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutProjectInput = {
@@ -48522,6 +53106,50 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TaskBlockerUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    task?: TaskUpdateOneRequiredWithoutBlockersNestedInput
+    solutions?: BlockerSolutionUpdateManyWithoutBlockerNestedInput
+  }
+
+  export type TaskBlockerUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solutions?: BlockerSolutionUncheckedUpdateManyWithoutBlockerNestedInput
+  }
+
+  export type TaskBlockerUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    taskId?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CommentCreateManyTaskInput = {
     id?: string
     content: string
@@ -48545,6 +53173,20 @@ export namespace Prisma {
     title: string
     isCompleted?: boolean
     projectId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TaskBlockerCreateManyTaskInput = {
+    id?: string
+    projectId: string
+    blockerType: $Enums.BlockerType
+    severity?: $Enums.BlockerSeverity
+    description?: string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: boolean
+    detectedAt?: Date | string
+    resolvedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -48632,6 +53274,50 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TaskBlockerUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutTaskBlockersNestedInput
+    solutions?: BlockerSolutionUpdateManyWithoutBlockerNestedInput
+  }
+
+  export type TaskBlockerUncheckedUpdateWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    solutions?: BlockerSolutionUncheckedUpdateManyWithoutBlockerNestedInput
+  }
+
+  export type TaskBlockerUncheckedUpdateManyWithoutTaskInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    blockerType?: EnumBlockerTypeFieldUpdateOperationsInput | $Enums.BlockerType
+    severity?: EnumBlockerSeverityFieldUpdateOperationsInput | $Enums.BlockerSeverity
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiAnalysis?: NullableJsonNullValueInput | InputJsonValue
+    isResolved?: BoolFieldUpdateOperationsInput | boolean
+    detectedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TaskCreateManyColumnInput = {
     id?: string
     title: string
@@ -48671,6 +53357,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutColumnInput = {
@@ -48693,6 +53380,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutColumnInput = {
@@ -49099,6 +53787,19 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type BlockerSolutionCreateManySuggestedUserInput = {
+    id?: string
+    blockerId: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+  }
+
   export type ProjectUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -49129,6 +53830,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutOwnerInput = {
@@ -49161,6 +53863,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutOwnerInput = {
@@ -49283,6 +53986,7 @@ export namespace Prisma {
     comments?: CommentUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutAssigneeInput = {
@@ -49305,6 +54009,7 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutTaskNestedInput
     checklistItems?: ChecklistItemUncheckedUpdateManyWithoutTaskNestedInput
     checklists?: ChecklistUncheckedUpdateManyWithoutTaskNestedInput
+    blockers?: TaskBlockerUncheckedUpdateManyWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutAssigneeInput = {
@@ -49526,6 +54231,45 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BlockerSolutionUpdateWithoutSuggestedUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    blocker?: TaskBlockerUpdateOneRequiredWithoutSolutionsNestedInput
+  }
+
+  export type BlockerSolutionUncheckedUpdateWithoutSuggestedUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerId?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BlockerSolutionUncheckedUpdateManyWithoutSuggestedUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    blockerId?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type ProjectCreateManyTemplateInput = {
     id?: string
     name: string
@@ -49587,6 +54331,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutTemplateInput = {
@@ -49619,6 +54364,7 @@ export namespace Prisma {
     activityLogs?: PartnerActivityLogUncheckedUpdateManyWithoutProjectNestedInput
     roleAssignments?: UserRoleAssignmentUncheckedUpdateManyWithoutProjectNestedInput
     chatMessages?: ProjectChatMessageUncheckedUpdateManyWithoutProjectNestedInput
+    taskBlockers?: TaskBlockerUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateManyWithoutTemplateInput = {
@@ -49750,6 +54496,58 @@ export namespace Prisma {
     senderId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockerSolutionCreateManyBlockerInput = {
+    id?: string
+    solutionType: string
+    description?: string | null
+    aiReasoning?: string | null
+    confidence?: number | null
+    status?: $Enums.SolutionStatus
+    suggestedUserId?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    appliedAt?: Date | string | null
+  }
+
+  export type BlockerSolutionUpdateWithoutBlockerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    suggestedUser?: UserUpdateOneWithoutBlockerSolutionsNestedInput
+  }
+
+  export type BlockerSolutionUncheckedUpdateWithoutBlockerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    suggestedUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type BlockerSolutionUncheckedUpdateManyWithoutBlockerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    solutionType?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    aiReasoning?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence?: NullableFloatFieldUpdateOperationsInput | number | null
+    status?: EnumSolutionStatusFieldUpdateOperationsInput | $Enums.SolutionStatus
+    suggestedUserId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 
