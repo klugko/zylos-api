@@ -181,6 +181,23 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
     });
   }
   
+  async assignMany(
+    pairs: { taskId: string; userId: string }[],
+  ): Promise<Task[]> {
+    if (!pairs.length) return [];
+    const prismaOps = pairs.map(({ taskId, userId }) =>
+      this.prisma.task.update({
+        where: { id: taskId },
+        data: {
+          assignedUserId: userId,
+          updatedAt: new Date(),
+        },
+      }),
+    );
+    const updated = await this.prisma.$transaction(prismaOps);
+    return updated.map((t) => this.toEntity(t));
+  }
+
   async countByProject(projectId: string): Promise<number> {
     return this.prisma.task.count({ where: { projectId } });
   }
@@ -225,7 +242,7 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
     return data.map(this.toEntity);
   }
   
- // ⏰ Tâches en retard
+ // Tâches en retard
  async findByUserAndEndDateBefore(userId: string, before: Date): Promise<Task[]> {
   const records = await this.prisma.task.findMany({
     where: {
@@ -238,7 +255,7 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
   return records.map(this.toEntity);
 }
 
-// 📅 Tâches à échéance proche
+// Tâches à échéance proche
   async findByUserAndEndDateBetween(userId: string, start: Date, end: Date): Promise<Task[]> {
     const records = await this.prisma.task.findMany({
       where: {

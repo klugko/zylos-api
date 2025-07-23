@@ -27,6 +27,8 @@ import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.g
 import { UpdateTaskUseCase } from '@modules/project-management/application/use-cases/update-task.use-case';
 import { UpdateTaskDto } from '@modules/project-management/application/dto/update-task.dto';
 import { TaskPriority, TaskStatus } from '@modules/project-management/domain/enums/task.enums';
+import { BulkAssignTasksDto } from '@modules/project-management/application/dto/assign-many-task.dto';
+import { AssignManyTasksUseCase } from '@modules/project-management/application/use-cases/assign-many-task.usecase';
 
 
 @ApiTags('Tasks')
@@ -38,6 +40,7 @@ export class TaskController {
     private readonly assignTask: AssignTaskToBestUserUseCase,
     private readonly gateway: ProjectGateway,
     private readonly updateTaskUseCase: UpdateTaskUseCase,
+    private readonly assignManyUseCase: AssignManyTasksUseCase,
 
   ) {}
 
@@ -159,5 +162,41 @@ export class TaskController {
   @ApiResponse({ status: 200, description: 'Tâche assignée automatiquement' })
   async assign(@Param('id') id: string) {
     return await this.assignTask.execute(id);
+  }
+
+  @Post('assign-tasks-ai')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Assigner automatiquement plusieurs tâches par IA' })
+  @ApiBody({ type: BulkAssignTasksDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Liste des tâches mises à jour',
+    schema: {
+      example: [
+        {
+          "tasks": [
+            {
+              "id": "task_101",
+              "title": "Créer landing page produit",
+              "description": "Concevoir la page d'accueil du nouveau produit."
+            },
+            {
+              "id": "task_102",
+              "title": "Mettre à jour documentation API",
+              "description": "Ajouter les endpoints v2 et des exemples cURL."
+            },
+            {
+              "id": "task_103",
+              "title": "Tests end-to-end",
+              "description": "Écrire des tests Cypress pour le flux d'inscription."
+            }
+          ]
+        }        
+      ],
+    },
+  })
+  async bulkAssign(@Body() dto: BulkAssignTasksDto) {
+    return this.assignManyUseCase.execute(dto.tasks);
   }
 }

@@ -36,6 +36,7 @@ import { SmartReminderService } from './application/use-cases/smart-reminder';
 import { PrismaReminderNotificationRepository } from './infrastructure/repositories/prisma-reminder-notification.repository';
 import { ReminderController } from './infrastructure/controllers/reminder.controller';
 import { UpdateTaskUseCase } from './application/use-cases/update-task.use-case';
+import { AssignManyTasksUseCase } from './application/use-cases/assign-many-task.usecase';
 
 @Module({
   imports: [AuthModule],
@@ -74,6 +75,7 @@ import { UpdateTaskUseCase } from './application/use-cases/update-task.use-case'
     SmartReminderService,
     PrismaReminderNotificationRepository,
     UpdateTaskUseCase,
+    AssignManyTasksUseCase,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,

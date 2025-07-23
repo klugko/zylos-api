@@ -11,6 +11,7 @@ export interface TaskRepository {
   updateFull(id: string, data: Partial<Task>): Promise<Task>;
   delete(id: string): Promise<void>;
   exists(taskId: string): Promise<boolean>;
+  assignMany(pairs: { taskId: string; userId: string }[]): Promise<Task[]>;
   countByProject(projectId: string): Promise<number>;
   countByProjectAndStatus(projectId: string, status: string): Promise<number>;
   findByStatusAndEndDateBefore(statuses: TaskStatus[], date: Date): Promise<Task[]>;
