@@ -18,58 +18,58 @@ export class OpenAiChatAnalysisService {
    */
   async extractTasks(content: string): Promise<SuggestedTask[]> {
     const prompt = `
-Le texte ci-dessous est un message de chat dans un projet.
-Analyse le message et détecte les tâches qui doivent être créées.
-Renvoie un JSON array sous forme [{"title": "...", "description": "..."}].
-Message: """${content}"""
-`;
+    Le texte ci-dessous est un message de chat dans un projet.
+    Analyse le message et détecte les tâches qui doivent être créées.
+    Renvoie un JSON array sous forme [{"title": "...", "description": "..."}].
+    Message: """${content}"""
+    `;
 
-    try {
-      const response = await axios.post(
-        this.apiUrl,
-        {
-          model: 'gpt-4o-mini', 
-          messages: [
+        try {
+          const response = await axios.post(
+            this.apiUrl,
             {
-              role: 'system',
-              content: 'Tu es un assistant qui extrait des tâches depuis des discussions projet.',
+              model: 'gpt-4o-mini', 
+              messages: [
+                {
+                  role: 'system',
+                  content: 'Tu es un assistant qui extrait des tâches depuis des discussions projet.',
+                },
+                { role: 'user', content: prompt },
+              ],
+              temperature: 0,
             },
-            { role: 'user', content: prompt },
-          ],
-          temperature: 0,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${this.apiKey}`,
-          },
-          timeout: 15000, // 15 secondes
-        },
-      );
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.apiKey}`,
+              },
+              timeout: 15000, // 15 secondes
+            },
+          );
 
-      const rawContent = response.data.choices?.[0]?.message?.content?.trim();
-      if (!rawContent) {
-        this.logger.warn('[AI] Réponse OpenAI vide ou invalide');
-        return [];
+          const rawContent = response.data.choices?.[0]?.message?.content?.trim();
+          if (!rawContent) {
+            this.logger.warn('[AI] Réponse OpenAI vide ou invalide');
+            return [];
+          }
+
+          let suggestions: SuggestedTask[] = [];
+          try {
+            suggestions = JSON.parse(rawContent);
+          } catch {
+            this.logger.warn('[AI] Impossible de parser la réponse en JSON');
+            return [];
+          }
+
+          return suggestions
+            .filter((s) => s.title && s.title.length > 0)
+            .map((s) => ({
+              title: s.title.trim(),
+              description: s.description?.trim() ?? '',
+            }));
+        } catch (err: any) {
+          this.logger.error(`[AI] Échec de la requête OpenAI : ${err.message}`);
+          return [];
+        }
       }
-
-      let suggestions: SuggestedTask[] = [];
-      try {
-        suggestions = JSON.parse(rawContent);
-      } catch {
-        this.logger.warn('[AI] Impossible de parser la réponse en JSON');
-        return [];
-      }
-
-      return suggestions
-        .filter((s) => s.title && s.title.length > 0)
-        .map((s) => ({
-          title: s.title.trim(),
-          description: s.description?.trim() ?? '',
-        }));
-    } catch (err: any) {
-      this.logger.error(`[AI] Échec de la requête OpenAI : ${err.message}`);
-      return [];
     }
-  }
-}
