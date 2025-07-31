@@ -58,6 +58,20 @@ enum UserRole {
   PARTNER
 }
 
+enum ChecklistStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+enum ChecklistPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
 enum CommentTargetType {
   PROJECT
   TASK
@@ -150,6 +164,7 @@ model Task {
   progress      Float        @default(0.0)
   color         String?      @db.VarChar(10)
   estimatedTime Int?
+  isCompleted  Boolean      @default(false)
 
   project        Project?    @relation(fields: [projectId], references: [id])
   projectId      String?
@@ -182,14 +197,20 @@ model Checklist {
   title       String
   isCompleted Boolean @default(false)
 
-  task      Task    @relation(fields: [taskId], references: [id])
-  taskId    String
-  project   Project @relation(fields: [projectId], references: [id])
-  projectId String
+  status      ChecklistStatus   @default(TODO)     
+  priority    ChecklistPriority @default(MEDIUM)   
 
-  items     ChecklistItem[]
-  createdAt DateTime        @default(now())
-  updatedAt DateTime        @default(now())
+  task        Task    @relation(fields: [taskId], references: [id])
+  taskId      String
+  project     Project @relation(fields: [projectId], references: [id])
+  projectId   String
+
+  assignedTo     User?   @relation(fields: [assignedUserId], references: [id])
+  assignedUserId String?
+
+  items       ChecklistItem[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @default(now())
 }
 
 model ChecklistItem {
@@ -329,6 +350,7 @@ model User {
   roleAssignments UserRoleAssignment[]
   projectChatMessages ProjectChatMessage[]
   blockerSolutions BlockerSolution[]
+  checkelists     Checklist[] 
 }
 
 // Templates

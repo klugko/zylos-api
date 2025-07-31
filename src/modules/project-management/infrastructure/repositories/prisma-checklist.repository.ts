@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/core/prisma/prisma.service';
 import { ChecklistRepository } from '../../domain/interfaces/checklist-repository.interface';
 import { Checklist } from '../../domain/entities/checklist.entity';
-import { PrismaService } from 'src/core/prisma/prisma.service';
-
 
 @Injectable()
 export class PrismaChecklistRepository implements ChecklistRepository {
@@ -11,48 +10,29 @@ export class PrismaChecklistRepository implements ChecklistRepository {
   async findById(id: string): Promise<Checklist | null> {
     const data = await this.prisma.checklist.findUnique({ where: { id } });
     if (!data) return null;
-    return new Checklist(
-      data.id,
-      data.title,
-      data.isCompleted,
-      data.projectId,
-      data.createdAt,
-      data.updatedAt
-    );
+    return this.toEntity(data);
   }
 
   async findByProject(projectId: string): Promise<Checklist[]> {
-    const list = await this.prisma.checklist.findMany({ where: { projectId } });
-    return list.map(
-      data =>
-        new Checklist(
-          data.id,
-          data.title,
-          data.isCompleted,
-          data.projectId,
-          data.createdAt,
-          data.updatedAt
-        )
-    );
+    const data = await this.prisma.checklist.findMany({ where: { projectId } });
+    return data.map(this.toEntity);
   }
 
   async create(checklist: Checklist): Promise<Checklist> {
     const data = await this.prisma.checklist.create({
       data: {
+        id: checklist.id,
         title: checklist.title,
         taskId: checklist.taskId,
         projectId: checklist.projectId,
-        isCompleted: checklist.isCompleted,
+        status: checklist.status,
+        priority: checklist.priority,
+        assignedUserId: checklist.assignedUserId,
+        createdAt: checklist.createdAt,
+        updatedAt: checklist.updatedAt,
       },
     });
-    return new Checklist(
-      data.id,
-      data.title,
-      data.isCompleted,
-      data.projectId,
-      data.createdAt,
-      data.updatedAt
-    );
+    return this.toEntity(data);
   }
 
   async update(checklist: Checklist): Promise<Checklist> {
@@ -60,17 +40,12 @@ export class PrismaChecklistRepository implements ChecklistRepository {
       where: { id: checklist.id },
       data: {
         title: checklist.title,
-        isCompleted: checklist.isCompleted,
+        status: checklist.status,
+        priority: checklist.priority,
+        assignedUserId: checklist.assignedUserId,
       },
     });
-    return new Checklist(
-      data.id,
-      data.title,
-      data.isCompleted,
-      data.projectId,
-      data.createdAt,
-      data.updatedAt
-    );
+    return this.toEntity(data);
   }
 
   async delete(id: string): Promise<void> {
@@ -83,13 +58,29 @@ export class PrismaChecklistRepository implements ChecklistRepository {
       data: items.map(c => ({
         id: c.id,
         title: c.title,
-        isCompleted: c.isCompleted,
-        taskId: c.taskId,
         projectId: c.projectId,
+        taskId: c.taskId,
+        assignedUserId: c.assignedUserId,
+        status: c.status,
+        priority: c.priority,
         createdAt: c.createdAt,
         updatedAt: c.updatedAt,
       })),
       skipDuplicates: true,
     });
+  }
+
+  private toEntity(data: any): Checklist {
+    return new Checklist(
+      data.id,
+      data.title,
+      data.projectId,
+      data.taskId,
+      data.createdAt,
+      data.updatedAt,
+      data.status,
+      data.priority,
+      data.assignedUserId,
+    );
   }
 }

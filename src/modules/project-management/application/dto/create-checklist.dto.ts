@@ -1,18 +1,32 @@
-import { IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { ChecklistStatus, ChecklistPriority } from '../../domain/enums/checklist.enums';
 
 export class CreateChecklistDto {
-  @ApiProperty({
-    description: 'Titre de la checklist à créer',
-    example: 'Checklist de lancement de projet',
-  })
+  @ApiProperty({ example: 'Checklist de test', description: 'Titre de la checklist' })
   @IsString()
   title: string;
 
-  @ApiProperty({
-    description: "ID du projet auquel cette checklist est associée",
-    example: 'a3e121ef-b0f3-4b8d-86de-f0d221846a6f',
-  })
+  @ApiProperty({ example: 'uuid-project-id', description: 'ID du projet' })
   @IsString()
   projectId: string;
+
+  @ApiProperty({ example: 'uuid-task-id', description: 'ID de la tâche associée' })
+  @IsString()
+  taskId: string;
+
+  @ApiProperty({ enum: ChecklistStatus, default: ChecklistStatus.TODO })
+  @IsEnum(ChecklistStatus)
+  @IsOptional()
+  status?: ChecklistStatus = ChecklistStatus.TODO;
+
+  @ApiProperty({ enum: ChecklistPriority, default: ChecklistPriority.MEDIUM })
+  @IsEnum(ChecklistPriority)
+  @IsOptional()
+  priority?: ChecklistPriority = ChecklistPriority.MEDIUM;
+
+  @ApiProperty({ example: 'uuid-user-id', required: false })
+  @IsString()
+  @IsOptional()
+  assignedUserId?: string;
 }

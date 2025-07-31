@@ -3,26 +3,26 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
+  Patch,
+  Post,
   HttpException,
   HttpStatus,
-  Param,
-  Post,
-  Put,
-  // UseGuards,
+  UseGuards,
 } from '@nestjs/common';
-import { PrismaChecklistRepository } from '../repositories/prisma-checklist.repository';
 import { CreateChecklistDto } from '../../application/dto/create-checklist.dto';
 import { CreateChecklistUseCase } from '../../application/use-cases/create-checklist.use-case';
+import { PrismaChecklistRepository } from '../repositories/prisma-checklist.repository';
+import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
+import { Checklist } from '../../domain/entities/checklist.entity';
 import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
+  ApiBearerAuth,
   ApiBody,
-  // ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
-// import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
-
 
 @ApiTags('Checklists')
 @Controller('api/v1/checklists')
@@ -33,65 +33,71 @@ export class ChecklistController {
   ) {}
 
   @Post()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Créer une nouvelle checklist' })
   @ApiBody({ type: CreateChecklistDto })
-  @ApiResponse({ status: 201, description: 'Checklist créée avec succès' })
-  @ApiResponse({ status: 400, description: 'Données invalides' })
+  @ApiResponse({ status: 201, description: 'Checklist créée' })
   async create(@Body() dto: CreateChecklistDto) {
     return await this.createChecklist.execute(dto);
   }
 
-  @Get('project/:projectId')
-  // @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Récupérer toutes les checklists liées à un projet' })
-  @ApiParam({ name: 'projectId', description: 'ID du projet concerné' })
-  @ApiResponse({ status: 200, description: 'Liste des checklists du projet retournée' })
-  async findByProject(@Param('projectId') projectId: string) {
-    try {
-      if (!projectId) {
-        throw new HttpException('Project ID is required', HttpStatus.BAD_REQUEST);
-      }
-    } catch (error) {
-      throw new HttpException(error.message, error.status);
-    }
-    return await this.checklistRepo.findByProject(projectId);
+  @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Obtenir une checklist par ID' })
+  @ApiParam({ name: 'id' })
+  @ApiResponse({ status: 200, description: 'Checklist trouvée' })
+  async findOne(@Param('id') id: string) {
+    const checklist = await this.checklistRepo.findById(id);
+    if (!checklist) throw new HttpException('Checklist not found', HttpStatus.NOT_FOUND);
+    return checklist;
   }
 
-  @Get(':id')
-  // @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Récupérer une checklist par son ID' })
-  @ApiParam({ name: 'id', description: 'ID de la checklist' })
-  @ApiResponse({ status: 200, description: 'Checklist trouvée' })
-  @ApiResponse({ status: 404, description: 'Checklist non trouvée' })
-  async findOne(@Param('id') id: string) {
-    const item = await this.checklistRepo.findById(id);
-    if (!item) throw new HttpException('Checklist not found', HttpStatus.NOT_FOUND);
-    return item;
+  @Get('task/:taskId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Lister les checklists d’une tâche' })
+  @ApiParam({ name: 'taskId' })
+  @ApiResponse({ status: 200, description: 'Checklists retournées' })
+  async findByTask(@Param('taskId') taskId: string) {
+    const list = await this.checklistRepo.findByProject(taskId); 
+    return list;
+  }
+
+  @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Modifier les infos d’une checklist' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        title: { type: 'string' },
+        status: { type: 'string', enum: ['TODO', 'IN_PROGRESS', 'DONE', 'CANCELLED'] },
+        priority: { type: 'string', enum: ['LOW', 'MEDIUM', 'HIGH', 'URGENT'] },
+        assignedUserId: { type: 'string' },
+      },
+    },
+  })
+  async update(@Param('id') id: string, @Body() body: Partial<Checklist>) {
+    const checklist = await this.checklistRepo.findById(id);
+    if (!checklist) throw new HttpException('Checklist not found', HttpStatus.NOT_FOUND);
+
+    if (body.title) checklist.title = body.title;
+    if (body.status) checklist.status = body.status;
+    if (body.priority) checklist.priority = body.priority;
+    if (body.assignedUserId !== undefined) checklist.assignedUserId = body.assignedUserId;
+
+    return await this.checklistRepo.update(checklist);
   }
 
   @Delete(':id')
-  // @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Supprimer une checklist par son ID' })
-  @ApiParam({ name: 'id', description: 'ID de la checklist à supprimer' })
-  @ApiResponse({ status: 200, description: 'Checklist supprimée avec succès' })
-  @ApiResponse({ status: 404, description: 'Checklist non trouvée' })
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Supprimer une checklist' })
   async delete(@Param('id') id: string) {
     await this.checklistRepo.delete(id);
-    return { message: 'Deleted successfully' };
-  }
-
-  @Put(':id/toggle')
-  // @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Inverser le statut de complétion de la checklist' })
-  @ApiParam({ name: 'id', description: 'ID de la checklist à mettre à jour' })
-  @ApiResponse({ status: 200, description: 'Checklist mise à jour avec succès' })
-  @ApiResponse({ status: 404, description: 'Checklist non trouvée' })
-  async toggleComplete(@Param('id') id: string) {
-    const item = await this.checklistRepo.findById(id);
-    if (!item) throw new HttpException('Checklist not found', HttpStatus.NOT_FOUND);
-
-    item.toggle();
-    return await this.checklistRepo.update(item);
+    return { message: 'Checklist supprimée avec succès' };
   }
 }

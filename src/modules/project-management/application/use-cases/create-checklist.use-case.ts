@@ -4,21 +4,24 @@ import { Checklist } from '../../domain/entities/checklist.entity';
 import { ChecklistRepository } from '../../domain/interfaces/checklist-repository.interface';
 import { CreateChecklistDto } from '../dto/create-checklist.dto';
 
-
 @Injectable()
 export class CreateChecklistUseCase {
   constructor(
-    @Inject('ChecklistRepository') private readonly checklistRepo: ChecklistRepository
+    @Inject('ChecklistRepository') private readonly checklistRepo: ChecklistRepository,
   ) {}
+
   async execute(dto: CreateChecklistDto): Promise<Checklist> {
     const now = new Date();
     const checklist = new Checklist(
       uuidv4(),
       dto.title,
-      false,
       dto.projectId,
+      dto.taskId,
       now,
-      now
+      now,
+      dto.status,
+      dto.priority,
+      dto.assignedUserId
     );
     return await this.checklistRepo.create(checklist);
   }
