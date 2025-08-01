@@ -199,4 +199,15 @@ export class TaskController {
   async bulkAssign(@Body() dto: BulkAssignTasksDto) {
     return this.assignManyUseCase.execute(dto.tasks);
   }
+
+@Get('user/:userId')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
+@ApiOperation({ summary: 'Lister les tâches assignées à un utilisateur' })
+@ApiParam({ name: 'userId', description: 'ID de l’utilisateur' })
+@ApiResponse({ status: 200, description: 'Liste des tâches assignées retournée' })
+async findByUser(@Param('userId') userId: string) {
+  return await this.taskRepo.findByUser(userId);
+}
+
 }

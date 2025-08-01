@@ -304,4 +304,30 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
       record.columnId,
     );
   }
+
+  async findByUser(userId: string): Promise<Task[]> {
+    const rows = await this.prisma.task.findMany({
+      where: { assignedUserId: userId },
+      orderBy: { createdAt: 'desc' },
+    });
+  
+    return rows.map(
+      (t) =>
+        new Task(
+          t.id,
+          t.title,
+          t.description,
+          t.status as TaskStatus,
+          t.priority as TaskPriority,
+          t.projectId,
+          t.createdAt,
+          t.updatedAt,
+          t.startDate,
+          t.endDate,
+          [t.assignedUserId],
+          t.columnId
+        ),
+    );
+  }
+
 }
