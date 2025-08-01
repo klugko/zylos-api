@@ -23,6 +23,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { AssignChecklistToBestUserUseCase } from '@modules/project-management/application/use-cases/assign-checklist.use-case';
 
 @ApiTags('Checklists')
 @Controller('api/v1/checklists')
@@ -30,6 +31,7 @@ export class ChecklistController {
   constructor(
     private readonly checklistRepo: PrismaChecklistRepository,
     private readonly createChecklist: CreateChecklistUseCase,
+    private readonly assignChecklist: AssignChecklistToBestUserUseCase,
   ) {}
 
   @Post()
@@ -42,6 +44,8 @@ export class ChecklistController {
     return await this.createChecklist.execute(dto);
   }
 
+  
+
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT-auth')
@@ -53,6 +57,17 @@ export class ChecklistController {
     if (!checklist) throw new HttpException('Checklist not found', HttpStatus.NOT_FOUND);
     return checklist;
   }
+
+@Patch(':id/assign/ai')
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
+@ApiOperation({ summary: 'Assigner automatiquement une checklist via IA' })
+@ApiParam({ name: 'id', description: 'ID de la checklist à traiter' })
+@ApiResponse({ status: 200, description: 'Checklist assignée automatiquement' })
+async assignChecklistByAI(@Param('id') id: string) {
+  return await this.assignChecklist.execute(id);
+}
+
 
   @Get('task/:taskId')
   @UseGuards(JwtAuthGuard)

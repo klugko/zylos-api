@@ -37,6 +37,7 @@ import { PrismaReminderNotificationRepository } from './infrastructure/repositor
 import { ReminderController } from './infrastructure/controllers/reminder.controller';
 import { UpdateTaskUseCase } from './application/use-cases/update-task.use-case';
 import { AssignManyTasksUseCase } from './application/use-cases/assign-many-task.usecase';
+import { AssignChecklistToBestUserUseCase } from './application/use-cases/assign-checklist.use-case';
 
 @Module({
   imports: [AuthModule],
@@ -76,6 +77,7 @@ import { AssignManyTasksUseCase } from './application/use-cases/assign-many-task
     PrismaReminderNotificationRepository,
     UpdateTaskUseCase,
     AssignManyTasksUseCase,
+    AssignChecklistToBestUserUseCase,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,
