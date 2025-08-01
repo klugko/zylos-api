@@ -1,3 +1,4 @@
+import { ChecklistPriority, ChecklistStatus } from '../enums/checklist.enums';
 import { Project } from './project.entity';
 
 export class TaskDetails {
@@ -21,11 +22,13 @@ export class TaskDetails {
 export class ChecklistDetails {
   constructor(
     public readonly id: string,
-    public title: string,
-    public isCompleted: boolean,
-    public projectId: string,
+    public readonly title: string,
+    public readonly projectId: string,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
+    public readonly status: ChecklistStatus,
+    public readonly priority: ChecklistPriority,
+    public readonly assignedUserId?: string
   ) {}
 }
 

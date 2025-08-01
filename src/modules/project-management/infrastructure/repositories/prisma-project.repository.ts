@@ -5,6 +5,7 @@ import { Project } from '../../domain/entities/project.entity';
 import { UpdateProjectDto } from '../../application/dto/update-project.dto';
 import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
 import { ChecklistDetails, ProjectWithDetails, TaskDetails } from '@modules/project-management/domain/entities/project-with-details.entity';
+import { ChecklistPriority, ChecklistStatus } from '@modules/project-management/domain/enums/checklist.enums';
 
 
 @Injectable()
@@ -130,9 +131,17 @@ export class PrismaProjectRepository implements ProjectRepository {
 
       const checklists = p.checklists.map((c) =>
         new ChecklistDetails(
-          c.id, c.title, c.isCompleted, c.projectId, c.createdAt, c.updatedAt
+          c.id,
+          c.title,
+          c.projectId,
+          c.createdAt,
+          c.updatedAt,
+          c.status as ChecklistStatus,
+          c.priority as ChecklistPriority,
+          c.assignedUserId
         )
       );
+      
 
       return new ProjectWithDetails(base, tasks, checklists);
     });

@@ -22,6 +22,7 @@ import {
   TaskPriority,
   TaskStatus,
 } from '../../domain/enums/task.enums';
+import { ChecklistPriority, ChecklistStatus } from '@modules/project-management/domain/enums/checklist.enums';
 
 /*────────── ZOD – Format IA strict ──────────*/
 const checklistSchema = z.string().min(1);
@@ -57,7 +58,6 @@ export class CreateProjectFromPdfUseCase {
     const now = new Date();
 
     try {
-      // ① Lire et parser le PDF
       const buffer = await fs.readFile(filePath);
       const parsed = await pdfParse(buffer);
       const content = parsed.text.trim().replace(/\s{2,}/g, ' ');
@@ -66,11 +66,9 @@ export class CreateProjectFromPdfUseCase {
         throw new Error('PDF vide ou insuffisant.');
       }
 
-      // ② Générer via GPT (hors transaction)
       const prompt = this.buildPrompt(content);
       const ai = await this.getValidAiResponse(prompt);
 
-      // ③ Mapper vers entités
       const projectId = uuid();
       const project = new Project(
         projectId,
@@ -94,17 +92,6 @@ export class CreateProjectFromPdfUseCase {
 
       const tasks: Task[] = [];
       const checklists: Checklist[] = [];
-      const checklistData = checklists.map((c) => ({
-        id: c.id,
-        title: c.title,
-        isCompleted: c.isCompleted,
-        projectId: c.projectId,
-        taskId: c.taskId!, 
-        createdAt: c.createdAt,
-        updatedAt: c.updatedAt,
-      }));
-      
-
       ai.tasks.forEach((t) => {
         const taskId = uuid();
         tasks.push(
@@ -119,25 +106,38 @@ export class CreateProjectFromPdfUseCase {
             now,
             null,
             null
-          ),
+          )
         );
-
+      
         t.checklist.forEach((item) => {
           checklists.push(
             new Checklist(
               uuid(),
               item,
-              false,
               projectId,
+              taskId,
               now,
               now,
-              taskId
-            ),
+              ChecklistStatus.TODO,
+              ChecklistPriority.MEDIUM
+            )
           );
         });
       });
+      
+      const checklistData = checklists.map((c) => ({
+        id: c.id,
+        title: c.title,
+        status: c.status,
+        priority: c.priority,
+        projectId: c.projectId,
+        taskId: c.taskId,
+        assignedUserId: c.assignedUserId,
+        createdAt: c.createdAt,
+        updatedAt: c.updatedAt,
+      }));
+      
 
-      // ④ Transaction rapide et atomique
       await this.prisma.$transaction([
         this.prisma.project.create({
           data: {

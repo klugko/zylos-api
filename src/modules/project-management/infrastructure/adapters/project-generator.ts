@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { Task } from '../../domain/entities/task.entity';
 import { Checklist } from '../../domain/entities/checklist.entity';
 import { OpenAIService } from './openapi.service';
+import { ChecklistPriority, ChecklistStatus } from '@modules/project-management/domain/enums/checklist.enums';
 
 /*──────────────── ZOD – Validation de la réponse GPT ────────────────*/
 const checklistSchema = z.string().min(1);
@@ -147,7 +148,16 @@ export class ProjectStructureGenerator {
       );
       t.checklist.forEach((item) =>
         checklists.push(
-          new Checklist(uuid(), item, false, projectId, now, now, taskId),
+          new Checklist(
+            uuid(),
+            item,
+            projectId,
+            taskId,
+            now,
+            now,
+            ChecklistStatus.TODO,
+            ChecklistPriority.MEDIUM
+          )
         ),
       );
     });

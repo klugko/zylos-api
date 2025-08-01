@@ -10,6 +10,7 @@ import { CreateProjectFromTemplateDto } from '../dto/create-project-from-templat
 import { v4 as uuidv4 } from 'uuid';
 import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
 import { TaskStatus, TaskPriority } from '../../domain/enums/task.enums';
+import { ChecklistPriority, ChecklistStatus } from '@modules/project-management/domain/enums/checklist.enums';
 
 @Injectable()
 export class CreateProjectFromTemplateUseCase {
@@ -72,13 +73,16 @@ export class CreateProjectFromTemplateUseCase {
         const checklist = new Checklist(
           uuidv4(),
           checklistTemplate.title,
-          false,
           createdProject.id,
+          createdTask.id,
           now,
-          now
+          now,
+          ChecklistStatus.TODO,
+          ChecklistPriority.MEDIUM
         );
         await this.checklistRepository.create(checklist);
       }
+      
     }
 
     return createdProject;

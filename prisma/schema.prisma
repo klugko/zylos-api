@@ -195,8 +195,6 @@ model TaskColumn {
 model Checklist {
   id          String  @id @default(uuid())
   title       String
-  isCompleted Boolean @default(false)
-
   status      ChecklistStatus   @default(TODO)     
   priority    ChecklistPriority @default(MEDIUM)   
 
