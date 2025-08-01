@@ -38,6 +38,7 @@ import { ReminderController } from './infrastructure/controllers/reminder.contro
 import { UpdateTaskUseCase } from './application/use-cases/update-task.use-case';
 import { AssignManyTasksUseCase } from './application/use-cases/assign-many-task.usecase';
 import { AssignChecklistToBestUserUseCase } from './application/use-cases/assign-checklist.use-case';
+import { UpdateTaskStatusFromChecklistUseCase } from './application/use-cases/update-status-task-auto.usecase';
 
 @Module({
   imports: [AuthModule],
@@ -78,6 +79,7 @@ import { AssignChecklistToBestUserUseCase } from './application/use-cases/assign
     UpdateTaskUseCase,
     AssignManyTasksUseCase,
     AssignChecklistToBestUserUseCase,
+    UpdateTaskStatusFromChecklistUseCase,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,

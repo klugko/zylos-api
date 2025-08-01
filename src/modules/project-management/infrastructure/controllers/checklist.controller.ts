@@ -24,6 +24,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { AssignChecklistToBestUserUseCase } from '@modules/project-management/application/use-cases/assign-checklist.use-case';
+import { UpdateTaskStatusFromChecklistUseCase } from '@modules/project-management/application/use-cases/update-status-task-auto.usecase';
 
 @ApiTags('Checklists')
 @Controller('api/v1/checklists')
@@ -32,6 +33,7 @@ export class ChecklistController {
     private readonly checklistRepo: PrismaChecklistRepository,
     private readonly createChecklist: CreateChecklistUseCase,
     private readonly assignChecklist: AssignChecklistToBestUserUseCase,
+    private readonly updateTaskStatusFromChecklistUseCase: UpdateTaskStatusFromChecklistUseCase,
   ) {}
 
   @Post()
@@ -114,8 +116,10 @@ async assignChecklistByAI(@Param('id') id: string) {
     if (body.status) checklist.status = body.status;
     if (body.priority) checklist.priority = body.priority;
     if (body.assignedUserId !== undefined) checklist.assignedUserId = body.assignedUserId;
-
-    return await this.checklistRepo.update(checklist);
+    
+    const updated = await this.checklistRepo.update(checklist);
+    await this.updateTaskStatusFromChecklistUseCase.execute(checklist.taskId);
+    return updated;
   }
 
   @Delete(':id')
