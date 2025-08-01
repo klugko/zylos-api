@@ -83,4 +83,10 @@ export class PrismaChecklistRepository implements ChecklistRepository {
       data.assignedUserId,
     );
   }
+
+  async findByTask(taskId: string): Promise<Checklist[]> {
+    const data = await this.prisma.checklist.findMany({ where: { taskId } });
+    return data.map(this.toEntity);
+  }
+  
 }

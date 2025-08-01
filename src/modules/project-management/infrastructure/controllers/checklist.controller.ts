@@ -69,16 +69,27 @@ async assignChecklistByAI(@Param('id') id: string) {
 }
 
 
-  @Get('task/:taskId')
+  @Get('project/:projectId')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Lister les checklists d’une tâche' })
   @ApiParam({ name: 'taskId' })
   @ApiResponse({ status: 200, description: 'Checklists retournées' })
-  async findByTask(@Param('taskId') taskId: string) {
-    const list = await this.checklistRepo.findByProject(taskId); 
+  async findByProject(@Param('projectId') projectId: string) {
+    const list = await this.checklistRepo.findByProject(projectId); 
     return list;
   }
+
+  @Get('task/:taskId')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Lister toutes les checklists d’une tâche donnée' })
+  @ApiParam({ name: 'taskId', description: 'ID de la tâche' })
+  @ApiResponse({ status: 200, description: 'Liste des checklists de la tâche' })
+  async findByTask(@Param('taskId') taskId: string) {
+    return this.checklistRepo.findByTask(taskId);
+  }
+
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
