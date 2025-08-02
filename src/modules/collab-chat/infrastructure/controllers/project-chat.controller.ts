@@ -6,8 +6,8 @@ import { CurrentUser } from '@modules/auth/application/decorators/current-user.d
 import { User } from '@modules/auth/domain/entities/user.entity';
 
 @ApiTags('Chat Projet')
-@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
+@ApiBearerAuth('JWT-auth')
 @Controller('api/v1/projects/:projectId/chat')
 export class ProjectChatController {
   constructor(private readonly getMessagesUseCase: GetProjectMessagesUseCase) {}

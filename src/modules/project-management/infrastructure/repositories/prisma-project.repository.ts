@@ -141,9 +141,49 @@ export class PrismaProjectRepository implements ProjectRepository {
           c.assignedUserId
         )
       );
-      
-
       return new ProjectWithDetails(base, tasks, checklists);
+    });
+  }
+
+  async findFullDataByUserId(userId: string): Promise<any> {
+    return this.prisma.project.findMany({
+      where: {
+        OR: [
+          {
+            tasks: {
+              some: {
+                assignedUserId: userId,
+              },
+            },
+          },
+          {
+            checklists: {
+              some: {
+                assignedUserId: userId,
+              },
+            },
+          },
+        ],
+      },
+      include: {
+        tasks: {
+          where: {
+            assignedUserId: userId,
+          },
+          include: {
+            checklistItems: true,
+            checklists: true,
+          },
+        },
+        checklists: {
+          where: {
+            assignedUserId: userId,
+          },
+          include: {
+            items: true,
+          },
+        },
+      },
     });
   }
   

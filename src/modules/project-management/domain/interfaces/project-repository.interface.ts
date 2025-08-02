@@ -9,4 +9,5 @@ export interface ProjectRepository {
   findAll(): Promise<Project[]>;
   findAllByOwner(ownerId: string): Promise<Project[]>;
   findAllWithDetails(): Promise<ProjectWithDetails[]>;
+  findFullDataByUserId(userId: string): Promise<any>; 
 }

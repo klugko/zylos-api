@@ -8,8 +8,6 @@ import { CurrentUser } from '@modules/auth/application/decorators/current-user.d
 import { User } from '@modules/auth/domain/entities/user.entity';
 
 @ApiTags('Visio / Jitsi')
-@ApiBearerAuth()
-@UseGuards(JwtAuthGuard)
 @Controller('api/v1/projects/:projectId/visio')
 export class JitsiController {
   constructor(
@@ -19,6 +17,8 @@ export class JitsiController {
 
   @ApiOperation({ summary: 'Créer ou mettre à jour le lien Jitsi pour un projet' })
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
   async createSession(
     @Param('projectId') projectId: string,
     @Body() dto: CreateJitsiSessionDto,

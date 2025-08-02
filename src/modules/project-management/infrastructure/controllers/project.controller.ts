@@ -31,6 +31,9 @@ import { GetAllProjectsWithDetailsUseCase } from '@modules/project-management/ap
 import { ProjectRepository } from '@modules/project-management/domain/interfaces/project-repository.interface';
 import { GetProjectProgressUseCase } from '@modules/project-management/application/use-cases/get-project-progress.use-case';
 import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
+import { FindProjectsByUserDto } from '@modules/project-management/application/dto/find-projects-by-user.dto';
+import { FindProjectsByUserUseCase } from '@modules/project-management/application/use-cases/find-projects-by-user.use-case';
+import { GetProjectMembersUseCase } from '@modules/project-management/application/use-cases/get-project-member.usecase';
 
 @ApiTags('Projects')
 @Controller('api/v1/projects')
@@ -41,6 +44,8 @@ export class ProjectController {
     private readonly getAllProjectsUseCase: GetAllProjectsUseCase,
     private readonly getAllProjectsWithDetailsUseCase: GetAllProjectsWithDetailsUseCase,
     private readonly getProjectProgressUseCase: GetProjectProgressUseCase,
+    private readonly findProjectsByUserUseCase: FindProjectsByUserUseCase,
+    private readonly getMembersUseCase: GetProjectMembersUseCase,
     @Inject('ProjectRepository') 
     private readonly projectRepository: ProjectRepository,
   ) {}
@@ -85,6 +90,24 @@ export class ProjectController {
       );
     }
   }
+
+  @Get(':projectId/members')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Lister les membres d’un projet (via ProjectMember)' })
+  @ApiResponse({ status: 200, description: 'Liste des membres du projet' })
+  @ApiResponse({ status: 204, description: 'Aucun membre trouvé pour ce projet' })
+  async getMembers(@Param('projectId') projectId: string) {
+    const members = await this.getMembersUseCase.execute(projectId);
+    if (!members) {
+      return {
+        statusCode: 204,
+        message: 'Aucun membre trouvé pour ce projet.',
+      };
+    }
+    return members;
+  }
+
   
   @Get()
   @UseGuards(JwtAuthGuard)

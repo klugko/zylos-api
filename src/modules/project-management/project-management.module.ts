@@ -39,6 +39,9 @@ import { UpdateTaskUseCase } from './application/use-cases/update-task.use-case'
 import { AssignManyTasksUseCase } from './application/use-cases/assign-many-task.usecase';
 import { AssignChecklistToBestUserUseCase } from './application/use-cases/assign-checklist.use-case';
 import { UpdateTaskStatusFromChecklistUseCase } from './application/use-cases/update-status-task-auto.usecase';
+import { FindProjectsByUserUseCase } from './application/use-cases/find-projects-by-user.use-case';
+import { GetProjectMembersUseCase } from './application/use-cases/get-project-member.usecase';
+import { PrismaProjectMemberRepository } from './infrastructure/repositories/prisma-project-member.repository';
 
 @Module({
   imports: [AuthModule],
@@ -80,6 +83,8 @@ import { UpdateTaskStatusFromChecklistUseCase } from './application/use-cases/up
     AssignManyTasksUseCase,
     AssignChecklistToBestUserUseCase,
     UpdateTaskStatusFromChecklistUseCase,
+    FindProjectsByUserUseCase,
+    GetProjectMembersUseCase,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,
@@ -112,6 +117,10 @@ import { UpdateTaskStatusFromChecklistUseCase } from './application/use-cases/up
       provide: 'ReminderNotificationRepository',
       useClass: PrismaReminderNotificationRepository,
     },
+    {
+      provide: 'IProjectMemberRepository',
+      useClass: PrismaProjectMemberRepository,
+    }
   ],
   
   exports: [

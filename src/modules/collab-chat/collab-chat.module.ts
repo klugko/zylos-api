@@ -11,17 +11,28 @@ import { GetProjectMessagesUseCase } from './application/use-cases/get-project-m
 import { ChatAiAnalysisService } from './application/services/chat-ai-analysis.service';
 import { OpenAiChatAnalysisService } from './application/services/openai-chat-analysis.service';
 import { AccessControlService } from '@modules/collaboration/application/services/access-control.service';
+import { SummarizeProjectChatUseCase } from './application/use-cases/summarize-project-chat.usecase';
+import { ChatController } from './infrastructure/controllers/chat.controller';
+import { OpenAIService } from 'src/shared/ai/openai.service';
+import { SummarizeAndSaveMessageUseCase } from './application/use-cases/summarize-and-save-message.usecase';
+import { PrismaChatRepository } from './infrastructure/repositories/prisma-chat.repository';
 
 @Module({
   imports: [
     ProjectManagementModule, 
   ],
-  controllers: [ProjectChatController, JitsiController],
+  controllers: [ProjectChatController, JitsiController, ChatController],
   providers: [
     PrismaProjectChatMessageRepository,
     PrismaJitsiSessionRepository,
     { provide: 'IProjectChatMessageRepository', useExisting: PrismaProjectChatMessageRepository },
     { provide: 'IJitsiSessionRepository', useExisting: PrismaJitsiSessionRepository },
+    {provide: 'ChatRepository', useExisting: PrismaProjectChatMessageRepository},
+    {
+      provide: 'ChatRepository',
+      useClass: PrismaChatRepository
+    },
+    
     CreateChatMessageUseCase,
     GetProjectMessagesUseCase,
     CreateJitsiSessionUseCase,
@@ -29,6 +40,9 @@ import { AccessControlService } from '@modules/collaboration/application/service
     ChatAiAnalysisService,
     OpenAiChatAnalysisService,
     AccessControlService,
+    SummarizeProjectChatUseCase,
+    OpenAIService,
+    SummarizeAndSaveMessageUseCase,
   ],
 })
 export class CollabChatModule {}
