@@ -308,6 +308,9 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
   async findByUser(userId: string): Promise<Task[]> {
     const rows = await this.prisma.task.findMany({
       where: { assignedUserId: userId },
+      include: {
+        assignee: true
+      },
       orderBy: { createdAt: 'desc' },
     });
   
@@ -324,7 +327,8 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
           t.updatedAt,
           t.startDate,
           t.endDate,
-          [t.assignedUserId],
+          t.dependencies ?? [],
+          t.assignedUserId ?? null,
           t.columnId
         ),
     );
