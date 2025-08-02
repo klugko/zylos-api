@@ -20,7 +20,7 @@ import {
 
   
   @ApiTags('Chat')
-  @Controller('chat')
+  @Controller('api/v1/chat')
   export class ChatController {
     constructor(
       private readonly summarizeUseCase: SummarizeAndSaveMessageUseCase,
