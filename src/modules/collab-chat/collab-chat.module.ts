@@ -16,6 +16,7 @@ import { ChatController } from './infrastructure/controllers/chat.controller';
 import { OpenAIService } from 'src/shared/ai/openai.service';
 import { SummarizeAndSaveMessageUseCase } from './application/use-cases/summarize-and-save-message.usecase';
 import { PrismaChatRepository } from './infrastructure/repositories/prisma-chat.repository';
+import { CreateChatMessageProjectUseCase } from './application/use-cases/create-chat-message.usecase';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { PrismaChatRepository } from './infrastructure/repositories/prisma-chat.
     SummarizeProjectChatUseCase,
     OpenAIService,
     SummarizeAndSaveMessageUseCase,
+    CreateChatMessageProjectUseCase,
   ],
 })
 export class CollabChatModule {}

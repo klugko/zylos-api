@@ -34,6 +34,8 @@ import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.g
 import { FindProjectsByUserDto } from '@modules/project-management/application/dto/find-projects-by-user.dto';
 import { FindProjectsByUserUseCase } from '@modules/project-management/application/use-cases/find-projects-by-user.use-case';
 import { GetProjectMembersUseCase } from '@modules/project-management/application/use-cases/get-project-member.usecase';
+import { AddProjectMembersUseCase } from '@modules/project-management/application/use-cases/add-project-members.use-case';
+import { AddProjectMembersDto } from '@modules/project-management/application/dto/add-project-members.dto';
 
 @ApiTags('Projects')
 @Controller('api/v1/projects')
@@ -46,6 +48,7 @@ export class ProjectController {
     private readonly getProjectProgressUseCase: GetProjectProgressUseCase,
     private readonly findProjectsByUserUseCase: FindProjectsByUserUseCase,
     private readonly getMembersUseCase: GetProjectMembersUseCase,
+    private readonly addMembersUseCase: AddProjectMembersUseCase,
     @Inject('ProjectRepository') 
     private readonly projectRepository: ProjectRepository,
   ) {}
@@ -89,6 +92,25 @@ export class ProjectController {
         error?.status || HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  @Post('members/add')
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({
+    summary: 'Ajouter des membres à un projet',
+    description: `Permet d'ajouter un ou plusieurs utilisateurs à un projet existant, avec leur rôle (MEMBER, OWNER, OBSERVER).`
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Membres ajoutés avec succès.'
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Projet non trouvé.'
+  })
+  async addMembers(@Body() dto: AddProjectMembersDto) {
+    await this.addMembersUseCase.execute(dto);
+    return { message: 'Membres ajoutés avec succès.' };
   }
 
   @Get(':projectId/members')

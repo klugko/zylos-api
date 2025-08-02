@@ -16,3 +16,12 @@ export enum ProjectPriority {
   MEDIUM = 'MEDIUM',
   HIGH = 'HIGH',
 }
+
+
+export enum ProjectRole {
+  OWNER = 'OWNER',
+  MEMBER = 'MEMBER',
+  ADMIN = 'ADMIN',
+  VIEWER = 'VIEWER',
+  GUEST = 'GUEST'
+}

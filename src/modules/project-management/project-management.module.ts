@@ -42,6 +42,7 @@ import { UpdateTaskStatusFromChecklistUseCase } from './application/use-cases/up
 import { FindProjectsByUserUseCase } from './application/use-cases/find-projects-by-user.use-case';
 import { GetProjectMembersUseCase } from './application/use-cases/get-project-member.usecase';
 import { PrismaProjectMemberRepository } from './infrastructure/repositories/prisma-project-member.repository';
+import { AddProjectMembersUseCase } from './application/use-cases/add-project-members.use-case';
 
 @Module({
   imports: [AuthModule],
@@ -85,6 +86,7 @@ import { PrismaProjectMemberRepository } from './infrastructure/repositories/pri
     UpdateTaskStatusFromChecklistUseCase,
     FindProjectsByUserUseCase,
     GetProjectMembersUseCase,
+    AddProjectMembersUseCase,
     {
       provide: 'ProjectRepository',
       useClass: PrismaProjectRepository,

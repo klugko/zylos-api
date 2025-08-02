@@ -47,7 +47,9 @@ enum ProjectPriority {
 enum ProjectRole {
   OWNER
   MEMBER
-  OBSERVER
+  ADMIN
+  VIEWER
+  GUEST
 }
 
 enum UserRole {
