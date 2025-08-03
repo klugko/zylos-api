@@ -1,3 +1,6 @@
+import { ChecklistPriority, ChecklistStatus } from '../enums/checklist.enums';
+import { UserRole } from '@modules/auth/domain/enums/user-role.enum';
+
 export class Project {
   constructor(
     public readonly id: string,
@@ -18,6 +21,19 @@ export class Project {
     public ownerId: string | null,
     public templateId: string | null,
   ) {}
+
+  public owner?: {
+    id: string;
+    fullname: string;
+    email: string;
+    role: UserRole;
+    isActive: boolean;
+    skills: string[];
+    availability: number;
+    performanceScore: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 
   archive(): void {
     if (this.isArchived) {
