@@ -8,13 +8,49 @@ export class PrismaChecklistRepository implements ChecklistRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findById(id: string): Promise<Checklist | null> {
-    const data = await this.prisma.checklist.findUnique({ where: { id } });
+    const data = await this.prisma.checklist.findUnique({
+      where: { id },
+      include: {
+        assignedTo: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+            role: true,
+            isActive: true,
+            skills: true,
+            availability: true,
+            performanceScore: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        }
+      }
+    });
     if (!data) return null;
     return this.toEntity(data);
   }
 
   async findByProject(projectId: string): Promise<Checklist[]> {
-    const data = await this.prisma.checklist.findMany({ where: { projectId } });
+    const data = await this.prisma.checklist.findMany({
+      where: { projectId },
+      include: {
+        assignedTo: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+            role: true,
+            isActive: true,
+            skills: true,
+            availability: true,
+            performanceScore: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        }
+      }
+    });
     return data.map(this.toEntity);
   }
 
@@ -31,6 +67,22 @@ export class PrismaChecklistRepository implements ChecklistRepository {
         createdAt: checklist.createdAt,
         updatedAt: checklist.updatedAt,
       },
+      include: {
+        assignedTo: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+            role: true,
+            isActive: true,
+            skills: true,
+            availability: true,
+            performanceScore: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        }
+      }
     });
     return this.toEntity(data);
   }
@@ -43,7 +95,24 @@ export class PrismaChecklistRepository implements ChecklistRepository {
         status: checklist.status,
         priority: checklist.priority,
         assignedUserId: checklist.assignedUserId,
+        updatedAt: new Date()
       },
+      include: {
+        assignedTo: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+            role: true,
+            isActive: true,
+            skills: true,
+            availability: true,
+            performanceScore: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        }
+      }
     });
     return this.toEntity(data);
   }
@@ -70,8 +139,31 @@ export class PrismaChecklistRepository implements ChecklistRepository {
     });
   }
 
+  async findByTask(taskId: string): Promise<Checklist[]> {
+    const data = await this.prisma.checklist.findMany({ 
+      where: { taskId },
+      include: {
+        assignedTo: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+            role: true,
+            isActive: true,
+            skills: true,
+            availability: true,
+            performanceScore: true,
+            createdAt: true,
+            updatedAt: true,
+          }
+        }
+      }
+    });
+    return data.map(this.toEntity);
+  }
+
   private toEntity(data: any): Checklist {
-    return new Checklist(
+    const checklist = new Checklist(
       data.id,
       data.title,
       data.projectId,
@@ -80,13 +172,13 @@ export class PrismaChecklistRepository implements ChecklistRepository {
       data.updatedAt,
       data.status,
       data.priority,
-      data.assignedUserId,
+      data.assignedUserId
     );
-  }
 
-  async findByTask(taskId: string): Promise<Checklist[]> {
-    const data = await this.prisma.checklist.findMany({ where: { taskId } });
-    return data.map(this.toEntity);
+    if (data.assignedTo) {
+      checklist.assignedUser = data.assignedTo;
+    }
+
+    return checklist;
   }
-  
 }

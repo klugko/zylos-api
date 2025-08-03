@@ -1,3 +1,4 @@
+import { UserRole } from '@modules/auth/domain/enums/user-role.enum';
 import { ChecklistPriority, ChecklistStatus } from '../enums/checklist.enums';
 
 export class Checklist {
@@ -12,6 +13,19 @@ export class Checklist {
     public priority: ChecklistPriority,
     public assignedUserId?: string
   ) {}
+
+  public assignedUser?: {
+    id: string;
+    fullname: string;
+    email: string;
+    role: UserRole;
+    isActive: boolean;
+    skills: string[];
+    availability: number;
+    performanceScore: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 
   updateStatus(status: ChecklistStatus) {
     this.status = status;
