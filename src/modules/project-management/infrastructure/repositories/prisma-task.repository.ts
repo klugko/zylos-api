@@ -3,16 +3,27 @@ import { TaskRepository } from '../../domain/interfaces/task-repository.interfac
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import { TaskStatus, TaskPriority } from '../../domain/enums/task.enums';
 import { Task } from '../../domain/entities/task.entity';
+import { UserRole } from '@modules/auth/domain/enums/user-role.enum';
 
 @Injectable()
 export class PrismaTaskRepository implements TaskRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findById(id: string): Promise<Task | null> {
-    const data = await this.prisma.task.findUnique({ where: { id } });
-    if (!data) return null;
+  private readonly assigneeSelect = {
+    id: true,
+    fullname: true,
+    email: true,
+    role: true,
+    isActive: true,
+    skills: true,
+    availability: true,
+    performanceScore: true,
+    createdAt: true,
+    updatedAt: true,
+  };
 
-    return new Task(
+  private toEntity(data: any): Task {
+    const task = new Task(
       data.id,
       data.title,
       data.description,
@@ -23,35 +34,49 @@ export class PrismaTaskRepository implements TaskRepository {
       data.updatedAt,
       data.startDate ?? null,
       data.endDate ?? null,
-      data.dependencies,
-      data.assignedUserId ?? '',
+      data.dependencies ?? [],
+      data.assignedUserId,
+      data.columnId
     );
+
+    if (data.assignee) {
+      task.assignee = {
+        ...data.assignee,
+        role: data.assignee.role as UserRole,
+      };
+    }
+
+    return task;
+  }
+
+  async findById(id: string): Promise<Task | null> {
+    const data = await this.prisma.task.findUnique({ 
+      where: { id },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
+    });
+    return data ? this.toEntity(data) : null;
   }
 
   async findByProject(projectId: string): Promise<Task[]> {
-    const results = await this.prisma.task.findMany({ where: { projectId } });
-
-    return results.map(task =>
-      new Task(
-        task.id,
-        task.title,
-        task.description,
-        task.status as TaskStatus,
-        task.priority as TaskPriority,
-        task.projectId,
-        task.createdAt,
-        task.updatedAt,
-        task.startDate ?? null,
-        task.endDate ?? null,
-        task.dependencies,
-        task.assignedUserId ?? '',
-      ),
-    );
+    const data = await this.prisma.task.findMany({ 
+      where: { projectId },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
+    });
+    return data.map(this.toEntity);
   }
 
   async create(task: Task): Promise<Task> {
     const created = await this.prisma.task.create({
       data: {
+        id: task.id,
         title: task.title,
         description: task.description,
         status: task.status,
@@ -61,103 +86,16 @@ export class PrismaTaskRepository implements TaskRepository {
         endDate: task.endDate ?? undefined,
         dependencies: task.dependencies ?? [],
         assignedUserId: task.assignedUserId || undefined,
+        columnId: task.columnId
       },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
     });
-  
-    return new Task(
-      created.id,
-      created.title,
-      created.description,
-      created.status as TaskStatus,
-      created.priority as TaskPriority,
-      created.projectId,
-      created.createdAt,
-      created.updatedAt,
-      created.startDate ?? null,
-      created.endDate ?? null,
-      created.dependencies,
-      created.assignedUserId ?? '',
-    );
+    return this.toEntity(created);
   }
-  
-  
-
-  async update(task: Task): Promise<Task> {
-    const updated = await this.prisma.task.update({
-      where: { id: task.id },
-      data: {
-        title: task.title,
-        description: task.description,
-        status: task.status, 
-        priority: task.priority ?? undefined,
-        startDate: task.startDate ?? undefined,
-        endDate: task.endDate ?? undefined,
-        dependencies: task.dependencies,
-        assignedUserId: task.assignedUserId || undefined,
-      },
-    });
-
-    return new Task(
-      updated.id,
-      updated.title,
-      updated.description,
-      updated.status as TaskStatus,
-      updated.priority as TaskPriority,
-      updated.projectId,
-      updated.createdAt,
-      updated.updatedAt,
-      updated.startDate ?? null,
-      updated.endDate ?? null,
-      updated.dependencies,
-      updated.assignedUserId ?? '',
-    );
-  }
-
-
-async updateFull(id: string, data: Partial<Task>): Promise<Task> {
-  const updated = await this.prisma.task.update({
-    where: { id },
-    data: {
-      title:           data.title,
-      description:     data.description,
-      status:          data.status,
-      priority:        data.priority,
-      startDate:       data.startDate,
-      endDate:         data.endDate,
-      assignedUserId:  data.assignedUserId,
-      columnId:        data.columnId,
-      updatedAt:       new Date(),
-    },
-  });
-
-  return new Task(
-    updated.id,
-    updated.title,
-    updated.description,
-    updated.status   as TaskStatus,
-    updated.priority as TaskPriority,
-    updated.projectId,          
-    updated.createdAt,
-    updated.updatedAt,
-    updated.startDate,
-    updated.endDate,
-    updated.dependencies,       
-    updated.assignedUserId,
-    updated.columnId,
-  );
-}
-
-
-
-  async delete(id: string): Promise<void> {
-    await this.prisma.task.delete({ where: { id } });
-  }
-  
-  async exists(taskId: string): Promise<boolean> {
-    const count = await this.prisma.task.count({ where: { id: taskId } });
-    return count > 0;
-  }
-
 
   async bulkCreate(tasks: Task[]): Promise<void> {
     if (!tasks.length) return;
@@ -180,10 +118,64 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
       skipDuplicates: true,
     });
   }
-  
-  async assignMany(
-    pairs: { taskId: string; userId: string }[],
-  ): Promise<Task[]> {
+
+  async update(task: Task): Promise<Task> {
+    const updated = await this.prisma.task.update({
+      where: { id: task.id },
+      data: {
+        title: task.title,
+        description: task.description,
+        status: task.status,
+        priority: task.priority ?? undefined,
+        startDate: task.startDate ?? undefined,
+        endDate: task.endDate ?? undefined,
+        dependencies: task.dependencies,
+        assignedUserId: task.assignedUserId || undefined,
+        columnId: task.columnId,
+        updatedAt: new Date()
+      },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
+    });
+    return this.toEntity(updated);
+  }
+
+  async updateFull(id: string, data: Partial<Task>): Promise<Task> {
+    const updated = await this.prisma.task.update({
+      where: { id },
+      data: {
+        title: data.title,
+        description: data.description,
+        status: data.status,
+        priority: data.priority,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        assignedUserId: data.assignedUserId,
+        columnId: data.columnId,
+        updatedAt: new Date(),
+      },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
+    });
+    return this.toEntity(updated);
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.task.delete({ where: { id } });
+  }
+
+  async exists(taskId: string): Promise<boolean> {
+    const count = await this.prisma.task.count({ where: { id: taskId } });
+    return count > 0;
+  }
+
+  async assignMany(pairs: { taskId: string; userId: string }[]): Promise<Task[]> {
     if (!pairs.length) return [];
     const prismaOps = pairs.map(({ taskId, userId }) =>
       this.prisma.task.update({
@@ -192,16 +184,34 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
           assignedUserId: userId,
           updatedAt: new Date(),
         },
+        include: {
+          assignee: {
+            select: this.assigneeSelect
+          }
+        }
       }),
     );
     const updated = await this.prisma.$transaction(prismaOps);
-    return updated.map((t) => this.toEntity(t));
+    return updated.map(this.toEntity);
+  }
+
+  async findByUser(userId: string): Promise<Task[]> {
+    const data = await this.prisma.task.findMany({
+      where: { assignedUserId: userId },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+    return data.map(this.toEntity);
   }
 
   async countByProject(projectId: string): Promise<number> {
     return this.prisma.task.count({ where: { projectId } });
   }
-  
+
   async countByProjectAndStatus(projectId: string, status: string): Promise<number> {
     return this.prisma.task.count({
       where: {
@@ -217,6 +227,11 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
         status: { in: statuses },
         endDate: { lt: date },
       },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
     });
     return data.map(this.toEntity);
   }
@@ -227,6 +242,11 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
         status: { in: statuses },
         endDate: { gte: from, lte: to },
       },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
     });
     return data.map(this.toEntity);
   }
@@ -238,26 +258,33 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
         status: TaskStatus.TODO,
         createdAt: { lt: before },
       },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
     });
     return data.map(this.toEntity);
   }
-  
- // Tâches en retard
- async findByUserAndEndDateBefore(userId: string, before: Date): Promise<Task[]> {
-  const records = await this.prisma.task.findMany({
-    where: {
-      assignedUserId: userId,
-      endDate: { lt: before },
-      status: { not: 'DONE' },
-    },
-  });
 
-  return records.map(this.toEntity);
-}
+  async findByUserAndEndDateBefore(userId: string, before: Date): Promise<Task[]> {
+    const data = await this.prisma.task.findMany({
+      where: {
+        assignedUserId: userId,
+        endDate: { lt: before },
+        status: { not: 'DONE' },
+      },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
+    });
+    return data.map(this.toEntity);
+  }
 
-// Tâches à échéance proche
   async findByUserAndEndDateBetween(userId: string, start: Date, end: Date): Promise<Task[]> {
-    const records = await this.prisma.task.findMany({
+    const data = await this.prisma.task.findMany({
       where: {
         assignedUserId: userId,
         endDate: {
@@ -266,14 +293,17 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
         },
         status: { not: 'DONE' },
       },
+      include: {
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
     });
-
-    return records.map(this.toEntity);
+    return data.map(this.toEntity);
   }
 
-  // 💤 Tâches sans date de fin et toujours en attente
   async findUserIdleTasks(userId: string, referenceDate: Date): Promise<Task[]> {
-    const records = await this.prisma.task.findMany({
+    const data = await this.prisma.task.findMany({
       where: {
         assignedUserId: userId,
         endDate: null,
@@ -282,56 +312,12 @@ async updateFull(id: string, data: Partial<Task>): Promise<Task> {
           in: ['TODO', 'IN_PROGRESS'],
         },
       },
-    });
-
-    return records.map(this.toEntity);
-  }
-
-  private toEntity(record: any): Task {
-    return new Task(
-      record.id,
-      record.title,
-      record.description ?? null,
-      record.status as TaskStatus,
-      record.priority as TaskPriority,
-      record.projectId,
-      record.createdAt,
-      record.updatedAt,
-      record.startDate,
-      record.endDate,
-      record.dependencies ?? [],
-      record.assignedUserId,
-      record.columnId,
-    );
-  }
-
-  async findByUser(userId: string): Promise<Task[]> {
-    const rows = await this.prisma.task.findMany({
-      where: { assignedUserId: userId },
       include: {
-        assignee: true
-      },
-      orderBy: { createdAt: 'desc' },
+        assignee: {
+          select: this.assigneeSelect
+        }
+      }
     });
-  
-    return rows.map(
-      (t) =>
-        new Task(
-          t.id,
-          t.title,
-          t.description,
-          t.status as TaskStatus,
-          t.priority as TaskPriority,
-          t.projectId,
-          t.createdAt,
-          t.updatedAt,
-          t.startDate,
-          t.endDate,
-          t.dependencies ?? [],
-          t.assignedUserId ?? null,
-          t.columnId
-        ),
-    );
+    return data.map(this.toEntity);
   }
-
 }

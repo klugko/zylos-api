@@ -1,4 +1,5 @@
 import { TaskStatus, TaskPriority } from "../enums/task.enums";
+import { UserRole } from '@modules/auth/domain/enums/user-role.enum';
 
 export class Task {
   progress: number;
@@ -18,6 +19,19 @@ export class Task {
     public assignedUserId?: string, 
     public columnId?: string
   ) {}
+
+  public assignee?: {
+    id: string;
+    fullname: string;
+    email: string;
+    role: UserRole;
+    isActive: boolean;
+    skills: string[];
+    availability: number;
+    performanceScore: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 
   updateStatus(status: TaskStatus) {
     if (!Object.values(TaskStatus).includes(status)) {
