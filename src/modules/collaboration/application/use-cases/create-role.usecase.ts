@@ -3,6 +3,7 @@ import { ROLE_REPOSITORY } from '../../domain/tokens';
 import { RoleRepository } from '../../domain/interfaces/role-repository.interface';
 import { CreateRoleDto } from '../dto/create-role.dto';
 import { RoleEntity } from '../../domain/entities/role.entity';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class CreateRoleUseCase {
@@ -13,7 +14,7 @@ export class CreateRoleUseCase {
 
   async execute(dto: CreateRoleDto): Promise<RoleEntity> {
     const role = new RoleEntity(
-      '',
+      uuidv4(),
       dto.name,
       dto.description,
       dto.canRead,
