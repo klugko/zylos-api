@@ -10,4 +10,8 @@ export interface ProjectRepository {
   findAllByOwner(ownerId: string): Promise<Project[]>;
   findAllWithDetails(): Promise<ProjectWithDetails[]>;
   findFullDataByUserId(userId: string): Promise<any>; 
+  updateEstimation(projectId: string, estimation: {
+    endDate: Date;
+    budget: number;
+  }): Promise<void>;
 }

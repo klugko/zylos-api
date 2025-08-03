@@ -243,4 +243,15 @@ export class PrismaProjectRepository implements ProjectRepository {
       },
     });
   }
+
+  async updateEstimation(projectId: string, data: { endDate: Date; budget: number }) {
+    await this.prisma.project.update({
+      where: { id: projectId },
+      data: {
+        endDate: data.endDate,
+        budget: data.budget,
+      },
+    });
+  }
+  
 }

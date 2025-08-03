@@ -43,6 +43,7 @@ import { FindProjectsByUserUseCase } from './application/use-cases/find-projects
 import { GetProjectMembersUseCase } from './application/use-cases/get-project-member.usecase';
 import { PrismaProjectMemberRepository } from './infrastructure/repositories/prisma-project-member.repository';
 import { AddProjectMembersUseCase } from './application/use-cases/add-project-members.use-case';
+import { AIEstimationService } from './infrastructure/adapters/openai-estimation.service';
 
 @Module({
   imports: [AuthModule],
@@ -122,7 +123,12 @@ import { AddProjectMembersUseCase } from './application/use-cases/add-project-me
     {
       provide: 'IProjectMemberRepository',
       useClass: PrismaProjectMemberRepository,
-    }
+    },
+    {
+      provide: 'IAIEstimationService',
+      useClass: AIEstimationService
+    },
+    
   ],
   
   exports: [

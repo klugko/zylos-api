@@ -94,7 +94,7 @@ export class ProjectStructureGenerator {
     try {
       jsonObj = JSON.parse(jsonStr);
     } catch {
-      this.logger.error('❌ JSON.parse failed');
+      this.logger.error('JSON.parse failed');
       throw new Error('GPT output is not valid JSON');
     }
     return responseSchema.parse(jsonObj);

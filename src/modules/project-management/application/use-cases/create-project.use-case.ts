@@ -10,6 +10,7 @@ import { TaskRepository } from '../../domain/interfaces/task-repository.interfac
 import { ChecklistRepository } from '../../domain/interfaces/checklist-repository.interface';
 import { ProjectStructureGenerator } from '../../infrastructure/adapters/project-generator';
 import { ProjectClientType, ProjectPriority, ProjectStatus } from '@modules/project-management/domain/enums/project.enums';
+import { IAIEstimationService } from '@modules/project-management/domain/interfaces/ai-estimation.service.interface';
 
 @Injectable()
 export class CreateProjectUseCase {
@@ -19,6 +20,7 @@ export class CreateProjectUseCase {
     @Inject('ProjectRepository') private readonly projectRepository: ProjectRepository,
     @Inject('TaskRepository') private readonly taskRepository: TaskRepository,
     @Inject('ChecklistRepository') private readonly checklistRepository: ChecklistRepository,
+    @Inject('IAIEstimationService') private readonly aiEstimationService: IAIEstimationService,
     private readonly generator: ProjectStructureGenerator,
     private readonly prisma: PrismaService,
   ) {}
@@ -26,6 +28,7 @@ export class CreateProjectUseCase {
   async execute(dto: CreateProjectDto, ownerId: string): Promise<any> {
     const now = new Date();
     const projectId = dto.id ?? uuid();
+
     const project = new Project(
       projectId,
       dto.name,
@@ -45,10 +48,11 @@ export class CreateProjectUseCase {
       ownerId ?? null,
       dto.templateId ?? null,
     );
-  
+
     try {
       let tasks: any[] = [];
       let checklists: any[] = [];
+
       if (dto.aiGenerateStructure !== false) {
         const result = await this.generator.generate({
           id: projectId,
@@ -58,7 +62,7 @@ export class CreateProjectUseCase {
         tasks = result.tasks;
         checklists = result.checklists;
       }
-  
+
       await this.prisma.$transaction([
         this.prisma.project.create({
           data: {
@@ -88,25 +92,57 @@ export class CreateProjectUseCase {
           ? [this.prisma.checklist.createMany({ data: checklists, skipDuplicates: true })]
           : []),
       ]);
-  
+
       const fullProject = await this.prisma.project.findUnique({
         where: { id: projectId },
         include: {
           tasks: {
-            include: {
-              checklists: true,
-            },
+            include: { checklists: true },
           },
         },
       });
-  
-      return fullProject; 
+
+      try {
+        const aiPayload = {
+          project: {
+            id: fullProject.id,
+            name: fullProject.name,
+            description: fullProject.description,
+            status: fullProject.status,
+            priority: fullProject.priority,
+          },
+          tasks: fullProject.tasks.map((t) => ({
+            id: t.id,
+            title: t.title,
+            status: t.status,
+            checklists: t.checklists.map((c) => ({
+              id: c.id,
+              title: c.title,
+              status: c.status ?? 'TODO',
+            })),
+          })),
+        };
+
+        const { estimatedBudget, estimatedEndDate } =
+          await this.aiEstimationService.estimateFromData(aiPayload);
+
+        await this.projectRepository.updateEstimation(projectId, {
+          endDate: estimatedEndDate,
+          budget: estimatedBudget,
+        });
+
+        this.logger.log(`Estimation IA ajoutée au projet ${projectId}`);
+      } catch (error) {
+        this.logger.warn(`Estimation IA échouée pour projet ${projectId} : ${error.message}`);
+      }
+
+      return fullProject;
     } catch (err) {
       if (err instanceof PrismaClientKnownRequestError && err.code === 'P2002') {
-        this.logger.warn(`❗ Conflit UUID – retry avec nouveau ID`);
+        this.logger.warn(`Conflit UUID – retry avec nouveau ID`);
         return this.execute({ ...dto, id: uuid() }, ownerId);
       }
-      this.logger.error('❌ Erreur lors de la création du projet', err);
+      this.logger.error('Erreur lors de la création du projet', err);
       throw err;
     }
   }
