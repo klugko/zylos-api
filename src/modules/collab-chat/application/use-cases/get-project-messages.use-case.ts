@@ -12,8 +12,18 @@ export class GetProjectMessagesUseCase {
     private readonly accessControl: AccessControlService,
   ) {}
 
-  async execute(projectId: string, userId: string, limit = 20, cursor?: string): Promise<ProjectChatMessage[]> {
+  async execute(
+    projectId: string, 
+    userId: string, 
+    limit = 20, 
+    page = 1
+  ): Promise<{
+    messages: ProjectChatMessage[];
+    total: number;
+    page: number;
+    totalPages: number;
+  }> {
     await this.accessControl.ensureProjectAccess(userId, projectId, 'read');
-    return this.repository.findByProject(projectId, limit, cursor);
+    return this.repository.findByProject(projectId, limit, page);
   }
 }

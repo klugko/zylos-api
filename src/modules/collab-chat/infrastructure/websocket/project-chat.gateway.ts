@@ -80,14 +80,14 @@ import {
   
     @SubscribeMessage('get_messages')
     async handleGetMessages(
-      @MessageBody() data: { projectId: string; limit?: number; cursor?: string },
+      @MessageBody() data: { projectId: string; limit?: number; page?: number },
       @CurrentUser() user: User,
     ) {
       const messages = await this.getProjectMessages.execute(
         data.projectId,
         user.id,
         data.limit ?? 20,
-        data.cursor,
+        data.page ?? 1,
       );
       return { event: 'messages', data: messages };
     }

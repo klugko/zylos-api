@@ -26,17 +26,34 @@ export class PrismaProjectChatMessageRepository implements IProjectChatMessageRe
     );
   }
 
-  async findByProject(projectId: string, limit: number, cursor?: string): Promise<ProjectChatMessage[]> {
-    const results = await this.prisma.projectChatMessage.findMany({
-      where: { projectId },
-      orderBy: { createdAt: 'desc' },
-      take: limit,
-      skip: cursor ? 1 : 0,
-      ...(cursor && { cursor: { id: cursor } }),
-    });
-
-    return results.map(
-      (r) => new ProjectChatMessage(r.id, r.projectId, r.senderId, r.content, r.createdAt),
-    );
+  async findByProject(
+    projectId: string, 
+    limit: number, 
+    page: number = 1
+  ): Promise<{
+    messages: ProjectChatMessage[];
+    total: number;
+    page: number;
+    totalPages: number;
+  }> {
+    const skip = (page - 1) * limit;
+    
+    const [total, results] = await Promise.all([
+      this.prisma.projectChatMessage.count({ where: { projectId } }),
+      this.prisma.projectChatMessage.findMany({
+        where: { projectId },
+        orderBy: { createdAt: 'desc' },
+        take: limit,
+        skip,
+      })
+    ]);
+  
+    return {
+      messages: results.map(r => new ProjectChatMessage(r.id, r.projectId, r.senderId, r.content, r.createdAt)),
+      total,
+      page,
+      totalPages: Math.ceil(total / limit)
+    };
   }
+
 }

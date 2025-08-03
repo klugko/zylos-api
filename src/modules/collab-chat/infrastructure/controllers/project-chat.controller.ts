@@ -18,16 +18,18 @@ export class ProjectChatController {
     
   ) {}
 
-  @ApiOperation({ summary: 'Récupérer les messages de chat d’un projet' })
+ 
   @Get()
+  @ApiOperation({ summary: 'Récupérer les messages d’un projet' })
   async getMessages(
     @Param('projectId') projectId: string,
     @CurrentUser() user: User,
     @Query('limit') limit?: string,
-    @Query('cursor') cursor?: string,
+    @Query('page') page?: string,
   ) {
     const parsedLimit = limit ? parseInt(limit, 10) : 20;
-    return this.getMessagesUseCase.execute(projectId, user.id, parsedLimit, cursor);
+    const parsedPage = page ? parseInt(page, 10) : 1;
+    return this.getMessagesUseCase.execute(projectId, user.id, parsedLimit, parsedPage);
   }
 
   @Post('')

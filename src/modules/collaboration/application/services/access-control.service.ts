@@ -17,7 +17,7 @@ export class AccessControlService {
 
     // Sinon, regarde ProjectAccess
     const access = await this.prisma.projectAccess.findFirst({ where: { projectId, userId } });
-    if (!access) throw new ForbiddenException('Access denied to this project');
+    if (!access) throw new ForbiddenException('Vous n’avez pas encore accès à ce projet.');
 
     const allowed =
       (permission === 'read' && access.canRead) ||
@@ -31,6 +31,7 @@ export class AccessControlService {
 
   async ensureDocumentAccess(userId: string, documentId: string, permission: 'read' | 'write' | 'comment' = 'read') {
     const document = await this.prisma.document.findUnique({ where: { id: documentId } });
+    console.log('Document:', document);
     if (!document) throw new ForbiddenException('Document not found');
 
     // Owner du projet = accès total
