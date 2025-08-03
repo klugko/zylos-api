@@ -12,6 +12,8 @@ import { PrismaAuthRepository } from './infrastructure/repositories/prisma-auth.
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { GoogleStrategy } from './infrastructure/strategies/google.stategy';
 import { JwtAuthGuard } from './infrastructure/strategies/jwt-auth.guard';
+import { UserController } from './infrastructure/controllers/user.controller';
+import { GetPaginatedUsersUseCase } from './application/use-cases/get-users.usecase';
 
 /**
  * @module AuthModule
@@ -27,7 +29,7 @@ import { JwtAuthGuard } from './infrastructure/strategies/jwt-auth.guard';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, UserController],
   providers: [
     JwtAuthGuard,
     JwtStrategy,
@@ -37,6 +39,7 @@ import { JwtAuthGuard } from './infrastructure/strategies/jwt-auth.guard';
     RegisterUseCase,
     ActivateUserUseCase,
     DeactivateUserUseCase,
+    GetPaginatedUsersUseCase,
     {
       provide: 'AuthRepository',
       useClass: PrismaAuthRepository,

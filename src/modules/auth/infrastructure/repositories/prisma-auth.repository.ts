@@ -102,5 +102,38 @@ export class PrismaAuthRepository implements AuthRepository {
   
     return this.toDomain(row);
   }
+
+  async findPaginated(limit: number, page: number): Promise<{ items: User[]; total: number }> {
+    const [users, total] = await this.prisma.$transaction([
+      this.prisma.user.findMany({
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.user.count(),
+    ]);
+  
+    return {
+      items: users.map(
+        (u) =>
+          new User(
+            u.id,
+            u.fullname,
+            u.email,
+            undefined,
+            u.role as UserRole,
+            u.isActive,
+            u.createdAt,
+            u.updatedAt,
+            u.skills,
+            u.availability,
+            u.performanceScore,
+            u.googleId,
+          ),
+      ),
+      total,
+    };
+  }
+  
   
 }

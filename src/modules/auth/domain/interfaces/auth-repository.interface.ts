@@ -7,4 +7,5 @@ export interface AuthRepository {
   update(user: User): Promise<User>;
   findAllActive(): Promise<User[]>;
   validateUser(email: string, password: string): Promise<User | null>;
+  findPaginated(limit: number, page: number): Promise<{ items: User[]; total: number }>;
 }
