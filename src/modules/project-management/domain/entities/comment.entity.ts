@@ -1,4 +1,5 @@
 import { CommentTargetType } from "../enums/comment.enums";
+import { UserRole } from '@modules/auth/domain/enums/user-role.enum';
 
 export class Comment {
   constructor(
@@ -9,4 +10,17 @@ export class Comment {
     public readonly targetType: CommentTargetType,
     public readonly targetId: string,
   ) {}
+
+  public author?: {
+    id: string;
+    fullname: string;
+    email: string;
+    role: UserRole;
+    isActive: boolean;
+    skills: string[];
+    availability: number;
+    performanceScore: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 }
