@@ -1,4 +1,5 @@
 import {
+  Inject,
   Injectable,
   InternalServerErrorException,
   Logger,
@@ -10,19 +11,15 @@ import { z } from 'zod';
 
 import { PrismaService } from '@core/prisma/prisma.service';
 import { OpenAIService } from '../../infrastructure/adapters/openapi.service';
-import { Task } from '../../domain/entities/task.entity';
-import { Checklist } from '../../domain/entities/checklist.entity';
 import { Project } from '../../domain/entities/project.entity';
 import {
   ProjectClientType,
   ProjectPriority,
   ProjectStatus,
 } from '../../domain/enums/project.enums';
-import {
-  TaskPriority,
-  TaskStatus,
-} from '../../domain/enums/task.enums';
+import { TaskPriority, TaskStatus } from '../../domain/enums/task.enums';
 import { ChecklistPriority, ChecklistStatus } from '@modules/project-management/domain/enums/checklist.enums';
+import { IAIEstimationService } from '@modules/project-management/domain/interfaces/ai-estimation.service.interface';
 
 /*────────── ZOD – Format IA strict ──────────*/
 const checklistSchema = z.string().min(1);
@@ -49,15 +46,39 @@ export class CreateProjectFromPdfUseCase {
   private readonly logger = new Logger(CreateProjectFromPdfUseCase.name);
   private static readonly MAX_RETRIES = 3;
 
+  private readonly ownerSelect = {
+    id: true,
+    fullname: true,
+    email: true,
+    role: true,
+    isActive: true,
+    skills: true,
+    availability: true,
+    performanceScore: true,
+    createdAt: true,
+    updatedAt: true,
+  };
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly openai: OpenAIService,
+    @Inject('IAIEstimationService') private readonly aiEstimationService: IAIEstimationService,
   ) {}
 
-  async execute(filePath: string, ownerId: string): Promise<{ project: Project; taskCount: number }> {
+  async execute(filePath: string, ownerId: string): Promise<any> {
     const now = new Date();
 
     try {
+      // Vérifier que l'owner existe et récupérer ses infos
+      const owner = await this.prisma.user.findUnique({
+        where: { id: ownerId },
+        select: this.ownerSelect,
+      });
+
+      if (!owner) {
+        throw new Error(`Owner with ID ${ownerId} not found`);
+      }
+
       const buffer = await fs.readFile(filePath);
       const parsed = await pdfParse(buffer);
       const content = parsed.text.trim().replace(/\s{2,}/g, ' ');
@@ -86,57 +107,42 @@ export class CreateProjectFromPdfUseCase {
         false,
         now,
         now,
-        ownerId ?? null,
+        ownerId,
         null
       );
 
-      const tasks: Task[] = [];
-      const checklists: Checklist[] = [];
+      const tasks: any[] = [];
+      const checklists: any[] = [];
+      
       ai.tasks.forEach((t) => {
         const taskId = uuid();
-        tasks.push(
-          new Task(
-            taskId,
-            t.title,
-            t.description,
-            t.status as TaskStatus,
-            t.priority as TaskPriority,
-            projectId,
-            now,
-            now,
-            null,
-            null
-          )
-        );
+        tasks.push({
+          id: taskId,
+          title: t.title,
+          description: t.description,
+          status: t.status as TaskStatus,
+          priority: t.priority as TaskPriority,
+          projectId,
+          createdAt: now,
+          updatedAt: now,
+          startDate: null,
+          endDate: null,
+          estimatedTime: t.estimatedTime,
+        });
       
         t.checklist.forEach((item) => {
-          checklists.push(
-            new Checklist(
-              uuid(),
-              item,
-              projectId,
-              taskId,
-              now,
-              now,
-              ChecklistStatus.TODO,
-              ChecklistPriority.MEDIUM
-            )
-          );
+          checklists.push({
+            id: uuid(),
+            title: item,
+            projectId,
+            taskId,
+            createdAt: now,
+            updatedAt: now,
+            status: ChecklistStatus.TODO,
+            priority: ChecklistPriority.MEDIUM,
+          });
         });
       });
-      
-      const checklistData = checklists.map((c) => ({
-        id: c.id,
-        title: c.title,
-        status: c.status,
-        priority: c.priority,
-        projectId: c.projectId,
-        taskId: c.taskId,
-        assignedUserId: c.assignedUserId,
-        createdAt: c.createdAt,
-        updatedAt: c.updatedAt,
-      }));
-      
 
       await this.prisma.$transaction([
         this.prisma.project.create({
@@ -151,15 +157,70 @@ export class CreateProjectFromPdfUseCase {
             isArchived: project.isArchived,
             createdAt: project.createdAt,
             updatedAt: project.updatedAt,
+            ownerId: project.ownerId,
           },
         }),
-        this.prisma.task.createMany({ data: tasks, skipDuplicates: true }),
-        this.prisma.checklist.createMany({ data: checklistData, skipDuplicates: true })
+        this.prisma.task.createMany({ data: tasks }),
+        this.prisma.checklist.createMany({ data: checklists }),
       ]);
 
-      return { project, taskCount: tasks.length };
+      const fullProject = await this.prisma.project.findUnique({
+        where: { id: projectId },
+        include: {
+          owner: {
+            select: this.ownerSelect,
+          },
+          tasks: {
+            include: { 
+              checklists: true,
+              assignee: {
+                select: this.ownerSelect,
+              },
+            },
+          },
+        },
+      });
+
+      try {
+        const aiPayload = {
+          project: {
+            id: fullProject.id,
+            name: fullProject.name,
+            description: fullProject.description,
+            status: fullProject.status,
+            priority: fullProject.priority,
+          },
+          tasks: fullProject.tasks.map((t) => ({
+            id: t.id,
+            title: t.title,
+            status: t.status,
+            checklists: t.checklists.map((c) => ({
+              id: c.id,
+              title: c.title,
+              status: c.status ?? 'TODO',
+            })),
+          })),
+        };
+
+        const { estimatedBudget, estimatedEndDate } =
+          await this.aiEstimationService.estimateFromData(aiPayload);
+
+        await this.prisma.project.update({
+          where: { id: projectId },
+          data: {
+            endDate: estimatedEndDate,
+            budget: estimatedBudget,
+          },
+        });
+
+        this.logger.log(`Estimation IA ajoutée au projet ${projectId}`);
+      } catch (error) {
+        this.logger.warn(`Estimation IA échouée pour projet ${projectId}: ${error.message}`);
+      }
+
+      return fullProject;
     } catch (err) {
-      this.logger.error(`Erreur analyse PDF : ${err.message}`, err.stack);
+      this.logger.error(`Erreur analyse PDF: ${err.message}`, err.stack);
       throw new InternalServerErrorException('Erreur lors du traitement du fichier PDF.');
     }
   }
@@ -168,9 +229,9 @@ export class CreateProjectFromPdfUseCase {
     return [
       'Tu es un assistant en gestion de projet.',
       '',
-      'Objectif : générer une structure de projet à partir du cahier des charges ci-dessous.',
+      'Objectif: générer une structure de projet à partir du cahier des charges ci-dessous.',
       '',
-      'Retourne UNIQUEMENT ce JSON strict, sans commentaire :',
+      'Retourne UNIQUEMENT ce JSON strict, sans commentaire:',
       '{',
       '  "title": "Titre du projet",',
       '  "description": "Description globale",',
@@ -186,12 +247,12 @@ export class CreateProjectFromPdfUseCase {
       '  ]',
       '}',
       '',
-      'Règles :',
+      'Règles:',
       '1. Au moins 3 tâches.',
       '2. Chaque tâche contient entre 4 et 8 éléments dans "checklist".',
       '3. Pas de texte en dehors du JSON.',
       '',
-      '### Cahier des charges :',
+      '### Cahier des charges:',
       '"""',
       text.slice(0, 3500),
       '"""',
@@ -205,7 +266,7 @@ export class CreateProjectFromPdfUseCase {
         const parsed = this.safeParse(raw);
         return parsed;
       } catch (err) {
-        this.logger.warn(`❌ Validation GPT échouée (tentative ${attempt}): ${err.message}`);
+        this.logger.warn(`Validation GPT échouée (tentative ${attempt}): ${err.message}`);
         if (attempt === CreateProjectFromPdfUseCase.MAX_RETRIES) throw err;
       }
     }
@@ -218,7 +279,7 @@ export class CreateProjectFromPdfUseCase {
     try {
       parsed = JSON.parse(text);
     } catch (e) {
-      this.logger.error('❌ JSON.parse failed');
+      this.logger.error('JSON.parse failed');
       throw new Error('Réponse IA invalide (non JSON)');
     }
     return responseSchema.parse(parsed);
