@@ -9,7 +9,7 @@ import { UpdateTaskColumnDto } from '../../application/dto/update-task-column.dt
 import { JwtAuthGuard } from '@modules/auth/infrastructure/strategies/jwt-auth.guard';
 
 @ApiTags('TaskColumns')
-@Controller('columns')
+@Controller('api/v1/columns')
 export class TaskColumnController {
   constructor(
     private readonly getColumns: GetTaskColumnsUseCase,

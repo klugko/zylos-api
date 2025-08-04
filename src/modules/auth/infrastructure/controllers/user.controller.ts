@@ -14,7 +14,7 @@ import { JwtAuthGuard } from '../strategies/jwt-auth.guard';
 import { PaginationDto } from '@modules/auth/application/dto/pagination.dto';
   
   @ApiTags('Users')
-  @Controller('users')
+  @Controller('api/v1/users')
   export class UserController {
     constructor(private readonly getUsers: GetPaginatedUsersUseCase) {}
   
