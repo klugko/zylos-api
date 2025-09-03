@@ -8,6 +8,8 @@
 /.yarn/build-state.yml
 /.yarn/install-state.gz
 .pnpm-debug.log
+package-lock.json
+
 
 ### Environnement ###
 .env
