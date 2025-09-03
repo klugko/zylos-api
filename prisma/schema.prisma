@@ -319,6 +319,7 @@ model Comment {
   taskId    String?
 }
 
+
 model User {
   id               String   @id @default(uuid())
   fullname         String   @db.VarChar(255)
@@ -333,9 +334,16 @@ model User {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @default(now())
 
+  resetToken        String?   @unique
+  resetTokenExpiry  DateTime?
+  twoFASecret      String?
+  passwordChangedAt DateTime?
+
   external        Boolean @default(false)
   partnerType     String?
   activationToken String?
+
+  refreshTokens   RefreshToken[]
 
   projectsOwned   Project[]               @relation("ProjectOwner")
   documents       Document[]
@@ -353,7 +361,18 @@ model User {
   checkelists     Checklist[] 
 }
 
-// Templates
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
 model ProjectTemplate {
   id          String         @id @default(uuid())
   name        String

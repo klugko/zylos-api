@@ -47,14 +47,16 @@ import { AIEstimationService } from './infrastructure/adapters/openai-estimation
 
 @Module({
   imports: [AuthModule],
-  controllers: [ProjectController, 
-                                  TaskController, 
-                                  ChecklistController, 
-                                  ProjectTemplateController,
-                                  CreateProjectFromPdfController,
-                                  CommentController,
-                                ReminderController],
-  
+  controllers: [
+    ProjectController,
+    TaskController,
+    ChecklistController,
+    ProjectTemplateController,
+    CreateProjectFromPdfController,
+    CommentController,
+    ReminderController,
+  ],
+
   providers: [
     PrismaService,
     CreateProjectUseCase,
@@ -89,35 +91,35 @@ import { AIEstimationService } from './infrastructure/adapters/openai-estimation
     GetProjectMembersUseCase,
     AddProjectMembersUseCase,
     {
-      provide: 'ProjectRepository',
+      provide: "ProjectRepository",
       useClass: PrismaProjectRepository,
     },
     {
-      provide: 'TaskRepository',
+      provide: "TaskRepository",
       useClass: PrismaTaskRepository,
     },
     {
-      provide: 'ChecklistRepository',
+      provide: "ChecklistRepository",
       useClass: PrismaChecklistRepository,
     },
     {
-      provide: 'TaskColumnRepository',
+      provide: "TaskColumnRepository",
       useClass: PrismaTaskColumnRepository,
     },
     {
-      provide: 'ProjectTemplateRepository',
-      useClass: PrismaProjectTemplateRepository
+      provide: "ProjectTemplateRepository",
+      useClass: PrismaProjectTemplateRepository,
     },
     {
-      provide: 'ChecklistItemRepository',
+      provide: "ChecklistItemRepository",
       useClass: PrismaChecklistItemRepository,
     },
     {
-      provide: 'CommentRepository',
+      provide: "CommentRepository",
       useClass: PrismaCommentRepository,
     },
     {
-      provide: 'ReminderNotificationRepository',
+      provide: "ReminderNotificationRepository",
       useClass: PrismaReminderNotificationRepository,
     },
     {
@@ -130,11 +132,12 @@ import { AIEstimationService } from './infrastructure/adapters/openai-estimation
     },
     
   ],
-  
+
   exports: [
-    'ProjectRepository', 
-    'TaskRepository', 
-    'ChecklistRepository', 
-    CreateTaskUseCase],
+    "ProjectRepository",
+    "TaskRepository",
+    "ChecklistRepository",
+    CreateTaskUseCase,
+  ],
 })
 export class ProjectManagementModule {}

@@ -7,6 +7,11 @@ import {
   Get,
   UseGuards,
   Req,
+  HttpCode,
+  HttpStatus,
+  Query,
+  Patch,
+  BadRequestException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -15,17 +20,26 @@ import {
   ApiParam,
   ApiBody,
   ApiBearerAuth,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { RegisterUseCase } from '../../application/use-cases/register.use-case';
 import { LoginUseCase } from '../../application/use-cases/login.use-case';
 import { ActivateUserUseCase } from '../../application/use-cases/activate-user.use-case';
 import { DeactivateUserUseCase } from '../../application/use-cases/deactivate-user.use-case';
+import { PasswordResetUseCase } from '../../application/use-cases/password-reset.use-case';
+import { TwoFAService } from '../../application/services/twofa.service';
 import { RegisterDto } from '../../application/dto/register.dto';
 import { LoginDto } from '../../application/dto/login.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from '../strategies/jwt-auth.guard';
 import { CurrentUser } from '@core/common/current-user.decorator';
 import { User } from '@modules/auth/domain/entities/user.entity';
+import { UserRole } from '../../domain/enums/user-role.enum';
+import { PasswordResetConfirmDto, PasswordResetRequestDto } from '@modules/auth/application/dto/password-reset.dto';
+import { TwoFAVerifyDto } from '@modules/auth/application/dto/twofa.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUsersUseCase } from '@modules/auth/application/use-cases/get-users.use-case';
+import { GetUsersDto } from '@modules/auth/application/dto/get-users.dto';
+
 
 @ApiTags('Auth')
 @Controller('api/v1/auth')
@@ -35,41 +49,104 @@ export class AuthController {
     private readonly loginUC: LoginUseCase,
     private readonly activateUC: ActivateUserUseCase,
     private readonly deactivateUC: DeactivateUserUseCase,
+    private readonly passwordResetUC: PasswordResetUseCase,
+    private readonly twoFAService: TwoFAService,
+    private readonly getUsersUC: GetUsersUseCase,
   ) {}
+
+
+  @Get('users')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Lister les utilisateurs avec pagination et recherche dynamique' })
+  @ApiResponse({ status: 200, description: 'Liste des utilisateurs paginée' })
+  async getUsers(@Query() dto: GetUsersDto) {
+    return this.getUsersUC.execute(dto);
+  }
 
   @Post('register')
   @ApiOperation({ summary: 'Créer un nouvel utilisateur' })
   @ApiBody({ type: RegisterDto })
   @ApiResponse({ status: 201, description: 'Utilisateur enregistré' })
-  register(@Body() dto: RegisterDto) {
+  @ApiResponse({ status: 409, description: 'Email déjà utilisé' })
+  async register(@Body() dto: RegisterDto) {
     return this.registerUC.execute(dto);
   }
 
   @Post('login')
+  @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Se connecter' })
   @ApiBody({ type: LoginDto })
   @ApiResponse({ status: 200, description: 'Authentification réussie' })
-  login(@Body() dto: LoginDto) {
+  @ApiResponse({ status: 401, description: 'Identifiants invalides' })
+  @ApiResponse({ status: 403, description: 'Compte désactivé' })
+  async login(@Body() dto: LoginDto) {
     return this.loginUC.execute(dto);
   }
 
+  @Post('password/reset/request')
+  @HttpCode(HttpStatus.ACCEPTED)
+  @ApiOperation({ summary: 'Demander une réinitialisation de mot de passe' })
+  @ApiBody({ type: PasswordResetRequestDto })
+  @ApiResponse({ status: 202, description: 'Email de réinitialisation envoyé' })
+  async requestPasswordReset(@Body() dto: PasswordResetRequestDto) {
+    return this.passwordResetUC.requestPasswordReset(dto.email);
+  }
 
-  @Get('me')
-  @ApiOperation({ summary: 'Profil utilisateur (mock)' })
-  @ApiResponse({ status: 200, description: 'Profil fictif retourné pour tests' })
+  @Post('password/reset/confirm')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Confirmer la réinitialisation du mot de passe' })
+  @ApiBody({ type: PasswordResetConfirmDto })
+  @ApiResponse({ status: 200, description: 'Mot de passe réinitialisé' })
+  @ApiResponse({ status: 400, description: 'Token invalide ou expiré' })
+  async confirmPasswordReset(@Body() dto: PasswordResetConfirmDto) {
+    return this.passwordResetUC.resetPassword(dto.token, dto.newPassword);
+  }
+
+  @Post('2fa/generate')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Générer le QR code pour la 2FA' })
+  @ApiResponse({ status: 201, description: 'QR code généré' })
+  async generateTwoFA(@CurrentUser() user: User) {
+    return this.twoFAService.generateTwoFASecret(user.id, user.email);
+  }
+
+  @Post('2fa/verify')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Vérifier le code 2FA' })
+  @ApiBody({ type: TwoFAVerifyDto })
+  @ApiResponse({ status: 200, description: '2FA activée' })
+  @ApiResponse({ status: 400, description: 'Code 2FA invalide' })
+  async verifyTwoFA(@CurrentUser() user: User, @Body() dto: TwoFAVerifyDto) {
+    const isValid = await this.twoFAService.verifyTwoFACode(user.id, dto.code);
+    if (!isValid) {
+      throw new BadRequestException('Code 2FA invalide');
+    }
+    return { message: '2FA activée avec succès' };
+  }
+
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Récupérer le profil utilisateur' })
+  @ApiResponse({ status: 200, description: 'Profil utilisateur' })
   getProfile(@CurrentUser() user: User) {
     return {
       id: user.id,
       email: user.email,
-      firstName: user.fullname,
+      fullname: user.fullname,
       isActive: user.isActive,
       role: user.role,
+      skills: user.skills,
+      availability: user.availability,
+      performanceScore: user.performanceScore,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };
   }
+
 
   @Post('logout')
   @UseGuards(JwtAuthGuard)

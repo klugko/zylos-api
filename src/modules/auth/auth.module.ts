@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PrismaModule } from '../../core/prisma/prisma.module';
 import { AuthController } from './infrastructure/controllers/auth.controller';
 import { GoogleAuthUseCase } from './application/use-cases/google-auth.use-case';
@@ -12,26 +13,37 @@ import { PrismaAuthRepository } from './infrastructure/repositories/prisma-auth.
 import { JwtStrategy } from './infrastructure/strategies/jwt.strategy';
 import { GoogleStrategy } from './infrastructure/strategies/google.stategy';
 import { JwtAuthGuard } from './infrastructure/strategies/jwt-auth.guard';
+import { RefreshTokenStrategy } from './infrastructure/strategies/refresh-token.strategy';
+import { RolesGuard } from './application/decorators/role.guard';
+import { PasswordResetUseCase } from './application/use-cases/password-reset.use-case';
+import { TwoFAService } from './application/services/twofa.service';
+import { CoreModule } from '@core/core.module';
+import { GetUsersUseCase } from './application/use-cases/get-users.use-case';
 import { UserController } from './infrastructure/controllers/user.controller';
-import { GetPaginatedUsersUseCase } from './application/use-cases/get-users.usecase';
 
-/**
- * @module AuthModule
- * @description Module dédié à la gestion de l'authentification et de l'autorisation.
- * Il centralise la configuration de Passport, JWT, et les logiques métiers d'authentification.
- */
+
 @Module({
   imports: [
+    CoreModule,
     PrismaModule,
+    ConfigModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { 
+          expiresIn: configService.get<string>('JWT_EXPIRES_IN', '1h'),
+          issuer: 'zylos.ai'
+        },
+      }),
+      inject: [ConfigService],
     }),
   ],
   controllers: [AuthController, UserController],
   providers: [
     JwtAuthGuard,
+    RolesGuard,
     JwtStrategy,
     GoogleStrategy,
     GoogleAuthUseCase,
@@ -39,7 +51,10 @@ import { GetPaginatedUsersUseCase } from './application/use-cases/get-users.usec
     RegisterUseCase,
     ActivateUserUseCase,
     DeactivateUserUseCase,
-    GetPaginatedUsersUseCase,
+    PasswordResetUseCase,
+    GetUsersUseCase,
+    TwoFAService,
+    RefreshTokenStrategy,
     {
       provide: 'AuthRepository',
       useClass: PrismaAuthRepository,
@@ -49,11 +64,15 @@ import { GetPaginatedUsersUseCase } from './application/use-cases/get-users.usec
     PassportModule,
     JwtModule,
     'AuthRepository',
+    JwtAuthGuard,
+    RolesGuard,
     GoogleAuthUseCase,
     LoginUseCase,
     RegisterUseCase,
     ActivateUserUseCase,
     DeactivateUserUseCase,
+    PasswordResetUseCase,
+    TwoFAService,
   ],
 })
 export class AuthModule {}

@@ -1,7 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 import { UserRole } from '../enums/user-role.enum';
 
-
 export class User {
   constructor(
     public readonly id: string,
@@ -16,6 +15,10 @@ export class User {
     public availability: number,
     public performanceScore: number,
     public googleId?: string,
+    public twoFASecret?: string,
+    public resetToken?: string,
+    public resetTokenExpiry?: Date,
+    public passwordChangedAt?: Date,
   ) {}
 
   activate(): void {
@@ -30,5 +33,28 @@ export class User {
       throw new BadRequestException('User is already inactive');
     }
     this.isActive = false;
+  }
+
+  updatePassword(newPassword: string): void {
+    this.password = newPassword;
+    this.passwordChangedAt = new Date();
+  }
+
+  setResetToken(token: string, expiry: Date): void {
+    this.resetToken = token;
+    this.resetTokenExpiry = expiry;
+  }
+
+  clearResetToken(): void {
+    this.resetToken = undefined;
+    this.resetTokenExpiry = undefined;
+  }
+
+  setTwoFASecret(secret: string): void {
+    this.twoFASecret = secret;
+  }
+
+  clearTwoFASecret(): void {
+    this.twoFASecret = undefined;
   }
 }

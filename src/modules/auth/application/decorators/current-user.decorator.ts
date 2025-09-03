@@ -1,5 +1,4 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-// Chemin d'importation vers l'entité User (relative au module auth)
 import { User } from '../../domain/entities/user.entity';
 
 /**

@@ -5,7 +5,6 @@ import { AuthRepository } from '../../domain/interfaces/auth-repository.interfac
 import { User } from '../../domain/entities/user.entity';
 import { UserRole } from '../../domain/enums/user-role.enum';
 
-
 @Injectable()
 export class PrismaAuthRepository implements AuthRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -24,16 +23,26 @@ export class PrismaAuthRepository implements AuthRepository {
       user.availability,
       user.performanceScore,
       user.googleId ?? undefined,
+      user.twoFASecret ?? undefined,
+      user.resetToken ?? undefined,
+      user.resetTokenExpiry ?? undefined,
+      user.passwordChangedAt ?? undefined,
     );
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const row = await this.prisma.user.findUnique({ where: { email } });
+    const row = await this.prisma.user.findUnique({ 
+      where: { email },
+      include: { refreshTokens: true }
+    });
     return row ? this.toDomain(row) : null;
   }
 
   async findById(id: string): Promise<User | null> {
-    const row = await this.prisma.user.findUnique({ where: { id } });
+    const row = await this.prisma.user.findUnique({ 
+      where: { id },
+      include: { refreshTokens: true }
+    });
     return row ? this.toDomain(row) : null;
   }
 
@@ -50,6 +59,10 @@ export class PrismaAuthRepository implements AuthRepository {
         availability: user.availability,
         performanceScore: user.performanceScore,
         googleId: user.googleId ?? null,
+        twoFASecret: user.twoFASecret ?? null,
+        resetToken: user.resetToken ?? null,
+        resetTokenExpiry: user.resetTokenExpiry ?? null,
+        passwordChangedAt: user.passwordChangedAt ?? null,
       },
     });
     return this.toDomain(row);
@@ -67,6 +80,10 @@ export class PrismaAuthRepository implements AuthRepository {
         availability: user.availability,
         performanceScore: user.performanceScore,
         googleId: user.googleId ?? null,
+        twoFASecret: user.twoFASecret ?? null,
+        resetToken: user.resetToken ?? null,
+        resetTokenExpiry: user.resetTokenExpiry ?? null,
+        passwordChangedAt: user.passwordChangedAt ?? null,
       },
     });
     return this.toDomain(row);
@@ -75,26 +92,17 @@ export class PrismaAuthRepository implements AuthRepository {
   async findAllActive(): Promise<User[]> {
     const result = await this.prisma.user.findMany({
       where: { isActive: true },
+      include: { refreshTokens: true }
     });
   
-    return result.map(user => new User(
-      user.id,
-      user.fullname,
-      user.email,
-      undefined,
-      user.role as UserRole,
-      user.isActive,
-      user.createdAt,
-      user.updatedAt,
-      user.skills ?? [],
-      user.availability ?? 0,
-      user.performanceScore ?? 0,
-      user.googleId ?? undefined,
-    ));
+    return result.map(user => this.toDomain(user));
   }
 
   async validateUser(email: string, password: string): Promise<User | null> {
-    const row = await this.prisma.user.findUnique({ where: { email } });
+    const row = await this.prisma.user.findUnique({ 
+      where: { email },
+      include: { refreshTokens: true }
+    });
     if (!row) return null;
   
     const isPasswordValid = await compare(password, row.password);
@@ -103,37 +111,130 @@ export class PrismaAuthRepository implements AuthRepository {
     return this.toDomain(row);
   }
 
-  async findPaginated(limit: number, page: number): Promise<{ items: User[]; total: number }> {
-    const [users, total] = await this.prisma.$transaction([
-      this.prisma.user.findMany({
-        skip: (page - 1) * limit,
-        take: limit,
-        orderBy: { createdAt: 'desc' },
-      }),
-      this.prisma.user.count(),
-    ]);
-  
-    return {
-      items: users.map(
-        (u) =>
-          new User(
-            u.id,
-            u.fullname,
-            u.email,
-            undefined,
-            u.role as UserRole,
-            u.isActive,
-            u.createdAt,
-            u.updatedAt,
-            u.skills,
-            u.availability,
-            u.performanceScore,
-            u.googleId,
-          ),
-      ),
-      total,
-    };
+  async updateResetToken(userId: string, resetToken: string, resetTokenExpiry: Date): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        resetToken,
+        resetTokenExpiry,
+      },
+    });
   }
-  
+
+  async findByResetToken(token: string): Promise<User | null> {
+    const row = await this.prisma.user.findFirst({
+      where: { 
+        resetToken: token,
+        resetTokenExpiry: {
+          gt: new Date() 
+        }
+      },
+      include: { refreshTokens: true }
+    });
+    return row ? this.toDomain(row) : null;
+  }
+
+  async clearResetToken(userId: string): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        resetToken: null,
+        resetTokenExpiry: null,
+      },
+    });
+  }
+
+  async updatePassword(userId: string, hashedPassword: string): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        password: hashedPassword,
+        passwordChangedAt: new Date(),
+        resetToken: null,
+        resetTokenExpiry: null,
+      },
+    });
+  }
+
+  async updateTwoFASecret(userId: string, secret: string | null): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        twoFASecret: secret,
+      },
+    });
+  }
+
+  async saveRefreshToken(userId: string, token: string, expiresAt: Date): Promise<void> {
+    await this.prisma.refreshToken.create({
+      data: {
+        token,
+        userId,
+        expiresAt,
+      },
+    });
+  }
+
+  async isRefreshTokenRevoked(token: string): Promise<boolean> {
+    const refreshToken = await this.prisma.refreshToken.findUnique({
+      where: { token },
+    });
+    
+    return !refreshToken || refreshToken.revoked;
+  }
+
+  async revokeRefreshToken(token: string): Promise<void> {
+    await this.prisma.refreshToken.update({
+      where: { token },
+      data: { revoked: true },
+    });
+  }
+
+  async revokeAllUserRefreshTokens(userId: string): Promise<void> {
+    await this.prisma.refreshToken.updateMany({
+      where: { userId },
+      data: { revoked: true },
+    });
+  }
+
+async findAllWithFilters(
+  page: number,
+  limit: number,
+  search?: string,
+): Promise<{ data: User[]; total: number }> {
+  const where: any = {};
+
+  if (search) {
+    const orFilters: any[] = [
+      { fullname: { contains: search, mode: 'insensitive' } },
+      { email: { contains: search, mode: 'insensitive' } },
+      { skills: { has: search } },
+      { partnerType: { contains: search, mode: 'insensitive' } },
+    ];
+
+    const validRoles = Object.values(UserRole);
+    if (validRoles.includes(search.toUpperCase() as UserRole)) {
+      orFilters.push({ role: { equals: search.toUpperCase() as UserRole } });
+    }
+
+    where.OR = orFilters;
+  }
+
+  const [data, total] = await this.prisma.$transaction([
+    this.prisma.user.findMany({
+      where,
+      skip: (page - 1) * limit,
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+    }),
+    this.prisma.user.count({ where }),
+  ]);
+
+  return {
+    data: data.map(user => this.toDomain(user)),
+    total,
+  };
+}
+
   
 }
