@@ -1,7 +1,7 @@
 import { User } from '@modules/auth/domain/entities/user.entity';
-import { AuthRepository } from '@modules/auth/domain/interfaces/auth-repository.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { PaginationDto } from '../dto/pagination.dto';
+import { AuthRepository } from '@modules/auth/domain/interfaces/auth-repository.interface';
 
 @Injectable()
 export class GetPaginatedUsersUseCase {
