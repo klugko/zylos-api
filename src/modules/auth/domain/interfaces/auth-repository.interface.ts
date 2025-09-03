@@ -12,7 +12,7 @@ export interface AuthRepository {
     limit: number,
     search?: string,
   ): Promise<{ data: User[]; total: number }>;
-  
+
   updateResetToken(userId: string, resetToken: string, resetTokenExpiry: Date): Promise<void>;
   findByResetToken(token: string): Promise<User | null>;
   clearResetToken(userId: string): Promise<void>;

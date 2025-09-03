@@ -235,6 +235,5 @@ async findAllWithFilters(
     total,
   };
 }
-
   
 }

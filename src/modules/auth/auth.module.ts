@@ -19,7 +19,6 @@ import { PasswordResetUseCase } from './application/use-cases/password-reset.use
 import { TwoFAService } from './application/services/twofa.service';
 import { CoreModule } from '@core/core.module';
 import { GetUsersUseCase } from './application/use-cases/get-users.use-case';
-import { UserController } from './infrastructure/controllers/user.controller';
 
 
 @Module({
@@ -40,7 +39,7 @@ import { UserController } from './infrastructure/controllers/user.controller';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AuthController, UserController],
+  controllers: [AuthController],
   providers: [
     JwtAuthGuard,
     RolesGuard,
