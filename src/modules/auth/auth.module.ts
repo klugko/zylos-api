@@ -19,6 +19,10 @@ import { PasswordResetUseCase } from './application/use-cases/password-reset.use
 import { TwoFAService } from './application/services/twofa.service';
 import { CoreModule } from '@core/core.module';
 import { GetUsersUseCase } from './application/use-cases/get-users.use-case';
+import { InvitationMailService } from './infrastructure/strategies/invitation-mail.service';
+import { InvitationController } from './infrastructure/controllers/invitation.controller';
+import { InvitationService } from './infrastructure/strategies/invitation.service';
+import { InvitationRepositoryPrisma } from './infrastructure/repositories/prisma-invitation.repository';
 
 
 @Module({
@@ -39,7 +43,7 @@ import { GetUsersUseCase } from './application/use-cases/get-users.use-case';
       inject: [ConfigService],
     }),
   ],
-  controllers: [AuthController],
+  controllers: [AuthController, InvitationController],
   providers: [
     JwtAuthGuard,
     RolesGuard,
@@ -54,6 +58,9 @@ import { GetUsersUseCase } from './application/use-cases/get-users.use-case';
     GetUsersUseCase,
     TwoFAService,
     RefreshTokenStrategy,
+    InvitationService,
+    InvitationMailService,
+    InvitationRepositoryPrisma,
     {
       provide: 'AuthRepository',
       useClass: PrismaAuthRepository,
@@ -72,6 +79,8 @@ import { GetUsersUseCase } from './application/use-cases/get-users.use-case';
     DeactivateUserUseCase,
     PasswordResetUseCase,
     TwoFAService,
+    InvitationService,
+    InvitationMailService,
   ],
 })
 export class AuthModule {}

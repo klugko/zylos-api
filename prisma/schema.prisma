@@ -152,6 +152,7 @@ model Project {
   roleAssignments UserRoleAssignment[]
   chatMessages ProjectChatMessage[]
   taskBlockers TaskBlocker[]
+  invitations Invitation[]
 }
 
 model Task {
@@ -550,6 +551,22 @@ model BlockerSolution {
   createdAt      DateTime        @default(now())
   appliedAt      DateTime?
 }
+
+
+model Invitation {
+  id        String   @id @default(uuid())
+  email     String   @db.VarChar(255)
+  token     String   @unique
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+  role      UserRole @default(PARTNER)
+  expiresAt DateTime
+  accepted  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("invitation")
+}
+
 
 enum BlockerType {
   INACTIVE_TASK
