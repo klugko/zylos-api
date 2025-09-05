@@ -75,3 +75,5 @@ dump.rdb
 *.pdf
 prisma/generated/prisma
 uploads/documents/*
+
+CR.txt
