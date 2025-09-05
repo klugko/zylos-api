@@ -24,6 +24,7 @@ export class PrismaAuthRepository implements AuthRepository {
       user.performanceScore,
       user.googleId ?? undefined,
       user.twoFASecret ?? undefined,
+      user.isTwoFAEnabled ?? false,
       user.resetToken ?? undefined,
       user.resetTokenExpiry ?? undefined,
       user.passwordChangedAt ?? undefined,
@@ -63,6 +64,7 @@ export class PrismaAuthRepository implements AuthRepository {
         performanceScore: user.performanceScore,
         googleId: user.googleId ?? null,
         twoFASecret: user.twoFASecret ?? null,
+        isTwoFAEnabled: user.isTwoFAEnabled ?? false,
         resetToken: user.resetToken ?? null,
         resetTokenExpiry: user.resetTokenExpiry ?? null,
         passwordChangedAt: user.passwordChangedAt ?? null,
@@ -84,6 +86,7 @@ export class PrismaAuthRepository implements AuthRepository {
         performanceScore: user.performanceScore,
         googleId: user.googleId ?? null,
         twoFASecret: user.twoFASecret ?? null,
+        isTwoFAEnabled: user.isTwoFAEnabled ?? false,
         resetToken: user.resetToken ?? null,
         resetTokenExpiry: user.resetTokenExpiry ?? null,
         passwordChangedAt: user.passwordChangedAt ?? null,
@@ -257,6 +260,13 @@ export class PrismaAuthRepository implements AuthRepository {
     await this.prisma.user.update({
       where: { id: userId },
       data: { emailVerified },
+    });
+  }
+
+  async updateTwoFAStatus(userId: string, isEnabled: boolean): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { isTwoFAEnabled: isEnabled },
     });
   }
 }

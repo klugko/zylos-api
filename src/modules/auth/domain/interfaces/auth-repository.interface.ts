@@ -23,6 +23,7 @@ export interface AuthRepository {
   updatePassword(userId: string, hashedPassword: string): Promise<void>;
 
   updateTwoFASecret(userId: string, secret: string | null): Promise<void>;
+  updateTwoFAStatus(userId: string, isEnabled: boolean): Promise<void>;
 
   saveRefreshToken(
     userId: string,

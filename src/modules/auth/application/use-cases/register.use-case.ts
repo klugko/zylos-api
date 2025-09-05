@@ -37,6 +37,7 @@ export class RegisterUseCase {
       dto.performanceScore ?? 0.0,
       undefined, // googleId
       undefined, // twoFASecret
+      false, // isTwoFAEnabled - par défaut false
       undefined, // resetToken
       undefined, // resetTokenExpiry
       undefined, // passwordChangedAt
@@ -71,6 +72,7 @@ export class RegisterUseCase {
       saved.performanceScore,
       undefined, // googleId
       undefined, // twoFASecret
+      false, // isTwoFAEnabled - par défaut false
       undefined, // resetToken
       undefined, // resetTokenExpiry
       undefined, // passwordChangedAt

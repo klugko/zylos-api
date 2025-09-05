@@ -338,13 +338,13 @@ model User {
   resetToken        String?   @unique
   resetTokenExpiry  DateTime?
   twoFASecret      String?
+  isTwoFAEnabled   Boolean  @default(false)
   passwordChangedAt DateTime?
 
   external        Boolean @default(false)
   partnerType     String?
   activationToken String?
 
-  // Email verification fields
   emailVerified         Boolean   @default(false)
   emailVerificationToken String?  @unique
   emailVerificationExpiry DateTime?

@@ -17,6 +17,7 @@ import { RefreshTokenStrategy } from "./infrastructure/strategies/refresh-token.
 import { RolesGuard } from "./application/decorators/role.guard";
 import { PasswordResetUseCase } from "./application/use-cases/password-reset.use-case";
 import { TwoFAService } from "./application/services/twofa.service";
+import { OtpService } from "./application/services/otp.service";
 import { CoreModule } from "@core/core.module";
 import { GetUsersUseCase } from "./application/use-cases/get-users.use-case";
 import { InvitationMailService } from "./infrastructure/strategies/invitation-mail.service";
@@ -28,6 +29,8 @@ import { EmailVerificationService } from "./application/services/email-verificat
 import { SendEmailVerificationUseCase } from "./application/use-cases/send-email-verification.use-case";
 import { VerifyEmailUseCase } from "./application/use-cases/verify-email.use-case";
 import { PrismaEmailVerificationRepository } from "./infrastructure/repositories/prisma-email-verification.repository";
+import { LoginWithOtpUseCase } from "./application/use-cases/login-with-otp.use-case";
+import { OtpController } from "./infrastructure/controllers/otp.controller";
 
 @Module({
   imports: [
@@ -51,6 +54,7 @@ import { PrismaEmailVerificationRepository } from "./infrastructure/repositories
     AuthController,
     InvitationController,
     EmailVerificationController,
+    OtpController,
   ],
   providers: [
     JwtAuthGuard,
@@ -65,6 +69,8 @@ import { PrismaEmailVerificationRepository } from "./infrastructure/repositories
     PasswordResetUseCase,
     GetUsersUseCase,
     TwoFAService,
+    OtpService,
+    LoginWithOtpUseCase,
     RefreshTokenStrategy,
     InvitationService,
     InvitationMailService,
@@ -95,6 +101,8 @@ import { PrismaEmailVerificationRepository } from "./infrastructure/repositories
     DeactivateUserUseCase,
     PasswordResetUseCase,
     TwoFAService,
+    OtpService,
+    LoginWithOtpUseCase,
     InvitationService,
     InvitationMailService,
     EmailVerificationService,

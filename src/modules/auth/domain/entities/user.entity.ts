@@ -16,6 +16,7 @@ export class User {
     public performanceScore: number,
     public googleId?: string,
     public twoFASecret?: string,
+    public isTwoFAEnabled: boolean = false,
     public resetToken?: string,
     public resetTokenExpiry?: Date,
     public passwordChangedAt?: Date,
@@ -58,6 +59,18 @@ export class User {
   }
 
   clearTwoFASecret(): void {
+    this.twoFASecret = undefined;
+  }
+
+  enableTwoFA(): void {
+    if (!this.twoFASecret) {
+      throw new BadRequestException("2FA secret must be set before enabling 2FA");
+    }
+    this.isTwoFAEnabled = true;
+  }
+
+  disableTwoFA(): void {
+    this.isTwoFAEnabled = false;
     this.twoFASecret = undefined;
   }
 }
