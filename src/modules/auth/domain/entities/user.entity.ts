@@ -1,5 +1,5 @@
-import { BadRequestException } from '@nestjs/common';
-import { UserRole } from '../enums/user-role.enum';
+import { BadRequestException } from "@nestjs/common";
+import { UserRole } from "../enums/user-role.enum";
 
 export class User {
   constructor(
@@ -19,18 +19,21 @@ export class User {
     public resetToken?: string,
     public resetTokenExpiry?: Date,
     public passwordChangedAt?: Date,
+    public emailVerified?: boolean,
+    public emailVerificationToken?: string,
+    public emailVerificationExpiry?: Date
   ) {}
 
   activate(): void {
     if (this.isActive) {
-      throw new BadRequestException('User is already active');
+      throw new BadRequestException("User is already active");
     }
     this.isActive = true;
   }
 
   deactivate(): void {
     if (!this.isActive) {
-      throw new BadRequestException('User is already inactive');
+      throw new BadRequestException("User is already inactive");
     }
     this.isActive = false;
   }

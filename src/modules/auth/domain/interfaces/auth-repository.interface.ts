@@ -1,4 +1,4 @@
-import { User } from '../entities/user.entity';
+import { User } from "../entities/user.entity";
 
 export interface AuthRepository {
   findByEmail(email: string): Promise<User | null>;
@@ -10,18 +10,31 @@ export interface AuthRepository {
   findAllWithFilters(
     page: number,
     limit: number,
-    search?: string,
+    search?: string
   ): Promise<{ data: User[]; total: number }>;
 
-  updateResetToken(userId: string, resetToken: string, resetTokenExpiry: Date): Promise<void>;
+  updateResetToken(
+    userId: string,
+    resetToken: string,
+    resetTokenExpiry: Date
+  ): Promise<void>;
   findByResetToken(token: string): Promise<User | null>;
   clearResetToken(userId: string): Promise<void>;
   updatePassword(userId: string, hashedPassword: string): Promise<void>;
-  
+
   updateTwoFASecret(userId: string, secret: string | null): Promise<void>;
-  
-  saveRefreshToken(userId: string, token: string, expiresAt: Date): Promise<void>;
+
+  saveRefreshToken(
+    userId: string,
+    token: string,
+    expiresAt: Date
+  ): Promise<void>;
   isRefreshTokenRevoked(token: string): Promise<boolean>;
   revokeRefreshToken(token: string): Promise<void>;
   revokeAllUserRefreshTokens(userId: string): Promise<void>;
+
+  updateEmailVerificationStatus(
+    userId: string,
+    emailVerified: boolean
+  ): Promise<void>;
 }

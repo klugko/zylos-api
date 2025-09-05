@@ -344,6 +344,11 @@ model User {
   partnerType     String?
   activationToken String?
 
+  // Email verification fields
+  emailVerified         Boolean   @default(false)
+  emailVerificationToken String?  @unique
+  emailVerificationExpiry DateTime?
+
   refreshTokens   RefreshToken[]
 
   projectsOwned   Project[]               @relation("ProjectOwner")
@@ -565,6 +570,18 @@ model Invitation {
   createdAt DateTime @default(now())
 
   @@map("invitation")
+}
+
+model EmailVerification {
+  id        String   @id @default(uuid())
+  userId    String
+  email     String   @db.VarChar(255)
+  token     String   @unique
+  expiresAt DateTime
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("email_verification")
 }
 
 
