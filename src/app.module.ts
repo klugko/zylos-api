@@ -8,8 +8,8 @@ import { CollaborationModule } from "@modules/collaboration/collaboration.module
 import { HealthCheckController } from "./health-check.controller";
 import { CollabChatModule } from "@modules/collab-chat/collab-chat.module";
 import { GoogleCalendarModule } from "@modules/project-management/google-calendar.module";
+import { SurveyModule } from "@modules/survey/survey.module";
 import { CoreModule } from "@core/core.module";
-
 
 @Module({
   imports: [
@@ -22,6 +22,7 @@ import { CoreModule } from "@core/core.module";
     CollaborationModule,
     CollabChatModule,
     GoogleCalendarModule,
+    SurveyModule,
   ],
   controllers: [HealthCheckController],
 })

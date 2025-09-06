@@ -153,6 +153,7 @@ model Project {
   chatMessages ProjectChatMessage[]
   taskBlockers TaskBlocker[]
   invitations Invitation[]
+  surveys      Survey[]
 }
 
 model Task {
@@ -180,6 +181,7 @@ model Task {
   checklistItems ChecklistItem[]
   checklists     Checklist[]
   blockers       TaskBlocker[]
+  surveys        Survey[]
 
   dependencies String[]
   createdAt    DateTime @default(now())
@@ -364,7 +366,9 @@ model User {
   roleAssignments UserRoleAssignment[]
   projectChatMessages ProjectChatMessage[]
   blockerSolutions BlockerSolution[]
-  checkelists     Checklist[] 
+  checkelists     Checklist[]
+  surveys         Survey[]
+  votes           Vote[]
 }
 
 model RefreshToken {
@@ -584,6 +588,77 @@ model EmailVerification {
   @@map("email_verification")
 }
 
+model Survey {
+  id          String       @id @default(uuid())
+  title       String
+  description String?
+  type        SurveyType
+  status      SurveyStatus @default(DRAFT)
+  voteType    VoteType     @default(SINGLE)
+  
+  // Liens avec les projets et tâches
+  projectId   String?
+  project     Project?     @relation(fields: [projectId], references: [id])
+  taskId      String?
+  task        Task?        @relation(fields: [taskId], references: [id])
+  
+  // Configuration
+  allowMultipleVotes Boolean @default(false)
+  isAnonymous        Boolean @default(false)
+  maxVotesPerUser    Int?    // null = illimité
+  weightEnabled      Boolean @default(false)
+  
+  // Dates
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  creator     User         @relation(fields: [creatorId], references: [id])
+  creatorId   String
+  options     SurveyOption[]
+  votes       Vote[]
+  
+  @@map("surveys")
+}
+
+model SurveyOption {
+  id          String  @id @default(uuid())
+  surveyId    String
+  survey      Survey  @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  text        String
+  description String?
+  weight      Float?  // Pour les votes pondérés
+  order       Int     @default(0)
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  votes       Vote[]
+  
+  @@map("survey_options")
+}
+
+model Vote {
+  id          String      @id @default(uuid())
+  surveyId    String
+  survey      Survey      @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  optionId    String
+  option      SurveyOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  voterId     String
+  voter       User        @relation(fields: [voterId], references: [id])
+  
+  // Données du vote
+  weight      Float?      // Poids du vote (pour votes pondérés)
+  comment     String?     // Commentaire optionnel
+  isAnonymous Boolean     @default(false)
+  
+  createdAt   DateTime    @default(now())
+  
+  @@unique([surveyId, voterId, optionId]) // Un utilisateur ne peut voter qu'une fois par option
+  @@map("votes")
+}
+
 
 enum BlockerType {
   INACTIVE_TASK
@@ -607,4 +682,24 @@ enum SolutionStatus {
   APPLIED
   REJECTED
   EXPIRED
+}
+
+enum SurveyType {
+  MULTIPLE_CHOICE
+  YES_NO
+  WEIGHTED
+  RATING
+}
+
+enum SurveyStatus {
+  DRAFT
+  ACTIVE
+  CLOSED
+  ARCHIVED
+}
+
+enum VoteType {
+  SINGLE
+  MULTIPLE
+  WEIGHTED
 }
