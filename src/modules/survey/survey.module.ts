@@ -19,8 +19,10 @@ import { VoteUseCase } from "./application/use-cases/vote.use-case";
 import { VoteMultipleUseCase } from "./application/use-cases/vote-multiple.use-case";
 import { GetSurveyResultsUseCase } from "./application/use-cases/get-survey-results.use-case";
 import { ChangeSurveyStatusUseCase } from "./application/use-cases/change-survey-status.use-case";
+import { ActivityLogModule } from "@modules/activity-log/activity-log.module";
 
 @Module({
+  imports: [ActivityLogModule],
   controllers: [SurveyController, VoteController],
   providers: [
     PrismaService,

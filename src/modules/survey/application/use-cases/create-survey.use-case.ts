@@ -16,6 +16,8 @@ import {
   VoteType,
 } from "../../domain/enums/survey.enums";
 import { PrismaService } from "@core/prisma/prisma.service";
+import { ActivityLoggerService } from "@modules/activity-log/application/services/activity-logger.service";
+import { ActivityAction } from "@modules/activity-log/domain/enums/activity.enums";
 
 @Injectable()
 export class CreateSurveyUseCase {
@@ -24,7 +26,8 @@ export class CreateSurveyUseCase {
     private readonly surveyRepository: SurveyRepository,
     @Inject("SurveyOptionRepository")
     private readonly optionRepository: SurveyOptionRepository,
-    private readonly prisma: PrismaService
+    private readonly prisma: PrismaService,
+    private readonly activityLogger: ActivityLoggerService
   ) {}
 
   async execute(dto: CreateSurveyDto, creatorId: string): Promise<Survey> {
@@ -139,6 +142,22 @@ export class CreateSurveyUseCase {
         })),
       });
     });
+
+    // Log the survey creation activity
+    await this.activityLogger.logSurveyAction(
+      creatorId,
+      ActivityAction.SURVEY_CREATED,
+      survey.id,
+      survey.projectId,
+      `Sondage "${survey.title}" créé`,
+      `Un nouveau sondage de type ${survey.type} a été créé avec ${options.length} options`,
+      {
+        surveyType: survey.type,
+        optionsCount: options.length,
+        isAnonymous: survey.isAnonymous,
+        allowMultipleVotes: survey.allowMultipleVotes,
+      }
+    );
 
     return survey;
   }
