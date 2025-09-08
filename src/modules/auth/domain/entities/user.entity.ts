@@ -15,6 +15,9 @@ export class User {
     public availability: number,
     public performanceScore: number,
     public googleId?: string,
+    public avatarUrl?: string,
+    public phone?: string,
+    public poste?: string,
     public twoFASecret?: string,
     public isTwoFAEnabled: boolean = false,
     public resetToken?: string,
@@ -72,5 +75,36 @@ export class User {
   disableTwoFA(): void {
     this.isTwoFAEnabled = false;
     this.twoFASecret = undefined;
+  }
+
+  updateAvatar(avatarUrl: string): void {
+    this.avatarUrl = avatarUrl;
+  }
+
+  removeAvatar(): void {
+    this.avatarUrl = undefined;
+  }
+
+  updateProfile(phone?: string, poste?: string): void {
+    if (phone !== undefined) this.phone = phone;
+    if (poste !== undefined) this.poste = poste;
+  }
+
+  updateFullProfile(data: {
+    fullname?: string;
+    email?: string;
+    phone?: string;
+    poste?: string;
+    skills?: string[];
+    availability?: number;
+    performanceScore?: number;
+  }): void {
+    if (data.fullname !== undefined) this.fullname = data.fullname;
+    if (data.email !== undefined) this.email = data.email;
+    if (data.phone !== undefined) this.phone = data.phone;
+    if (data.poste !== undefined) this.poste = data.poste;
+    if (data.skills !== undefined) this.skills = data.skills;
+    if (data.availability !== undefined) this.availability = data.availability;
+    if (data.performanceScore !== undefined) this.performanceScore = data.performanceScore;
   }
 }

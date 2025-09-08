@@ -36,6 +36,9 @@ export class RegisterUseCase {
       dto.availability ?? 0,
       dto.performanceScore ?? 0.0,
       undefined, // googleId
+      undefined, // avatarUrl
+      dto.phone, // phone
+      dto.poste, // poste
       undefined, // twoFASecret
       false, // isTwoFAEnabled - par défaut false
       undefined, // resetToken
@@ -71,6 +74,9 @@ export class RegisterUseCase {
       saved.availability,
       saved.performanceScore,
       undefined, // googleId
+      undefined, // avatarUrl
+      saved.phone, // phone
+      saved.poste, // poste
       undefined, // twoFASecret
       false, // isTwoFAEnabled - par défaut false
       undefined, // resetToken

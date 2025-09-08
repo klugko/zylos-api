@@ -13,6 +13,8 @@ import {
   Patch,
   Delete,
   BadRequestException,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -22,6 +24,7 @@ import {
   ApiBody,
   ApiBearerAuth,
   ApiQuery,
+  ApiConsumes,
 } from '@nestjs/swagger';
 import { RegisterUseCase } from '../../application/use-cases/register.use-case';
 import { LoginUseCase } from '../../application/use-cases/login.use-case';
@@ -45,6 +48,9 @@ import { DeleteUserUseCase } from '@modules/auth/application/use-cases/delete-us
 import { UpdateUserDto } from '@modules/auth/application/dto/update-user.dto';
 import { RolesGuard } from '@modules/auth/application/decorators/role.guard';
 import { Roles } from '@modules/auth/application/decorators/roles.decorator';
+import { UpdateAvatarUseCase } from '@modules/auth/application/use-cases/update-avatar.use-case';
+import { UpdateProfileUseCase } from '@modules/auth/application/use-cases/update-profile.use-case';
+import { UpdateProfileDto } from '@modules/auth/application/dto/update-profile.dto';
 
 
 @ApiTags('Auth')
@@ -60,6 +66,8 @@ export class AuthController {
     private readonly getUsersUC: GetUsersUseCase,
     private readonly updateUserUC: UpdateUserUseCase,
     private readonly deleteUserUC: DeleteUserUseCase,
+    private readonly updateAvatarUC: UpdateAvatarUseCase,
+    private readonly updateProfileUC: UpdateProfileUseCase,
   ) {}
 
 
@@ -150,11 +158,25 @@ export class AuthController {
       skills: user.skills,
       availability: user.availability,
       performanceScore: user.performanceScore,
+      avatarUrl: user.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(this.extractInitials(user.fullname))}&size=128&background=random&color=fff&bold=true`,
+      phone: user.phone,
+      poste: user.poste,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };
   }
 
+  private extractInitials(fullname: string): string {
+    if (!fullname) return 'U';
+    
+    const words = fullname.trim().split(/\s+/);
+    const initials = words
+      .filter(word => word.length > 0)
+      .map(word => word.charAt(0).toUpperCase())
+      .slice(0, 2);
+    
+    return initials.join('');
+  }
 
   @Post('logout')
   @UseGuards(JwtAuthGuard)
@@ -201,6 +223,19 @@ export class AuthController {
       accessToken: null,
       message: 'Callback désactivé en mode développement.',
     };
+  }
+
+  @Put('profile')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Mettre à jour le profil utilisateur' })
+  @ApiBody({ type: UpdateProfileDto })
+  @ApiResponse({ status: 200, description: 'Profil mis à jour avec succès' })
+  async updateProfile(
+    @CurrentUser() user: User,
+    @Body() dto: UpdateProfileDto,
+  ) {
+    return this.updateProfileUC.execute(user.id, dto);
   }
 
   @Get('debug-token')
