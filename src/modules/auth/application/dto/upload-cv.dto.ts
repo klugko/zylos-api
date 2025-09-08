@@ -12,7 +12,6 @@ export class UploadCvDto {
   type?: string;
 }
 
-// DTO pour la validation du body (sans le fichier)
 export class UploadCvBodyDto {
   @ApiProperty({ 
     description: 'Type de document (optionnel)',

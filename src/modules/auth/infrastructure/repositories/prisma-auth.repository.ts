@@ -291,5 +291,65 @@ export class PrismaAuthRepository implements AuthRepository {
       where: { id: userId },
       data: { skills },
     });
-  }  
+  }
+
+  async mergeUserSkills(userId: string, newSkills: string[]): Promise<{ mergedSkills: string[]; newSkillsCount: number }> {
+    
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { skills: true }
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const existingSkills = user.skills || [];
+    const mergedSkills = [...existingSkills];
+
+    const normalizeSkill = (skill: string): string => {
+      return skill.toLowerCase().trim().replace(/\s+/g, ' ');
+    };
+
+    const areSimilarSkills = (skill1: string, skill2: string): boolean => {
+      const normalized1 = normalizeSkill(skill1);
+      const normalized2 = normalizeSkill(skill2);
+      
+      if (normalized1 === normalized2) return true;
+      
+      if (normalized1.includes(normalized2) || normalized2.includes(normalized1)) {
+        return true;
+      }
+      
+      const words1 = normalized1.split(/\s+/);
+      const words2 = normalized2.split(/\s+/);
+      
+      const commonWords = words1.filter(word => words2.includes(word));
+      return commonWords.length > 0 && (commonWords.length / Math.max(words1.length, words2.length)) >= 0.5;
+    };
+
+    let newSkillsCount = 0;
+
+    for (const newSkill of newSkills) {
+      const isDuplicate = mergedSkills.some(existingSkill => 
+        areSimilarSkills(existingSkill, newSkill)
+      );
+
+      if (!isDuplicate) {
+        mergedSkills.push(newSkill);
+        newSkillsCount++;
+      }
+    }
+
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { skills: mergedSkills },
+    });
+
+    return {
+      mergedSkills,
+      newSkillsCount
+    };
+  }
 }

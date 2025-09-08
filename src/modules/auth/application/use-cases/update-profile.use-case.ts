@@ -9,13 +9,12 @@ export class UpdateProfileUseCase {
   ) {}
 
   async execute(userId: string, dto: UpdateProfileDto): Promise<{ message: string; user: any }> {
-    // Vérifier que l'utilisateur existe
+    
     const user = await this.authRepo.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
-    // Vérifier l'unicité de l'email si modifié
+    
     if (dto.email && dto.email !== user.email) {
       const userWithEmail = await this.authRepo.findByEmail(dto.email);
       if (userWithEmail && userWithEmail.id !== userId) {
@@ -23,7 +22,6 @@ export class UpdateProfileUseCase {
       }
     }
 
-    // Mettre à jour le profil avec tous les champs
     user.updateFullProfile({
       fullname: dto.fullname,
       email: dto.email,

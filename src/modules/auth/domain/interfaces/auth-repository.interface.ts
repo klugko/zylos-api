@@ -40,4 +40,5 @@ export interface AuthRepository {
   ): Promise<void>;
   delete(id: string): Promise<void>;
   updateUserSkills(userId: string, skills: string[]): Promise<void>;
+  mergeUserSkills(userId: string, newSkills: string[]): Promise<{ mergedSkills: string[]; newSkillsCount: number }>;
 }
