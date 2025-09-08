@@ -53,6 +53,10 @@ import { GetCustomStatusesUseCase } from "./application/use-cases/get-custom-sta
 import { AssignCustomStatusUseCase } from "./application/use-cases/assign-custom-status.use-case";
 import { StatusMonitoringService } from "./application/services/status-monitoring.service";
 import { StatusNotificationService } from "./application/services/status-notification.service";
+import { CustomStatusIntegrationService } from "./application/services/custom-status-integration.service";
+import { TaskStatusSyncService } from "./application/services/task-status-sync.service";
+import { InitializeDefaultStatusesUseCase } from "./application/use-cases/initialize-default-statuses.use-case";
+import { TaskStatusSyncController } from "./infrastructure/controllers/task-status-sync.controller";
 import { CustomStatusRepository } from "./infrastructure/repositories/custom-status.repository";
 import { StatusDurationRepository } from "./infrastructure/repositories/status-duration.repository";
 import { StatusAlertRepository } from "./infrastructure/repositories/status-alert.repository";
@@ -70,6 +74,7 @@ import { StatusAlertRepository } from "./infrastructure/repositories/status-aler
     CustomStatusController,
     StatusAlertController,
     StatusAssignmentController,
+    TaskStatusSyncController,
   ],
 
   providers: [
@@ -111,6 +116,9 @@ import { StatusAlertRepository } from "./infrastructure/repositories/status-aler
     AssignCustomStatusUseCase,
     StatusMonitoringService,
     StatusNotificationService,
+    CustomStatusIntegrationService,
+    TaskStatusSyncService,
+    InitializeDefaultStatusesUseCase,
     CustomStatusRepository,
     StatusDurationRepository,
     StatusAlertRepository,

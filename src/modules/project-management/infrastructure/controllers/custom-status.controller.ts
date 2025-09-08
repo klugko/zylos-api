@@ -12,6 +12,7 @@ import {
 import { CreateCustomStatusUseCase } from "../../application/use-cases/create-custom-status.use-case";
 import { UpdateCustomStatusUseCase } from "../../application/use-cases/update-custom-status.use-case";
 import { GetCustomStatusesUseCase } from "../../application/use-cases/get-custom-statuses.use-case";
+import { InitializeDefaultStatusesUseCase } from "../../application/use-cases/initialize-default-statuses.use-case";
 import { CreateCustomStatusDto } from "../../application/dto/create-custom-status.dto";
 import { UpdateCustomStatusDto } from "../../application/dto/update-custom-status.dto";
 import { JwtAuthGuard } from "@modules/auth/infrastructure/guards/jwt-auth.guard";
@@ -22,7 +23,8 @@ export class CustomStatusController {
   constructor(
     private readonly createCustomStatusUseCase: CreateCustomStatusUseCase,
     private readonly updateCustomStatusUseCase: UpdateCustomStatusUseCase,
-    private readonly getCustomStatusesUseCase: GetCustomStatusesUseCase
+    private readonly getCustomStatusesUseCase: GetCustomStatusesUseCase,
+    private readonly initializeDefaultStatusesUseCase: InitializeDefaultStatusesUseCase
   ) {}
 
   @Post()
@@ -52,5 +54,10 @@ export class CustomStatusController {
     return await this.updateCustomStatusUseCase.execute(id, {
       isActive: false,
     });
+  }
+
+  @Post("project/:projectId/initialize-defaults")
+  async initializeDefaults(@Param("projectId") projectId: string) {
+    return await this.initializeDefaultStatusesUseCase.execute(projectId);
   }
 }
