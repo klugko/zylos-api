@@ -38,4 +38,6 @@ export interface AuthRepository {
     userId: string,
     emailVerified: boolean
   ): Promise<void>;
+  delete(id: string): Promise<void>;
+  updateUserSkills(userId: string, skills: string[]): Promise<void>;
 }

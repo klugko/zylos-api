@@ -11,6 +11,7 @@ import {
   HttpStatus,
   Query,
   Patch,
+  Delete,
   BadRequestException,
 } from '@nestjs/common';
 import {
@@ -39,6 +40,11 @@ import { TwoFAVerifyDto } from '@modules/auth/application/dto/twofa.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUsersUseCase } from '@modules/auth/application/use-cases/get-users.use-case';
 import { GetUsersDto } from '@modules/auth/application/dto/get-users.dto';
+import { UpdateUserUseCase } from '@modules/auth/application/use-cases/update-user.use-case';
+import { DeleteUserUseCase } from '@modules/auth/application/use-cases/delete-user.use-case';
+import { UpdateUserDto } from '@modules/auth/application/dto/update-user.dto';
+import { RolesGuard } from '@modules/auth/application/decorators/role.guard';
+import { Roles } from '@modules/auth/application/decorators/roles.decorator';
 
 
 @ApiTags('Auth')
@@ -52,6 +58,8 @@ export class AuthController {
     private readonly passwordResetUC: PasswordResetUseCase,
     private readonly twoFAService: TwoFAService,
     private readonly getUsersUC: GetUsersUseCase,
+    private readonly updateUserUC: UpdateUserUseCase,
+    private readonly deleteUserUC: DeleteUserUseCase,
   ) {}
 
 
@@ -202,5 +210,47 @@ export class AuthController {
       headers: req.headers,
       authorization: req.headers['authorization'] || 'Aucun token reçu',
     };
+  }
+
+  @Put('users/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MANAGER)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Modifier un utilisateur' })
+  @ApiParam({ name: 'id', description: "ID de l'utilisateur à modifier" })
+  @ApiBody({ type: UpdateUserDto })
+  @ApiResponse({ status: 200, description: 'Utilisateur modifié avec succès' })
+  @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  async updateUser(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+    return this.updateUserUC.execute(id, dto);
+  }
+
+  @Patch('users/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN, UserRole.MANAGER)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Modifier partiellement un utilisateur' })
+  @ApiParam({ name: 'id', description: "ID de l'utilisateur à modifier" })
+  @ApiBody({ type: UpdateUserDto })
+  @ApiResponse({ status: 200, description: 'Utilisateur modifié avec succès' })
+  @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
+  @ApiResponse({ status: 403, description: 'Permissions insuffisantes' })
+  async patchUser(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+    return this.updateUserUC.execute(id, dto);
+  }
+
+  @Delete('users/:id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Supprimer un utilisateur (Admin uniquement)' })
+  @ApiParam({ name: 'id', description: "ID de l'utilisateur à supprimer" })
+  @ApiResponse({ status: 200, description: 'Utilisateur supprimé avec succès' })
+  @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
+  @ApiResponse({ status: 403, description: 'Seuls les administrateurs peuvent supprimer des utilisateurs' })
+  async deleteUser(@Param('id') id: string, @CurrentUser() currentUser: User) {
+    await this.deleteUserUC.execute(id, currentUser);
+    return { message: 'Utilisateur supprimé avec succès' };
   }
 }
