@@ -34,18 +34,15 @@ export class GetActivityLogsUseCase {
       timeline = await this.timelineService.getFilteredTimeline(query);
     }
 
-    // Convert activities to response DTOs
     const activities: ActivityLogResponseDto[] = timeline.activities.map(
       (activity) => this.mapToResponseDto(activity)
     );
 
-    // Get statistics if requested
     let statistics;
     if (query.groupBy !== "none") {
       statistics = timeline.getStatistics();
     }
 
-    // Get timeline summary if requested
     let timelineSummary;
     if (query.projectId) {
       timelineSummary = await this.timelineService.getTimelineSummary(
@@ -55,7 +52,6 @@ export class GetActivityLogsUseCase {
       );
     }
 
-    // Group activities if requested
     let groupedByDay;
     let groupedByType;
     if (query.groupBy === "day") {
@@ -95,7 +91,6 @@ export class GetActivityLogsUseCase {
       userAgent: activity.userAgent,
       createdAt: activity.createdAt,
 
-      // Computed fields
       relativeTime:
         activity.getRelativeTime?.() ||
         this.getRelativeTime(activity.createdAt),

@@ -17,7 +17,6 @@ export class ExportActivityLogsUseCase {
   async execute(
     dto: ExportActivityLogsDto
   ): Promise<ActivityExportResponseDto> {
-    // Convert export DTO to query DTO
     const query: GetActivityLogsDto = {
       projectId: dto.projectId,
       userId: dto.userId,
@@ -27,22 +26,19 @@ export class ExportActivityLogsUseCase {
       search: dto.search,
       startDate: dto.startDate,
       endDate: dto.endDate,
-      limit: 10000, // Large limit for export
+      limit: 10000,
       page: 1,
       groupBy: dto.groupBy,
     };
 
-    // Get activities
     const timeline = await this.timelineService.getFilteredTimeline(query);
 
     if (timeline.activities.length === 0) {
       throw new BadRequestException("Aucune activité trouvée pour l'export");
     }
 
-    // Generate filename
     const filename = this.generateFilename(dto);
 
-    // Export based on format
     let downloadUrl: string;
     let fileSize: number;
 
@@ -69,7 +65,6 @@ export class ExportActivityLogsUseCase {
         throw new BadRequestException("Format d'export non supporté");
     }
 
-    // Set expiration date (24 hours from now)
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 24);
 
@@ -135,7 +130,6 @@ export class ExportActivityLogsUseCase {
       return row;
     });
 
-    // Escape CSV values
     const escapedRows = rows.map((row) =>
       row.map((cell) => {
         const str = String(cell || "");
@@ -194,8 +188,6 @@ export class ExportActivityLogsUseCase {
     activities: any[],
     dto: ExportActivityLogsDto
   ): Promise<Buffer> {
-    // This would typically use a PDF generation library like puppeteer or pdfkit
-    // For now, we'll return a placeholder
     const content = this.generateCSV(activities, dto);
     return Buffer.from(content, "utf8");
   }
@@ -205,8 +197,6 @@ export class ExportActivityLogsUseCase {
     filename: string,
     extension: string
   ): Promise<string> {
-    // This would typically save to a file storage service (S3, local filesystem, etc.)
-    // For now, we'll return a placeholder URL
     const timestamp = Date.now();
     return `/api/v1/activity-logs/download/${timestamp}/${filename}`;
   }

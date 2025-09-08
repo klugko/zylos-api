@@ -15,10 +15,9 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
   async create(activityLog: ActivityLog): Promise<ActivityLog> {
     const created = await this.prisma.partnerActivityLog.create({
       data: {
-        id: activityLog.id,
         userId: activityLog.userId,
         projectId: activityLog.projectId,
-        // taskId: activityLog.taskId, // Will be available after migration
+        taskId: activityLog.taskId,
         documentId: activityLog.documentId,
         surveyId: activityLog.surveyId,
         type: activityLog.type,
@@ -28,16 +27,13 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
         metadata: activityLog.metadata,
         ipAddress: activityLog.ipAddress,
         userAgent: activityLog.userAgent,
-        createdAt: activityLog.createdAt,
       },
       include: {
-        user: {
-          select: { id: true, fullname: true, email: true },
-        },
+        user: { select: { id: true, fullname: true, email: true } },
         project: { select: { id: true, name: true } },
-        // task: { select: { id: true, title: true } }, // Will be available after migration
+        task: { select: { id: true, title: true } },
         document: { select: { id: true, name: true } },
-        // survey: { select: { id: true, title: true } }, // Will be available after migration
+        survey: { select: { id: true, title: true } },
       },
     });
 
@@ -48,13 +44,11 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
     const activity = await this.prisma.partnerActivityLog.findUnique({
       where: { id },
       include: {
-        user: {
-          select: { id: true, fullname: true, email: true },
-        },
+        user: { select: { id: true, fullname: true, email: true } },
         project: { select: { id: true, name: true } },
-        // task: { select: { id: true, title: true } }, // Will be available after migration
+        task: { select: { id: true, title: true } },
         document: { select: { id: true, name: true } },
-        // survey: { select: { id: true, title: true } }, // Will be available after migration
+        survey: { select: { id: true, title: true } },
       },
     });
 
@@ -66,37 +60,35 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
   ): Promise<{ activities: ActivityLog[]; total: number }> {
     const where: any = {};
 
-    // Apply filters
     if (query.userId) where.userId = query.userId;
     if (query.projectId) where.projectId = query.projectId;
-    // if (query.taskId) where.taskId = query.taskId; // Will be available after migration
+    if (query.taskId) where.taskId = query.taskId;
     if (query.documentId) where.documentId = query.documentId;
     if (query.surveyId) where.surveyId = query.surveyId;
-    if (query.type) where.type = query.type;
+    if (query.type) {
+      where.type = query.type;
+    }
     if (query.actions && query.actions.length > 0) {
       where.action = { in: query.actions };
     }
 
-    // Date range filter
     if (query.startDate || query.endDate) {
       where.createdAt = {};
       if (query.startDate) where.createdAt.gte = new Date(query.startDate);
       if (query.endDate) where.createdAt.lte = new Date(query.endDate);
     }
 
-    // Text search
     if (query.search) {
       where.OR = [
         { title: { contains: query.search, mode: "insensitive" } },
         { description: { contains: query.search, mode: "insensitive" } },
+        { action: { contains: query.search, mode: "insensitive" } },
       ];
     }
 
-    // Pagination
     const skip = ((query.page || 1) - 1) * (query.limit || 20);
     const take = query.limit || 20;
 
-    // Sorting
     const orderBy: any = {};
     orderBy[query.sortBy || "createdAt"] = query.sortOrder || "desc";
 
@@ -107,13 +99,11 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
         take,
         orderBy,
         include: {
-          user: {
-            select: { id: true, fullname: true, email: true },
-          },
+          user: { select: { id: true, fullname: true, email: true } },
           project: { select: { id: true, name: true } },
-          // task: { select: { id: true, title: true } }, // Will be available after migration
+          task: { select: { id: true, title: true } },
           document: { select: { id: true, name: true } },
-          // survey: { select: { id: true, title: true } }, // Will be available after migration
+          survey: { select: { id: true, title: true } },
         },
       }),
       this.prisma.partnerActivityLog.count({ where }),
@@ -134,13 +124,11 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        user: {
-          select: { id: true, fullname: true, email: true },
-        },
+        user: { select: { id: true, fullname: true, email: true } },
         project: { select: { id: true, name: true } },
-        // task: { select: { id: true, title: true } }, // Will be available after migration
+        task: { select: { id: true, title: true } },
         document: { select: { id: true, name: true } },
-        // survey: { select: { id: true, title: true } }, // Will be available after migration
+        survey: { select: { id: true, title: true } },
       },
     });
 
@@ -156,13 +144,11 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        user: {
-          select: { id: true, fullname: true, email: true },
-        },
+        user: { select: { id: true, fullname: true, email: true } },
         project: { select: { id: true, name: true } },
-        // task: { select: { id: true, title: true } }, // Will be available after migration
+        task: { select: { id: true, title: true } },
         document: { select: { id: true, name: true } },
-        // survey: { select: { id: true, title: true } }, // Will be available after migration
+        survey: { select: { id: true, title: true } },
       },
     });
 
@@ -174,17 +160,15 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
     limit: number = 20
   ): Promise<ActivityLog[]> {
     const activities = await this.prisma.partnerActivityLog.findMany({
-      where: { action: type as any }, // Temporary fix - will be corrected after migration
+      where: { type },
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        user: {
-          select: { id: true, fullname: true, email: true },
-        },
+        user: { select: { id: true, fullname: true, email: true } },
         project: { select: { id: true, name: true } },
-        // task: { select: { id: true, title: true } }, // Will be available after migration
+        task: { select: { id: true, title: true } },
         document: { select: { id: true, name: true } },
-        // survey: { select: { id: true, title: true } }, // Will be available after migration
+        survey: { select: { id: true, title: true } },
       },
     });
 
@@ -200,13 +184,11 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        user: {
-          select: { id: true, fullname: true, email: true },
-        },
+        user: { select: { id: true, fullname: true, email: true } },
         project: { select: { id: true, name: true } },
-        // task: { select: { id: true, title: true } }, // Will be available after migration
+        task: { select: { id: true, title: true } },
         document: { select: { id: true, name: true } },
-        // survey: { select: { id: true, title: true } }, // Will be available after migration
+        survey: { select: { id: true, title: true } },
       },
     });
 
@@ -228,13 +210,11 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        user: {
-          select: { id: true, fullname: true, email: true },
-        },
+        user: { select: { id: true, fullname: true, email: true } },
         project: { select: { id: true, name: true } },
-        // task: { select: { id: true, title: true } }, // Will be available after migration
+        task: { select: { id: true, title: true } },
         document: { select: { id: true, name: true } },
-        // survey: { select: { id: true, title: true } }, // Will be available after migration
+        survey: { select: { id: true, title: true } },
       },
     });
 
@@ -270,13 +250,11 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
       take: limit,
       orderBy: { createdAt: "desc" },
       include: {
-        user: {
-          select: { id: true, fullname: true, email: true },
-        },
+        user: { select: { id: true, fullname: true, email: true } },
         project: { select: { id: true, name: true } },
-        // task: { select: { id: true, title: true } }, // Will be available after migration
+        task: { select: { id: true, title: true } },
         document: { select: { id: true, name: true } },
-        // survey: { select: { id: true, title: true } }, // Will be available after migration
+        survey: { select: { id: true, title: true } },
       },
     });
 
@@ -308,7 +286,8 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
     const activities = await this.prisma.partnerActivityLog.findMany({
       where,
       select: {
-        action: true, // Using action instead of type temporarily
+        type: true,
+        action: true,
         userId: true,
         createdAt: true,
       },
@@ -322,16 +301,12 @@ export class PrismaActivityLogRepository implements ActivityLogRepository {
     const activitiesByDay: Record<string, number> = {};
 
     activities.forEach((activity) => {
-      // Count by type (using action temporarily)
-      const activityType = activity.action as any; // Temporary mapping
-      activitiesByType[activityType] =
-        (activitiesByType[activityType] || 0) + 1;
+      activitiesByType[activity.type] =
+        (activitiesByType[activity.type] || 0) + 1;
 
-      // Count by user
       activitiesByUser[activity.userId] =
         (activitiesByUser[activity.userId] || 0) + 1;
 
-      // Count by day
       const dateKey = activity.createdAt.toISOString().split("T")[0];
       activitiesByDay[dateKey] = (activitiesByDay[dateKey] || 0) + 1;
     });

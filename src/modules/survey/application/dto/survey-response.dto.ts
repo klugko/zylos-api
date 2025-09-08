@@ -45,7 +45,7 @@ export class SurveyResponseDto {
 export class VoteResponseDto {
   id: string;
   optionId: string;
-  voterId?: string; // Masqué si anonyme
+  voterId?: string;
   weight?: number;
   comment?: string;
   isAnonymous: boolean;

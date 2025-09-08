@@ -82,7 +82,6 @@ export class ActivityLog {
   public getFormattedDescription(): string {
     if (!this.description) return "";
 
-    // Replace placeholders with actual values
     let formatted = this.description;
 
     if (this.metadata) {

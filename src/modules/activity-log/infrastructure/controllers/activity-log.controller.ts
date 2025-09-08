@@ -24,6 +24,7 @@ import { CurrentUser } from "@core/common/current-user.decorator";
 import { User } from "@modules/auth/domain/entities/user.entity";
 import { GetActivityLogsUseCase } from "../../application/use-cases/get-activity-logs.use-case";
 import { ExportActivityLogsUseCase } from "../../application/use-cases/export-activity-logs.use-case";
+import { PrismaService } from "@core/prisma/prisma.service";
 import { GetActivityLogsDto } from "../../application/dto/get-activity-logs.dto";
 import { ExportActivityLogsDto } from "../../application/dto/export-activity-logs.dto";
 import {
@@ -38,7 +39,8 @@ import {
 export class ActivityLogController {
   constructor(
     private readonly getActivityLogsUseCase: GetActivityLogsUseCase,
-    private readonly exportActivityLogsUseCase: ExportActivityLogsUseCase
+    private readonly exportActivityLogsUseCase: ExportActivityLogsUseCase,
+    private readonly prisma: PrismaService
   ) {}
 
   @Get()
@@ -231,8 +233,6 @@ export class ActivityLogController {
     @Res() res: Response,
     @CurrentUser() user: User
   ): Promise<void> {
-    // This would typically serve the actual file from storage
-    // For now, we'll return a placeholder response
     res.status(HttpStatus.NOT_IMPLEMENTED).json({
       message: "Téléchargement d'export non encore implémenté",
       timestamp,
@@ -278,5 +278,94 @@ export class ActivityLogController {
 
     const result = await this.getActivityLogsUseCase.execute(query);
     return result.statistics;
+  }
+
+  @Post("seed")
+  @ApiOperation({ summary: "Créer des données de test pour le fil d'activité" })
+  @ApiResponse({
+    status: 201,
+    description: "Données de test créées avec succès",
+  })
+  async seedSampleActivities(): Promise<{ message: string; count: number }> {
+    const user = await this.prisma.user.findFirst();
+    const project = await this.prisma.project.findFirst();
+
+    if (!user || !project) {
+      throw new Error("No user or project found for seeding");
+    }
+
+    const activities = [
+      {
+        userId: user.id,
+        projectId: project.id,
+        type: "PROJECT" as any,
+        action: "PROJECT_CREATED" as any,
+        title: `Projet "${project.name}" créé`,
+        description: `Un nouveau projet a été créé : ${project.name}`,
+        metadata: {
+          projectName: project.name,
+          timestamp: new Date().toISOString(),
+        },
+      },
+      {
+        userId: user.id,
+        projectId: project.id,
+        type: "USER" as any,
+        action: "USER_LOGGED_IN" as any,
+        title: "Connexion utilisateur",
+        description: "Un utilisateur s'est connecté au système",
+        metadata: {
+          userEmail: user.email,
+          timestamp: new Date().toISOString(),
+        },
+      },
+      {
+        userId: user.id,
+        projectId: project.id,
+        type: "DOCUMENT" as any,
+        action: "DOCUMENT_UPLOADED" as any,
+        title: "Document uploadé",
+        description: `Un nouveau document a été uploadé dans le projet "${project.name}"`,
+        metadata: {
+          projectName: project.name,
+          timestamp: new Date().toISOString(),
+        },
+      },
+      {
+        userId: user.id,
+        projectId: project.id,
+        type: "SURVEY" as any,
+        action: "SURVEY_CREATED" as any,
+        title: "Sondage créé",
+        description: `Un nouveau sondage a été créé dans le projet "${project.name}"`,
+        metadata: {
+          projectName: project.name,
+          timestamp: new Date().toISOString(),
+        },
+      },
+      {
+        userId: user.id,
+        projectId: project.id,
+        type: "PROJECT" as any,
+        action: "PROJECT_UPDATED" as any,
+        title: `Projet "${project.name}" modifié`,
+        description: `Le projet "${project.name}" a été modifié`,
+        metadata: {
+          projectName: project.name,
+          timestamp: new Date().toISOString(),
+        },
+      },
+    ];
+
+    for (const activity of activities) {
+      await this.prisma.partnerActivityLog.create({
+        data: activity,
+      });
+    }
+
+    return {
+      message: "Sample activities created successfully with real data!",
+      count: activities.length,
+    };
   }
 }

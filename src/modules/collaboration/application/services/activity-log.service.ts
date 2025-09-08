@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/core/prisma/prisma.service";
-import { GetActivityLogsDto } from "../dto/get-activity-logs.dto";
+import { PrismaService } from "@core/prisma/prisma.service";
+import { GetActivityLogsDto } from "@modules/activity-log/application/dto/get-activity-logs.dto";
 
 @Injectable()
 export class ActivityLogService {
@@ -12,15 +12,18 @@ export class ActivityLogService {
     projectId?: string,
     documentId?: string
   ) {
-    // Temporarily disabled to avoid Prisma type issues
-    // await this.prisma.partnerActivityLog.create({
-    //   data: {
-    //     userId,
-    //     action: "PROJECT_CREATED" as any,
-    //     projectId: projectId ?? null,
-    //     documentId: documentId ?? null,
-    //   },
-    // });
+    await this.prisma.partnerActivityLog.create({
+      data: {
+        userId,
+        action: action as any,
+        projectId: projectId ?? null,
+        documentId: documentId ?? null,
+        type: "SYSTEM" as any,
+        title: `Action: ${action}`,
+        description: `User performed action: ${action}`,
+        metadata: { action, timestamp: new Date().toISOString() },
+      },
+    });
   }
 
   async getLogs(filter: GetActivityLogsDto) {

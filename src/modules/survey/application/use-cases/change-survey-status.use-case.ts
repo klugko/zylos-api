@@ -24,14 +24,12 @@ export class ChangeSurveyStatusUseCase {
       throw new NotFoundException("Sondage introuvable");
     }
 
-    // Vérifier que l'utilisateur est le créateur
     if (survey.creatorId !== userId) {
       throw new BadRequestException(
         "Vous n'êtes pas autorisé à modifier ce sondage"
       );
     }
 
-    // Vérifier les transitions autorisées
     switch (status) {
       case SurveyStatus.ACTIVE:
         if (survey.status !== SurveyStatus.DRAFT) {

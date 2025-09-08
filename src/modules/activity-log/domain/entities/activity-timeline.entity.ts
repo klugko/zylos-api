@@ -86,15 +86,12 @@ export class ActivityTimeline {
     const activitiesByDay: Record<string, number> = {};
 
     this.activities.forEach((activity) => {
-      // Count by type
       activitiesByType[activity.type] =
         (activitiesByType[activity.type] || 0) + 1;
 
-      // Count by user
       activitiesByUser[activity.userId] =
         (activitiesByUser[activity.userId] || 0) + 1;
 
-      // Count by day
       const dateKey = activity.createdAt.toISOString().split("T")[0];
       activitiesByDay[dateKey] = (activitiesByDay[dateKey] || 0) + 1;
     });
@@ -119,7 +116,7 @@ export class ActivityTimeline {
   public getTimelineSummary(): {
     firstActivity: ActivityLog | null;
     lastActivity: ActivityLog | null;
-    duration: number; // in days
+    duration: number;
     averageActivitiesPerDay: number;
   } {
     if (this.activities.length === 0) {
