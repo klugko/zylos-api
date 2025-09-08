@@ -154,6 +154,9 @@ model Project {
   taskBlockers TaskBlocker[]
   invitations Invitation[]
   surveys      Survey[]
+  customStatuses CustomStatus[]
+  statusDurations StatusDuration[]
+  statusAlerts StatusAlert[]
 }
 
 model Task {
@@ -183,6 +186,8 @@ model Task {
   blockers       TaskBlocker[]
   surveys        Survey[]
   activityLogs   PartnerActivityLog[]
+  statusDurations StatusDuration[]
+  statusAlerts   StatusAlert[]
 
   dependencies String[]
   createdAt    DateTime @default(now())
@@ -776,6 +781,61 @@ model Vote {
   @@map("votes")
 }
 
+model CustomStatus {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  color       String   @db.VarChar(10)
+  order       Int
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  isActive    Boolean  @default(true)
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  durations   StatusDuration[]
+  alerts      StatusAlert[]
+
+  @@map("custom_statuses")
+}
+
+model StatusDuration {
+  id             String       @id @default(uuid())
+  taskId         String
+  task           Task         @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  customStatusId String
+  customStatus   CustomStatus @relation(fields: [customStatusId], references: [id], onDelete: Cascade)
+  projectId      String
+  project        Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  startDate      DateTime
+  endDate        DateTime?
+  duration       Int          @default(0) // en millisecondes
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@map("status_durations")
+}
+
+model StatusAlert {
+  id               String         @id @default(uuid())
+  taskId           String
+  task             Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  projectId        String
+  project          Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  customStatusId   String
+  customStatus     CustomStatus   @relation(fields: [customStatusId], references: [id], onDelete: Cascade)
+  type             AlertType
+  severity         AlertSeverity
+  message          String
+  suggestedStatusId String?
+  isResolved       Boolean        @default(false)
+  resolvedAt       DateTime?
+  createdAt        DateTime       @default(now())
+
+  @@map("status_alerts")
+}
+
 
 enum BlockerType {
   INACTIVE_TASK
@@ -819,4 +879,17 @@ enum VoteType {
   SINGLE
   MULTIPLE
   WEIGHTED
+}
+
+enum AlertType {
+  DURATION_EXCEEDED
+  STATUS_STAGNATION
+  AUTO_SUGGESTION
+}
+
+enum AlertSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
 }
