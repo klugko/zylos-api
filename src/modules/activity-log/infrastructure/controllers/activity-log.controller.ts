@@ -233,8 +233,6 @@ export class ActivityLogController {
     @Res() res: Response,
     @CurrentUser() user: User
   ): Promise<void> {
-    // This would typically serve the actual file from storage
-    // For now, we'll return a placeholder response
     res.status(HttpStatus.NOT_IMPLEMENTED).json({
       message: "Téléchargement d'export non encore implémenté",
       timestamp,

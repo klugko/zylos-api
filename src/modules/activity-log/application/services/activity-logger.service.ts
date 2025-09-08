@@ -36,7 +36,6 @@ export class ActivityLoggerService {
     return this.activityLogRepository.create(activityLog);
   }
 
-  // Helper methods for common logging patterns
   async logTaskAction(
     userId: string,
     action: ActivityAction,
@@ -172,7 +171,6 @@ export class ActivityLoggerService {
     });
   }
 
-  // Helper method to create change metadata
   createChangeMetadata(
     oldValues: Record<string, any>,
     newValues: Record<string, any>
@@ -196,7 +194,6 @@ export class ActivityLoggerService {
     };
   }
 
-  // Helper method to create assignment metadata
   createAssignmentMetadata(
     assignedTo: string,
     assignedBy: string,
@@ -210,7 +207,6 @@ export class ActivityLoggerService {
     };
   }
 
-  // Helper method to create status change metadata
   createStatusChangeMetadata(
     oldStatus: string,
     newStatus: string,

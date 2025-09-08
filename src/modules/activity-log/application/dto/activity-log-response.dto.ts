@@ -19,7 +19,6 @@ export class ActivityLogResponseDto {
   userAgent?: string;
   createdAt: Date;
 
-  // User details
   user?: {
     id: string;
     fullname: string;
@@ -27,7 +26,6 @@ export class ActivityLogResponseDto {
     avatar?: string;
   };
 
-  // Related entity details
   project?: {
     id: string;
     name: string;
@@ -48,7 +46,6 @@ export class ActivityLogResponseDto {
     title: string;
   };
 
-  // Computed fields
   relativeTime?: string;
   changes?: Record<string, { old: any; new: any }>;
   isProjectRelated?: boolean;
@@ -67,7 +64,6 @@ export class ActivityTimelineResponseDto {
   page: number;
   limit: number;
 
-  // Statistics
   statistics?: {
     totalActivities: number;
     activitiesByType: Record<ActivityType, number>;
@@ -76,15 +72,13 @@ export class ActivityTimelineResponseDto {
     mostActiveUser?: string;
   };
 
-  // Timeline summary
   timelineSummary?: {
     firstActivity?: ActivityLogResponseDto;
     lastActivity?: ActivityLogResponseDto;
-    duration: number; // in days
+    duration: number;
     averageActivitiesPerDay: number;
   };
 
-  // Grouped data
   groupedByDay?: Record<string, ActivityLogResponseDto[]>;
   groupedByType?: Record<ActivityType, ActivityLogResponseDto[]>;
 }
