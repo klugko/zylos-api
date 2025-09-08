@@ -15,7 +15,7 @@ import { GetCustomStatusesUseCase } from "../../application/use-cases/get-custom
 import { InitializeDefaultStatusesUseCase } from "../../application/use-cases/initialize-default-statuses.use-case";
 import { CreateCustomStatusDto } from "../../application/dto/create-custom-status.dto";
 import { UpdateCustomStatusDto } from "../../application/dto/update-custom-status.dto";
-import { JwtAuthGuard } from "@modules/auth/infrastructure/guards/jwt-auth.guard";
+import { JwtAuthGuard } from "@modules/auth/infrastructure/strategies/jwt-auth.guard";
 
 @Controller("custom-statuses")
 @UseGuards(JwtAuthGuard)

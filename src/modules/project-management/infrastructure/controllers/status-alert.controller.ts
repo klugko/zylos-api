@@ -11,7 +11,7 @@ import {
 import { StatusNotificationService } from "../../application/services/status-notification.service";
 import { StatusMonitoringService } from "../../application/services/status-monitoring.service";
 import { ResolveStatusAlertDto } from "../../application/dto/status-alert.dto";
-import { JwtAuthGuard } from "@modules/auth/infrastructure/guards/jwt-auth.guard";
+import { JwtAuthGuard } from "@modules/auth/infrastructure/strategies/jwt-auth.guard";
 
 @Controller("status-alerts")
 @UseGuards(JwtAuthGuard)

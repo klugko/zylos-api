@@ -1,7 +1,7 @@
 import { Injectable, Logger, Inject } from "@nestjs/common";
 import { IStatusAlertRepository } from "../../domain/interfaces/status-alert-repository.interface";
-import { ITaskRepository } from "../../domain/interfaces/task-repository.interface";
-import { IProjectRepository } from "../../domain/interfaces/project-repository.interface";
+import { TaskRepository } from "../../domain/interfaces/task-repository.interface";
+import { ProjectRepository } from "../../domain/interfaces/project-repository.interface";
 import {
   StatusAlert,
   AlertType,
@@ -17,9 +17,9 @@ export class StatusNotificationService {
     @Inject("IStatusAlertRepository")
     private readonly statusAlertRepo: IStatusAlertRepository,
     @Inject("TaskRepository")
-    private readonly taskRepo: ITaskRepository,
+    private readonly taskRepo: TaskRepository,
     @Inject("ProjectRepository")
-    private readonly projectRepo: IProjectRepository
+    private readonly projectRepo: ProjectRepository
   ) {}
 
   async createAlert(

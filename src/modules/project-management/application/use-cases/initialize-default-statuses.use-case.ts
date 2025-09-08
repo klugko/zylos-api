@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException, Inject } from "@nestjs/common";
-import { IProjectRepository } from "../../domain/interfaces/project-repository.interface";
+import { ProjectRepository } from "../../domain/interfaces/project-repository.interface";
 import { CustomStatusIntegrationService } from "../services/custom-status-integration.service";
 
 @Injectable()
 export class InitializeDefaultStatusesUseCase {
   constructor(
     @Inject("ProjectRepository")
-    private readonly projectRepo: IProjectRepository,
+    private readonly projectRepo: ProjectRepository,
     private readonly customStatusIntegrationService: CustomStatusIntegrationService
   ) {}
 

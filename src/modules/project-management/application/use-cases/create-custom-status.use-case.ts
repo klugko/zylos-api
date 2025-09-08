@@ -5,7 +5,7 @@ import {
   Inject,
 } from "@nestjs/common";
 import { ICustomStatusRepository } from "../../domain/interfaces/custom-status-repository.interface";
-import { IProjectRepository } from "../../domain/interfaces/project-repository.interface";
+import { ProjectRepository } from "../../domain/interfaces/project-repository.interface";
 import { CreateCustomStatusDto } from "../dto/create-custom-status.dto";
 import { CustomStatus } from "../../domain/entities/custom-status.entity";
 import { v4 as uuidv4 } from "uuid";
@@ -16,7 +16,7 @@ export class CreateCustomStatusUseCase {
     @Inject("ICustomStatusRepository")
     private readonly customStatusRepo: ICustomStatusRepository,
     @Inject("ProjectRepository")
-    private readonly projectRepo: IProjectRepository
+    private readonly projectRepo: ProjectRepository
   ) {}
 
   async execute(dto: CreateCustomStatusDto): Promise<CustomStatus> {

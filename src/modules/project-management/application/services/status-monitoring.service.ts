@@ -3,7 +3,7 @@ import { Cron, CronExpression } from "@nestjs/schedule";
 import { IStatusDurationRepository } from "../../domain/interfaces/status-duration-repository.interface";
 import { IStatusAlertRepository } from "../../domain/interfaces/status-alert-repository.interface";
 import { ICustomStatusRepository } from "../../domain/interfaces/custom-status-repository.interface";
-import { ITaskRepository } from "../../domain/interfaces/task-repository.interface";
+import { TaskRepository } from "../../domain/interfaces/task-repository.interface";
 import {
   StatusAlert,
   AlertType,
@@ -23,7 +23,7 @@ export class StatusMonitoringService {
     @Inject("ICustomStatusRepository")
     private readonly customStatusRepo: ICustomStatusRepository,
     @Inject("TaskRepository")
-    private readonly taskRepo: ITaskRepository
+    private readonly taskRepo: TaskRepository
   ) {}
 
   @Cron(CronExpression.EVERY_HOUR)
@@ -143,9 +143,12 @@ export class StatusMonitoringService {
     if (currentDuration > threshold) {
       const customStatuses =
         await this.customStatusRepo.findByProjectIdAndActive(task.projectId);
+      const currentCustomStatus = await this.customStatusRepo.findById(
+        activeDuration.customStatusId
+      );
       const nextStatus = customStatuses.find(
         (status) =>
-          status.order > activeDuration.customStatus?.order && status.isActive
+          status.order > (currentCustomStatus?.order || 0) && status.isActive
       );
 
       return nextStatus?.id || null;

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, Inject } from "@nestjs/common";
 import { ICustomStatusRepository } from "../../domain/interfaces/custom-status-repository.interface";
-import { IProjectRepository } from "../../domain/interfaces/project-repository.interface";
+import { ProjectRepository } from "../../domain/interfaces/project-repository.interface";
 import { CustomStatus } from "../../domain/entities/custom-status.entity";
 
 @Injectable()
@@ -9,7 +9,7 @@ export class GetCustomStatusesUseCase {
     @Inject("ICustomStatusRepository")
     private readonly customStatusRepo: ICustomStatusRepository,
     @Inject("ProjectRepository")
-    private readonly projectRepo: IProjectRepository
+    private readonly projectRepo: ProjectRepository
   ) {}
 
   async execute(

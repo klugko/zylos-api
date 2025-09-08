@@ -1,5 +1,5 @@
 import { Injectable, Logger, Inject } from "@nestjs/common";
-import { ITaskRepository } from "../../domain/interfaces/task-repository.interface";
+import { TaskRepository } from "../../domain/interfaces/task-repository.interface";
 import { ICustomStatusRepository } from "../../domain/interfaces/custom-status-repository.interface";
 import { IStatusDurationRepository } from "../../domain/interfaces/status-duration-repository.interface";
 import { StatusNotificationService } from "./status-notification.service";
@@ -11,7 +11,7 @@ export class CustomStatusIntegrationService {
 
   constructor(
     @Inject("TaskRepository")
-    private readonly taskRepo: ITaskRepository,
+    private readonly taskRepo: TaskRepository,
     @Inject("ICustomStatusRepository")
     private readonly customStatusRepo: ICustomStatusRepository,
     @Inject("IStatusDurationRepository")
