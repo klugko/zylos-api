@@ -17,6 +17,7 @@ import {
   UploadedFile,
   Inject,
   NotFoundException,
+  Res,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -55,6 +56,9 @@ import { UpdateProfileUseCase } from '@modules/auth/application/use-cases/update
 import { UpdateProfileDto } from '@modules/auth/application/dto/update-profile.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AvatarStorageService } from '@modules/auth/infrastructure/services/avatar-storage.service';
+import { UploadCvUseCase } from '@modules/auth/application/use-cases/upload-cv.use-case';
+import { UploadCvBodyDto } from '@modules/auth/application/dto/upload-cv.dto';
+import { Response } from 'express';
 
 
 @ApiTags('Auth')
@@ -72,6 +76,7 @@ export class AuthController {
     private readonly deleteUserUC: DeleteUserUseCase,
     private readonly updateAvatarUC: UpdateAvatarUseCase,
     private readonly updateProfileUC: UpdateProfileUseCase,
+    private readonly uploadCvUC: UploadCvUseCase,
     @Inject('AuthRepository') private readonly authRepo: any,
     private readonly avatarStorage: AvatarStorageService,
   ) {}
@@ -289,7 +294,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Avatar supprimé avec succès' })
   @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
   async deleteAvatar(@CurrentUser() user: User) {
-    // Vérifier que l'utilisateur existe
+    
     const existingUser = await this.authRepo.findById(user.id);
     if (!existingUser) {
       throw new NotFoundException('User not found');
@@ -303,6 +308,101 @@ export class AuthController {
     }
 
     return { message: 'Avatar supprimé avec succès' };
+  }
+
+  @Post('upload-cv')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiOperation({ summary: 'Uploader un CV et extraire les compétences' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+          description: 'Fichier CV (PDF ou DOCX)',
+        },
+        type: {
+          type: 'string',
+          example: 'CV',
+          description: 'Type de document (optionnel)',
+        },
+      },
+      required: ['file'],
+    },
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'CV uploadé avec succès et compétences extraites',
+    schema: {
+      type: 'object',
+      properties: {
+        message: { type: 'string' },
+        skills: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              name: { type: 'string' },
+            },
+          },
+        },
+        fileUrl: { type: 'string' },
+        newSkills: { type: 'number', description: 'Nombre de nouvelles compétences ajoutées' },
+        totalSkills: { type: 'number', description: 'Nombre total de compétences après fusion' },
+      },
+    },
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Fichier manquant ou format non supporté',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Erreur lors du traitement du CV',
+  })
+  async uploadCv(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() dto: UploadCvBodyDto,
+    @CurrentUser() user: User,
+    @Res() res: Response,
+  ) {
+    if (!file) {
+      throw new BadRequestException('Fichier CV requis');
+    }
+
+    
+    const allowedMimeTypes = [
+      'application/pdf',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/msword',
+    ];
+
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+      throw new BadRequestException(
+        'Format de fichier non supporté. Formats acceptés: PDF, DOCX',
+      );
+    }
+
+    
+    const maxSize = 10 * 1024 * 1024; 
+    if (file.size > maxSize) {
+      throw new BadRequestException('Fichier trop volumineux. Taille maximale: 10MB');
+    }
+
+    try {
+      const result = await this.uploadCvUC.execute(file, dto, user.id);
+      return res.status(HttpStatus.CREATED).json(result);
+    } catch (error) {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Erreur lors du traitement du CV',
+        error: error.message,
+      });
+    }
   }
 
   @Get('debug-token')

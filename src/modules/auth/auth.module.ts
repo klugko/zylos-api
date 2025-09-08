@@ -38,7 +38,6 @@ import { UpdateProfileUseCase } from './application/use-cases/update-profile.use
 import { AvatarStorageService } from './infrastructure/services/avatar-storage.service';
 import { UploadCvUseCase } from './application/use-cases/upload-cv.use-case';
 import { SkillExtractionService } from './infrastructure/services/skill-extraction.service';
-import { CvUploadController } from './infrastructure/controllers/cv-upload.controller';
 import { OpenAIService } from '../../shared/ai/openai.service';
 import { CvTextExtractorService } from './infrastructure/services/cv-text-extractor.service';
 import { CvFileStorageService } from './infrastructure/services/cv-file-storage.service';
@@ -66,7 +65,6 @@ import { CvFileStorageService } from './infrastructure/services/cv-file-storage.
     InvitationController,
     EmailVerificationController,
     OtpController,
-    CvUploadController,
   ],
   providers: [
     JwtAuthGuard,

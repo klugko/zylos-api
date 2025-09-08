@@ -21,13 +21,12 @@ export class UploadCvUseCase {
     file: Express.Multer.File,
     dto: UploadCvDto,
     userId: string
-  ): Promise<{ message: string; skills: ExtractedSkill[]; fileUrl: string }> {
+  ): Promise<{ message: string; skills: ExtractedSkill[]; fileUrl: string; newSkills: number; totalSkills: number }> {
     try {
-      // 1. Sauvegarder le fichier
+      
       const fileUrl = await this.fileStorageService.save(file);
       this.logger.log(`CV saved: ${fileUrl}`);
 
-      // 2. Extraire le texte du CV
       const extractedText = await this.textExtractorService.extractText(file.buffer, file.mimetype);
       
       if (extractedText.includes('[ERROR]') || extractedText.includes('[UNSUPPORTED]')) {
@@ -36,20 +35,20 @@ export class UploadCvUseCase {
 
       this.logger.log(`Text extracted from CV: ${extractedText.length} characters`);
 
-      // 3. Extraire les compétences avec OpenAI
       const extractedSkills = await this.skillExtractionService.extractSkillsFromText(extractedText);
       this.logger.log(`Skills extracted: ${extractedSkills.length} skills found`);
 
-      // 4. Mettre à jour les compétences de l'utilisateur
       const skillNames = extractedSkills.map(skill => skill.name);
-      await this.authRepository.updateUserSkills(userId, skillNames);
+      const mergeResult = await this.authRepository.mergeUserSkills(userId, skillNames);
 
-      this.logger.log(`User skills updated for user ${userId}`);
+      this.logger.log(`User skills merged for user ${userId}: ${mergeResult.newSkillsCount} new skills added, total: ${mergeResult.mergedSkills.length}`);
 
       return {
         message: 'CV uploadé avec succès et compétences extraites',
         skills: extractedSkills,
-        fileUrl
+        fileUrl,
+        newSkills: mergeResult.newSkillsCount,
+        totalSkills: mergeResult.mergedSkills.length
       };
     } catch (error) {
       this.logger.error(`CV upload failed: ${error.message}`);
