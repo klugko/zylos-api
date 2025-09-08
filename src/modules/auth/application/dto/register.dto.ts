@@ -61,4 +61,22 @@ export class RegisterDto {
 })
 googleId?: string;
 
+@IsOptional()
+@IsString()
+@ApiProperty({
+  example: '+33123456789',
+  required: false,
+  description: 'Numéro de téléphone',
+})
+phone?: string;
+
+@IsOptional()
+@IsString()
+@ApiProperty({
+  example: 'Développeur Full Stack',
+  required: false,
+  description: 'Poste occupé',
+})
+poste?: string;
+
 }

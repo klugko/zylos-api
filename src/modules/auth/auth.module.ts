@@ -33,6 +33,9 @@ import { LoginWithOtpUseCase } from "./application/use-cases/login-with-otp.use-
 import { OtpController } from "./infrastructure/controllers/otp.controller";
 import { UpdateUserUseCase } from './application/use-cases/update-user.use-case';
 import { DeleteUserUseCase } from './application/use-cases/delete-user.use-case';
+import { UpdateAvatarUseCase } from './application/use-cases/update-avatar.use-case';
+import { UpdateProfileUseCase } from './application/use-cases/update-profile.use-case';
+import { AvatarStorageService } from './infrastructure/services/avatar-storage.service';
 import { UploadCvUseCase } from './application/use-cases/upload-cv.use-case';
 import { SkillExtractionService } from './infrastructure/services/skill-extraction.service';
 import { CvUploadController } from './infrastructure/controllers/cv-upload.controller';
@@ -90,6 +93,9 @@ import { CvFileStorageService } from './infrastructure/services/cv-file-storage.
     PrismaEmailVerificationRepository,
     UpdateUserUseCase,
     DeleteUserUseCase,
+    UpdateAvatarUseCase,
+    UpdateProfileUseCase,
+    AvatarStorageService,
     UploadCvUseCase,
     SkillExtractionService,
     OpenAIService,
@@ -126,6 +132,9 @@ import { CvFileStorageService } from './infrastructure/services/cv-file-storage.
     VerifyEmailUseCase,
     UpdateUserUseCase,
     DeleteUserUseCase,
+    UpdateAvatarUseCase,
+    UpdateProfileUseCase,
+    AvatarStorageService,
     UploadCvUseCase,
     SkillExtractionService,
   ],
