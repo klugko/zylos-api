@@ -12,15 +12,18 @@ export class ActivityLogService {
     projectId?: string,
     documentId?: string
   ) {
-    // Temporarily disabled to avoid Prisma type issues
-    // await this.prisma.partnerActivityLog.create({
-    //   data: {
-    //     userId,
-    //     action: "PROJECT_CREATED" as any,
-    //     projectId: projectId ?? null,
-    //     documentId: documentId ?? null,
-    //   },
-    // });
+    await this.prisma.partnerActivityLog.create({
+      data: {
+        userId,
+        action: action as any,
+        projectId: projectId ?? null,
+        documentId: documentId ?? null,
+        type: "SYSTEM" as any,
+        title: `Action: ${action}`,
+        description: `User performed action: ${action}`,
+        metadata: { action, timestamp: new Date().toISOString() },
+      },
+    });
   }
 
   async getLogs(filter: GetActivityLogsDto) {
