@@ -269,4 +269,17 @@ export class PrismaAuthRepository implements AuthRepository {
       data: { isTwoFAEnabled: isEnabled },
     });
   }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.user.delete({
+      where: { id },
+    });
+  }
+  
+  async updateUserSkills(userId: string, skills: string[]): Promise<void> {
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { skills },
+    });
+  }  
 }

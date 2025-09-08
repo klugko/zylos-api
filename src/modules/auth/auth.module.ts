@@ -31,6 +31,14 @@ import { VerifyEmailUseCase } from "./application/use-cases/verify-email.use-cas
 import { PrismaEmailVerificationRepository } from "./infrastructure/repositories/prisma-email-verification.repository";
 import { LoginWithOtpUseCase } from "./application/use-cases/login-with-otp.use-case";
 import { OtpController } from "./infrastructure/controllers/otp.controller";
+import { UpdateUserUseCase } from './application/use-cases/update-user.use-case';
+import { DeleteUserUseCase } from './application/use-cases/delete-user.use-case';
+import { UploadCvUseCase } from './application/use-cases/upload-cv.use-case';
+import { SkillExtractionService } from './infrastructure/services/skill-extraction.service';
+import { CvUploadController } from './infrastructure/controllers/cv-upload.controller';
+import { OpenAIService } from '../../shared/ai/openai.service';
+import { CvTextExtractorService } from './infrastructure/services/cv-text-extractor.service';
+import { CvFileStorageService } from './infrastructure/services/cv-file-storage.service';
 
 @Module({
   imports: [
@@ -55,6 +63,7 @@ import { OtpController } from "./infrastructure/controllers/otp.controller";
     InvitationController,
     EmailVerificationController,
     OtpController,
+    CvUploadController,
   ],
   providers: [
     JwtAuthGuard,
@@ -79,6 +88,13 @@ import { OtpController } from "./infrastructure/controllers/otp.controller";
     SendEmailVerificationUseCase,
     VerifyEmailUseCase,
     PrismaEmailVerificationRepository,
+    UpdateUserUseCase,
+    DeleteUserUseCase,
+    UploadCvUseCase,
+    SkillExtractionService,
+    OpenAIService,
+    CvTextExtractorService,
+    CvFileStorageService,
     {
       provide: "AuthRepository",
       useClass: PrismaAuthRepository,
@@ -108,6 +124,10 @@ import { OtpController } from "./infrastructure/controllers/otp.controller";
     EmailVerificationService,
     SendEmailVerificationUseCase,
     VerifyEmailUseCase,
+    UpdateUserUseCase,
+    DeleteUserUseCase,
+    UploadCvUseCase,
+    SkillExtractionService,
   ],
 })
 export class AuthModule {}
