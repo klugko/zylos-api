@@ -15,6 +15,8 @@ import {
   BadRequestException,
   UseInterceptors,
   UploadedFile,
+  Inject,
+  NotFoundException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -51,6 +53,8 @@ import { Roles } from '@modules/auth/application/decorators/roles.decorator';
 import { UpdateAvatarUseCase } from '@modules/auth/application/use-cases/update-avatar.use-case';
 import { UpdateProfileUseCase } from '@modules/auth/application/use-cases/update-profile.use-case';
 import { UpdateProfileDto } from '@modules/auth/application/dto/update-profile.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { AvatarStorageService } from '@modules/auth/infrastructure/services/avatar-storage.service';
 
 
 @ApiTags('Auth')
@@ -68,6 +72,8 @@ export class AuthController {
     private readonly deleteUserUC: DeleteUserUseCase,
     private readonly updateAvatarUC: UpdateAvatarUseCase,
     private readonly updateProfileUC: UpdateProfileUseCase,
+    @Inject('AuthRepository') private readonly authRepo: any,
+    private readonly avatarStorage: AvatarStorageService,
   ) {}
 
 
@@ -236,6 +242,67 @@ export class AuthController {
     @Body() dto: UpdateProfileDto,
   ) {
     return this.updateProfileUC.execute(user.id, dto);
+  }
+
+  @Post('avatar')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @UseInterceptors(FileInterceptor('avatar'))
+  @ApiOperation({ summary: 'Mettre à jour l\'avatar utilisateur' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        avatar: {
+          type: 'string',
+          format: 'binary',
+          description: 'Fichier image (JPEG, PNG, WebP)',
+        },
+      },
+      required: ['avatar'],
+    },
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Avatar mis à jour avec succès',
+    schema: {
+      type: 'object',
+      properties: {
+        avatarUrl: { type: 'string', description: 'URL de l\'avatar' },
+      },
+    },
+  })
+  @ApiResponse({ status: 400, description: 'Fichier invalide ou manquant' })
+  @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
+  async updateAvatar(
+    @CurrentUser() user: User,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.updateAvatarUC.execute(user.id, file);
+  }
+
+  @Delete('avatar')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Supprimer l\'avatar utilisateur' })
+  @ApiResponse({ status: 200, description: 'Avatar supprimé avec succès' })
+  @ApiResponse({ status: 404, description: 'Utilisateur non trouvé' })
+  async deleteAvatar(@CurrentUser() user: User) {
+    // Vérifier que l'utilisateur existe
+    const existingUser = await this.authRepo.findById(user.id);
+    if (!existingUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Supprimer l'avatar s'il existe
+    if (existingUser.avatarUrl) {
+      await this.avatarStorage.deleteAvatar(existingUser.avatarUrl);
+      existingUser.removeAvatar();
+      await this.authRepo.update(existingUser);
+    }
+
+    return { message: 'Avatar supprimé avec succès' };
   }
 
   @Get('debug-token')
