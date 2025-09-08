@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { PrismaService } from "@core/prisma/prisma.service";
-import { PrismaActivityLogFinalRepository } from "./infrastructure/repositories/prisma-activity-log-final.repository";
+import { PrismaActivityLogRepository } from "./infrastructure/repositories/prisma-activity-log.repository";
 import { ActivityTimelineService } from "./application/services/activity-timeline.service";
 import { ActivityLoggerService } from "./application/services/activity-logger.service";
 import { GetActivityLogsUseCase } from "./application/use-cases/get-activity-logs.use-case";
@@ -12,7 +12,7 @@ import { ActivityLogController } from "./infrastructure/controllers/activity-log
     PrismaService,
     {
       provide: "ActivityLogRepository",
-      useClass: PrismaActivityLogFinalRepository,
+      useClass: PrismaActivityLogRepository,
     },
     ActivityTimelineService,
     ActivityLoggerService,
