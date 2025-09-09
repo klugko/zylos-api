@@ -3,7 +3,7 @@ import { AssignCustomStatusUseCase } from "../../application/use-cases/assign-cu
 import { AssignCustomStatusDto } from "../../application/dto/assign-custom-status.dto";
 import { JwtAuthGuard } from "@modules/auth/infrastructure/strategies/jwt-auth.guard";
 
-@Controller("status-assignments")
+@Controller("api/v1/status-assignments")
 @UseGuards(JwtAuthGuard)
 export class StatusAssignmentController {
   constructor(
