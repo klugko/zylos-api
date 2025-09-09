@@ -60,6 +60,12 @@ import { TaskStatusSyncController } from "./infrastructure/controllers/task-stat
 import { CustomStatusRepository } from "./infrastructure/repositories/custom-status.repository";
 import { StatusDurationRepository } from "./infrastructure/repositories/status-duration.repository";
 import { StatusAlertRepository } from "./infrastructure/repositories/status-alert.repository";
+import { PrismaSimulationRepository } from './infrastructure/repositories/prisma-simulation.repository';
+import { AISimulationService } from './infrastructure/services/ai-simulation.service';
+import { GetSimulationUseCase } from './application/use-cases/get-simulation.use-case';
+import { CreateSimulationUseCase } from './application/use-cases/create-simulation.use-case';
+import { SimulationController } from './infrastructure/controllers/simulation.controller';
+import { AIEstimationService } from './infrastructure/adapters/openai-estimation.service';
 
 @Module({
   imports: [AuthModule],
@@ -71,10 +77,6 @@ import { StatusAlertRepository } from "./infrastructure/repositories/status-aler
     CreateProjectFromPdfController,
     CommentController,
     ReminderController,
-    CustomStatusController,
-    StatusAlertController,
-    StatusAssignmentController,
-    TaskStatusSyncController,
   ],
 
   providers: [
@@ -122,6 +124,10 @@ import { StatusAlertRepository } from "./infrastructure/repositories/status-aler
     CustomStatusRepository,
     StatusDurationRepository,
     StatusAlertRepository,
+    CreateSimulationUseCase,
+    GetSimulationUseCase,
+    AISimulationService,
+    PrismaSimulationRepository,
     {
       provide: "ProjectRepository",
       useClass: PrismaProjectRepository,
@@ -174,6 +180,15 @@ import { StatusAlertRepository } from "./infrastructure/repositories/status-aler
       provide: "IStatusAlertRepository",
       useClass: StatusAlertRepository,
     },
+    {
+      provide: 'ISimulationService',
+      useClass: AISimulationService
+    },
+    {
+      provide: 'SimulationRepository',
+      useClass: PrismaSimulationRepository
+    },
+    
   ],
 
   exports: [

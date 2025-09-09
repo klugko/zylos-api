@@ -14,4 +14,6 @@ export interface ProjectRepository {
     endDate: Date;
     budget: number;
   }): Promise<void>;
+  findTasksByProjectId(projectId: string): Promise<any[]>;
+  findMembersByProjectId(projectId: string): Promise<any[]>;
 }
