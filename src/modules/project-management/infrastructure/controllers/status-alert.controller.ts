@@ -13,7 +13,7 @@ import { StatusMonitoringService } from "../../application/services/status-monit
 import { ResolveStatusAlertDto } from "../../application/dto/status-alert.dto";
 import { JwtAuthGuard } from "@modules/auth/infrastructure/strategies/jwt-auth.guard";
 
-@Controller("status-alerts")
+@Controller("api/v1/status-alerts")
 @UseGuards(JwtAuthGuard)
 export class StatusAlertController {
   constructor(
