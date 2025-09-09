@@ -65,7 +65,6 @@ import { AISimulationService } from './infrastructure/services/ai-simulation.ser
 import { GetSimulationUseCase } from './application/use-cases/get-simulation.use-case';
 import { CreateSimulationUseCase } from './application/use-cases/create-simulation.use-case';
 import { SimulationController } from './infrastructure/controllers/simulation.controller';
-import { AIEstimationService } from './infrastructure/adapters/openai-estimation.service';
 
 @Module({
   imports: [AuthModule],
