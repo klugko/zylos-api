@@ -154,6 +154,7 @@ model Project {
   taskBlockers TaskBlocker[]
   invitations Invitation[]
   surveys      Survey[]
+  simulations  ProjectSimulation[]
   customStatuses CustomStatus[]
   statusDurations StatusDuration[]
   statusAlerts StatusAlert[]
@@ -378,6 +379,7 @@ model User {
   checkelists     Checklist[]
   surveys         Survey[]
   votes           Vote[]
+  simulations     ProjectSimulation[]
 }
 
 model RefreshToken {
@@ -879,6 +881,28 @@ enum VoteType {
   SINGLE
   MULTIPLE
   WEIGHTED
+}
+
+enum SimulationScenario {
+  OPTIMAL
+  REALISTIC
+  DEGRADED
+}
+
+model ProjectSimulation {
+  id            String   @id @default(cuid())
+  projectId     String
+  userId        String
+  scenarios     Json     // Contient les 3 scénarios (optimal, realistic, degraded)
+  impactFactors Json     // Contient les facteurs d'impact
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  project       Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("project_simulations")
 }
 
 enum AlertType {

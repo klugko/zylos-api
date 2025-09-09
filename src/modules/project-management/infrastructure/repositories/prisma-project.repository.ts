@@ -253,5 +253,40 @@ export class PrismaProjectRepository implements ProjectRepository {
       },
     });
   }
-  
+
+  async findTasksByProjectId(projectId: string): Promise<any[]> {
+    return this.prisma.task.findMany({
+      where: { projectId },
+      include: {
+        assignee: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+            skills: true,
+            availability: true,
+            performanceScore: true,
+          }
+        }
+      }
+    });
+  }
+
+  async findMembersByProjectId(projectId: string): Promise<any[]> {
+    return this.prisma.projectMember.findMany({
+      where: { projectId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            fullname: true,
+            email: true,
+            skills: true,
+            availability: true,
+            performanceScore: true,
+          }
+        }
+      }
+    });
+  }
 }
