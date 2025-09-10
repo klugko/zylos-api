@@ -41,6 +41,14 @@ import { SkillExtractionService } from './infrastructure/services/skill-extracti
 import { OpenAIService } from '../../shared/ai/openai.service';
 import { CvTextExtractorService } from './infrastructure/services/cv-text-extractor.service';
 import { CvFileStorageService } from './infrastructure/services/cv-file-storage.service';
+import { SkillTaxonomyService } from './infrastructure/services/skill-taxonomy.service';
+import { SkillScoringService } from './infrastructure/services/skill-scoring.service';
+import { UserScoringService } from './infrastructure/services/user-scoring.service';
+import { UserSkillRepository } from './infrastructure/repositories/user-skill.repository';
+import { UserScoreRepository } from './infrastructure/repositories/user-score.repository';
+import { UserResumeRepository } from './infrastructure/repositories/user-resume.repository';
+import { GetUserScoreUseCase } from './application/use-cases/get-user-score.use-case';
+import { GetSkillSummaryUseCase } from './application/use-cases/get-skill-summary.use-case';
 
 @Module({
   imports: [
@@ -99,6 +107,14 @@ import { CvFileStorageService } from './infrastructure/services/cv-file-storage.
     OpenAIService,
     CvTextExtractorService,
     CvFileStorageService,
+    SkillTaxonomyService,
+    SkillScoringService,
+    UserScoringService,
+    UserSkillRepository,
+    UserScoreRepository,
+    UserResumeRepository,
+    GetUserScoreUseCase,
+    GetSkillSummaryUseCase,
     {
       provide: "AuthRepository",
       useClass: PrismaAuthRepository,
@@ -135,6 +151,14 @@ import { CvFileStorageService } from './infrastructure/services/cv-file-storage.
     AvatarStorageService,
     UploadCvUseCase,
     SkillExtractionService,
+    SkillTaxonomyService,
+    SkillScoringService,
+    UserScoringService,
+    UserSkillRepository,
+    UserScoreRepository,
+    UserResumeRepository,
+    GetUserScoreUseCase,
+    GetSkillSummaryUseCase,
   ],
 })
 export class AuthModule {}
