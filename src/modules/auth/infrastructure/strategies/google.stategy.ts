@@ -14,10 +14,18 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
   ) {
     validator.validateGoogleOAuthConfig();
 
+    const clientID = configService.get<string>("oauth.google.clientId");
+    const clientSecret = configService.get<string>("oauth.google.clientSecret");
+    const callbackURL = configService.get<string>("oauth.google.callbackURL");
+
+    if (!clientID || !clientSecret || !callbackURL) {
+      throw new Error("Google OAuth configuration is incomplete");
+    }
+
     super({
-      clientID: configService.get<string>("oauth.google.clientId"),
-      clientSecret: configService.get<string>("oauth.google.clientSecret"),
-      callbackURL: configService.get<string>("oauth.google.callbackURL"),
+      clientID,
+      clientSecret,
+      callbackURL,
       scope: ["email", "profile"],
     });
   }
