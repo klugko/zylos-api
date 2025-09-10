@@ -49,6 +49,7 @@ import { UserScoreRepository } from './infrastructure/repositories/user-score.re
 import { UserResumeRepository } from './infrastructure/repositories/user-resume.repository';
 import { GetUserScoreUseCase } from './application/use-cases/get-user-score.use-case';
 import { GetSkillSummaryUseCase } from './application/use-cases/get-skill-summary.use-case';
+import { ManualDescriptionUseCase } from './application/use-cases/manual-description.use-case';
 
 @Module({
   imports: [
@@ -115,6 +116,7 @@ import { GetSkillSummaryUseCase } from './application/use-cases/get-skill-summar
     UserResumeRepository,
     GetUserScoreUseCase,
     GetSkillSummaryUseCase,
+    ManualDescriptionUseCase,
     {
       provide: "AuthRepository",
       useClass: PrismaAuthRepository,
@@ -159,6 +161,7 @@ import { GetSkillSummaryUseCase } from './application/use-cases/get-skill-summar
     UserResumeRepository,
     GetUserScoreUseCase,
     GetSkillSummaryUseCase,
+    ManualDescriptionUseCase,
   ],
 })
 export class AuthModule {}
