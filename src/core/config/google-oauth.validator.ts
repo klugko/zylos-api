@@ -1,7 +1,9 @@
-import { Injectable, BadRequestException } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 
 @Injectable()
 export class GoogleOAuthValidator {
+  private readonly logger = new Logger(GoogleOAuthValidator.name);
+
   validateGoogleOAuthConfig(): void {
     const requiredVars = [
       "GOOGLE_CLIENT_ID",
@@ -12,10 +14,12 @@ export class GoogleOAuthValidator {
     const missingVars = requiredVars.filter((varName) => !process.env[varName]);
 
     if (missingVars.length > 0) {
-      throw new BadRequestException(
+      this.logger.warn(
         `Variables d'environnement Google OAuth manquantes: ${missingVars.join(", ")}. ` +
-          "Veuillez configurer GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET et GOOGLE_CALLBACK_URL."
+          "Google OAuth sera désactivé jusqu'à ce que ces variables soient configurées."
       );
+    } else {
+      this.logger.log("Configuration Google OAuth validée avec succès");
     }
   }
 }
