@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 import { PrismaModule } from "./core/prisma/prisma.module";
 import { ProjectManagementModule } from "./modules/project-management/project-management.module";
 import { AuthModule } from "./modules/auth/auth.module";
@@ -11,9 +12,15 @@ import { GoogleCalendarModule } from "@modules/project-management/google-calenda
 import { SurveyModule } from "@modules/survey/survey.module";
 import { ActivityLogModule } from "@modules/activity-log/activity-log.module";
 import { CoreModule } from "@core/core.module";
+import configuration from "./core/config/configuration";
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [configuration],
+      envFilePath: ".env",
+    }),
     CoreModule,
     PrismaModule,
     AuthModule,
