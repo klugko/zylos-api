@@ -18,6 +18,13 @@ import { AuthModule } from "../auth/auth.module";
 import { UpdateProjectUseCase } from "./application/use-cases/update-project.use-case";
 import { GetAllProjectsUseCase } from "./application/use-cases/get-all-projects.use-case";
 import { PrismaTaskColumnRepository } from "./infrastructure/repositories/prisma-task-column.repository";
+import { TaskColumnController } from "./infrastructure/controllers/task-column.controller";
+import { CreateTaskColumnUseCase } from "./application/use-cases/create-task-column.use-case";
+import { UpdateTaskColumnUseCase } from "./application/use-cases/update-task-column.use-case";
+import { DeleteTaskColumnUseCase } from "./application/use-cases/delete-task-column.use-case";
+import { GetTaskColumnsUseCase } from "./application/use-cases/get-task-columns.use-case";
+import { ReorderTaskColumnsUseCase } from "./application/use-cases/reorder-task-columns.use-case";
+import { InitializeDefaultColumnsUseCase } from "./application/use-cases/initialize-default-columns.use-case";
 import { CreateProjectFromTemplateUseCase } from "./application/use-cases/create-project-from-template.use-case";
 import { PrismaProjectTemplateRepository } from "./infrastructure/repositories/prisma-project-template.repository";
 import { ProjectTemplateController } from "./infrastructure/controllers/project-template.controller.";
@@ -60,11 +67,11 @@ import { TaskStatusSyncController } from "./infrastructure/controllers/task-stat
 import { CustomStatusRepository } from "./infrastructure/repositories/custom-status.repository";
 import { StatusDurationRepository } from "./infrastructure/repositories/status-duration.repository";
 import { StatusAlertRepository } from "./infrastructure/repositories/status-alert.repository";
-import { PrismaSimulationRepository } from './infrastructure/repositories/prisma-simulation.repository';
-import { AISimulationService } from './infrastructure/services/ai-simulation.service';
-import { GetSimulationUseCase } from './application/use-cases/get-simulation.use-case';
-import { CreateSimulationUseCase } from './application/use-cases/create-simulation.use-case';
-import { SimulationController } from './infrastructure/controllers/simulation.controller';
+import { PrismaSimulationRepository } from "./infrastructure/repositories/prisma-simulation.repository";
+import { AISimulationService } from "./infrastructure/services/ai-simulation.service";
+import { GetSimulationUseCase } from "./application/use-cases/get-simulation.use-case";
+import { CreateSimulationUseCase } from "./application/use-cases/create-simulation.use-case";
+import { SimulationController } from "./infrastructure/controllers/simulation.controller";
 
 @Module({
   imports: [AuthModule],
@@ -77,6 +84,7 @@ import { SimulationController } from './infrastructure/controllers/simulation.co
     CommentController,
     ReminderController,
     SimulationController,
+    TaskColumnController,
   ],
 
   providers: [
@@ -129,6 +137,12 @@ import { SimulationController } from './infrastructure/controllers/simulation.co
     AISimulationService,
     PrismaSimulationRepository,
     SimulationController,
+    CreateTaskColumnUseCase,
+    UpdateTaskColumnUseCase,
+    DeleteTaskColumnUseCase,
+    GetTaskColumnsUseCase,
+    ReorderTaskColumnsUseCase,
+    InitializeDefaultColumnsUseCase,
     {
       provide: "ProjectRepository",
       useClass: PrismaProjectRepository,
@@ -182,14 +196,13 @@ import { SimulationController } from './infrastructure/controllers/simulation.co
       useClass: StatusAlertRepository,
     },
     {
-      provide: 'ISimulationService',
-      useClass: AISimulationService
+      provide: "ISimulationService",
+      useClass: AISimulationService,
     },
     {
-      provide: 'SimulationRepository',
-      useClass: PrismaSimulationRepository
+      provide: "SimulationRepository",
+      useClass: PrismaSimulationRepository,
     },
-    
   ],
 
   exports: [

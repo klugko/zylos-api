@@ -1,6 +1,5 @@
-import { Task } from '../entities/task.entity';
-import { TaskStatus } from '../enums/task.enums';
-
+import { Task } from "../entities/task.entity";
+import { TaskStatus } from "../enums/task.enums";
 
 export interface TaskRepository {
   findById(id: string): Promise<Task | null>;
@@ -15,12 +14,22 @@ export interface TaskRepository {
   findByUser(userId: string): Promise<Task[]>;
   countByProject(projectId: string): Promise<number>;
   countByProjectAndStatus(projectId: string, status: string): Promise<number>;
-  findByStatusAndEndDateBefore(statuses: TaskStatus[], date: Date): Promise<Task[]>;
-  findByStatusAndEndDateBetween(statuses: TaskStatus[], from: Date, to: Date): Promise<Task[]>;
+  findByStatusAndEndDateBefore(
+    statuses: TaskStatus[],
+    date: Date
+  ): Promise<Task[]>;
+  findByStatusAndEndDateBetween(
+    statuses: TaskStatus[],
+    from: Date,
+    to: Date
+  ): Promise<Task[]>;
   findIdleTasksWithoutStartDate(before: Date): Promise<Task[]>;
   findByUserAndEndDateBefore(userId: string, before: Date): Promise<Task[]>;
-  findByUserAndEndDateBetween(userId: string, start: Date, end: Date): Promise<Task[]>;
+  findByUserAndEndDateBetween(
+    userId: string,
+    start: Date,
+    end: Date
+  ): Promise<Task[]>;
   findUserIdleTasks(userId: string, referenceDate: Date): Promise<Task[]>;
-  
-  
+  findByProjectGroupedByColumns(projectId: string): Promise<any[]>;
 }

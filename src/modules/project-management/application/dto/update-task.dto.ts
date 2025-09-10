@@ -1,7 +1,7 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { IsEnum, IsOptional, IsString, IsDateString } from 'class-validator';
-import { TaskStatus, TaskPriority } from '../../domain/enums/task.enums';
-import { CreateTaskDto } from './create-task.dto';
+import { ApiProperty, PartialType } from "@nestjs/swagger";
+import { IsEnum, IsOptional, IsString, IsDateString } from "class-validator";
+import { TaskStatus, TaskPriority } from "../../domain/enums/task.enums";
+import { CreateTaskDto } from "./create-task.dto";
 
 export class UpdateTaskDto {
   @ApiProperty({ required: false })
@@ -24,12 +24,12 @@ export class UpdateTaskDto {
   @IsOptional()
   priority?: TaskPriority;
 
-  @ApiProperty({ required: false, type: String, format: 'date-time' })
+  @ApiProperty({ required: false, type: String, format: "date-time" })
   @IsDateString()
   @IsOptional()
   startDate?: Date | null;
 
-  @ApiProperty({ required: false, type: String, format: 'date-time' })
+  @ApiProperty({ required: false, type: String, format: "date-time" })
   @IsDateString()
   @IsOptional()
   endDate?: Date | null;
@@ -38,4 +38,9 @@ export class UpdateTaskDto {
   @IsString()
   @IsOptional()
   assignedUserId?: string;
+
+  @ApiProperty({ required: false, description: "ID de la colonne de la tâche" })
+  @IsString()
+  @IsOptional()
+  columnId?: string;
 }
