@@ -111,7 +111,6 @@ enum DocumentTag {
   RCX
 }
 
-
 // ======================================================
 // MODELS
 // ======================================================
@@ -132,7 +131,7 @@ model Project {
   isArchived          Boolean            @default(false)
   aiSuggestions       Json?
   aiGenerateStructure Boolean            @default(false)
-  meetingUrl String?  @db.Text
+  meetingUrl          String?            @db.Text
   createdAt           DateTime           @default(now())
   updatedAt           DateTime           @updatedAt
 
@@ -150,14 +149,14 @@ model Project {
   partnerRequests PartnerRequest[]
   activityLogs    PartnerActivityLog[]
   roleAssignments UserRoleAssignment[]
-  chatMessages ProjectChatMessage[]
-  taskBlockers TaskBlocker[]
-  invitations Invitation[]
-  surveys      Survey[]
-  simulations  ProjectSimulation[]
-  customStatuses CustomStatus[]
+  chatMessages    ProjectChatMessage[]
+  taskBlockers    TaskBlocker[]
+  invitations     Invitation[]
+  surveys         Survey[]
+  simulations     ProjectSimulation[]
+  customStatuses  CustomStatus[]
   statusDurations StatusDuration[]
-  statusAlerts StatusAlert[]
+  statusAlerts    StatusAlert[]
 }
 
 model Task {
@@ -172,7 +171,7 @@ model Task {
   progress      Float        @default(0.0)
   color         String?      @db.VarChar(10)
   estimatedTime Int?
-  isCompleted  Boolean      @default(false)
+  isCompleted   Boolean      @default(false)
 
   project        Project?    @relation(fields: [projectId], references: [id])
   projectId      String?
@@ -181,14 +180,14 @@ model Task {
   assignee       User?       @relation(fields: [assignedUserId], references: [id])
   assignedUserId String?
 
-  comments       Comment[]
-  checklistItems ChecklistItem[]
-  checklists     Checklist[]
-  blockers       TaskBlocker[]
-  surveys        Survey[]
-  activityLogs   PartnerActivityLog[]
+  comments        Comment[]
+  checklistItems  ChecklistItem[]
+  checklists      Checklist[]
+  blockers        TaskBlocker[]
+  surveys         Survey[]
+  activityLogs    PartnerActivityLog[]
   statusDurations StatusDuration[]
-  statusAlerts   StatusAlert[]
+  statusAlerts    StatusAlert[]
 
   dependencies String[]
   createdAt    DateTime @default(now())
@@ -205,22 +204,22 @@ model TaskColumn {
 }
 
 model Checklist {
-  id          String  @id @default(uuid())
-  title       String
-  status      ChecklistStatus   @default(TODO)     
-  priority    ChecklistPriority @default(MEDIUM)   
+  id       String            @id @default(uuid())
+  title    String
+  status   ChecklistStatus   @default(TODO)
+  priority ChecklistPriority @default(MEDIUM)
 
-  task        Task    @relation(fields: [taskId], references: [id])
-  taskId      String
-  project     Project @relation(fields: [projectId], references: [id])
-  projectId   String
+  task      Task    @relation(fields: [taskId], references: [id])
+  taskId    String
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
 
   assignedTo     User?   @relation(fields: [assignedUserId], references: [id])
   assignedUserId String?
 
-  items       ChecklistItem[]
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @default(now())
+  items     ChecklistItem[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @default(now())
 }
 
 model ChecklistItem {
@@ -248,19 +247,19 @@ model ProjectMember {
 }
 
 model Document {
-  id                 String   @id @default(uuid())
+  id                 String                     @id @default(uuid())
   name               String
   type               String?
-  url                String   @db.Text
-  uploadedBy         User?    @relation(fields: [uploadedById], references: [id])
+  url                String                     @db.Text
+  uploadedBy         User?                      @relation(fields: [uploadedById], references: [id])
   uploadedById       String?
-  project            Project  @relation(fields: [projectId], references: [id])
+  project            Project                    @relation(fields: [projectId], references: [id])
   projectId          String
-  tags               DocumentTag[] @default([])
+  tags               DocumentTag[]              @default([])
   metadata           Json?
-  validationRequired Boolean  @default(false)
-  uploadedAt         DateTime @default(now())
-  updatedAt          DateTime @default(now())
+  validationRequired Boolean                    @default(false)
+  uploadedAt         DateTime                   @default(now())
+  updatedAt          DateTime                   @default(now())
   versions           DocumentVersion[]
   comments           DocumentComment[]
   notificationRules  DocumentNotificationRule[]
@@ -297,21 +296,21 @@ model DocumentNotificationRule {
   id          String   @id @default(uuid())
   documentId  String
   document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-  trigger     String   // remain as string
-  frequency   String   // remain as string
-  channel     String   // remain as string
+  trigger     String // remain as string
+  frequency   String // remain as string
+  channel     String // remain as string
   targetEmail String?
   targetUrl   String?
   createdAt   DateTime @default(now())
 }
 
 model DocumentSignature {
-  id           String   @id @default(uuid())
+  id           String    @id @default(uuid())
   documentId   String
-  document     Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-  status       String   // remain as string
+  document     Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  status       String // remain as string
   signatureUrl String?
-  requestedAt  DateTime @default(now())
+  requestedAt  DateTime  @default(now())
   signedAt     DateTime?
 }
 
@@ -328,7 +327,6 @@ model Comment {
   Task      Task?    @relation(fields: [taskId], references: [id])
   taskId    String?
 }
-
 
 model User {
   id               String   @id @default(uuid())
@@ -349,89 +347,89 @@ model User {
 
   resetToken        String?   @unique
   resetTokenExpiry  DateTime?
-  twoFASecret      String?
-  isTwoFAEnabled   Boolean  @default(false)
+  twoFASecret       String?
+  isTwoFAEnabled    Boolean   @default(false)
   passwordChangedAt DateTime?
 
   external        Boolean @default(false)
   partnerType     String?
   activationToken String?
 
-  emailVerified         Boolean   @default(false)
-  emailVerificationToken String?  @unique
+  emailVerified           Boolean   @default(false)
+  emailVerificationToken  String?   @unique
   emailVerificationExpiry DateTime?
 
-  refreshTokens   RefreshToken[]
+  refreshTokens RefreshToken[]
 
-  projectsOwned   Project[]               @relation("ProjectOwner")
-  documents       Document[]
-  comments        Comment[]
-  Task            Task[]
-  ProjectMember   ProjectMember[]
-  projectAccess   ProjectAccess[]
-  documentAccess  DocumentAccess[]
-  partnerRequests PartnerRequest[]
-  partnerMessages PartnerRequestMessage[]
-  activityLogs    PartnerActivityLog[]
-  roleAssignments UserRoleAssignment[]
+  projectsOwned       Project[]               @relation("ProjectOwner")
+  documents           Document[]
+  comments            Comment[]
+  Task                Task[]
+  ProjectMember       ProjectMember[]
+  projectAccess       ProjectAccess[]
+  documentAccess      DocumentAccess[]
+  partnerRequests     PartnerRequest[]
+  partnerMessages     PartnerRequestMessage[]
+  activityLogs        PartnerActivityLog[]
+  roleAssignments     UserRoleAssignment[]
   projectChatMessages ProjectChatMessage[]
-  blockerSolutions BlockerSolution[]
-  checkelists     Checklist[]
-  surveys         Survey[]
-  votes           Vote[]
-  simulations     ProjectSimulation[]
-  detailedSkills  UserSkill[]
-  userScores      UserScore[]
-  resumes         UserResume[]
+  blockerSolutions    BlockerSolution[]
+  checkelists         Checklist[]
+  surveys             Survey[]
+  votes               Vote[]
+  simulations         ProjectSimulation[]
+  detailedSkills      UserSkill[]
+  userScores          UserScore[]
+  resumes             UserResume[]
 }
 
 model UserSkill {
-  id                      String   @id @default(uuid())
-  userId                  String
-  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  skill                   String
-  score                   Int      @default(0)
-  category                String?
-  yearsExperienceMonths   Int?
-  seniority               String?
-  confidence              Int?
-  lastUsedYear            Int?
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  id                    String   @id @default(uuid())
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill                 String
+  score                 Int      @default(0)
+  category              String?
+  yearsExperienceMonths Int?
+  seniority             String?
+  confidence            Int?
+  lastUsedYear          Int?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
   @@map("user_skills")
 }
 
 model UserScore {
-  id                      String   @id @default(uuid())
-  userId                  String   @unique
-  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  overallScore            Int      @default(0)
-  emailScore              Int      @default(0)
-  phoneScore              Int      @default(0)
-  profileScore            Int      @default(0)
-  skillsScore             Int      @default(0)
-  activityScore           Int      @default(0)
-  skillsCount             Int      @default(0)
-  skillsGlobalScore       Float    @default(0.0)
-  profileCompletion       Float    @default(0.0)
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  overallScore      Int      @default(0)
+  emailScore        Int      @default(0)
+  phoneScore        Int      @default(0)
+  profileScore      Int      @default(0)
+  skillsScore       Int      @default(0)
+  activityScore     Int      @default(0)
+  skillsCount       Int      @default(0)
+  skillsGlobalScore Float    @default(0.0)
+  profileCompletion Float    @default(0.0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   @@map("user_scores")
 }
 
 model UserResume {
-  id                      String   @id @default(uuid())
-  userId                  String
-  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  fileName                String
-  filePath                String
-  fileSize                Int
-  mimeType                String
-  parsedAt                DateTime?
-  createdAt               DateTime @default(now())
-  updatedAt               DateTime @updatedAt
+  id        String    @id @default(uuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileName  String
+  filePath  String
+  fileSize  Int
+  mimeType  String
+  parsedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   @@map("user_resumes")
 }
@@ -487,7 +485,6 @@ model ReminderNotification {
   taskId    String
   createdAt DateTime @default(now())
 }
-
 
 model Role {
   id              String   @id @default(uuid())
@@ -566,7 +563,7 @@ enum ActivityAction {
   TASK_PRIORITY_CHANGED
   TASK_DUE_DATE_CHANGED
   TASK_COMMENTED
-  
+
   // Project actions
   PROJECT_CREATED
   PROJECT_UPDATED
@@ -578,7 +575,7 @@ enum ActivityAction {
   PROJECT_MEMBER_ADDED
   PROJECT_MEMBER_REMOVED
   PROJECT_ACCESS_CHANGED
-  
+
   // Document actions
   DOCUMENT_UPLOADED
   DOCUMENT_UPDATED
@@ -588,7 +585,7 @@ enum ActivityAction {
   DOCUMENT_VERSION_CREATED
   DOCUMENT_SIGNED
   DOCUMENT_COMMENTED
-  
+
   // User actions
   USER_LOGGED_IN
   USER_LOGGED_OUT
@@ -596,7 +593,7 @@ enum ActivityAction {
   USER_UPDATED
   USER_DEACTIVATED
   USER_ROLE_CHANGED
-  
+
   // Survey actions
   SURVEY_CREATED
   SURVEY_UPDATED
@@ -605,14 +602,14 @@ enum ActivityAction {
   SURVEY_CLOSED
   SURVEY_VOTED
   SURVEY_RESULTS_VIEWED
-  
+
   // Comment actions
   COMMENT_CREATED
   COMMENT_UPDATED
   COMMENT_DELETED
   COMMENT_LIKED
   COMMENT_DISLIKED
-  
+
   // Chat actions
   CHAT_MESSAGE_SENT
   CHAT_MESSAGE_EDITED
@@ -620,12 +617,12 @@ enum ActivityAction {
   CHAT_ROOM_CREATED
   CHAT_ROOM_JOINED
   CHAT_ROOM_LEFT
-  
+
   // Notification actions
   NOTIFICATION_SENT
   NOTIFICATION_READ
   NOTIFICATION_DELETED
-  
+
   // System actions
   SYSTEM_BACKUP
   SYSTEM_MAINTENANCE
@@ -634,32 +631,32 @@ enum ActivityAction {
 }
 
 model PartnerActivityLog {
-  id          String        @id @default(uuid())
-  userId      String
-  user        User          @relation(fields: [userId], references: [id])
-  projectId   String?
-  project     Project?      @relation(fields: [projectId], references: [id])
-  taskId      String?
-  task        Task?         @relation(fields: [taskId], references: [id])
-  documentId  String?
-  document    Document?     @relation(fields: [documentId], references: [id])
-  surveyId    String?
-  survey      Survey?       @relation(fields: [surveyId], references: [id])
-  
+  id         String    @id @default(uuid())
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  projectId  String?
+  project    Project?  @relation(fields: [projectId], references: [id])
+  taskId     String?
+  task       Task?     @relation(fields: [taskId], references: [id])
+  documentId String?
+  document   Document? @relation(fields: [documentId], references: [id])
+  surveyId   String?
+  survey     Survey?   @relation(fields: [surveyId], references: [id])
+
   // Activity categorization
   type        ActivityType
   action      ActivityAction
-  title       String        // Human-readable title
-  description String?       // Detailed description
-  
+  title       String // Human-readable title
+  description String? // Detailed description
+
   // Metadata
-  metadata    Json?         // Additional data (old values, new values, etc.)
-  ipAddress   String?       // IP address of the user
-  userAgent   String?       // User agent string
-  
+  metadata  Json? // Additional data (old values, new values, etc.)
+  ipAddress String? // IP address of the user
+  userAgent String? // User agent string
+
   // Timestamps
-  createdAt   DateTime      @default(now())
-  
+  createdAt DateTime @default(now())
+
   @@index([userId, createdAt])
   @@index([projectId, createdAt])
   @@index([type, action])
@@ -693,51 +690,48 @@ model PartnerRequestMessage {
 }
 
 model ProjectChatMessage {
-  id         String   @id @default(uuid())
-  projectId  String
-  project    Project  @relation(fields: [projectId], references: [id])
-  senderId   String
-  sender     User     @relation(fields: [senderId], references: [id])
-  content    String
-  createdAt  DateTime @default(now())
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  senderId  String
+  sender    User     @relation(fields: [senderId], references: [id])
+  content   String
+  createdAt DateTime @default(now())
 }
 
-
-
 model TaskBlocker {
-  id           String         @id @default(uuid())
-  task         Task           @relation(fields: [taskId], references: [id])
-  taskId       String
-  project      Project        @relation(fields: [projectId], references: [id])
-  projectId    String
-  blockerType  BlockerType
-  severity     BlockerSeverity @default(MEDIUM)
-  description  String?
-  aiAnalysis   Json?
-  isResolved   Boolean        @default(false)
-  detectedAt   DateTime       @default(now())
-  resolvedAt   DateTime?
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  solutions    BlockerSolution[]
+  id          String            @id @default(uuid())
+  task        Task              @relation(fields: [taskId], references: [id])
+  taskId      String
+  project     Project           @relation(fields: [projectId], references: [id])
+  projectId   String
+  blockerType BlockerType
+  severity    BlockerSeverity   @default(MEDIUM)
+  description String?
+  aiAnalysis  Json?
+  isResolved  Boolean           @default(false)
+  detectedAt  DateTime          @default(now())
+  resolvedAt  DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  solutions   BlockerSolution[]
 }
 
 model BlockerSolution {
-  id             String          @id @default(uuid())
-  blocker        TaskBlocker     @relation(fields: [blockerId], references: [id])
-  blockerId      String
-  solutionType   String          // REASSIGN, SPLIT…
-  description    String?
-  aiReasoning    String?
-  confidence     Float?
-  status         SolutionStatus  @default(SUGGESTED)
-  suggestedUser  User?           @relation(fields: [suggestedUserId], references: [id])
+  id              String         @id @default(uuid())
+  blocker         TaskBlocker    @relation(fields: [blockerId], references: [id])
+  blockerId       String
+  solutionType    String // REASSIGN, SPLIT…
+  description     String?
+  aiReasoning     String?
+  confidence      Float?
+  status          SolutionStatus @default(SUGGESTED)
+  suggestedUser   User?          @relation(fields: [suggestedUserId], references: [id])
   suggestedUserId String?
-  metadata       Json?
-  createdAt      DateTime        @default(now())
-  appliedAt      DateTime?
+  metadata        Json?
+  createdAt       DateTime       @default(now())
+  appliedAt       DateTime?
 }
-
 
 model Invitation {
   id        String   @id @default(uuid())
@@ -772,67 +766,67 @@ model Survey {
   type        SurveyType
   status      SurveyStatus @default(DRAFT)
   voteType    VoteType     @default(SINGLE)
-  
+
   // Liens avec les projets et tâches
-  projectId   String?
-  project     Project?     @relation(fields: [projectId], references: [id])
-  taskId      String?
-  task        Task?        @relation(fields: [taskId], references: [id])
-  
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+  taskId    String?
+  task      Task?    @relation(fields: [taskId], references: [id])
+
   // Configuration
   allowMultipleVotes Boolean @default(false)
   isAnonymous        Boolean @default(false)
-  maxVotesPerUser    Int?    // null = illimité
+  maxVotesPerUser    Int? // null = illimité
   weightEnabled      Boolean @default(false)
-  
+
   // Dates
-  startDate   DateTime?
-  endDate     DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
+  startDate DateTime?
+  endDate   DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
   // Relations
-  creator     User         @relation(fields: [creatorId], references: [id])
-  creatorId   String
-  options     SurveyOption[]
-  votes       Vote[]
+  creator      User                 @relation(fields: [creatorId], references: [id])
+  creatorId    String
+  options      SurveyOption[]
+  votes        Vote[]
   activityLogs PartnerActivityLog[]
-  
+
   @@map("surveys")
 }
 
 model SurveyOption {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   surveyId    String
-  survey      Survey  @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  survey      Survey   @relation(fields: [surveyId], references: [id], onDelete: Cascade)
   text        String
   description String?
-  weight      Float?  // Pour les votes pondérés
-  order       Int     @default(0)
+  weight      Float? // Pour les votes pondérés
+  order       Int      @default(0)
   createdAt   DateTime @default(now())
-  
+
   // Relations
-  votes       Vote[]
-  
+  votes Vote[]
+
   @@map("survey_options")
 }
 
 model Vote {
-  id          String      @id @default(uuid())
-  surveyId    String
-  survey      Survey      @relation(fields: [surveyId], references: [id], onDelete: Cascade)
-  optionId    String
-  option      SurveyOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
-  voterId     String
-  voter       User        @relation(fields: [voterId], references: [id])
-  
+  id       String       @id @default(uuid())
+  surveyId String
+  survey   Survey       @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  optionId String
+  option   SurveyOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  voterId  String
+  voter    User         @relation(fields: [voterId], references: [id])
+
   // Données du vote
-  weight      Float?      // Poids du vote (pour votes pondérés)
-  comment     String?     // Commentaire optionnel
-  isAnonymous Boolean     @default(false)
-  
-  createdAt   DateTime    @default(now())
-  
+  weight      Float? // Poids du vote (pour votes pondérés)
+  comment     String? // Commentaire optionnel
+  isAnonymous Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
   @@unique([surveyId, voterId, optionId]) // Un utilisateur ne peut voter qu'une fois par option
   @@map("votes")
 }
@@ -850,8 +844,8 @@ model CustomStatus {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  durations   StatusDuration[]
-  alerts      StatusAlert[]
+  durations StatusDuration[]
+  alerts    StatusAlert[]
 
   @@map("custom_statuses")
 }
@@ -874,24 +868,23 @@ model StatusDuration {
 }
 
 model StatusAlert {
-  id               String         @id @default(uuid())
-  taskId           String
-  task             Task           @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  projectId        String
-  project          Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  customStatusId   String
-  customStatus     CustomStatus   @relation(fields: [customStatusId], references: [id], onDelete: Cascade)
-  type             AlertType
-  severity         AlertSeverity
-  message          String
+  id                String        @id @default(uuid())
+  taskId            String
+  task              Task          @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  projectId         String
+  project           Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  customStatusId    String
+  customStatus      CustomStatus  @relation(fields: [customStatusId], references: [id], onDelete: Cascade)
+  type              AlertType
+  severity          AlertSeverity
+  message           String
   suggestedStatusId String?
-  isResolved       Boolean        @default(false)
-  resolvedAt       DateTime?
-  createdAt        DateTime       @default(now())
+  isResolved        Boolean       @default(false)
+  resolvedAt        DateTime?
+  createdAt         DateTime      @default(now())
 
   @@map("status_alerts")
 }
-
 
 enum BlockerType {
   INACTIVE_TASK
@@ -947,14 +940,14 @@ model ProjectSimulation {
   id            String   @id @default(cuid())
   projectId     String
   userId        String
-  scenarios     Json     // Contient les 3 scénarios (optimal, realistic, degraded)
-  impactFactors Json     // Contient les facteurs d'impact
+  scenarios     Json // Contient les 3 scénarios (optimal, realistic, degraded)
+  impactFactors Json // Contient les facteurs d'impact
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   // Relations
-  project       Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("project_simulations")
 }
