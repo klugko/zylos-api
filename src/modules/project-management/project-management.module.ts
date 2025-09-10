@@ -76,6 +76,7 @@ import { SimulationController } from './infrastructure/controllers/simulation.co
     CreateProjectFromPdfController,
     CommentController,
     ReminderController,
+    SimulationController,
   ],
 
   providers: [
@@ -127,6 +128,7 @@ import { SimulationController } from './infrastructure/controllers/simulation.co
     GetSimulationUseCase,
     AISimulationService,
     PrismaSimulationRepository,
+    SimulationController,
     {
       provide: "ProjectRepository",
       useClass: PrismaProjectRepository,
