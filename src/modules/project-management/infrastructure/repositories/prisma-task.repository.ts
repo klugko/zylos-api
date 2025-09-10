@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { TaskRepository } from '../../domain/interfaces/task-repository.interface';
-import { PrismaService } from 'src/core/prisma/prisma.service';
-import { TaskStatus, TaskPriority } from '../../domain/enums/task.enums';
-import { Task } from '../../domain/entities/task.entity';
-import { UserRole } from '@modules/auth/domain/enums/user-role.enum';
+import { Injectable } from "@nestjs/common";
+import { TaskRepository } from "../../domain/interfaces/task-repository.interface";
+import { PrismaService } from "src/core/prisma/prisma.service";
+import { TaskStatus, TaskPriority } from "../../domain/enums/task.enums";
+import { Task } from "../../domain/entities/task.entity";
+import { UserRole } from "@modules/auth/domain/enums/user-role.enum";
 
 @Injectable()
 export class PrismaTaskRepository implements TaskRepository {
@@ -28,7 +28,7 @@ export class PrismaTaskRepository implements TaskRepository {
       data.title,
       data.description,
       data.status as TaskStatus,
-      data.priority as TaskPriority ?? TaskPriority.MEDIUM,
+      (data.priority as TaskPriority) ?? TaskPriority.MEDIUM,
       data.projectId,
       data.createdAt,
       data.updatedAt,
@@ -50,25 +50,25 @@ export class PrismaTaskRepository implements TaskRepository {
   }
 
   async findById(id: string): Promise<Task | null> {
-    const data = await this.prisma.task.findUnique({ 
+    const data = await this.prisma.task.findUnique({
       where: { id },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return data ? this.toEntity(data) : null;
   }
 
   async findByProject(projectId: string): Promise<Task[]> {
-    const data = await this.prisma.task.findMany({ 
+    const data = await this.prisma.task.findMany({
       where: { projectId },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return data.map(this.toEntity);
   }
@@ -86,13 +86,13 @@ export class PrismaTaskRepository implements TaskRepository {
         endDate: task.endDate ?? undefined,
         dependencies: task.dependencies ?? [],
         assignedUserId: task.assignedUserId || undefined,
-        columnId: task.columnId
+        columnId: task.columnId,
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return this.toEntity(created);
   }
@@ -100,7 +100,7 @@ export class PrismaTaskRepository implements TaskRepository {
   async bulkCreate(tasks: Task[]): Promise<void> {
     if (!tasks.length) return;
     await this.prisma.task.createMany({
-      data: tasks.map(t => ({
+      data: tasks.map((t) => ({
         id: t.id,
         title: t.title,
         description: t.description,
@@ -132,13 +132,13 @@ export class PrismaTaskRepository implements TaskRepository {
         dependencies: task.dependencies,
         assignedUserId: task.assignedUserId || undefined,
         columnId: task.columnId,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return this.toEntity(updated);
   }
@@ -159,9 +159,9 @@ export class PrismaTaskRepository implements TaskRepository {
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return this.toEntity(updated);
   }
@@ -175,7 +175,9 @@ export class PrismaTaskRepository implements TaskRepository {
     return count > 0;
   }
 
-  async assignMany(pairs: { taskId: string; userId: string }[]): Promise<Task[]> {
+  async assignMany(
+    pairs: { taskId: string; userId: string }[]
+  ): Promise<Task[]> {
     if (!pairs.length) return [];
     const prismaOps = pairs.map(({ taskId, userId }) =>
       this.prisma.task.update({
@@ -186,10 +188,10 @@ export class PrismaTaskRepository implements TaskRepository {
         },
         include: {
           assignee: {
-            select: this.assigneeSelect
-          }
-        }
-      }),
+            select: this.assigneeSelect,
+          },
+        },
+      })
     );
     const updated = await this.prisma.$transaction(prismaOps);
     return updated.map(this.toEntity);
@@ -200,10 +202,10 @@ export class PrismaTaskRepository implements TaskRepository {
       where: { assignedUserId: userId },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
+          select: this.assigneeSelect,
+        },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: "desc" },
     });
     return data.map(this.toEntity);
   }
@@ -212,7 +214,10 @@ export class PrismaTaskRepository implements TaskRepository {
     return this.prisma.task.count({ where: { projectId } });
   }
 
-  async countByProjectAndStatus(projectId: string, status: string): Promise<number> {
+  async countByProjectAndStatus(
+    projectId: string,
+    status: string
+  ): Promise<number> {
     return this.prisma.task.count({
       where: {
         projectId,
@@ -221,7 +226,10 @@ export class PrismaTaskRepository implements TaskRepository {
     });
   }
 
-  async findByStatusAndEndDateBefore(statuses: TaskStatus[], date: Date): Promise<Task[]> {
+  async findByStatusAndEndDateBefore(
+    statuses: TaskStatus[],
+    date: Date
+  ): Promise<Task[]> {
     const data = await this.prisma.task.findMany({
       where: {
         status: { in: statuses },
@@ -229,14 +237,18 @@ export class PrismaTaskRepository implements TaskRepository {
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return data.map(this.toEntity);
   }
 
-  async findByStatusAndEndDateBetween(statuses: TaskStatus[], from: Date, to: Date): Promise<Task[]> {
+  async findByStatusAndEndDateBetween(
+    statuses: TaskStatus[],
+    from: Date,
+    to: Date
+  ): Promise<Task[]> {
     const data = await this.prisma.task.findMany({
       where: {
         status: { in: statuses },
@@ -244,9 +256,9 @@ export class PrismaTaskRepository implements TaskRepository {
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return data.map(this.toEntity);
   }
@@ -260,30 +272,37 @@ export class PrismaTaskRepository implements TaskRepository {
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return data.map(this.toEntity);
   }
 
-  async findByUserAndEndDateBefore(userId: string, before: Date): Promise<Task[]> {
+  async findByUserAndEndDateBefore(
+    userId: string,
+    before: Date
+  ): Promise<Task[]> {
     const data = await this.prisma.task.findMany({
       where: {
         assignedUserId: userId,
         endDate: { lt: before },
-        status: { not: 'DONE' },
+        status: { not: "DONE" },
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return data.map(this.toEntity);
   }
 
-  async findByUserAndEndDateBetween(userId: string, start: Date, end: Date): Promise<Task[]> {
+  async findByUserAndEndDateBetween(
+    userId: string,
+    start: Date,
+    end: Date
+  ): Promise<Task[]> {
     const data = await this.prisma.task.findMany({
       where: {
         assignedUserId: userId,
@@ -291,33 +310,61 @@ export class PrismaTaskRepository implements TaskRepository {
           gte: start,
           lte: end,
         },
-        status: { not: 'DONE' },
+        status: { not: "DONE" },
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return data.map(this.toEntity);
   }
 
-  async findUserIdleTasks(userId: string, referenceDate: Date): Promise<Task[]> {
+  async findUserIdleTasks(
+    userId: string,
+    referenceDate: Date
+  ): Promise<Task[]> {
     const data = await this.prisma.task.findMany({
       where: {
         assignedUserId: userId,
         endDate: null,
         createdAt: { lt: referenceDate },
         status: {
-          in: ['TODO', 'IN_PROGRESS'],
+          in: ["TODO", "IN_PROGRESS"],
         },
       },
       include: {
         assignee: {
-          select: this.assigneeSelect
-        }
-      }
+          select: this.assigneeSelect,
+        },
+      },
     });
     return data.map(this.toEntity);
+  }
+
+  async findByProjectGroupedByColumns(projectId: string): Promise<any[]> {
+    const columns = await this.prisma.taskColumn.findMany({
+      where: { projectId },
+      orderBy: { order: "asc" },
+      include: {
+        tasks: {
+          include: {
+            assignee: {
+              select: this.assigneeSelect,
+            },
+          },
+          orderBy: { createdAt: "asc" },
+        },
+      },
+    });
+
+    return columns.map((column) => ({
+      id: column.id,
+      name: column.name,
+      order: column.order,
+      projectId: column.projectId,
+      tasks: column.tasks.map((task) => this.toEntity(task)),
+    }));
   }
 }
