@@ -117,10 +117,6 @@ export class AuthController {
     private readonly updateAvatarUC: UpdateAvatarUseCase,
     private readonly updateProfileUC: UpdateProfileUseCase,
     private readonly uploadCvUC: UploadCvUseCase,
-<<<<<<< HEAD
-    @Inject("AuthRepository") private readonly authRepo: any,
-    private readonly avatarStorage: AvatarStorageService
-=======
     private readonly getUserScoreUC: GetUserScoreUseCase,
     private readonly getSkillSummaryUC: GetSkillSummaryUseCase,
     @Inject('AuthRepository') private readonly authRepo: any,
@@ -402,11 +398,7 @@ export class AuthController {
   })
   @ApiResponse({
     status: 201,
-<<<<<<< HEAD
-    description: "CV uploadé avec succès et compétences extraites",
-=======
     description: 'CV uploadé avec succès et compétences extraites avec scoring',
->>>>>>> 27a1f66 (feat(Utilisateur): Ajoute système de scoring)
     schema: {
       type: "object",
       properties: {
@@ -454,7 +446,6 @@ export class AuthController {
             skillAggregation: { type: 'object', description: 'Agrégation des compétences par familles' }
           }
         }
->>>>>>> 27a1f66 (feat(Utilisateur): Ajoute système de scoring)
       },
     },
   })
