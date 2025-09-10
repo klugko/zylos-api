@@ -65,6 +65,9 @@ import { GetUserScoreUseCase } from "@modules/auth/application/use-cases/get-use
 import { GetSkillSummaryUseCase } from "@modules/auth/application/use-cases/get-skill-summary.use-case";
 import { UserScoreResponseDto } from "@modules/auth/application/dto/user-score.dto";
 import { SkillSummaryResponseDto } from "@modules/auth/application/dto/skill-summary.dto";
+import { ManualDescriptionUseCase } from "@modules/auth/application/use-cases/manual-description.use-case";
+import { ManualDescriptionDto } from "@modules/auth/application/dto/manual-description.dto";
+import { ManualDescriptionSuccessResponseDto, ManualDescriptionErrorResponseDto } from "@modules/auth/application/dto/manual-description-response.dto";
 import { Response } from "express";
 
 @ApiTags("Auth")
@@ -85,6 +88,7 @@ export class AuthController {
     private readonly uploadCvUC: UploadCvUseCase,
     private readonly getUserScoreUC: GetUserScoreUseCase,
     private readonly getSkillSummaryUC: GetSkillSummaryUseCase,
+    private readonly manualDescriptionUC: ManualDescriptionUseCase,
     @Inject('AuthRepository') private readonly authRepo: any,
     private readonly avatarStorage: AvatarStorageService,
   ) {}
@@ -526,5 +530,31 @@ export class AuthController {
   })
   async getMySkillSummary(@CurrentUser() user: User): Promise<SkillSummaryResponseDto> {
     return this.getSkillSummaryUC.execute(user.id);
+  }
+
+  @Put('manual_description_exp')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Analyser une description manuelle d\'expérience avec IA' })
+  @ApiBody({ type: ManualDescriptionDto })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Description analysée avec succès - expérience complète',
+    type: ManualDescriptionSuccessResponseDto,
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Description insuffisante - expérience incomplète',
+    type: ManualDescriptionErrorResponseDto,
+  })
+  @ApiResponse({ 
+    status: 500, 
+    description: 'Erreur lors de l\'analyse de la description',
+  })
+  async analyzeManualDescription(
+    @CurrentUser() user: User,
+    @Body() dto: ManualDescriptionDto
+  ): Promise<ManualDescriptionSuccessResponseDto | ManualDescriptionErrorResponseDto> {
+    return this.manualDescriptionUC.execute(user.id, dto);
   }
 }
