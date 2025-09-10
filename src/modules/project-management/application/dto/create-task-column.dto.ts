@@ -1,16 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsInt } from 'class-validator';
+import { ApiProperty } from "@nestjs/swagger";
+import { IsString } from "class-validator";
 
 export class CreateTaskColumnDto {
-  @ApiProperty()
+  @ApiProperty({ description: "Nom de la colonne" })
   @IsString()
   name: string;
 
-  @ApiProperty()
-  @IsInt()
-  order: number;
-
-  @ApiProperty()
+  @ApiProperty({ description: "ID du projet" })
   @IsString()
   projectId: string;
 }
