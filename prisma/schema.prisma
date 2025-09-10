@@ -380,6 +380,60 @@ model User {
   surveys         Survey[]
   votes           Vote[]
   simulations     ProjectSimulation[]
+  detailedSkills  UserSkill[]
+  userScores      UserScore[]
+  resumes         UserResume[]
+}
+
+model UserSkill {
+  id                      String   @id @default(uuid())
+  userId                  String
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill                   String
+  score                   Int      @default(0)
+  category                String?
+  yearsExperienceMonths   Int?
+  seniority               String?
+  confidence              Int?
+  lastUsedYear            Int?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@map("user_skills")
+}
+
+model UserScore {
+  id                      String   @id @default(uuid())
+  userId                  String   @unique
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  overallScore            Int      @default(0)
+  emailScore              Int      @default(0)
+  phoneScore              Int      @default(0)
+  profileScore            Int      @default(0)
+  skillsScore             Int      @default(0)
+  activityScore           Int      @default(0)
+  skillsCount             Int      @default(0)
+  skillsGlobalScore       Float    @default(0.0)
+  profileCompletion       Float    @default(0.0)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@map("user_scores")
+}
+
+model UserResume {
+  id                      String   @id @default(uuid())
+  userId                  String
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileName                String
+  filePath                String
+  fileSize                Int
+  mimeType                String
+  parsedAt                DateTime?
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@map("user_resumes")
 }
 
 model RefreshToken {
