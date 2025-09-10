@@ -4,10 +4,7 @@ CREATE TYPE "public"."AlertType" AS ENUM ('DURATION_EXCEEDED', 'STATUS_STAGNATIO
 -- CreateEnum
 CREATE TYPE "public"."AlertSeverity" AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL');
 
--- AlterTable
-ALTER TABLE "public"."User" ADD COLUMN     "avatarUrl" TEXT,
-ADD COLUMN     "phone" VARCHAR(20),
-ADD COLUMN     "poste" VARCHAR(100);
+-- AlterTable (avatarUrl, phone, poste already exist from previous migration)
 
 -- CreateTable
 CREATE TABLE "public"."custom_statuses" (

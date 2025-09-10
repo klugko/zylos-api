@@ -58,6 +58,10 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AvatarStorageService } from '@modules/auth/infrastructure/services/avatar-storage.service';
 import { UploadCvUseCase } from '@modules/auth/application/use-cases/upload-cv.use-case';
 import { UploadCvBodyDto } from '@modules/auth/application/dto/upload-cv.dto';
+import { GetUserScoreUseCase } from '@modules/auth/application/use-cases/get-user-score.use-case';
+import { GetSkillSummaryUseCase } from '@modules/auth/application/use-cases/get-skill-summary.use-case';
+import { UserScoreResponseDto } from '@modules/auth/application/dto/user-score.dto';
+import { SkillSummaryResponseDto } from '@modules/auth/application/dto/skill-summary.dto';
 import { Response } from 'express';
 
 
@@ -77,6 +81,8 @@ export class AuthController {
     private readonly updateAvatarUC: UpdateAvatarUseCase,
     private readonly updateProfileUC: UpdateProfileUseCase,
     private readonly uploadCvUC: UploadCvUseCase,
+    private readonly getUserScoreUC: GetUserScoreUseCase,
+    private readonly getSkillSummaryUC: GetSkillSummaryUseCase,
     @Inject('AuthRepository') private readonly authRepo: any,
     private readonly avatarStorage: AvatarStorageService,
   ) {}
@@ -336,7 +342,7 @@ export class AuthController {
   })
   @ApiResponse({
     status: 201,
-    description: 'CV uploadé avec succès et compétences extraites',
+    description: 'CV uploadé avec succès et compétences extraites avec scoring',
     schema: {
       type: 'object',
       properties: {
@@ -347,12 +353,28 @@ export class AuthController {
             type: 'object',
             properties: {
               name: { type: 'string' },
+              category: { type: 'string' },
+              proficiency: { type: 'number' },
+              monthsExperience: { type: 'number' },
+              seniority: { type: 'string' },
+              confidence: { type: 'number' },
+              lastUsedYear: { type: 'number' }
             },
           },
         },
         fileUrl: { type: 'string' },
         newSkills: { type: 'number', description: 'Nombre de nouvelles compétences ajoutées' },
         totalSkills: { type: 'number', description: 'Nombre total de compétences après fusion' },
+        availability: { type: 'number', description: 'Disponibilité calculée (0-100)' },
+        performanceScore: { type: 'number', description: 'Score de performance calculé (0-100)' },
+        scoring: {
+          type: 'object',
+          properties: {
+            skillScores: { type: 'array', description: 'Scores détaillés des compétences' },
+            userScore: { type: 'object', description: 'Score utilisateur global' },
+            skillAggregation: { type: 'object', description: 'Agrégation des compétences par familles' }
+          }
+        }
       },
     },
   })
@@ -454,5 +476,31 @@ export class AuthController {
   async deleteUser(@Param('id') id: string, @CurrentUser() currentUser: User) {
     await this.deleteUserUC.execute(id, currentUser);
     return { message: 'Utilisateur supprimé avec succès' };
+  }
+
+  @Get('me/score')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Récupérer mon score utilisateur (0-100)' })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Score utilisateur récupéré avec succès',
+    type: UserScoreResponseDto,
+  })
+  async getMyScore(@CurrentUser() user: User): Promise<UserScoreResponseDto> {
+    return this.getUserScoreUC.execute(user.id);
+  }
+
+  @Get('me/skills/summary')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Récupérer le résumé de mes compétences (clustering + score global)' })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Résumé des compétences récupéré avec succès',
+    type: SkillSummaryResponseDto,
+  })
+  async getMySkillSummary(@CurrentUser() user: User): Promise<SkillSummaryResponseDto> {
+    return this.getSkillSummaryUC.execute(user.id);
   }
 }
