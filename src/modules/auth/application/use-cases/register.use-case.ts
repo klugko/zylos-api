@@ -32,13 +32,13 @@ export class RegisterUseCase {
       true,
       now,
       now,
-      dto.skills ?? [],
-      dto.availability ?? 0,
-      dto.performanceScore ?? 0.0,
-      undefined, // googleId
+      [], // skills - vide par défaut, sera rempli lors de l'upload du CV
+      0, // availability - 0 par défaut, sera calculé lors de l'upload du CV
+      0.0, // performanceScore - 0 par défaut, sera calculé lors de l'upload du CV
+      undefined, // googleId - sera défini lors de l'inscription Google
       undefined, // avatarUrl
-      dto.phone, // phone
-      dto.poste, // poste
+      undefined, // phone - sera défini lors de la mise à jour du profil
+      undefined, // poste - sera défini lors de la mise à jour du profil
       undefined, // twoFASecret
       false, // isTwoFAEnabled - par défaut false
       undefined, // resetToken
