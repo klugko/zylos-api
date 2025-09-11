@@ -1,5 +1,12 @@
 import { ApiProperty, PartialType } from "@nestjs/swagger";
-import { IsEnum, IsOptional, IsString, IsDateString } from "class-validator";
+import {
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsDateString,
+  IsDate,
+} from "class-validator";
+import { Type } from "class-transformer";
 import { TaskStatus, TaskPriority } from "../../domain/enums/task.enums";
 import { CreateTaskDto } from "./create-task.dto";
 
@@ -25,13 +32,15 @@ export class UpdateTaskDto {
   priority?: TaskPriority;
 
   @ApiProperty({ required: false, type: String, format: "date-time" })
-  @IsDateString()
   @IsOptional()
+  @Type(() => Date)
+  @IsDate()
   startDate?: Date | null;
 
   @ApiProperty({ required: false, type: String, format: "date-time" })
-  @IsDateString()
   @IsOptional()
+  @Type(() => Date)
+  @IsDate()
   endDate?: Date | null;
 
   @ApiProperty({ required: false })

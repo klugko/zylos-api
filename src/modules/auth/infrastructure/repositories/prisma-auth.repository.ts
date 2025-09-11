@@ -4,6 +4,7 @@ import { PrismaService } from "../../../../core/prisma/prisma.service";
 import { AuthRepository } from "../../domain/interfaces/auth-repository.interface";
 import { User } from "../../domain/entities/user.entity";
 import { UserRole } from "../../domain/enums/user-role.enum";
+import { UserResponseDto } from "../../application/dto/user-response.dto";
 
 @Injectable()
 export class PrismaAuthRepository implements AuthRepository {
@@ -35,6 +36,58 @@ export class PrismaAuthRepository implements AuthRepository {
       user.emailVerificationToken ?? undefined,
       user.emailVerificationExpiry ?? undefined
     );
+  }
+
+  private toDomainWithoutPassword(user: any): User {
+    return new User(
+      user.id,
+      user.fullname,
+      user.email,
+      "",
+      user.role as UserRole,
+      user.isActive,
+      user.createdAt,
+      user.updatedAt,
+      user.skills,
+      user.availability,
+      user.performanceScore,
+      user.googleId ?? undefined,
+      user.avatarUrl ?? undefined,
+      user.phone ?? undefined,
+      user.poste ?? undefined,
+      user.twoFASecret ?? undefined,
+      user.isTwoFAEnabled ?? false,
+      user.resetToken ?? undefined,
+      user.resetTokenExpiry ?? undefined,
+      user.passwordChangedAt ?? undefined,
+      user.emailVerified ?? false,
+      user.emailVerificationToken ?? undefined,
+      user.emailVerificationExpiry ?? undefined
+    );
+  }
+
+  private toUserResponseDto(user: any): UserResponseDto {
+    return {
+      id: user.id,
+      fullname: user.fullname,
+      email: user.email,
+      role: user.role as UserRole,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+      skills: user.skills,
+      availability: user.availability,
+      performanceScore: user.performanceScore,
+      googleId: user.googleId ?? undefined,
+      avatarUrl: user.avatarUrl ?? undefined,
+      phone: user.phone ?? undefined,
+      poste: user.poste ?? undefined,
+      isTwoFAEnabled: user.isTwoFAEnabled ?? false,
+      passwordChangedAt: user.passwordChangedAt ?? undefined,
+      emailVerified: user.emailVerified ?? false,
+      emailVerificationToken: user.emailVerificationToken ?? undefined,
+      emailVerificationExpiry: user.emailVerificationExpiry ?? undefined,
+    };
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -228,7 +281,7 @@ export class PrismaAuthRepository implements AuthRepository {
     page: number,
     limit: number,
     search?: string
-  ): Promise<{ data: User[]; total: number }> {
+  ): Promise<{ data: UserResponseDto[]; total: number }> {
     const where: any = {};
 
     if (search) {
@@ -258,7 +311,7 @@ export class PrismaAuthRepository implements AuthRepository {
     ]);
 
     return {
-      data: data.map((user) => this.toDomain(user)),
+      data: data.map((user) => this.toUserResponseDto(user)),
       total,
     };
   }
@@ -285,7 +338,7 @@ export class PrismaAuthRepository implements AuthRepository {
       where: { id },
     });
   }
-  
+
   async updateUserSkills(userId: string, skills: string[]): Promise<void> {
     await this.prisma.user.update({
       where: { id: userId },
@@ -293,45 +346,53 @@ export class PrismaAuthRepository implements AuthRepository {
     });
   }
 
-  async mergeUserSkills(userId: string, newSkills: string[]): Promise<{ mergedSkills: string[]; newSkillsCount: number }> {
-    
+  async mergeUserSkills(
+    userId: string,
+    newSkills: string[]
+  ): Promise<{ mergedSkills: string[]; newSkillsCount: number }> {
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      select: { skills: true }
+      select: { skills: true },
     });
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     const existingSkills = user.skills || [];
     const mergedSkills = [...existingSkills];
 
     const normalizeSkill = (skill: string): string => {
-      return skill.toLowerCase().trim().replace(/\s+/g, ' ');
+      return skill.toLowerCase().trim().replace(/\s+/g, " ");
     };
 
     const areSimilarSkills = (skill1: string, skill2: string): boolean => {
       const normalized1 = normalizeSkill(skill1);
       const normalized2 = normalizeSkill(skill2);
-      
+
       if (normalized1 === normalized2) return true;
-      
-      if (normalized1.includes(normalized2) || normalized2.includes(normalized1)) {
+
+      if (
+        normalized1.includes(normalized2) ||
+        normalized2.includes(normalized1)
+      ) {
         return true;
       }
-      
+
       const words1 = normalized1.split(/\s+/);
       const words2 = normalized2.split(/\s+/);
-      
-      const commonWords = words1.filter(word => words2.includes(word));
-      return commonWords.length > 0 && (commonWords.length / Math.max(words1.length, words2.length)) >= 0.5;
+
+      const commonWords = words1.filter((word) => words2.includes(word));
+      return (
+        commonWords.length > 0 &&
+        commonWords.length / Math.max(words1.length, words2.length) >= 0.5
+      );
     };
 
     let newSkillsCount = 0;
 
     for (const newSkill of newSkills) {
-      const isDuplicate = mergedSkills.some(existingSkill => 
+      const isDuplicate = mergedSkills.some((existingSkill) =>
         areSimilarSkills(existingSkill, newSkill)
       );
 
@@ -341,7 +402,6 @@ export class PrismaAuthRepository implements AuthRepository {
       }
     }
 
-
     await this.prisma.user.update({
       where: { id: userId },
       data: { skills: mergedSkills },
@@ -349,7 +409,7 @@ export class PrismaAuthRepository implements AuthRepository {
 
     return {
       mergedSkills,
-      newSkillsCount
+      newSkillsCount,
     };
   }
 }

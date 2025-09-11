@@ -1,5 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsOptional, IsDateString } from 'class-validator';
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsDateString,
+  IsDate,
+} from "class-validator";
+import { Type } from "class-transformer";
 
 export class CreateProjectFromTemplateDto {
   @ApiProperty()
@@ -18,16 +25,18 @@ export class CreateProjectFromTemplateDto {
   description?: string;
 
   @ApiProperty({ required: false })
-  @IsDateString()
   @IsOptional()
+  @Type(() => Date)
+  @IsDate()
   startDate?: Date;
 
   @ApiProperty({ required: false })
-  @IsDateString()
   @IsOptional()
+  @Type(() => Date)
+  @IsDate()
   endDate?: Date;
 
-  @ApiProperty({required: false})
+  @ApiProperty({ required: false })
   @IsString()
   @IsNotEmpty()
   ownerId?: string;
