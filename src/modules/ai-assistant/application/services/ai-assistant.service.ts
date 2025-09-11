@@ -48,13 +48,11 @@ export class AiAssistantService {
 
   async generateResponse(userMessage: string, userContext: UserContext): Promise<string> {
     try {
-      // Construire le contexte sécurisé pour l'utilisateur
+
       const secureContext = this.buildSecureContext(userContext);
-      
-      // Construire le prompt système avec les contraintes de sécurité
+
       const systemPrompt = this.buildSystemPrompt(secureContext);
-      
-      // Construire l'historique de conversation si nécessaire
+
       const conversationHistory = await this.getConversationHistory(userContext.userId);
 
       const messages = [
@@ -141,18 +139,16 @@ Réponds en français et sois concis mais informatif.`;
           conversation: true
         },
         orderBy: { createdAt: 'desc' },
-        take: limit * 2 // Prendre plus pour avoir des paires user/assistant
+        take: limit * 2
       });
 
-      // Organiser les messages par conversation et garder seulement les plus récents
       const history: any[] = [];
       const processedConversations = new Set();
 
       for (const message of recentMessages) {
         if (!processedConversations.has(message.conversationId)) {
           processedConversations.add(message.conversationId);
-          
-          // Trouver le message de l'utilisateur et la réponse de l'assistant
+
           const conversationMessages = recentMessages.filter(m => m.conversationId === message.conversationId);
           const userMsg = conversationMessages.find(m => m.role === 'USER');
           const assistantMsg = conversationMessages.find(m => m.role === 'ASSISTANT');
@@ -177,7 +173,6 @@ Réponds en français et sois concis mais informatif.`;
 
   async getUserContext(userId: string): Promise<UserContext> {
     try {
-      // Récupérer les informations complètes de l'utilisateur
       const user = await this.prisma.user.findUnique({
         where: { id: userId },
         select: { 
@@ -200,9 +195,7 @@ Réponds en français et sois concis mais informatif.`;
         throw new Error('User not found');
       }
 
-      // Récupérer les projets de l'utilisateur (en tant que membre ET propriétaire)
       const [memberProjects, ownedProjects] = await Promise.all([
-        // Projets où l'utilisateur est membre
         this.prisma.projectMember.findMany({
           where: { userId },
           include: {
@@ -211,14 +204,12 @@ Réponds en français et sois concis mais informatif.`;
             }
           }
         }),
-        // Projets dont l'utilisateur est propriétaire
         this.prisma.project.findMany({
           where: { ownerId: userId },
           select: { id: true, name: true }
         })
       ]);
 
-      // Combiner et dédupliquer les projets
       const allProjects = [
         ...memberProjects.map(pm => ({
           id: pm.project.id,
@@ -232,12 +223,10 @@ Réponds en français et sois concis mais informatif.`;
         }))
       ];
 
-      // Dédupliquer par ID de projet
       const uniqueProjects = allProjects.filter((project, index, self) => 
         index === self.findIndex(p => p.id === project.id)
       );
 
-      // Récupérer les tâches de l'utilisateur (assignées ET dans ses projets)
       const projectIds = uniqueProjects.map(p => p.id);
       const userTasks = await this.prisma.task.findMany({
         where: {
@@ -256,7 +245,6 @@ Réponds en français et sois concis mais informatif.`;
         }
       });
 
-      // Récupérer les documents de l'utilisateur (uploadés ET dans ses projets)
       const userDocuments = await this.prisma.document.findMany({
         where: {
           OR: [

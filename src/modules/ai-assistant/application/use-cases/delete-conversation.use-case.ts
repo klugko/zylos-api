@@ -17,12 +17,10 @@ export class DeleteConversationUseCase {
         throw new NotFoundException('Conversation non trouvée');
       }
 
-      // Vérifier que la conversation appartient à l'utilisateur
       if (conversation.userId !== userId) {
         throw new NotFoundException('Conversation non trouvée');
       }
 
-      // Supprimer la conversation
       await this.conversationRepo.delete(conversationId);
 
       return { message: 'Conversation supprimée avec succès' };
