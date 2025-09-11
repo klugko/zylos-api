@@ -21,6 +21,7 @@ import {
 import { PrismaTaskRepository } from "../repositories/prisma-task.repository";
 import { CreateTaskDto } from "../../application/dto/create-task.dto";
 import { CreateTaskUseCase } from "../../application/use-cases/create-task.use-case";
+import { DeleteTaskUseCase } from "../../application/use-cases/delete-task.use-case";
 import { AssignTaskToBestUserUseCase } from "../../application/use-cases/assign-task.use-case";
 import { ProjectGateway } from "../websocket/project.gateway";
 import { JwtAuthGuard } from "@modules/auth/infrastructure/strategies/jwt-auth.guard";
@@ -32,12 +33,15 @@ import {
 } from "@modules/project-management/domain/enums/task.enums";
 import { BulkAssignTasksDto } from "@modules/project-management/application/dto/assign-many-task.dto";
 import { AssignManyTasksUseCase } from "@modules/project-management/application/use-cases/assign-many-task.usecase";
+import { CurrentUser } from "@core/common/current-user.decorator";
+import { User } from "@modules/auth/domain/entities/user.entity";
 
 @ApiTags("Tasks")
 @Controller("api/v1/tasks")
 export class TaskController {
   constructor(
     private readonly createTaskUseCase: CreateTaskUseCase,
+    private readonly deleteTaskUseCase: DeleteTaskUseCase,
     private readonly taskRepo: PrismaTaskRepository,
     private readonly assignTask: AssignTaskToBestUserUseCase,
     private readonly gateway: ProjectGateway,
@@ -51,8 +55,8 @@ export class TaskController {
   @ApiOperation({ summary: "Créer une tâche" })
   @ApiBody({ type: CreateTaskDto })
   @ApiResponse({ status: 201, description: "Tâche créée avec succès" })
-  async create(@Body() dto: CreateTaskDto) {
-    return await this.createTaskUseCase.execute(dto);
+  async create(@Body() dto: CreateTaskDto, @CurrentUser() user: User) {
+    return await this.createTaskUseCase.execute(dto, user.id);
   }
 
   @Get("enums")
@@ -124,8 +128,12 @@ export class TaskController {
     type: UpdateTaskDto,
   })
   @ApiResponse({ status: 200, description: "Tâche mise à jour" })
-  async updateTask(@Param("id") id: string, @Body() dto: UpdateTaskDto) {
-    return this.updateTaskUseCase.execute(id, dto);
+  async updateTask(
+    @Param("id") id: string,
+    @Body() dto: UpdateTaskDto,
+    @CurrentUser() user: User
+  ) {
+    return this.updateTaskUseCase.execute(id, dto, user.id);
   }
 
   @Put(":id/status")
@@ -166,8 +174,8 @@ export class TaskController {
   @ApiOperation({ summary: "Supprimer une tâche" })
   @ApiParam({ name: "id", description: "ID de la tâche" })
   @ApiResponse({ status: 200, description: "Tâche supprimée" })
-  async remove(@Param("id") id: string) {
-    await this.taskRepo.delete(id);
+  async remove(@Param("id") id: string, @CurrentUser() user: User) {
+    await this.deleteTaskUseCase.execute(id, user.id);
     return { message: "Deleted successfully" };
   }
 
