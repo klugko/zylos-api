@@ -3,6 +3,7 @@ import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { PrismaModule } from "../../core/prisma/prisma.module";
+import { ActivityLogModule } from "../activity-log/activity-log.module";
 import { AuthController } from "./infrastructure/controllers/auth.controller";
 import { GoogleAuthUseCase } from "./application/use-cases/google-auth.use-case";
 import { LoginUseCase } from "./application/use-cases/login.use-case";
@@ -31,31 +32,35 @@ import { VerifyEmailUseCase } from "./application/use-cases/verify-email.use-cas
 import { PrismaEmailVerificationRepository } from "./infrastructure/repositories/prisma-email-verification.repository";
 import { LoginWithOtpUseCase } from "./application/use-cases/login-with-otp.use-case";
 import { OtpController } from "./infrastructure/controllers/otp.controller";
-import { UpdateUserUseCase } from './application/use-cases/update-user.use-case';
-import { DeleteUserUseCase } from './application/use-cases/delete-user.use-case';
-import { UpdateAvatarUseCase } from './application/use-cases/update-avatar.use-case';
-import { UpdateProfileUseCase } from './application/use-cases/update-profile.use-case';
-import { AvatarStorageService } from './infrastructure/services/avatar-storage.service';
-import { UploadCvUseCase } from './application/use-cases/upload-cv.use-case';
-import { SkillExtractionService } from './infrastructure/services/skill-extraction.service';
-import { OpenAIService } from '../../shared/ai/openai.service';
-import { CvTextExtractorService } from './infrastructure/services/cv-text-extractor.service';
-import { CvFileStorageService } from './infrastructure/services/cv-file-storage.service';
-import { SkillTaxonomyService } from './infrastructure/services/skill-taxonomy.service';
-import { SkillScoringService } from './infrastructure/services/skill-scoring.service';
-import { UserScoringService } from './infrastructure/services/user-scoring.service';
-import { UserSkillRepository } from './infrastructure/repositories/user-skill.repository';
-import { UserScoreRepository } from './infrastructure/repositories/user-score.repository';
-import { UserResumeRepository } from './infrastructure/repositories/user-resume.repository';
-import { GetUserScoreUseCase } from './application/use-cases/get-user-score.use-case';
-import { GetSkillSummaryUseCase } from './application/use-cases/get-skill-summary.use-case';
-import { ManualDescriptionUseCase } from './application/use-cases/manual-description.use-case';
+import { UpdateUserUseCase } from "./application/use-cases/update-user.use-case";
+import { DeleteUserUseCase } from "./application/use-cases/delete-user.use-case";
+import { UpdateAvatarUseCase } from "./application/use-cases/update-avatar.use-case";
+import { UpdateProfileUseCase } from "./application/use-cases/update-profile.use-case";
+import { AvatarStorageService } from "./infrastructure/services/avatar-storage.service";
+import { UploadCvUseCase } from "./application/use-cases/upload-cv.use-case";
+import { SkillExtractionService } from "./infrastructure/services/skill-extraction.service";
+import { OpenAIService } from "../../shared/ai/openai.service";
+import { CvTextExtractorService } from "./infrastructure/services/cv-text-extractor.service";
+import { CvFileStorageService } from "./infrastructure/services/cv-file-storage.service";
+import { SkillTaxonomyService } from "./infrastructure/services/skill-taxonomy.service";
+import { SkillScoringService } from "./infrastructure/services/skill-scoring.service";
+import { UserScoringService } from "./infrastructure/services/user-scoring.service";
+import { UserSkillRepository } from "./infrastructure/repositories/user-skill.repository";
+import { UserScoreRepository } from "./infrastructure/repositories/user-score.repository";
+import { UserResumeRepository } from "./infrastructure/repositories/user-resume.repository";
+import { GetUserScoreUseCase } from "./application/use-cases/get-user-score.use-case";
+import { GetSkillSummaryUseCase } from "./application/use-cases/get-skill-summary.use-case";
+import { ManualDescriptionUseCase } from "./application/use-cases/manual-description.use-case";
+import { RegistrationEvaluationService } from "./infrastructure/services/registration-evaluation.service";
+import { CvAuthenticityVerificationService } from "./infrastructure/services/cv-authenticity-verification.service";
+import { EvolvingScoringService } from "./infrastructure/services/evolving-scoring.service";
 
 @Module({
   imports: [
     CoreModule,
     PrismaModule,
     ConfigModule,
+    ActivityLogModule,
     PassportModule.register({ defaultStrategy: "jwt" }),
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -117,6 +122,9 @@ import { ManualDescriptionUseCase } from './application/use-cases/manual-descrip
     GetUserScoreUseCase,
     GetSkillSummaryUseCase,
     ManualDescriptionUseCase,
+    RegistrationEvaluationService,
+    CvAuthenticityVerificationService,
+    EvolvingScoringService,
     {
       provide: "AuthRepository",
       useClass: PrismaAuthRepository,

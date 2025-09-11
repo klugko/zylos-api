@@ -4,34 +4,43 @@ import {
   BadRequestException,
   NotFoundException,
   Logger,
-} from '@nestjs/common';
-import { v4 as uuidv4 } from 'uuid';
-import { PrismaService } from '@core/prisma/prisma.service';
+} from "@nestjs/common";
+import { v4 as uuidv4 } from "uuid";
+import { PrismaService } from "@core/prisma/prisma.service";
 
-import { TaskRepository } from '../../domain/interfaces/task-repository.interface';
-import { ChecklistItemRepository } from '../../domain/interfaces/checklist-item-repository.interface';
-import { CreateTaskDto } from '../dto/create-task.dto';
-import { Task } from '../../domain/entities/task.entity';
-import { ChecklistItem } from '../../domain/entities/checklist-item.entity';
-import { TaskStatus, TaskPriority } from '../../domain/enums/task.enums';
-import { OpenAIService } from '@modules/project-management/infrastructure/adapters/openapi.service';
+import { TaskRepository } from "../../domain/interfaces/task-repository.interface";
+import { ChecklistItemRepository } from "../../domain/interfaces/checklist-item-repository.interface";
+import { CreateTaskDto } from "../dto/create-task.dto";
+import { Task } from "../../domain/entities/task.entity";
+import { ChecklistItem } from "../../domain/entities/checklist-item.entity";
+import { TaskStatus, TaskPriority } from "../../domain/enums/task.enums";
+import { OpenAIService } from "@modules/project-management/infrastructure/adapters/openapi.service";
+import { ActivityLoggerService } from "@modules/activity-log/application/services/activity-logger.service";
+import { ActivityAction } from "@modules/activity-log/domain/enums/activity.enums";
 
 @Injectable()
 export class CreateTaskUseCase {
   private readonly logger = new Logger(CreateTaskUseCase.name);
 
   constructor(
-    @Inject('TaskRepository') private readonly taskRepo: TaskRepository,
-    @Inject('ChecklistItemRepository') private readonly checklistItemRepo: ChecklistItemRepository,
+    @Inject("TaskRepository") private readonly taskRepo: TaskRepository,
+    @Inject("ChecklistItemRepository")
+    private readonly checklistItemRepo: ChecklistItemRepository,
     private readonly openai: OpenAIService,
     private readonly prisma: PrismaService,
+    private readonly activityLogger: ActivityLoggerService
   ) {}
 
-  async execute(dto: CreateTaskDto): Promise<{ task: Task; checklist: ChecklistItem[] }> {
+  async execute(
+    dto: CreateTaskDto,
+    userId?: string
+  ): Promise<{ task: Task; checklist: ChecklistItem[] }> {
     const now = new Date();
 
     if (dto.startDate && dto.endDate && dto.startDate > dto.endDate) {
-      throw new BadRequestException('La date de début ne peut pas être après la date de fin.');
+      throw new BadRequestException(
+        "La date de début ne peut pas être après la date de fin."
+      );
     }
 
     if (dto.dependencies?.length) {
@@ -42,7 +51,7 @@ export class CreateTaskUseCase {
       }
       if (invalid.length > 0) {
         throw new NotFoundException(
-          `Tâches dépendantes introuvables : ${invalid.join(', ')}`
+          `Tâches dépendantes introuvables : ${invalid.join(", ")}`
         );
       }
     }
@@ -61,16 +70,20 @@ export class CreateTaskUseCase {
       dto.endDate,
       dto.dependencies ?? [],
       dto.assignedUserId,
-      dto.columnId,
+      dto.columnId
     );
 
     let checklistItems: ChecklistItem[] = [];
 
     if (dto.description) {
       try {
-        const titles = await this.generateChecklistViaIA(dto.title, dto.description);
-        checklistItems = titles.map((title) =>
-          new ChecklistItem(uuidv4(), title, false, taskId, null, now, now)
+        const titles = await this.generateChecklistViaIA(
+          dto.title,
+          dto.description
+        );
+        checklistItems = titles.map(
+          (title) =>
+            new ChecklistItem(uuidv4(), title, false, taskId, null, now, now)
         );
       } catch (err) {
         this.logger.warn(`⚠️ Génération IA échouée : ${err.message}`);
@@ -113,34 +126,60 @@ export class CreateTaskUseCase {
         : []),
     ]);
 
+    if (userId) {
+      await this.activityLogger.logTaskAction(
+        userId,
+        ActivityAction.TASK_CREATED,
+        taskId,
+        dto.projectId,
+        `Tâche "${task.title}" créée`,
+        `Nouvelle tâche créée avec ${checklistItems.length} éléments de checklist`,
+        {
+          taskTitle: task.title,
+          taskStatus: task.status,
+          taskPriority: task.priority,
+          assignedUserId: task.assignedUserId,
+          checklistItemsCount: checklistItems.length,
+          hasDescription: !!task.description,
+        }
+      );
+    }
+
     return {
       task,
       checklist: checklistItems,
     };
   }
 
-  private async generateChecklistViaIA(title: string, description: string): Promise<string[]> {
+  private async generateChecklistViaIA(
+    title: string,
+    description: string
+  ): Promise<string[]> {
     const prompt = [
-      'Tu es un expert en productivité.',
-      'Génère une checklist claire (4 à 8 étapes) pour cette tâche :',
+      "Tu es un expert en productivité.",
+      "Génère une checklist claire (4 à 8 étapes) pour cette tâche :",
       `Titre : "${title}"`,
       `Description : ${description}`,
       'Format JSON strict : ["Étape 1", "Étape 2", "..."]',
-    ].join('\n');
+    ].join("\n");
 
     const raw = await this.openai.ask(prompt);
 
     let parsed: string[];
     try {
       parsed = JSON.parse(
-        raw.trim().replace(/^```json/, '').replace(/^```/, '').replace(/```$/, ''),
+        raw
+          .trim()
+          .replace(/^```json/, "")
+          .replace(/^```/, "")
+          .replace(/```$/, "")
       );
     } catch {
-      throw new Error('Réponse IA invalide : JSON non parsable');
+      throw new Error("Réponse IA invalide : JSON non parsable");
     }
 
     if (!Array.isArray(parsed) || parsed.length < 3 || parsed.length > 8) {
-      throw new Error('Checklist IA insuffisante ou mal formée');
+      throw new Error("Checklist IA insuffisante ou mal formée");
     }
 
     return parsed;

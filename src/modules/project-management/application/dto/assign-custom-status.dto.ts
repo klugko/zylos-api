@@ -1,4 +1,5 @@
-import { IsString, IsOptional, IsDateString } from "class-validator";
+import { IsString, IsOptional, IsDateString, IsDate } from "class-validator";
+import { Type } from "class-transformer";
 
 export class AssignCustomStatusDto {
   @IsString()
@@ -8,6 +9,7 @@ export class AssignCustomStatusDto {
   customStatusId: string;
 
   @IsOptional()
-  @IsDateString()
-  startDate?: string;
+  @Type(() => Date)
+  @IsDate()
+  startDate?: Date;
 }

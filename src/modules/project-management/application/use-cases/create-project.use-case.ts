@@ -1,28 +1,38 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@core/prisma/prisma.service';
-import { v4 as uuid } from 'uuid';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import { Inject, Injectable, Logger } from "@nestjs/common";
+import { PrismaService } from "@core/prisma/prisma.service";
+import { v4 as uuid } from "uuid";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 
-import { CreateProjectDto } from '../dto/create-project.dto';
-import { Project } from '../../domain/entities/project.entity';
-import { ProjectRepository } from '../../domain/interfaces/project-repository.interface';
-import { TaskRepository } from '../../domain/interfaces/task-repository.interface';
-import { ChecklistRepository } from '../../domain/interfaces/checklist-repository.interface';
-import { ProjectStructureGenerator } from '../../infrastructure/adapters/project-generator';
-import { ProjectClientType, ProjectPriority, ProjectStatus } from '@modules/project-management/domain/enums/project.enums';
-import { IAIEstimationService } from '@modules/project-management/domain/interfaces/ai-estimation.service.interface';
+import { CreateProjectDto } from "../dto/create-project.dto";
+import { Project } from "../../domain/entities/project.entity";
+import { ProjectRepository } from "../../domain/interfaces/project-repository.interface";
+import { TaskRepository } from "../../domain/interfaces/task-repository.interface";
+import { ChecklistRepository } from "../../domain/interfaces/checklist-repository.interface";
+import { ProjectStructureGenerator } from "../../infrastructure/adapters/project-generator";
+import {
+  ProjectClientType,
+  ProjectPriority,
+  ProjectStatus,
+} from "@modules/project-management/domain/enums/project.enums";
+import { IAIEstimationService } from "@modules/project-management/domain/interfaces/ai-estimation.service.interface";
+import { ActivityLoggerService } from "@modules/activity-log/application/services/activity-logger.service";
+import { ActivityAction } from "@modules/activity-log/domain/enums/activity.enums";
 
 @Injectable()
 export class CreateProjectUseCase {
   private readonly logger = new Logger(CreateProjectUseCase.name);
 
   constructor(
-    @Inject('ProjectRepository') private readonly projectRepository: ProjectRepository,
-    @Inject('TaskRepository') private readonly taskRepository: TaskRepository,
-    @Inject('ChecklistRepository') private readonly checklistRepository: ChecklistRepository,
-    @Inject('IAIEstimationService') private readonly aiEstimationService: IAIEstimationService,
+    @Inject("ProjectRepository")
+    private readonly projectRepository: ProjectRepository,
+    @Inject("TaskRepository") private readonly taskRepository: TaskRepository,
+    @Inject("ChecklistRepository")
+    private readonly checklistRepository: ChecklistRepository,
+    @Inject("IAIEstimationService")
+    private readonly aiEstimationService: IAIEstimationService,
     private readonly generator: ProjectStructureGenerator,
     private readonly prisma: PrismaService,
+    private readonly activityLogger: ActivityLoggerService
   ) {}
 
   async execute(dto: CreateProjectDto, ownerId: string): Promise<any> {
@@ -40,13 +50,13 @@ export class CreateProjectUseCase {
       dto.endDate ? new Date(dto.endDate) : null,
       dto.budget ?? null,
       0,
-      dto.status ?? 'NOT_STARTED',
-      dto.priority ?? 'MEDIUM',
+      dto.status ?? "NOT_STARTED",
+      dto.priority ?? "MEDIUM",
       dto.isArchived ?? false,
       now,
       now,
       ownerId ?? null,
-      dto.templateId ?? null,
+      dto.templateId ?? null
     );
 
     try {
@@ -57,7 +67,7 @@ export class CreateProjectUseCase {
         const result = await this.generator.generate({
           id: projectId,
           name: dto.name,
-          description: dto.description ?? '',
+          description: dto.description ?? "",
         });
         tasks = result.tasks;
         checklists = result.checklists;
@@ -89,7 +99,12 @@ export class CreateProjectUseCase {
           ? [this.prisma.task.createMany({ data: tasks, skipDuplicates: true })]
           : []),
         ...(checklists.length > 0
-          ? [this.prisma.checklist.createMany({ data: checklists, skipDuplicates: true })]
+          ? [
+              this.prisma.checklist.createMany({
+                data: checklists,
+                skipDuplicates: true,
+              }),
+            ]
           : []),
       ]);
 
@@ -118,7 +133,7 @@ export class CreateProjectUseCase {
             checklists: t.checklists.map((c) => ({
               id: c.id,
               title: c.title,
-              status: c.status ?? 'TODO',
+              status: c.status ?? "TODO",
             })),
           })),
         };
@@ -133,18 +148,38 @@ export class CreateProjectUseCase {
 
         this.logger.log(`Estimation IA ajoutée au projet ${projectId}`);
       } catch (error) {
-        this.logger.warn(`Estimation IA échouée pour projet ${projectId} : ${error.message}`);
+        this.logger.warn(
+          `Estimation IA échouée pour projet ${projectId} : ${error.message}`
+        );
       }
+
+      await this.activityLogger.logProjectAction(
+        ownerId,
+        ActivityAction.PROJECT_CREATED,
+        projectId,
+        `Projet "${project.name}" créé`,
+        `Nouveau projet créé avec ${tasks.length} tâches et ${checklists.length} checklists`,
+        {
+          projectName: project.name,
+          clientType: project.clientType,
+          industry: project.industry,
+          tasksCount: tasks.length,
+          checklistsCount: checklists.length,
+          aiGenerated: dto.aiGenerateStructure !== false,
+        }
+      );
 
       return fullProject;
     } catch (err) {
-      if (err instanceof PrismaClientKnownRequestError && err.code === 'P2002') {
+      if (
+        err instanceof PrismaClientKnownRequestError &&
+        err.code === "P2002"
+      ) {
         this.logger.warn(`Conflit UUID – retry avec nouveau ID`);
         return this.execute({ ...dto, id: uuid() }, ownerId);
       }
-      this.logger.error('Erreur lors de la création du projet', err);
+      this.logger.error("Erreur lors de la création du projet", err);
       throw err;
     }
   }
-  
 }

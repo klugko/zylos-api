@@ -1,6 +1,6 @@
-import { Project } from '../entities/project.entity';
-import { UpdateProjectDto } from '../../application/dto/update-project.dto';
-import { ProjectWithDetails } from '../entities/project-with-details.entity';
+import { Project } from "../entities/project.entity";
+import { UpdateProjectDto } from "../../application/dto/update-project.dto";
+import { ProjectWithDetails } from "../entities/project-with-details.entity";
 
 export interface ProjectRepository {
   findById(id: string): Promise<Project | null>;
@@ -9,11 +9,15 @@ export interface ProjectRepository {
   findAll(): Promise<Project[]>;
   findAllByOwner(ownerId: string): Promise<Project[]>;
   findAllWithDetails(): Promise<ProjectWithDetails[]>;
-  findFullDataByUserId(userId: string): Promise<any>; 
-  updateEstimation(projectId: string, estimation: {
-    endDate: Date;
-    budget: number;
-  }): Promise<void>;
+  findFullDataByUserId(userId: string): Promise<any>;
+  updateEstimation(
+    projectId: string,
+    estimation: {
+      endDate: Date;
+      budget: number;
+    }
+  ): Promise<void>;
   findTasksByProjectId(projectId: string): Promise<any[]>;
   findMembersByProjectId(projectId: string): Promise<any[]>;
+  delete(id: string): Promise<void>;
 }
