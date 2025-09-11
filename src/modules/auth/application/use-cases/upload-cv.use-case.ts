@@ -1,4 +1,4 @@
-import { Injectable, Logger, Inject } from '@nestjs/common';
+import { Injectable, Logger, Inject, BadRequestException } from '@nestjs/common';
 import { UploadCvDto } from '../dto/upload-cv.dto';
 import { SkillExtractionService, ExtractedSkill } from '../../infrastructure/services/skill-extraction.service';
 import { CvTextExtractorService } from '../../infrastructure/services/cv-text-extractor.service';
@@ -10,6 +10,8 @@ import { UserSkillRepository } from '../../infrastructure/repositories/user-skil
 import { UserScoreRepository } from '../../infrastructure/repositories/user-score.repository';
 import { UserResumeRepository } from '../../infrastructure/repositories/user-resume.repository';
 import { AuthRepository } from '../../domain/interfaces/auth-repository.interface';
+import { CvAuthenticityVerificationService } from '../../infrastructure/services/cv-authenticity-verification.service';
+import { EvolvingScoringService } from '../../infrastructure/services/evolving-scoring.service';
 
 @Injectable()
 export class UploadCvUseCase {
@@ -25,6 +27,8 @@ export class UploadCvUseCase {
     private readonly userSkillRepository: UserSkillRepository,
     private readonly userScoreRepository: UserScoreRepository,
     private readonly userResumeRepository: UserResumeRepository,
+    private readonly cvAuthenticityVerificationService: CvAuthenticityVerificationService,
+    private readonly evolvingScoringService: EvolvingScoringService,
     @Inject('AuthRepository') private readonly authRepository: AuthRepository,
   ) {}
 
@@ -69,21 +73,44 @@ export class UploadCvUseCase {
 
       this.logger.log(`Text extracted from CV: ${extractedText.length} characters`);
 
-      // 4. Extraire les compétences avec métadonnées enrichies
+      const currentUser = await this.authRepository.findById(userId);
+      if (!currentUser) {
+        throw new Error('Utilisateur non trouvé');
+      }
+
+      const authenticityResult = await this.cvAuthenticityVerificationService.verifyCvAuthenticity(
+        extractedText,
+        currentUser.fullname,
+        currentUser.email,
+        currentUser.phone,
+        currentUser.poste
+      );
+
+      if (!authenticityResult.isAuthentic) {
+        this.logger.warn(`CV authenticity verification failed for user ${userId}: ${authenticityResult.verificationReasoning}`);
+        throw new BadRequestException(
+          `CV non authentique détecté. ${authenticityResult.verificationReasoning}. ` +
+          `Éléments non correspondants: ${authenticityResult.mismatchingElements.join(', ')}`
+        );
+      }
+
+      this.logger.log(`CV authenticity verified for user ${userId} with confidence ${authenticityResult.confidence}%`);
+
+
       const extractedSkills = await this.skillExtractionService.extractSkillsFromText(extractedText);
       this.logger.log(`Skills extracted: ${extractedSkills.length} skills found`);
 
-      // 5. Classifier les compétences par familles et calculer les scores
+
       const familyMap = new Map<string, string>();
       const scoreMap = new Map<string, number>();
       const scoredSkills: ScoredSkill[] = [];
 
       for (const skill of extractedSkills) {
-        // Classifier la famille
+
         const family = this.taxonomyService.classifyFamily(skill.name, skill.category);
         familyMap.set(skill.name, family);
 
-        // Calculer le score pondéré
+
         const scoredSkill = this.skillScoringService.scoreSkill(
           skill.name,
           skill.proficiency,
@@ -97,7 +124,7 @@ export class UploadCvUseCase {
         scoredSkills.push(scoredSkill);
       }
 
-      // 6. Sauvegarder les compétences détaillées
+
       await this.userSkillRepository.upsertBulk(userId, extractedSkills.map(skill => ({
         name: skill.name,
         score: Math.round(scoreMap.get(skill.name) || 0),
@@ -108,33 +135,25 @@ export class UploadCvUseCase {
         lastUsedYear: skill.lastUsedYear,
       })));
 
-      // 7. Calculer l'agrégation des compétences
       const skillAggregation = this.skillScoringService.aggregate(scoredSkills);
 
-      // 8. Mettre à jour les compétences simples dans le profil utilisateur
       const skillNames = extractedSkills.map(skill => skill.name);
       const mergeResult = await this.authRepository.mergeUserSkills(userId, skillNames);
 
-      // 9. Marquer le CV comme parsé
       await this.userResumeRepository.setParsedAt(resume.id);
 
-      // 10. Calculer le score utilisateur global
-      const user = await this.authRepository.findById(userId);
-      if (!user) {
-        throw new Error('Utilisateur non trouvé');
-      }
 
       const profileCompletion = this.userScoringService.calculateProfileCompletionRatio({
-        fullname: user.fullname,
-        email: user.email,
-        phone: user.phone,
-        poste: user.poste,
-        avatarUrl: user.avatarUrl,
+        fullname: currentUser.fullname,
+        email: currentUser.email,
+        phone: currentUser.phone,
+        poste: currentUser.poste,
+        avatarUrl: currentUser.avatarUrl,
       });
 
       const userSignals: UserSignals = {
-        emailVerified: user.emailVerified || false,
-        phoneVerified: false, // TODO: Implémenter la vérification téléphone
+        emailVerified: currentUser.emailVerified || false,
+        phoneVerified: false,
         profileCompletionRatio: profileCompletion,
         skillsCount: scoredSkills.length,
         skillsGlobalScore: skillAggregation.globalScore,
@@ -143,7 +162,6 @@ export class UploadCvUseCase {
 
       const userScoreResult = this.userScoringService.compute(userSignals);
 
-      // 11. Sauvegarder le score utilisateur
       await this.userScoreRepository.upsert(
         userId,
         userScoreResult.score,
@@ -157,28 +175,36 @@ export class UploadCvUseCase {
         profileCompletion
       );
 
-      // 12. Calculer et mettre à jour availability et performanceScore
-      const availability = this.calculateAvailability(scoredSkills.length, skillAggregation.globalScore);
-      const performanceScore = this.calculatePerformanceScore(userScoreResult.score, skillAggregation.globalScore);
+      const cvAvailability = this.calculateAvailability(scoredSkills.length, skillAggregation.globalScore);
+      const cvPerformanceScore = this.calculatePerformanceScore(userScoreResult.score, skillAggregation.globalScore);
 
-      // Mettre à jour l'utilisateur avec les nouveaux scores
-      user.updateFullProfile({
+      const hasPreviousCv = false;
+
+      const evolvedScores = this.evolvingScoringService.calculateEvolvedScores(
+        currentUser.availability,
+        currentUser.performanceScore,
+        cvAvailability,
+        cvPerformanceScore,
+        currentUser.createdAt,
+        hasPreviousCv
+      );
+      currentUser.updateFullProfile({
         skills: skillNames,
-        availability,
-        performanceScore,
+        availability: evolvedScores.newAvailability,
+        performanceScore: evolvedScores.newPerformanceScore,
       });
-      await this.authRepository.update(user);
+      await this.authRepository.update(currentUser);
 
-      this.logger.log(`CV processing completed for user ${userId}: ${mergeResult.newSkillsCount} new skills, score: ${userScoreResult.score}, availability: ${availability}, performance: ${performanceScore}`);
+      this.logger.log(`CV processing completed for user ${userId}: ${mergeResult.newSkillsCount} new skills, evolved availability: ${evolvedScores.newAvailability}, evolved performance: ${evolvedScores.newPerformanceScore}`);
 
       return {
-        message: 'CV uploadé avec succès et compétences extraites avec scoring',
+        message: 'CV uploadé avec succès et compétences extraites avec scoring évolutif',
         skills: extractedSkills,
         fileUrl,
         newSkills: mergeResult.newSkillsCount,
         totalSkills: mergeResult.mergedSkills.length,
-        availability,
-        performanceScore,
+        availability: evolvedScores.newAvailability,
+        performanceScore: evolvedScores.newPerformanceScore,
         scoring: {
           skillScores: scoredSkills,
           userScore: userScoreResult,
@@ -192,27 +218,20 @@ export class UploadCvUseCase {
   }
 
   private calculateAvailability(skillsCount: number, skillsGlobalScore: number): number {
-    // Availability basée sur le nombre de compétences et leur qualité
-    // Plus l'utilisateur a de compétences et plus elles sont de qualité, plus il est disponible
-    const skillsFactor = Math.min(1.0, skillsCount / 20); // Normaliser sur 20 compétences max
-    const qualityFactor = skillsGlobalScore / 100; // Normaliser sur 100
+    const skillsFactor = Math.min(1.0, skillsCount / 20);
+    const qualityFactor = skillsGlobalScore / 100;
     
-    // Calculer l'availability (0-100)
     const availability = Math.round((skillsFactor * 0.4 + qualityFactor * 0.6) * 100);
     
-    // S'assurer que c'est entre 0 et 100
     return Math.max(0, Math.min(100, availability));
   }
 
   private calculatePerformanceScore(userScore: number, skillsGlobalScore: number): number {
-    // Performance score basé sur le score utilisateur global et la qualité des compétences
     const userScoreFactor = userScore / 100;
     const skillsScoreFactor = skillsGlobalScore / 100;
     
-    // Moyenne pondérée (70% score utilisateur, 30% score compétences)
     const performanceScore = Math.round((userScoreFactor * 0.7 + skillsScoreFactor * 0.3) * 100);
     
-    // S'assurer que c'est entre 0 et 100
     return Math.max(0, Math.min(100, performanceScore));
   }
 }
