@@ -1,12 +1,23 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../../../core/prisma/prisma.service';
-import { ProjectRepository } from '../../domain/interfaces/project-repository.interface';
-import { Project } from '../../domain/entities/project.entity';
-import { UpdateProjectDto } from '../../application/dto/update-project.dto';
-import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
-import { ChecklistDetails, ProjectWithDetails, TaskDetails } from '@modules/project-management/domain/entities/project-with-details.entity';
-import { ChecklistPriority, ChecklistStatus } from '@modules/project-management/domain/enums/checklist.enums';
-import { UserRole } from '@modules/auth/domain/enums/user-role.enum';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "../../../../core/prisma/prisma.service";
+import { ProjectRepository } from "../../domain/interfaces/project-repository.interface";
+import { Project } from "../../domain/entities/project.entity";
+import { UpdateProjectDto } from "../../application/dto/update-project.dto";
+import {
+  ProjectClientType,
+  ProjectPriority,
+  ProjectStatus,
+} from "../../domain/enums/project.enums";
+import {
+  ChecklistDetails,
+  ProjectWithDetails,
+  TaskDetails,
+} from "@modules/project-management/domain/entities/project-with-details.entity";
+import {
+  ChecklistPriority,
+  ChecklistStatus,
+} from "@modules/project-management/domain/enums/checklist.enums";
+import { UserRole } from "@modules/auth/domain/enums/user-role.enum";
 
 @Injectable()
 export class PrismaProjectRepository implements ProjectRepository {
@@ -48,8 +59,8 @@ export class PrismaProjectRepository implements ProjectRepository {
       },
       include: {
         owner: {
-          select: this.ownerSelect
-        }
+          select: this.ownerSelect,
+        },
       },
     });
 
@@ -73,8 +84,8 @@ export class PrismaProjectRepository implements ProjectRepository {
       },
       include: {
         owner: {
-          select: this.ownerSelect
-        }
+          select: this.ownerSelect,
+        },
       },
     });
 
@@ -99,7 +110,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       record.createdAt,
       record.updatedAt,
       record.ownerId,
-      record.templateId,
+      record.templateId
     );
 
     if (record.owner) {
@@ -111,25 +122,25 @@ export class PrismaProjectRepository implements ProjectRepository {
 
   async findAll(): Promise<Project[]> {
     const records = await this.prisma.project.findMany({
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
       include: {
         owner: {
-          select: this.ownerSelect
-        }
+          select: this.ownerSelect,
+        },
       },
     });
-  
+
     return records.map(this.mapToEntity);
   }
 
   async findAllByOwner(ownerId: string): Promise<Project[]> {
     const records = await this.prisma.project.findMany({
       where: { ownerId },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
       include: {
         owner: {
-          select: this.ownerSelect
-        }
+          select: this.ownerSelect,
+        },
       },
     });
 
@@ -141,8 +152,8 @@ export class PrismaProjectRepository implements ProjectRepository {
       where: { id },
       include: {
         owner: {
-          select: this.ownerSelect
-        }
+          select: this.ownerSelect,
+        },
       },
     });
 
@@ -153,7 +164,7 @@ export class PrismaProjectRepository implements ProjectRepository {
     const projects = await this.prisma.project.findMany({
       include: {
         owner: {
-          select: this.ownerSelect
+          select: this.ownerSelect,
         },
         tasks: true,
         checklists: true,
@@ -162,38 +173,63 @@ export class PrismaProjectRepository implements ProjectRepository {
 
     return projects.map((p) => {
       const base = new Project(
-        p.id, p.name, p.description, p.clientType, p.industry,
-        p.color, p.startDate, p.endDate, p.budget?.toNumber() ?? null,
-        p.progress, p.status, p.priority, p.isArchived,
-        p.createdAt, p.updatedAt, p.ownerId, p.templateId
+        p.id,
+        p.name,
+        p.description,
+        p.clientType,
+        p.industry,
+        p.color,
+        p.startDate,
+        p.endDate,
+        p.budget?.toNumber() ?? null,
+        p.progress,
+        p.status,
+        p.priority,
+        p.isArchived,
+        p.createdAt,
+        p.updatedAt,
+        p.ownerId,
+        p.templateId
       );
 
       if (p.owner) {
         base.owner = {
           ...p.owner,
-          role: p.owner.role as UserRole, 
+          role: p.owner.role as UserRole,
         };
       }
 
-      const tasks = p.tasks.map((t) =>
-        new TaskDetails(
-          t.id, t.title, t.description, t.status, t.priority,
-          t.dueDate, t.startDate, t.endDate, t.progress,
-          t.color, t.estimatedTime, t.assignedUserId, t.projectId
-        )
+      const tasks = p.tasks.map(
+        (t) =>
+          new TaskDetails(
+            t.id,
+            t.title,
+            t.description,
+            t.status,
+            t.priority,
+            t.dueDate,
+            t.startDate,
+            t.endDate,
+            t.progress,
+            t.color,
+            t.estimatedTime,
+            t.assignedUserId,
+            t.projectId
+          )
       );
 
-      const checklists = p.checklists.map((c) =>
-        new ChecklistDetails(
-          c.id,
-          c.title,
-          c.projectId,
-          c.createdAt,
-          c.updatedAt,
-          c.status as ChecklistStatus,
-          c.priority as ChecklistPriority,
-          c.assignedUserId
-        )
+      const checklists = p.checklists.map(
+        (c) =>
+          new ChecklistDetails(
+            c.id,
+            c.title,
+            c.projectId,
+            c.createdAt,
+            c.updatedAt,
+            c.status as ChecklistStatus,
+            c.priority as ChecklistPriority,
+            c.assignedUserId
+          )
       );
       return new ProjectWithDetails(base, tasks, checklists);
     });
@@ -221,7 +257,7 @@ export class PrismaProjectRepository implements ProjectRepository {
       },
       include: {
         owner: {
-          select: this.ownerSelect
+          select: this.ownerSelect,
         },
         tasks: {
           where: {
@@ -244,7 +280,10 @@ export class PrismaProjectRepository implements ProjectRepository {
     });
   }
 
-  async updateEstimation(projectId: string, data: { endDate: Date; budget: number }) {
+  async updateEstimation(
+    projectId: string,
+    data: { endDate: Date; budget: number }
+  ) {
     await this.prisma.project.update({
       where: { id: projectId },
       data: {
@@ -266,9 +305,9 @@ export class PrismaProjectRepository implements ProjectRepository {
             skills: true,
             availability: true,
             performanceScore: true,
-          }
-        }
-      }
+          },
+        },
+      },
     });
   }
 
@@ -284,9 +323,15 @@ export class PrismaProjectRepository implements ProjectRepository {
             skills: true,
             availability: true,
             performanceScore: true,
-          }
-        }
-      }
+          },
+        },
+      },
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.project.delete({
+      where: { id },
     });
   }
 }

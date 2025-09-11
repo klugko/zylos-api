@@ -6,6 +6,8 @@ import { ChecklistController } from "./infrastructure/controllers/checklist.cont
 import { CreateProjectUseCase } from "./application/use-cases/create-project.use-case";
 import { CreateChecklistUseCase } from "./application/use-cases/create-checklist.use-case";
 import { CreateTaskUseCase } from "./application/use-cases/create-task.use-case";
+import { DeleteTaskUseCase } from "./application/use-cases/delete-task.use-case";
+import { DeleteProjectUseCase } from "./application/use-cases/delete-project.use-case";
 import { PrismaProjectRepository } from "./infrastructure/repositories/prisma-project.repository";
 import { PrismaTaskRepository } from "./infrastructure/repositories/prisma-task.repository";
 import { PrismaChecklistRepository } from "./infrastructure/repositories/prisma-checklist.repository";
@@ -15,6 +17,7 @@ import { GetProjectTasksByViewUseCase } from "./application/use-cases/get-projec
 import { AssignTaskToBestUserUseCase } from "./application/use-cases/assign-task.use-case";
 import { OpenAIService } from "./infrastructure/adapters/openapi.service";
 import { AuthModule } from "../auth/auth.module";
+import { ActivityLogModule } from "../activity-log/activity-log.module";
 import { UpdateProjectUseCase } from "./application/use-cases/update-project.use-case";
 import { GetAllProjectsUseCase } from "./application/use-cases/get-all-projects.use-case";
 import { PrismaTaskColumnRepository } from "./infrastructure/repositories/prisma-task-column.repository";
@@ -74,7 +77,7 @@ import { CreateSimulationUseCase } from "./application/use-cases/create-simulati
 import { SimulationController } from "./infrastructure/controllers/simulation.controller";
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule, ActivityLogModule],
   controllers: [
     ProjectController,
     TaskController,
@@ -93,6 +96,8 @@ import { SimulationController } from "./infrastructure/controllers/simulation.co
     UpdateProjectUseCase,
     GetAllProjectsUseCase,
     CreateTaskUseCase,
+    DeleteTaskUseCase,
+    DeleteProjectUseCase,
     CreateChecklistUseCase,
     GptChecklistService,
     PrismaProjectRepository,

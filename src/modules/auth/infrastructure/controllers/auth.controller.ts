@@ -67,7 +67,10 @@ import { UserScoreResponseDto } from "@modules/auth/application/dto/user-score.d
 import { SkillSummaryResponseDto } from "@modules/auth/application/dto/skill-summary.dto";
 import { ManualDescriptionUseCase } from "@modules/auth/application/use-cases/manual-description.use-case";
 import { ManualDescriptionDto } from "@modules/auth/application/dto/manual-description.dto";
-import { ManualDescriptionSuccessResponseDto, ManualDescriptionErrorResponseDto } from "@modules/auth/application/dto/manual-description-response.dto";
+import {
+  ManualDescriptionSuccessResponseDto,
+  ManualDescriptionErrorResponseDto,
+} from "@modules/auth/application/dto/manual-description-response.dto";
 import { Response } from "express";
 
 @ApiTags("Auth")
@@ -89,8 +92,8 @@ export class AuthController {
     private readonly getUserScoreUC: GetUserScoreUseCase,
     private readonly getSkillSummaryUC: GetSkillSummaryUseCase,
     private readonly manualDescriptionUC: ManualDescriptionUseCase,
-    @Inject('AuthRepository') private readonly authRepo: any,
-    private readonly avatarStorage: AvatarStorageService,
+    @Inject("AuthRepository") private readonly authRepo: any,
+    private readonly avatarStorage: AvatarStorageService
   ) {}
 
   @Get("users")
@@ -120,8 +123,10 @@ export class AuthController {
   @ApiResponse({ status: 200, description: "Authentification réussie" })
   @ApiResponse({ status: 401, description: "Identifiants invalides" })
   @ApiResponse({ status: 403, description: "Compte désactivé" })
-  async login(@Body() dto: LoginDto) {
-    return this.loginUC.execute(dto);
+  async login(@Body() dto: LoginDto, @Req() req: any) {
+    const ipAddress = req.ip || req.connection.remoteAddress;
+    const userAgent = req.headers["user-agent"];
+    return this.loginUC.execute(dto, ipAddress, userAgent);
   }
 
   @Post("password/reset/request")
@@ -367,7 +372,7 @@ export class AuthController {
   })
   @ApiResponse({
     status: 201,
-    description: 'CV uploadé avec succès et compétences extraites avec scoring',
+    description: "CV uploadé avec succès et compétences extraites avec scoring",
     schema: {
       type: "object",
       properties: {
@@ -383,23 +388,44 @@ export class AuthController {
               monthsExperience: { type: "number" },
               seniority: { type: "string" },
               confidence: { type: "number" },
-              lastUsedYear: { type: "number" }
+              lastUsedYear: { type: "number" },
             },
           },
         },
         fileUrl: { type: "string" },
-        newSkills: { type: "number", description: "Nombre de nouvelles compétences ajoutées" },
-        totalSkills: { type: "number", description: "Nombre total de compétences après fusion" },
-        availability: { type: "number", description: "Disponibilité calculée (0-100)" },
-        performanceScore: { type: "number", description: "Score de performance calculé (0-100)" },
+        newSkills: {
+          type: "number",
+          description: "Nombre de nouvelles compétences ajoutées",
+        },
+        totalSkills: {
+          type: "number",
+          description: "Nombre total de compétences après fusion",
+        },
+        availability: {
+          type: "number",
+          description: "Disponibilité calculée (0-100)",
+        },
+        performanceScore: {
+          type: "number",
+          description: "Score de performance calculé (0-100)",
+        },
         scoring: {
           type: "object",
           properties: {
-            skillScores: { type: "array", description: "Scores détaillés des compétences" },
-            userScore: { type: "object", description: "Score utilisateur global" },
-            skillAggregation: { type: "object", description: "Agrégation des compétences par familles" }
-          }
-        }
+            skillScores: {
+              type: "array",
+              description: "Scores détaillés des compétences",
+            },
+            userScore: {
+              type: "object",
+              description: "Score utilisateur global",
+            },
+            skillAggregation: {
+              type: "object",
+              description: "Agrégation des compétences par familles",
+            },
+          },
+        },
       },
     },
   })
@@ -506,55 +532,64 @@ export class AuthController {
     return { message: "Utilisateur supprimé avec succès" };
   }
 
-  @Get('me/score')
+  @Get("me/score")
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth('JWT-auth')
-  @ApiOperation({ summary: 'Récupérer mon score utilisateur (0-100)' })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Score utilisateur récupéré avec succès',
+  @ApiBearerAuth("JWT-auth")
+  @ApiOperation({ summary: "Récupérer mon score utilisateur (0-100)" })
+  @ApiResponse({
+    status: 200,
+    description: "Score utilisateur récupéré avec succès",
     type: UserScoreResponseDto,
   })
   async getMyScore(@CurrentUser() user: User): Promise<UserScoreResponseDto> {
     return this.getUserScoreUC.execute(user.id);
   }
 
-  @Get('me/skills/summary')
+  @Get("me/skills/summary")
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth('JWT-auth')
-  @ApiOperation({ summary: 'Récupérer le résumé de mes compétences (clustering + score global)' })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Résumé des compétences récupéré avec succès',
+  @ApiBearerAuth("JWT-auth")
+  @ApiOperation({
+    summary:
+      "Récupérer le résumé de mes compétences (clustering + score global)",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Résumé des compétences récupéré avec succès",
     type: SkillSummaryResponseDto,
   })
-  async getMySkillSummary(@CurrentUser() user: User): Promise<SkillSummaryResponseDto> {
+  async getMySkillSummary(
+    @CurrentUser() user: User
+  ): Promise<SkillSummaryResponseDto> {
     return this.getSkillSummaryUC.execute(user.id);
   }
 
-  @Put('manual_description_exp')
+  @Put("manual_description_exp")
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth('JWT-auth')
-  @ApiOperation({ summary: 'Analyser une description manuelle d\'expérience avec IA' })
+  @ApiBearerAuth("JWT-auth")
+  @ApiOperation({
+    summary: "Analyser une description manuelle d'expérience avec IA",
+  })
   @ApiBody({ type: ManualDescriptionDto })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Description analysée avec succès - expérience complète',
+  @ApiResponse({
+    status: 200,
+    description: "Description analysée avec succès - expérience complète",
     type: ManualDescriptionSuccessResponseDto,
   })
-  @ApiResponse({ 
-    status: 400, 
-    description: 'Description insuffisante - expérience incomplète',
+  @ApiResponse({
+    status: 400,
+    description: "Description insuffisante - expérience incomplète",
     type: ManualDescriptionErrorResponseDto,
   })
-  @ApiResponse({ 
-    status: 500, 
-    description: 'Erreur lors de l\'analyse de la description',
+  @ApiResponse({
+    status: 500,
+    description: "Erreur lors de l'analyse de la description",
   })
   async analyzeManualDescription(
     @CurrentUser() user: User,
     @Body() dto: ManualDescriptionDto
-  ): Promise<ManualDescriptionSuccessResponseDto | ManualDescriptionErrorResponseDto> {
+  ): Promise<
+    ManualDescriptionSuccessResponseDto | ManualDescriptionErrorResponseDto
+  > {
     return this.manualDescriptionUC.execute(user.id, dto);
   }
 }
