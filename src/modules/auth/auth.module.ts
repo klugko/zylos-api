@@ -51,6 +51,9 @@ import { UserResumeRepository } from "./infrastructure/repositories/user-resume.
 import { GetUserScoreUseCase } from "./application/use-cases/get-user-score.use-case";
 import { GetSkillSummaryUseCase } from "./application/use-cases/get-skill-summary.use-case";
 import { ManualDescriptionUseCase } from "./application/use-cases/manual-description.use-case";
+import { RegistrationEvaluationService } from "./infrastructure/services/registration-evaluation.service";
+import { CvAuthenticityVerificationService } from "./infrastructure/services/cv-authenticity-verification.service";
+import { EvolvingScoringService } from "./infrastructure/services/evolving-scoring.service";
 
 @Module({
   imports: [
@@ -119,6 +122,9 @@ import { ManualDescriptionUseCase } from "./application/use-cases/manual-descrip
     GetUserScoreUseCase,
     GetSkillSummaryUseCase,
     ManualDescriptionUseCase,
+    RegistrationEvaluationService,
+    CvAuthenticityVerificationService,
+    EvolvingScoringService,
     {
       provide: "AuthRepository",
       useClass: PrismaAuthRepository,
