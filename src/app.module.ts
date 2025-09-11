@@ -11,6 +11,7 @@ import { CollabChatModule } from "@modules/collab-chat/collab-chat.module";
 import { GoogleCalendarModule } from "@modules/project-management/google-calendar.module";
 import { SurveyModule } from "@modules/survey/survey.module";
 import { ActivityLogModule } from "@modules/activity-log/activity-log.module";
+import { AiAssistantModule } from "@modules/ai-assistant/ai-assistant.module";
 import { CoreModule } from "@core/core.module";
 import configuration from "./core/config/configuration";
 
@@ -32,6 +33,7 @@ import configuration from "./core/config/configuration";
     GoogleCalendarModule,
     SurveyModule,
     ActivityLogModule,
+    AiAssistantModule,
   ],
   controllers: [HealthCheckController],
 })

@@ -381,6 +381,7 @@ model User {
   detailedSkills      UserSkill[]
   userScores          UserScore[]
   resumes             UserResume[]
+  aiConversations     AiConversation[]
 }
 
 model UserSkill {
@@ -963,4 +964,33 @@ enum AlertSeverity {
   MEDIUM
   HIGH
   CRITICAL
+}
+
+model AiConversation {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  messages AiMessage[]
+
+  @@map("ai_conversations")
+}
+
+model AiMessage {
+  id             String         @id @default(uuid())
+  conversationId String
+  conversation   AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           MessageRole
+  content        String
+  createdAt      DateTime       @default(now())
+
+  @@map("ai_messages")
+}
+
+enum MessageRole {
+  USER
+  ASSISTANT
 }
