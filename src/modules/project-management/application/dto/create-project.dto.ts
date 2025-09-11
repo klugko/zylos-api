@@ -1,88 +1,125 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsDateString, IsEnum, IsOptional, IsString, IsNumber, MaxLength, IsBoolean, IsPositive } from 'class-validator';
-import { ProjectClientType, ProjectPriority, ProjectStatus } from '../../domain/enums/project.enums';
-
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import {
+  IsDateString,
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsNumber,
+  MaxLength,
+  IsBoolean,
+  IsPositive,
+  IsDate,
+} from "class-validator";
+import { Type } from "class-transformer";
+import {
+  ProjectClientType,
+  ProjectPriority,
+  ProjectStatus,
+} from "../../domain/enums/project.enums";
 
 export class CreateProjectDto {
-@ApiProperty({ example: 'd9a0f1d2-2352-4a9e-86ff-fc78b3ebfc6c', required: false })
-@IsString()
-@IsOptional()
-@MaxLength(36)
-id?: string;
+  @ApiProperty({
+    example: "d9a0f1d2-2352-4a9e-86ff-fc78b3ebfc6c",
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  @MaxLength(36)
+  id?: string;
 
-@ApiProperty({ example: 'Refonte du site web' })
-@IsString()
-@MaxLength(255)
-name: string;
+  @ApiProperty({ example: "Refonte du site web" })
+  @IsString()
+  @MaxLength(255)
+  name: string;
 
-@ApiProperty({ example: 'Projet de modernisation du site e-commerce', required: false })
-@IsString()
-@IsOptional()
-description?: string;
+  @ApiProperty({
+    example: "Projet de modernisation du site e-commerce",
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  description?: string;
 
-@ApiProperty({ enum: ProjectClientType, example: ProjectClientType.CODEUR })
-@IsEnum(ProjectClientType)
-clientType: ProjectClientType;
+  @ApiProperty({ enum: ProjectClientType, example: ProjectClientType.CODEUR })
+  @IsEnum(ProjectClientType)
+  clientType: ProjectClientType;
 
-@ApiProperty({ example: 'Technologie', required: false })
-@IsString()
-@IsOptional()
-@MaxLength(255)
-industry?: string;
+  @ApiProperty({ example: "Technologie", required: false })
+  @IsString()
+  @IsOptional()
+  @MaxLength(255)
+  industry?: string;
 
-@ApiProperty({ example: '#CBA034', required: false })
-@IsString()
-@IsOptional()
-color?: string;
+  @ApiProperty({ example: "#CBA034", required: false })
+  @IsString()
+  @IsOptional()
+  color?: string;
 
-@ApiProperty({ example: '2025-01-10T00:00:00Z', required: false })
-@IsDateString()
-@IsOptional()
-startDate?: string;
+  @ApiProperty({ example: "2025-01-10T00:00:00Z", required: false })
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  startDate?: Date;
 
-@ApiProperty({ example: '2025-03-30T00:00:00Z', required: false })
-@IsDateString()
-@IsOptional()
-endDate?: string;
+  @ApiProperty({ example: "2025-03-30T00:00:00Z", required: false })
+  @IsOptional()
+  @Type(() => Date)
+  @IsDate()
+  endDate?: Date;
 
-@ApiProperty({ example: 15000.50, required: false })
-@IsNumber()
-@IsOptional()
-@IsPositive()
-budget?: number;
+  @ApiProperty({ example: 15000.5, required: false })
+  @IsNumber()
+  @IsOptional()
+  @IsPositive()
+  budget?: number;
 
-@ApiProperty({ enum: ProjectStatus, example: ProjectStatus.NOT_STARTED, required: false })
-@IsEnum(ProjectStatus)
-@IsOptional()
-status?: ProjectStatus;
+  @ApiProperty({
+    enum: ProjectStatus,
+    example: ProjectStatus.NOT_STARTED,
+    required: false,
+  })
+  @IsEnum(ProjectStatus)
+  @IsOptional()
+  status?: ProjectStatus;
 
-@ApiProperty({ enum: ProjectPriority, example: ProjectPriority.MEDIUM, required: false })
-@IsEnum(ProjectPriority)
-@IsOptional()
-priority?: ProjectPriority;
+  @ApiProperty({
+    enum: ProjectPriority,
+    example: ProjectPriority.MEDIUM,
+    required: false,
+  })
+  @IsEnum(ProjectPriority)
+  @IsOptional()
+  priority?: ProjectPriority;
 
-@ApiProperty({ example: false, required: false })
-@IsBoolean()
-@IsOptional()
-isArchived?: boolean;
+  @ApiProperty({ example: false, required: false })
+  @IsBoolean()
+  @IsOptional()
+  isArchived?: boolean;
 
-// @ApiProperty({example: 'ea567c5e-499e-4813-bdd5-3c0ef5fcdb24', required: false })
-// @IsOptional()
-// ownerId?: string;
+  // @ApiProperty({example: 'ea567c5e-499e-4813-bdd5-3c0ef5fcdb24', required: false })
+  // @IsOptional()
+  // ownerId?: string;
 
-@ApiProperty({ example: 'ea567c5e-499e-4813-bdd5-3c0ef5fcdb24', required: false })
-@IsString()
-@MaxLength(36)
-@IsOptional()
-templateId?: string;
+  @ApiProperty({
+    example: "ea567c5e-499e-4813-bdd5-3c0ef5fcdb24",
+    required: false,
+  })
+  @IsString()
+  @MaxLength(36)
+  @IsOptional()
+  templateId?: string;
 
-@ApiPropertyOptional({ default: true })
-@IsOptional()
-@IsBoolean()
-aiGenerateStructure?: boolean = true;
+  @ApiPropertyOptional({ default: true })
+  @IsOptional()
+  @IsBoolean()
+  aiGenerateStructure?: boolean = true;
 
-@ApiProperty({ example: 45.5, required: false, description: 'Progression du projet (0 à 100%)' })
-@IsNumber()
-@IsOptional()
-progress?: number;
+  @ApiProperty({
+    example: 45.5,
+    required: false,
+    description: "Progression du projet (0 à 100%)",
+  })
+  @IsNumber()
+  @IsOptional()
+  progress?: number;
 }

@@ -1,4 +1,5 @@
 import { User } from "../entities/user.entity";
+import { UserResponseDto } from "../../application/dto/user-response.dto";
 
 export interface AuthRepository {
   findByEmail(email: string): Promise<User | null>;
@@ -11,7 +12,7 @@ export interface AuthRepository {
     page: number,
     limit: number,
     search?: string
-  ): Promise<{ data: User[]; total: number }>;
+  ): Promise<{ data: UserResponseDto[]; total: number }>;
 
   updateResetToken(
     userId: string,
@@ -40,5 +41,8 @@ export interface AuthRepository {
   ): Promise<void>;
   delete(id: string): Promise<void>;
   updateUserSkills(userId: string, skills: string[]): Promise<void>;
-  mergeUserSkills(userId: string, newSkills: string[]): Promise<{ mergedSkills: string[]; newSkillsCount: number }>;
+  mergeUserSkills(
+    userId: string,
+    newSkills: string[]
+  ): Promise<{ mergedSkills: string[]; newSkillsCount: number }>;
 }
