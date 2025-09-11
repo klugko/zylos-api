@@ -25,7 +25,7 @@ export class AiConversation {
 
   addMessage(role: MessageRole, content: string): AiMessage {
     const message = new AiMessage(
-      '', // L'ID sera généré par la base de données
+      '',
       this.id,
       role,
       content,

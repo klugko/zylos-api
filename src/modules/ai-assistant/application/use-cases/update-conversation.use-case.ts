@@ -19,15 +19,12 @@ export class UpdateConversationUseCase {
         throw new NotFoundException('Conversation non trouvée');
       }
 
-      // Vérifier que la conversation appartient à l'utilisateur
       if (conversation.userId !== userId) {
         throw new NotFoundException('Conversation non trouvée');
       }
 
-      // Mettre à jour le titre
       conversation.updateTitle(dto.title);
 
-      // Sauvegarder les modifications
       const updatedConversation = await this.conversationRepo.update(conversation);
 
       return {

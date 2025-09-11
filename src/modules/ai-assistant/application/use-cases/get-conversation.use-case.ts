@@ -18,7 +18,6 @@ export class GetConversationUseCase {
         throw new NotFoundException('Conversation non trouvée');
       }
 
-      // Vérifier que la conversation appartient à l'utilisateur
       if (conversation.userId !== userId) {
         throw new NotFoundException('Conversation non trouvée');
       }
