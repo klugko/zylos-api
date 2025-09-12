@@ -25,11 +25,13 @@ import { CurrentUser } from '@core/common/current-user.decorator';
 import { User } from '@modules/auth/domain/entities/user.entity';
 import { SendMessageDto } from '../../application/dto/chat.dto';
 import { SendMessageResponseDto, ConversationListResponseDto, ConversationResponseDto } from '../../application/dto/chat-response.dto';
+import { GeneratePdfDto, GeneratePdfResponseDto } from '../../application/dto/pdf-generation.dto';
 import { SendMessageUseCase } from '../../application/use-cases/send-message.use-case';
 import { GetConversationsUseCase } from '../../application/use-cases/get-conversations.use-case';
 import { GetConversationUseCase } from '../../application/use-cases/get-conversation.use-case';
 import { UpdateConversationUseCase } from '../../application/use-cases/update-conversation.use-case';
 import { DeleteConversationUseCase } from '../../application/use-cases/delete-conversation.use-case';
+import { GeneratePdfUseCase } from '../../application/use-cases/generate-pdf.use-case';
 
 @ApiTags('AI Assistant')
 @Controller('api/v1/ai-assistant')
@@ -42,6 +44,7 @@ export class AiAssistantController {
     private readonly getConversationUC: GetConversationUseCase,
     private readonly updateConversationUC: UpdateConversationUseCase,
     private readonly deleteConversationUC: DeleteConversationUseCase,
+    private readonly generatePdfUC: GeneratePdfUseCase,
   ) {}
 
   @Post('chat')

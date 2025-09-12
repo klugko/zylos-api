@@ -9,6 +9,8 @@ import { GetConversationsUseCase } from './application/use-cases/get-conversatio
 import { GetConversationUseCase } from './application/use-cases/get-conversation.use-case';
 import { UpdateConversationUseCase } from './application/use-cases/update-conversation.use-case';
 import { DeleteConversationUseCase } from './application/use-cases/delete-conversation.use-case';
+import { GeneratePdfUseCase } from './application/use-cases/generate-pdf.use-case';
+import { PdfGeneratorService } from './infrastructure/services/pdf-generator.service';
 import { OpenAIService } from '../../shared/ai/openai.service';
 
 @Module({
@@ -26,6 +28,8 @@ import { OpenAIService } from '../../shared/ai/openai.service';
     GetConversationUseCase,
     UpdateConversationUseCase,
     DeleteConversationUseCase,
+    GeneratePdfUseCase,
+    PdfGeneratorService,
     OpenAIService,
     {
       provide: 'AiConversationRepository',
@@ -39,6 +43,8 @@ import { OpenAIService } from '../../shared/ai/openai.service';
     GetConversationUseCase,
     UpdateConversationUseCase,
     DeleteConversationUseCase,
+    GeneratePdfUseCase,
+    PdfGeneratorService,
     'AiConversationRepository',
   ],
 })

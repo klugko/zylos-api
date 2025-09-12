@@ -1,6 +1,7 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { OpenAIService } from '../../../../shared/ai/openai.service';
 import { PrismaService } from '@core/prisma/prisma.service';
+import { PdfGeneratorService } from '../../infrastructure/services/pdf-generator.service';
 
 export interface UserContext {
   userId: string;
@@ -25,15 +26,29 @@ export interface UserContext {
   userTasks: Array<{
     id: string;
     title: string;
+    description?: string;
     status: string;
+    priority?: string;
     dueDate?: Date;
+    startDate?: Date;
+    endDate?: Date;
     projectId: string;
+    projectName?: string;
+    isAssigned: boolean;
+    assignedUserId?: string;
+    assignee?: {
+      id: string;
+      fullname: string;
+      email: string;
+    };
   }>;
   userDocuments: Array<{
     id: string;
     title: string;
     type: string;
     projectId?: string;
+    projectName?: string;
+    isUploaded: boolean;
   }>;
 }
 
@@ -44,10 +59,16 @@ export class AiAssistantService {
   constructor(
     private readonly openaiService: OpenAIService,
     private readonly prisma: PrismaService,
+    private readonly pdfGeneratorService: PdfGeneratorService,
   ) {}
 
   async generateResponse(userMessage: string, userContext: UserContext): Promise<string> {
     try {
+      const isPdfRequest = this.detectPdfRequest(userMessage);
+      
+      if (isPdfRequest) {
+        return await this.handlePdfGeneration(userMessage, userContext);
+      }
 
       const secureContext = this.buildSecureContext(userContext);
 
@@ -79,7 +100,7 @@ export class AiAssistantService {
     }
   }
 
-  private buildSecureContext(userContext: UserContext): any {
+  public buildSecureContext(userContext: UserContext): any {
     return {
       user: {
         id: userContext.userId,
@@ -116,6 +137,7 @@ CAPACITÉS :
 5. Analyser les documents (lecture seule)
 6. Créer des rapports basés sur les données disponibles
 7. Répondre aux questions sur la gestion de projet
+8. GÉNÉRER DES PDF : Si l'utilisateur demande de créer un document PDF ou un rapport PDF, tu peux utiliser la fonction generatePdf() avec les paramètres appropriés
 
 RÈGLES :
 - Sois toujours utile et professionnel
@@ -228,38 +250,70 @@ Réponds en français et sois concis mais informatif.`;
       );
 
       const projectIds = uniqueProjects.map(p => p.id);
-      const userTasks = await this.prisma.task.findMany({
-        where: {
-          OR: [
-            { assignedUserId: userId },
-            { projectId: { in: projectIds } }
-          ]
+      
+      const allProjectTasks = await this.prisma.task.findMany({
+        where: { 
+          projectId: { in: projectIds }
         },
         select: {
           id: true,
           title: true,
+          description: true,
           status: true,
+          priority: true,
           dueDate: true,
+          startDate: true,
+          endDate: true,
           projectId: true,
-          assignedUserId: true
+          assignedUserId: true,
+          project: {
+            select: { name: true }
+          },
+          assignee: {
+            select: {
+              id: true,
+              fullname: true,
+              email: true
+            }
+          }
         }
       });
 
-      const userDocuments = await this.prisma.document.findMany({
-        where: {
-          OR: [
-            { uploadedById: userId },
-            { projectId: { in: projectIds } }
-          ]
-        },
-        select: {
-          id: true,
-          name: true,
-          type: true,
-          projectId: true,
-          uploadedById: true
-        }
-      });
+      const assignedTasks = allProjectTasks.filter(task => task.assignedUserId === userId);
+      const projectTasks = allProjectTasks.filter(task => task.assignedUserId !== userId);
+
+
+      const [uploadedDocuments, projectDocuments] = await Promise.all([
+        this.prisma.document.findMany({
+          where: { uploadedById: userId },
+          select: {
+            id: true,
+            name: true,
+            type: true,
+            projectId: true,
+            uploadedById: true,
+            project: {
+              select: { name: true }
+            }
+          }
+        }),
+        this.prisma.document.findMany({
+          where: { 
+            projectId: { in: projectIds },
+            uploadedById: { not: userId }
+          },
+          select: {
+            id: true,
+            name: true,
+            type: true,
+            projectId: true,
+            uploadedById: true,
+            project: {
+              select: { name: true }
+            }
+          }
+        })
+      ]);
 
       return {
         userId: user.id,
@@ -277,23 +331,197 @@ Réponds en français et sois concis mais informatif.`;
           updatedAt: user.updatedAt
         },
         userProjects: uniqueProjects,
-        userTasks: userTasks.map(task => ({
-          id: task.id,
-          title: task.title,
-          status: task.status,
-          dueDate: task.dueDate,
-          projectId: task.projectId
-        })),
-        userDocuments: userDocuments.map(doc => ({
-          id: doc.id,
-          title: doc.name,
-          type: doc.type,
-          projectId: doc.projectId
-        }))
+        userTasks: [
+          ...assignedTasks.map(task => ({
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            status: task.status,
+            priority: task.priority,
+            dueDate: task.dueDate,
+            startDate: task.startDate,
+            endDate: task.endDate,
+            projectId: task.projectId,
+            projectName: task.project?.name,
+            isAssigned: true,
+            assignedUserId: task.assignedUserId,
+            assignee: task.assignee
+          })),
+          ...projectTasks.map(task => ({
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            status: task.status,
+            priority: task.priority,
+            dueDate: task.dueDate,
+            startDate: task.startDate,
+            endDate: task.endDate,
+            projectId: task.projectId,
+            projectName: task.project?.name,
+            isAssigned: false,
+            assignedUserId: task.assignedUserId,
+            assignee: task.assignee
+          }))
+        ],
+        userDocuments: [
+          ...uploadedDocuments.map(doc => ({
+            id: doc.id,
+            title: doc.name,
+            type: doc.type,
+            projectId: doc.projectId,
+            projectName: doc.project?.name,
+            isUploaded: true
+          })),
+          ...projectDocuments.map(doc => ({
+            id: doc.id,
+            title: doc.name,
+            type: doc.type,
+            projectId: doc.projectId,
+            projectName: doc.project?.name,
+            isUploaded: false
+          }))
+        ]
       };
     } catch (error) {
       this.logger.error(`Failed to get user context: ${error.message}`);
       throw new Error('Impossible de récupérer le contexte utilisateur');
     }
   }
+
+  private detectPdfRequest(message: string): boolean {
+    const pdfKeywords = [
+      'pdf', 'document', 'rapport', 'générer', 'créer', 'télécharger',
+      'exporter', 'imprimer', 'fichier', 'résumé', 'bilan', 'export',
+      'download', 'télécharge', 'mets dans', 'mettre dans', 'dans un document',
+      'dans un pdf', 'en pdf', 'en document'
+    ];
+    
+    const messageLower = message.toLowerCase();
+    return pdfKeywords.some(keyword => messageLower.includes(keyword));
+  }
+
+  private async handlePdfGeneration(userMessage: string, userContext: UserContext): Promise<string> {
+    try {
+      const secureContext = this.buildSecureContext(userContext);
+      
+      // Générer le contenu PDF via l'IA basé sur la demande exacte de l'utilisateur
+      const pdfContent = await this.generatePdfContentViaAI(userMessage, secureContext);
+      
+      const pdfOptions = {
+        title: this.extractPdfTitle(userMessage),
+        content: pdfContent,
+        userRequest: userMessage
+      };
+      
+      const result = await this.pdfGeneratorService.generatePdf(pdfOptions, secureContext);
+      
+      if (result.success) {
+        return `📄 **PDF généré avec succès !**
+
+Votre document **"${pdfOptions.title}"** a été créé et est prêt au téléchargement.
+
+🔗 **Lien de téléchargement :** ${result.downloadUrl}
+
+Le document contient exactement ce que vous avez demandé : ${userMessage}
+
+Vous pouvez maintenant télécharger le fichier en cliquant sur le lien ci-dessus.`;
+      } else {
+        return `❌ **Erreur lors de la génération du PDF**
+
+Désolé, je n'ai pas pu créer votre document PDF. 
+
+**Erreur :** ${result.error}
+
+Veuillez réessayer ou contactez le support technique si le problème persiste.`;
+      }
+    } catch (error) {
+      this.logger.error(`PDF generation failed: ${error.message}`);
+      return `❌ **Erreur lors de la génération du PDF**
+
+Une erreur technique s'est produite. Veuillez réessayer plus tard.`;
+    }
+  }
+
+  private async generatePdfContentViaAI(userMessage: string, secureContext: any): Promise<string> {
+    try {
+      const pdfPrompt = `Tu es un assistant qui génère du contenu pour un document PDF. 
+
+L'utilisateur a demandé : "${userMessage}"
+
+Voici les données disponibles pour cet utilisateur :
+- Profil utilisateur : ${JSON.stringify(secureContext.user)}
+- Projets : ${JSON.stringify(secureContext.projects)}
+- Tâches : ${JSON.stringify(secureContext.tasks)}
+- Documents : ${JSON.stringify(secureContext.documents)}
+
+INSTRUCTIONS IMPORTANTES :
+1. Génère un contenu PDF structuré et professionnel basé EXACTEMENT sur la demande de l'utilisateur
+2. Utilise uniquement les données fournies ci-dessus
+3. Si l'utilisateur demande des détails sur les projets, inclut les tâches associées
+4. Si l'utilisateur demande des explications du chat, génère un résumé de la conversation
+5. Structure le contenu avec des titres, sous-titres et listes appropriés
+6. Sois précis et détaillé selon la demande
+7. Utilise un format HTML simple pour la structure
+
+RÈGLES POUR LES TÂCHES :
+- Si une tâche a "assignedUserId": null, elle n'est PAS assignée à quelqu'un
+- Si une tâche a "assignedUserId": "id", elle est assignée à l'utilisateur avec cet ID
+- Si une tâche a un objet "assignee", affiche le nom de la personne assignée
+- Ne mentionne PAS "assigné à" si assignedUserId est null
+- Pour les tâches non assignées, affiche simplement le statut et la priorité
+
+FORMAT HTML ATTENDU :
+- Utilise <h1>, <h2>, <h3> pour les titres
+- Utilise <p> pour les paragraphes
+- Utilise <ul> et <li> pour les listes
+- Utilise <strong> pour mettre en évidence
+- Utilise <table> pour les données tabulaires si nécessaire
+
+Génère le contenu HTML pour le PDF :`;
+
+      const response = await this.openaiService.generateCompletion({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: pdfPrompt }
+        ],
+        temperature: 0.3
+      });
+
+      const content = response.choices?.[0]?.message?.content;
+      if (!content) {
+        throw new Error('No content generated for PDF');
+      }
+
+
+      return content;
+    } catch (error) {
+      this.logger.error(`Failed to generate PDF content via AI: ${error.message}`);
+      return `<div class="error">Erreur lors de la génération du contenu PDF</div>`;
+    }
+  }
+
+  private extractPdfTitle(userMessage: string): string {
+    const messageLower = userMessage.toLowerCase();
+    
+    // Extraire un titre basé sur la demande
+    if (messageLower.includes('projet') && messageLower.includes('tâche')) {
+      return 'Mes projets et tâches détaillés';
+    } else if (messageLower.includes('projet')) {
+      return 'Mes projets';
+    } else if (messageLower.includes('tâche')) {
+      return 'Mes tâches';
+    } else if (messageLower.includes('profil') || messageLower.includes('informations')) {
+      return 'Mon profil utilisateur';
+    } else if (messageLower.includes('document')) {
+      return 'Mes documents';
+    } else if (messageLower.includes('rapport') || messageLower.includes('bilan')) {
+      return 'Rapport complet';
+    } else if (messageLower.includes('explication') || messageLower.includes('chat')) {
+      return 'Explications et résumé';
+    } else {
+      return 'Document personnalisé';
+    }
+  }
+
+
 }

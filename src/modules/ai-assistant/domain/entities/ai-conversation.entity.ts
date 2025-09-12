@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 export enum MessageRole {
   USER = 'USER',
   ASSISTANT = 'ASSISTANT'
@@ -25,7 +27,7 @@ export class AiConversation {
 
   addMessage(role: MessageRole, content: string): AiMessage {
     const message = new AiMessage(
-      '',
+      uuidv4(),
       this.id,
       role,
       content,
