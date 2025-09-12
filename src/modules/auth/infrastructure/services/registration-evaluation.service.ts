@@ -13,6 +13,7 @@ export interface RegistrationEvaluationResult {
 @Injectable()
 export class RegistrationEvaluationService {
   private readonly logger = new Logger(RegistrationEvaluationService.name);
+  private readonly scoreCache = new Map<string, RegistrationEvaluationResult>();
 
   constructor(
     private readonly openaiService: OpenAIService,
@@ -25,11 +26,18 @@ export class RegistrationEvaluationService {
     role: string
   ): Promise<RegistrationEvaluationResult> {
     try {
+      const cacheKey = `${email.toLowerCase()}-${fullname.toLowerCase()}`;
+      
+      if (this.scoreCache.has(cacheKey)) {
+        this.logger.log(`Using cached evaluation for: ${fullname} - ${email}`);
+        return this.scoreCache.get(cacheKey)!;
+      }
+
       const isBasicAccount = this.isBasicAccount(fullname, email);
       
       if (isBasicAccount) {
         this.logger.log(`Basic account detected: ${fullname} - ${email}`);
-        return {
+        const result = {
           emailProfessionality: 10,
           passwordStrength: 30,
           nameQuality: 10,
@@ -37,6 +45,23 @@ export class RegistrationEvaluationService {
           initialPerformanceScore: 8,
           evaluationReasoning: 'Compte basique détecté automatiquement'
         };
+        this.scoreCache.set(cacheKey, result);
+        return result;
+      }
+
+      const isSuspiciousAccount = this.isSuspiciousAccount(fullname, email);
+      if (isSuspiciousAccount) {
+        this.logger.log(`Suspicious account detected: ${fullname} - ${email}`);
+        const result = {
+          emailProfessionality: 20,
+          passwordStrength: 40,
+          nameQuality: 20,
+          initialAvailability: 6,
+          initialPerformanceScore: 9,
+          evaluationReasoning: 'Compte suspect détecté automatiquement'
+        };
+        this.scoreCache.set(cacheKey, result);
+        return result;
       }
 
       const prompt = this.buildEvaluationPrompt(fullname, email, password, role);
@@ -62,8 +87,10 @@ export class RegistrationEvaluationService {
       }
 
       const result = this.parseEvaluationResponse(content);
+      const finalResult = this.validateAndAdjustScores(result, fullname, email);
       
-      return this.validateAndAdjustScores(result, fullname, email);
+      this.scoreCache.set(cacheKey, finalResult);
+      return finalResult;
     } catch (error) {
       this.logger.error(`Registration evaluation failed: ${error.message}`);
       return {
