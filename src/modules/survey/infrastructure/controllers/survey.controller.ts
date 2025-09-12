@@ -18,6 +18,7 @@ import {
   ApiParam,
   ApiQuery,
   ApiBearerAuth,
+  ApiBody,
 } from "@nestjs/swagger";
 import { JwtAuthGuard } from "@modules/auth/infrastructure/strategies/jwt-auth.guard";
 import { CurrentUser } from "@core/common/current-user.decorator";
@@ -143,6 +144,21 @@ export class SurveyController {
   @ApiResponse({ status: 404, description: "Sondage introuvable" })
   @ApiResponse({ status: 400, description: "Transition de statut invalide" })
   @ApiParam({ name: "id", description: "ID du sondage" })
+  @ApiBody({
+    description: "Nouveau statut du sondage",
+    schema: {
+      type: "object",
+      properties: {
+        status: {
+          type: "string",
+          enum: ["DRAFT", "ACTIVE", "CLOSED", "ARCHIVED"],
+          description: "Statut du sondage",
+          example: "ACTIVE",
+        },
+      },
+      required: ["status"],
+    },
+  })
   async changeStatus(
     @Param("id") id: string,
     @Body("status") status: SurveyStatus,
