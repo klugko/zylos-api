@@ -76,12 +76,13 @@ export class PrismaAiConversationRepository implements AiConversationRepository 
       }
     });
 
-    // Ajouter les nouveaux messages
-    const newMessages = conversation.messages.filter(msg => !msg.id);
+    // Ajouter les nouveaux messages (ceux qui ne sont pas encore en base)
+    const existingMessageIds = new Set(updated.messages.map(m => m.id));
+    const newMessages = conversation.messages.filter(msg => !existingMessageIds.has(msg.id));
     if (newMessages.length > 0) {
       await this.prisma.aiMessage.createMany({
         data: newMessages.map(msg => ({
-          id: uuidv4(),
+          id: msg.id,
           conversationId: conversation.id,
           role: msg.role,
           content: msg.content,
