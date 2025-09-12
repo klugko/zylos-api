@@ -57,6 +57,7 @@ export class OpenAIService {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${this.apiKey}`,
           },
+          timeout: 10000,
         },
       );
 
