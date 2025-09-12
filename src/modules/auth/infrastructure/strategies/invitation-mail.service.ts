@@ -23,8 +23,8 @@ export class InvitationMailService {
   }
 
   async sendInvitationEmail(email: string, token: string, invitedBy: string, projectName: string): Promise<void> {
-    const invitationUrl = `${this.configService.get('APP_URL')}/auth/accept-invitation?token=${token}`;
-    const logoUrl = this.configService.get('COMPANY_LOGO_URL', 'https://via.placeholder.com/150x50');
+    const invitationUrl = `${this.configService.get('APP_URL', 'https://zylos-ai.netlify.app')}/auth/accept-invitation?token=${token}`;
+    const logoUrl = this.configService.get('COMPANY_LOGO_URL', 'https://nexa-api-v2.monambassadeur.com/uploads/logo_zylos.jpeg');
     const appName = this.configService.get('APP_NAME', 'Zylos AI');
     const supportEmail = this.configService.get('SUPPORT_EMAIL', 'support@monambassadeur.com');
 
