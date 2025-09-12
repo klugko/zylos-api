@@ -23,6 +23,14 @@ export class MailService {
       tls: {
         rejectUnauthorized: false,
       },
+      connectionTimeout: 60000, // 60 secondes
+      greetingTimeout: 30000, // 30 secondes
+      socketTimeout: 60000, // 60 secondes
+      pool: true,
+      maxConnections: 5,
+      maxMessages: 100,
+      rateDelta: 20000,
+      rateLimit: 5,
     });
   }
 
@@ -62,6 +70,9 @@ export class MailService {
     fullname: string,
     verificationUrl: string
   ): Promise<void> {
+    // Test de connexion avant envoi
+    await this.verifyConnection();
+
     const mailOptions = {
       from: this.configService.get<string>("SUPPORT_EMAIL"),
       to: email,
@@ -70,8 +81,7 @@ export class MailService {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #2563eb;">Bienvenue sur NexaFlow !</h2>
           <p>Bonjour ${fullname},</p>
-          <p>Merci d
-          e vous être inscrit sur NexaFlow. Pour activer votre compte, veuillez vérifier votre adresse email en cliquant sur le bouton ci-dessous :</p>
+          <p>Merci de vous être inscrit sur NexaFlow. Pour activer votre compte, veuillez vérifier votre adresse email en cliquant sur le bouton ci-dessous :</p>
           
           <div style="text-align: center; margin: 30px 0;">
             <a href="${verificationUrl}" 
@@ -102,12 +112,28 @@ export class MailService {
       );
     } catch (error) {
       this.logger.error(
-        `Erreur envoi email de vérification à ${email}`,
+        `Erreur envoi email de vérification à ${email}: ${error.message}`,
         error.stack
       );
+
+      // Log des détails de configuration pour debug
+      this.logger.error(
+        `Configuration SMTP: Host=${this.configService.get("MAIL_HOST")}, Port=${this.configService.get("MAIL_PORT")}, User=${this.configService.get("MAIL_USER")}`
+      );
+
       throw new InternalServerErrorException(
         "Impossible d'envoyer l'email de vérification"
       );
+    }
+  }
+
+  private async verifyConnection(): Promise<void> {
+    try {
+      await this.transporter.verify();
+      this.logger.log("Connexion SMTP vérifiée avec succès");
+    } catch (error) {
+      this.logger.error(`Échec de la vérification SMTP: ${error.message}`);
+      throw new InternalServerErrorException("Service de mail indisponible");
     }
   }
 }

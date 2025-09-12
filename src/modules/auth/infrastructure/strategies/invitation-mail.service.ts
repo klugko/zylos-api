@@ -1,6 +1,10 @@
-import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import * as nodemailer from 'nodemailer';
+import {
+  Injectable,
+  Logger,
+  InternalServerErrorException,
+} from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import * as nodemailer from "nodemailer";
 
 @Injectable()
 export class InvitationMailService {
@@ -9,24 +13,43 @@ export class InvitationMailService {
 
   constructor(private configService: ConfigService) {
     this.transporter = nodemailer.createTransport({
-      host: this.configService.get('MAIL_HOST'),
-      port: this.configService.get<number>('MAIL_PORT'),
-      secure: this.configService.get<string>('MAIL_SECURE') === 'true',
+      host: this.configService.get("MAIL_HOST"),
+      port: this.configService.get<number>("MAIL_PORT"),
+      secure: this.configService.get<string>("MAIL_SECURE") === "true",
       auth: {
-        user: this.configService.get('MAIL_USER'),
-        pass: this.configService.get('MAIL_PASS'),
+        user: this.configService.get("MAIL_USER"),
+        pass: this.configService.get("MAIL_PASS"),
       },
       tls: {
         rejectUnauthorized: false,
       },
+      connectionTimeout: 60000, // 60 secondes
+      greetingTimeout: 30000, // 30 secondes
+      socketTimeout: 60000, // 60 secondes
+      pool: true,
+      maxConnections: 5,
+      maxMessages: 100,
+      rateDelta: 20000,
+      rateLimit: 5,
     });
   }
 
-  async sendInvitationEmail(email: string, token: string, invitedBy: string, projectName: string): Promise<void> {
-    const invitationUrl = `${this.configService.get('APP_URL', 'https://zylos-ai.netlify.app')}/auth/accept-invitation?token=${token}`;
-    const logoUrl = this.configService.get('COMPANY_LOGO_URL', 'https://nexa-api-v2.monambassadeur.com/uploads/logo_zylos.jpeg');
-    const appName = this.configService.get('APP_NAME', 'Zylos AI');
-    const supportEmail = this.configService.get('SUPPORT_EMAIL', 'support@monambassadeur.com');
+  async sendInvitationEmail(
+    email: string,
+    token: string,
+    invitedBy: string,
+    projectName: string
+  ): Promise<void> {
+    const invitationUrl = `${this.configService.get("APP_URL", "https://zylos-ai.netlify.app")}/auth/accept-invitation?token=${token}`;
+    const logoUrl = this.configService.get(
+      "COMPANY_LOGO_URL",
+      "https://nexa-api-v2.monambassadeur.com/uploads/logo_zylos.jpeg"
+    );
+    const appName = this.configService.get("APP_NAME", "Zylos AI");
+    const supportEmail = this.configService.get(
+      "SUPPORT_EMAIL",
+      "support@monambassadeur.com"
+    );
 
     const emailTemplate = `
       <!DOCTYPE html>
@@ -133,7 +156,7 @@ export class InvitationMailService {
           `;
 
     const mailOptions = {
-      from: this.configService.get<string>('SUPPORT_EMAIL'),
+      from: this.configService.get<string>("SUPPORT_EMAIL"),
       to: email,
       subject: `Invitation à rejoindre ${projectName} - ${appName}`,
       html: emailTemplate,
@@ -144,7 +167,9 @@ export class InvitationMailService {
       this.logger.log(`Invitation envoyée à ${email}: ${info.messageId}`);
     } catch (error) {
       this.logger.error(`Erreur envoi invitation à ${email}`, error.stack);
-      throw new InternalServerErrorException('Impossible d\'envoyer l\'email d\'invitation');
+      throw new InternalServerErrorException(
+        "Impossible d'envoyer l'email d'invitation"
+      );
     }
   }
 }
