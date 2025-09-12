@@ -62,15 +62,7 @@ export class RegisterUseCase {
 
     const saved = await this.authRepo.create(user);
 
-    try {
-      await this.emailVerificationService.sendVerificationEmail(
-        saved.id,
-        saved.email,
-        saved.fullname
-      );
-    } catch (error) {
-      console.error("Failed to send verification email:", error);
-    }
+    this.sendVerificationEmailAsync(saved.id, saved.email, saved.fullname);
 
     return new User(
       saved.id,
@@ -95,5 +87,13 @@ export class RegisterUseCase {
       undefined,
       saved.emailVerified
     );
+  }
+
+  private async sendVerificationEmailAsync(userId: string, email: string, fullname: string): Promise<void> {
+    try {
+      await this.emailVerificationService.sendVerificationEmail(userId, email, fullname);
+    } catch (error) {
+      console.error("Failed to send verification email:", error);
+    }
   }
 }
