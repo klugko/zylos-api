@@ -54,6 +54,8 @@ import { ManualDescriptionUseCase } from "./application/use-cases/manual-descrip
 import { RegistrationEvaluationService } from "./infrastructure/services/registration-evaluation.service";
 import { CvAuthenticityVerificationService } from "./infrastructure/services/cv-authenticity-verification.service";
 import { EvolvingScoringService } from "./infrastructure/services/evolving-scoring.service";
+import { LoginWithGoogleIdTokenUseCase } from "./application/use-cases/login-with-google-idtoken.use-case";
+import { GoogleTokenService } from "./application/services/google-token.service";
 
 @Module({
   imports: [
@@ -125,6 +127,8 @@ import { EvolvingScoringService } from "./infrastructure/services/evolving-scori
     RegistrationEvaluationService,
     CvAuthenticityVerificationService,
     EvolvingScoringService,
+    LoginWithGoogleIdTokenUseCase,
+    GoogleTokenService,
     {
       provide: "AuthRepository",
       useClass: PrismaAuthRepository,

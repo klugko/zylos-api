@@ -15,7 +15,7 @@ export class PrismaAuthRepository implements AuthRepository {
       user.id,
       user.fullname,
       user.email,
-      user.password,
+      undefined,
       user.role as UserRole,
       user.isActive,
       user.createdAt,
@@ -411,5 +411,13 @@ export class PrismaAuthRepository implements AuthRepository {
       mergedSkills,
       newSkillsCount,
     };
+  }
+
+  async findByGoogleId(googleId: string): Promise<User | null> {
+    const row = await this.prisma.user.findFirst({
+      where: { googleId },
+      include: { refreshTokens: true },
+    });
+    return row ? this.toDomain(row) : null;
   }
 }

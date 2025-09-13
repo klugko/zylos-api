@@ -1,0 +1,630 @@
+nexa-api/
+├── Dockerfile
+├── entrypoint.sh
+├── .env
+├── .env.example
+├── eslint.config.mjs
+├── .gitignore
+├── ma migrate dev --name add_is_two_fa_enabled
+├── nest-cli.json
+├── nexa-api.zip
+├── package.json
+├── package-lock.json
+├── prisma
+│   ├── generated
+│   │   └── prisma
+│   │       ├── client.d.ts
+│   │       ├── client.js
+│   │       ├── default.d.ts
+│   │       ├── default.js
+│   │       ├── edge.d.ts
+│   │       ├── edge.js
+│   │       ├── index-browser.js
+│   │       ├── index.d.ts
+│   │       ├── index.js
+│   │       ├── libquery_engine-debian-openssl-1.1.x.so.node
+│   │       ├── package.json
+│   │       ├── query_engine_bg.js
+│   │       ├── query_engine_bg.wasm
+│   │       ├── runtime
+│   │       │   ├── edge-esm.js
+│   │       │   ├── edge.js
+│   │       │   ├── index-browser.d.ts
+│   │       │   ├── index-browser.js
+│   │       │   ├── library.d.ts
+│   │       │   ├── library.js
+│   │       │   ├── react-native.js
+│   │       │   ├── wasm-compiler-edge.js
+│   │       │   └── wasm-engine-edge.js
+│   │       ├── schema.prisma
+│   │       ├── wasm.d.ts
+│   │       ├── wasm-edge-light-loader.mjs
+│   │       ├── wasm.js
+│   │       └── wasm-worker-loader.mjs
+│   ├── migrations
+│   │   ├── 20250910170559_init
+│   │   │   └── migration.sql
+│   │   ├── 20250911071010_add_ai_chat_tables
+│   │   │   └── migration.sql
+│   │   └── migration_lock.toml
+│   └── schema.prisma
+├── README.md
+├── src
+│   ├── app.module.ts
+│   ├── core
+│   │   ├── common
+│   │   │   └── current-user.decorator.ts
+│   │   ├── config
+│   │   │   ├── configuration.ts
+│   │   │   ├── database.ts
+│   │   │   └── google-oauth.validator.ts
+│   │   ├── core.module.ts
+│   │   ├── crypto
+│   │   │   └── crypto.service.ts
+│   │   ├── logging
+│   │   │   ├── app.log
+│   │   │   ├── errors.log
+│   │   │   └── infos.log
+│   │   ├── mail
+│   │   │   └── mail.service.ts
+│   │   ├── prisma
+│   │   │   ├── prisma.module.ts
+│   │   │   └── prisma.service.ts
+│   │   └── validators
+│   │       └── validators
+│   │           └── base64-with-mime.validator.ts
+│   ├── health-check.controller.ts
+│   ├── main.ts
+│   ├── modules
+│   │   ├── activity-log
+│   │   │   ├── activity-log.module.ts
+│   │   │   ├── application
+│   │   │   │   ├── dto
+│   │   │   │   │   ├── activity-log-response.dto.ts
+│   │   │   │   │   ├── create-activity-log.dto.ts
+│   │   │   │   │   ├── export-activity-logs.dto.ts
+│   │   │   │   │   └── get-activity-logs.dto.ts
+│   │   │   │   ├── services
+│   │   │   │   │   ├── activity-logger.service.ts
+│   │   │   │   │   └── activity-timeline.service.ts
+│   │   │   │   └── use-cases
+│   │   │   │       ├── export-activity-logs.use-case.ts
+│   │   │   │       └── get-activity-logs.use-case.ts
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   │   ├── activity-log.entity.ts
+│   │   │   │   │   └── activity-timeline.entity.ts
+│   │   │   │   ├── enums
+│   │   │   │   │   └── activity.enums.ts
+│   │   │   │   └── interfaces
+│   │   │   │       └── activity-log-repository.interface.ts
+│   │   │   └── infrastructure
+│   │   │       ├── controllers
+│   │   │       │   └── activity-log.controller.ts
+│   │   │       └── repositories
+│   │   │           └── prisma-activity-log.repository.ts
+│   │   ├── ai-assistant
+│   │   │   ├── ai-assistant.module.ts
+│   │   │   ├── application
+│   │   │   │   ├── dto
+│   │   │   │   │   ├── chat.dto.ts
+│   │   │   │   │   ├── chat-response.dto.ts
+│   │   │   │   │   └── pdf-generation.dto.ts
+│   │   │   │   ├── services
+│   │   │   │   │   └── ai-assistant.service.ts
+│   │   │   │   └── use-cases
+│   │   │   │       ├── delete-conversation.use-case.ts
+│   │   │   │       ├── generate-pdf.use-case.ts
+│   │   │   │       ├── get-conversations.use-case.ts
+│   │   │   │       ├── get-conversation.use-case.ts
+│   │   │   │       ├── send-message.use-case.ts
+│   │   │   │       └── update-conversation.use-case.ts
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   │   └── ai-conversation.entity.ts
+│   │   │   │   └── interfaces
+│   │   │   │       └── ai-conversation-repository.interface.ts
+│   │   │   └── infrastructure
+│   │   │       ├── controllers
+│   │   │       │   └── ai-assistant.controller.ts
+│   │   │       ├── repositories
+│   │   │       │   └── prisma-ai-conversation.repository.ts
+│   │   │       └── services
+│   │   │           └── pdf-generator.service.ts
+│   │   ├── auth
+│   │   │   ├── application
+│   │   │   │   ├── decorators
+│   │   │   │   │   ├── current-user.decorator.ts
+│   │   │   │   │   ├── role.guard.ts
+│   │   │   │   │   └── roles.decorator.ts
+│   │   │   │   ├── dto
+│   │   │   │   │   ├── accept-invitation.dto.ts
+│   │   │   │   │   ├── create-invitation.dto.ts
+│   │   │   │   │   ├── get-users.dto.ts
+│   │   │   │   │   ├── login.dto.ts
+│   │   │   │   │   ├── manual-description.dto.ts
+│   │   │   │   │   ├── manual-description-response.dto.ts
+│   │   │   │   │   ├── otp.dto.ts
+│   │   │   │   │   ├── pagination.dto.ts
+│   │   │   │   │   ├── password-reset.dto.ts
+│   │   │   │   │   ├── register.dto.ts
+│   │   │   │   │   ├── send-email-verification.dto.ts
+│   │   │   │   │   ├── skill-summary.dto.ts
+│   │   │   │   │   ├── twofa.dto.ts
+│   │   │   │   │   ├── update-profile.dto.ts
+│   │   │   │   │   ├── update-user.dto.ts
+│   │   │   │   │   ├── upload-cv.dto.ts
+│   │   │   │   │   ├── user-response.dto.ts
+│   │   │   │   │   ├── user-score.dto.ts
+│   │   │   │   │   └── verify-email.dto.ts
+│   │   │   │   ├── services
+│   │   │   │   │   ├── email-verification.service.ts
+│   │   │   │   │   ├── otp.service.ts
+│   │   │   │   │   └── twofa.service.ts
+│   │   │   │   └── use-cases
+│   │   │   │       ├── activate-user.use-case.ts
+│   │   │   │       ├── deactivate-user.use-case.ts
+│   │   │   │       ├── delete-user.use-case.ts
+│   │   │   │       ├── get-skill-summary.use-case.ts
+│   │   │   │       ├── get-user-score.use-case.ts
+│   │   │   │       ├── get-users.use-case.ts
+│   │   │   │       ├── google-auth.use-case.ts
+│   │   │   │       ├── login.use-case.ts
+│   │   │   │       ├── login-with-otp.use-case.ts
+│   │   │   │       ├── manual-description.use-case.ts
+│   │   │   │       ├── password-reset.use-case.ts
+│   │   │   │       ├── register.use-case.ts
+│   │   │   │       ├── send-email-verification.use-case.ts
+│   │   │   │       ├── update-avatar.use-case.ts
+│   │   │   │       ├── update-profile.use-case.ts
+│   │   │   │       ├── update-user.use-case.ts
+│   │   │   │       ├── upload-cv.use-case.ts
+│   │   │   │       └── verify-email.use-case.ts
+│   │   │   ├── auth.module.ts
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   │   ├── email-verification.entity.ts
+│   │   │   │   │   ├── invitation.entity.ts
+│   │   │   │   │   └── user.entity.ts
+│   │   │   │   ├── enums
+│   │   │   │   │   └── user-role.enum.ts
+│   │   │   │   └── interfaces
+│   │   │   │       ├── auth-repository.interface.ts
+│   │   │   │       ├── email-verification-repository.interface.ts
+│   │   │   │       ├── invitation.repository.ts
+│   │   │   │       └── jwt-payload.interface.ts
+│   │   │   └── infrastructure
+│   │   │       ├── controllers
+│   │   │       │   ├── auth.controller.ts
+│   │   │       │   ├── email-verification.controller.ts
+│   │   │       │   ├── invitation.controller.ts
+│   │   │       │   └── otp.controller.ts
+│   │   │       ├── repositories
+│   │   │       │   ├── prisma-auth.repository.ts
+│   │   │       │   ├── prisma-email-verification.repository.ts
+│   │   │       │   ├── prisma-invitation.repository.ts
+│   │   │       │   ├── user-resume.repository.ts
+│   │   │       │   ├── user-score.repository.ts
+│   │   │       │   └── user-skill.repository.ts
+│   │   │       ├── services
+│   │   │       │   ├── avatar-storage.service.ts
+│   │   │       │   ├── cv-authenticity-verification.service.ts
+│   │   │       │   ├── cv-file-storage.service.ts
+│   │   │       │   ├── cv-text-extractor.service.ts
+│   │   │       │   ├── evolving-scoring.service.ts
+│   │   │       │   ├── registration-evaluation.service.ts
+│   │   │       │   ├── skill-extraction.service.ts
+│   │   │       │   ├── skill-scoring.service.ts
+│   │   │       │   ├── skill-taxonomy.service.ts
+│   │   │       │   └── user-scoring.service.ts
+│   │   │       └── strategies
+│   │   │           ├── google.stategy.ts
+│   │   │           ├── invitation-mail.service.ts
+│   │   │           ├── invitation.service.ts
+│   │   │           ├── jwt-auth.guard.ts
+│   │   │           ├── jwt.strategy.ts
+│   │   │           └── refresh-token.strategy.ts
+│   │   ├── collab-chat
+│   │   │   ├── application
+│   │   │   │   ├── dto
+│   │   │   │   │   ├── create-chat-message.dto.ts
+│   │   │   │   │   ├── create-jitsi-session.dto.ts
+│   │   │   │   │   └── summarize-chat.dto.ts
+│   │   │   │   ├── services
+│   │   │   │   │   ├── chat-ai-analysis.service.ts
+│   │   │   │   │   ├── chat-message.service.ts
+│   │   │   │   │   └── openai-chat-analysis.service.ts
+│   │   │   │   └── use-cases
+│   │   │   │       ├── create-chat-message.use-case.ts
+│   │   │   │       ├── create-chat-message.usecase.ts
+│   │   │   │       ├── create-jitsi-session.use-case.ts
+│   │   │   │       ├── get-jitsi-session.use-case.ts
+│   │   │   │       ├── get-project-messages.use-case.ts
+│   │   │   │       ├── summarize-and-save-message.usecase.ts
+│   │   │   │       └── summarize-project-chat.usecase.ts
+│   │   │   ├── collab-chat.module.ts
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   │   └── project-chat-message.entity.ts
+│   │   │   │   └── interfaces
+│   │   │   │       ├── chat-repository.interface.ts
+│   │   │   │       ├── jitsi-session.repository.interface.ts
+│   │   │   │       └── project-chat-message.repository.interface.ts
+│   │   │   ├── infrastructure
+│   │   │   │   ├── controllers
+│   │   │   │   │   ├── chat.controller.ts
+│   │   │   │   │   ├── jitsi.controller.ts
+│   │   │   │   │   └── project-chat.controller.ts
+│   │   │   │   ├── mappers
+│   │   │   │   │   └── .gitkeep
+│   │   │   │   ├── repositories
+│   │   │   │   │   ├── prisma-chat.repository.ts
+│   │   │   │   │   ├── prisma-jitsi-session.repository.ts
+│   │   │   │   │   └── prisma-project-chat-message.repository.ts
+│   │   │   │   └── websocket
+│   │   │   │       └── project-chat.gateway.ts
+│   │   │   └── tests
+│   │   │       ├── chat-message.use-case.spec.ts
+│   │   │       ├── jitsi.controller.spec.ts
+│   │   │       └── project-chat.gateway.spec.ts
+│   │   ├── collaboration
+│   │   │   ├── application
+│   │   │   │   ├── dto
+│   │   │   │   │   ├── assign-role.dto.ts
+│   │   │   │   │   ├── convert-partner-request.dto.ts
+│   │   │   │   │   ├── create-partner.dto.ts
+│   │   │   │   │   ├── create-partner-request.dto.ts
+│   │   │   │   │   ├── create-partner-request-message.dto.ts
+│   │   │   │   │   ├── create-role.dto.ts
+│   │   │   │   │   ├── get-activity-logs.dto.ts
+│   │   │   │   │   ├── get-partner-requests.dto.ts
+│   │   │   │   │   └── update-role.dto.ts
+│   │   │   │   ├── services
+│   │   │   │   │   ├── access-control.service.ts
+│   │   │   │   │   ├── activity-log.service.ts
+│   │   │   │   │   ├── document-acces.guard.ts
+│   │   │   │   │   ├── document-access.guard.ts
+│   │   │   │   │   └── role-permission.guard.ts
+│   │   │   │   └── use-cases
+│   │   │   │       ├── add-partner-request-message.usecase.ts
+│   │   │   │       ├── assign-role.usecase.ts
+│   │   │   │       ├── convert-partner-request-to-task.usecase.ts
+│   │   │   │       ├── create-partner-request.usecase.ts
+│   │   │   │       ├── create-partner.usecase.ts
+│   │   │   │       ├── create-role.usecase.ts
+│   │   │   │       ├── delete-partener.usecase.ts
+│   │   │   │       ├── delete-role.usecase.ts
+│   │   │   │       ├── get-all-role.usecase.ts
+│   │   │   │       ├── get-partener.usecase.ts
+│   │   │   │       ├── get-partner-request-details.usecase.ts
+│   │   │   │       ├── get-partner-requests.usecase.ts
+│   │   │   │       ├── get-role-id.usecase.ts
+│   │   │   │       ├── update-partener.usecase.ts
+│   │   │   │       └── update-role.usecase.ts
+│   │   │   ├── collaboration.module.ts
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   │   ├── partner.entity.ts
+│   │   │   │   │   ├── role.entity.ts
+│   │   │   │   │   └── user-role-assignment.entity.ts
+│   │   │   │   ├── enums
+│   │   │   │   │   ├── index.ts
+│   │   │   │   │   └── request-status.enum.ts
+│   │   │   │   ├── interfaces
+│   │   │   │   │   ├── partner-repository.interface.ts
+│   │   │   │   │   ├── role-repository.interface.ts
+│   │   │   │   │   └── user-role-assignment-repository.interface.ts
+│   │   │   │   └── tokens.ts
+│   │   │   ├── infrastructure
+│   │   │   │   ├── controllers
+│   │   │   │   │   ├── activity-log.controller.ts
+│   │   │   │   │   ├── document-protected.controller.ts
+│   │   │   │   │   ├── partner.controller.ts
+│   │   │   │   │   ├── partner-request.controller.ts
+│   │   │   │   │   ├── project-protected.controller.ts
+│   │   │   │   │   └── role.controller.ts
+│   │   │   │   └── repositories
+│   │   │   │       ├── prisma-partner.repository.ts
+│   │   │   │       ├── prisma-partner-request-message.repository.ts
+│   │   │   │       ├── prisma-partner-request.repository.ts
+│   │   │   │       ├── prisma-role.repository.ts
+│   │   │   │       └── prisma-user-role-assignment.repository.ts
+│   │   │   └── tests
+│   │   │       ├── partner.controller.spec.ts
+│   │   │       ├── partner.usecase.spec.ts
+│   │   │       ├── role.controller.spec.ts
+│   │   │       └── role.usecase.spec.ts
+│   │   ├── document-management
+│   │   │   ├── application
+│   │   │   │   └── use-cases
+│   │   │   │       ├── classify-document.usecase.ts
+│   │   │   │       ├── create-document-comment.usecase.ts
+│   │   │   │       ├── get-document-classification.usecase.ts
+│   │   │   │       ├── get-document-comments.usecase.ts
+│   │   │   │       ├── get-documents-by-tags.usecase.ts
+│   │   │   │       ├── get-document-versions.usecase.ts
+│   │   │   │       ├── get-notification-rules.usecase.ts
+│   │   │   │       ├── get-project-documents.usecase.ts
+│   │   │   │       ├── get-signature-status.usecase.ts
+│   │   │   │       ├── initiate-signature.usecase.ts
+│   │   │   │       ├── reclassify-document.usecase.ts
+│   │   │   │       ├── restore-document-version.usecase.ts
+│   │   │   │       ├── set-notification-rule.usecase.ts
+│   │   │   │       ├── submit-signature.usecase.ts
+│   │   │   │       ├── trigger-notification.usecase.ts
+│   │   │   │       └── upload-document.usecase.ts
+│   │   │   ├── document.module.ts
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   │   ├── document-comment.entity.ts
+│   │   │   │   │   ├── document.entity.ts
+│   │   │   │   │   ├── document-notification.entity.ts
+│   │   │   │   │   ├── document-signature.entity.ts
+│   │   │   │   │   └── document-version.entity.ts
+│   │   │   │   ├── enums
+│   │   │   │   │   └── document-tags.enum.ts
+│   │   │   │   └── interfaces
+│   │   │   │       ├── document-comment.repository.interface.ts
+│   │   │   │       ├── document-notification.repository.interface.ts
+│   │   │   │       ├── document.repository.interface.ts
+│   │   │   │       ├── document-signature.repository.interface.ts
+│   │   │   │       └── document-version.repository.interface.ts
+│   │   │   ├── dto
+│   │   │   │   ├── classification-result.dto.ts
+│   │   │   │   ├── create-document-comment.dto.ts
+│   │   │   │   ├── get-project-documents.dto.ts
+│   │   │   │   ├── initiate-signature.dto.ts
+│   │   │   │   ├── set-notification-rule.dto.ts
+│   │   │   │   ├── submit-signature.dto.ts
+│   │   │   │   └── upload-document.dto.ts
+│   │   │   ├── infrastructure
+│   │   │   │   ├── repositories
+│   │   │   │   │   ├── prisma-document-comment.repository.ts
+│   │   │   │   │   ├── prisma-document-notification.repository.ts
+│   │   │   │   │   ├── prisma-document.repository.ts
+│   │   │   │   │   ├── prisma-document-signature.repository.ts
+│   │   │   │   │   └── prisma-document-version.repository.ts
+│   │   │   │   └── services
+│   │   │   │       ├── file-storage.service.ts
+│   │   │   │       ├── openai-classifier.service.ts
+│   │   │   │       └── text-extractor.service.ts
+│   │   │   └── presentation
+│   │   │       └── controllers
+│   │   │           ├── document-classification.controller.ts
+│   │   │           ├── document-comment.controller.ts
+│   │   │           ├── document.controller.ts
+│   │   │           ├── document-notification.controller.ts
+│   │   │           ├── document-signature.controller.ts
+│   │   │           ├── document-version.controller.ts
+│   │   │           └── file.controller.ts
+│   │   ├── project-management
+│   │   │   ├── application
+│   │   │   │   ├── dto
+│   │   │   │   │   ├── add-project-members.dto.ts
+│   │   │   │   │   ├── assign-checklist.dto.ts
+│   │   │   │   │   ├── assign-custom-status.dto.ts
+│   │   │   │   │   ├── assign-many-task.dto.ts
+│   │   │   │   │   ├── checklist.dto.ts
+│   │   │   │   │   ├── create-checklist.dto.ts
+│   │   │   │   │   ├── create-comment.dto.ts
+│   │   │   │   │   ├── create-custom-status.dto.ts
+│   │   │   │   │   ├── create-project.dto.ts
+│   │   │   │   │   ├── create-project-from-template.dto.ts
+│   │   │   │   │   ├── create-task-column.dto.ts
+│   │   │   │   │   ├── create-task.dto.ts
+│   │   │   │   │   ├── find-projects-by-user.dto.ts
+│   │   │   │   │   ├── google-auth.dto.ts
+│   │   │   │   │   ├── project-member-dto.ts
+│   │   │   │   │   ├── simulation.dto.ts
+│   │   │   │   │   ├── status-alert.dto.ts
+│   │   │   │   │   ├── update-custom-status.dto.ts
+│   │   │   │   │   ├── update-project.dto.ts
+│   │   │   │   │   ├── update-task-column.dto.ts
+│   │   │   │   │   ├── update-task.dto.ts
+│   │   │   │   │   ├── upload-pdf.dto.ts
+│   │   │   │   │   └── watch-calendar.dto.ts
+│   │   │   │   ├── services
+│   │   │   │   │   ├── custom-status-integration.service.ts
+│   │   │   │   │   ├── status-monitoring.service.ts
+│   │   │   │   │   ├── status-notification.service.ts
+│   │   │   │   │   └── task-status-sync.service.ts
+│   │   │   │   └── use-cases
+│   │   │   │       ├── add-project-members.use-case.ts
+│   │   │   │       ├── assign-checklist.use-case.ts
+│   │   │   │       ├── assign-custom-status.use-case.ts
+│   │   │   │       ├── assign-many-task.usecase.ts
+│   │   │   │       ├── assign-task.use-case.ts
+│   │   │   │       ├── create-checklist.use-case.ts
+│   │   │   │       ├── create-comment.use-case.ts
+│   │   │   │       ├── create-custom-status.use-case.ts
+│   │   │   │       ├── create-project-from-pdf.use-case.ts
+│   │   │   │       ├── create-project-from-template.use-case.ts
+│   │   │   │       ├── create-project.use-case.ts
+│   │   │   │       ├── create-simulation.use-case.ts
+│   │   │   │       ├── create-task-column.use-case.ts
+│   │   │   │       ├── create-task.use-case.ts
+│   │   │   │       ├── delete-project.use-case.ts
+│   │   │   │       ├── delete-task-column.use-case.ts
+│   │   │   │       ├── delete-task.use-case.ts
+│   │   │   │       ├── estimate-project.use-case.ts
+│   │   │   │       ├── find-projects-by-user.use-case.ts
+│   │   │   │       ├── get-all-projects.use-case.ts
+│   │   │   │       ├── get-all-projects-with-details.use-case.ts
+│   │   │   │       ├── get-custom-statuses.use-case.ts
+│   │   │   │       ├── get-project-member.usecase.ts
+│   │   │   │       ├── get-project-progress.use-case.ts
+│   │   │   │       ├── get-project-tasks-by-view.use-case.ts
+│   │   │   │       ├── get-simulation.use-case.ts
+│   │   │   │       ├── get-task-columns.use-case.ts
+│   │   │   │       ├── initialize-default-columns.use-case.ts
+│   │   │   │       ├── initialize-default-statuses.use-case.ts
+│   │   │   │       ├── mail.service.ts
+│   │   │   │       ├── reorder-task-columns.use-case.ts
+│   │   │   │       ├── smart-reminder.ts
+│   │   │   │       ├── tracking-progress.ts
+│   │   │   │       ├── update-custom-status.use-case.ts
+│   │   │   │       ├── update-project.use-case.ts
+│   │   │   │       ├── update-status-task-auto.usecase.ts
+│   │   │   │       ├── update-task-column-order.use-case.ts
+│   │   │   │       ├── update-task-column.use-case.ts
+│   │   │   │       └── update-task.use-case.ts
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   │   ├── checklist.entity.ts
+│   │   │   │   │   ├── checklist-item.entity.ts
+│   │   │   │   │   ├── checklist-template.entity.ts
+│   │   │   │   │   ├── comment.entity.ts
+│   │   │   │   │   ├── custom-status.entity.ts
+│   │   │   │   │   ├── project.entity.ts
+│   │   │   │   │   ├── project-member.entity.ts
+│   │   │   │   │   ├── project-template.entity.ts
+│   │   │   │   │   ├── project-with-details.entity.ts
+│   │   │   │   │   ├── reminder-notification.entity.ts
+│   │   │   │   │   ├── simulation.entity.ts
+│   │   │   │   │   ├── status-alert.entity.ts
+│   │   │   │   │   ├── status-duration.entity.ts
+│   │   │   │   │   ├── task-column.entity.ts
+│   │   │   │   │   ├── task.entity.ts
+│   │   │   │   │   └── task-template.entity.ts
+│   │   │   │   ├── enums
+│   │   │   │   │   ├── checklist.enums.ts
+│   │   │   │   │   ├── comment.enums.ts
+│   │   │   │   │   ├── project.enums.ts
+│   │   │   │   │   └── task.enums.ts
+│   │   │   │   ├── interfaces
+│   │   │   │   │   ├── ai-estimation.service.interface.ts
+│   │   │   │   │   ├── checklist-item-repository.interface.ts
+│   │   │   │   │   ├── checklist-repository.interface.ts
+│   │   │   │   │   ├── comment.repository.interface.ts
+│   │   │   │   │   ├── custom-status-repository.interface.ts
+│   │   │   │   │   ├── IOpenAIAIService.interface.ts
+│   │   │   │   │   ├── project-member-repository.interface.ts
+│   │   │   │   │   ├── project-repository.interface.ts
+│   │   │   │   │   ├── project-template.repository.interface.ts
+│   │   │   │   │   ├── reminder-notification.repository.interface.ts
+│   │   │   │   │   ├── simulation-repository.interface.ts
+│   │   │   │   │   ├── simulation-service.interface.ts
+│   │   │   │   │   ├── status-alert-repository.interface.ts
+│   │   │   │   │   ├── status-duration-repository.interface.ts
+│   │   │   │   │   ├── task-column-repository.interface.ts
+│   │   │   │   │   └── task-repository.interface.ts
+│   │   │   │   └── mappers
+│   │   │   │       └── template-mappers.ts
+│   │   │   ├── examples
+│   │   │   │   └── custom-status-example.ts
+│   │   │   ├── infrastructure
+│   │   │   │   ├── adapters
+│   │   │   │   │   ├── gpt-checklist.service.ts
+│   │   │   │   │   ├── mail.module.ts
+│   │   │   │   │   ├── openai-estimation.service.ts
+│   │   │   │   │   ├── openapi.servervice-v2.ts
+│   │   │   │   │   ├── openapi.service.ts
+│   │   │   │   │   └── project-generator.ts
+│   │   │   │   ├── controllers
+│   │   │   │   │   ├── checklist.controller.ts
+│   │   │   │   │   ├── comment.controller.ts
+│   │   │   │   │   ├── create-project-from-pdf.controller.ts
+│   │   │   │   │   ├── custom-status.controller.ts
+│   │   │   │   │   ├── project.controller.ts
+│   │   │   │   │   ├── project-template.controller..ts
+│   │   │   │   │   ├── reminder.controller.ts
+│   │   │   │   │   ├── simulation.controller.ts
+│   │   │   │   │   ├── status-alert.controller.ts
+│   │   │   │   │   ├── status-assignment.controller.ts
+│   │   │   │   │   ├── task-column.controller.ts
+│   │   │   │   │   ├── task.controller.ts
+│   │   │   │   │   └── task-status-sync.controller.ts
+│   │   │   │   ├── repositories
+│   │   │   │   │   ├── custom-status.repository.ts
+│   │   │   │   │   ├── prisma-checklist-item.repository.ts
+│   │   │   │   │   ├── prisma-checklist.repository.ts
+│   │   │   │   │   ├── prisma-comment.repository.ts
+│   │   │   │   │   ├── prisma-project-member.repository.ts
+│   │   │   │   │   ├── prisma-project.repository.ts
+│   │   │   │   │   ├── prisma-project-template.repository.ts
+│   │   │   │   │   ├── prisma-reminder-notification.repository.ts
+│   │   │   │   │   ├── prisma-simulation.repository.ts
+│   │   │   │   │   ├── prisma-task-column.repository.ts
+│   │   │   │   │   ├── prisma-task.repository.ts
+│   │   │   │   │   ├── status-alert.repository.ts
+│   │   │   │   │   └── status-duration.repository.ts
+│   │   │   │   ├── services
+│   │   │   │   │   └── ai-simulation.service.ts
+│   │   │   │   └── websocket
+│   │   │   │       ├── events
+│   │   │   │       │   └── project-update.event.ts
+│   │   │   │       ├── project.gateway.ts
+│   │   │   │       └── socket-getway.ts
+│   │   │   └── project-management.module.ts
+│   │   └── survey
+│   │       ├── application
+│   │       │   ├── dto
+│   │       │   │   ├── create-survey.dto.ts
+│   │       │   │   ├── survey-query.dto.ts
+│   │       │   │   ├── survey-response.dto.ts
+│   │       │   │   ├── update-survey.dto.ts
+│   │       │   │   └── vote.dto.ts
+│   │       │   └── use-cases
+│   │       │       ├── change-survey-status.use-case.ts
+│   │       │       ├── create-survey.use-case.ts
+│   │       │       ├── delete-survey.use-case.ts
+│   │       │       ├── get-survey-results.use-case.ts
+│   │       │       ├── get-surveys.use-case.ts
+│   │       │       ├── get-survey.use-case.ts
+│   │       │       ├── update-survey.use-case.ts
+│   │       │       ├── vote-multiple.use-case.ts
+│   │       │       └── vote.use-case.ts
+│   │       ├── domain
+│   │       │   ├── entities
+│   │       │   │   ├── survey.entity.ts
+│   │       │   │   ├── survey-option.entity.ts
+│   │       │   │   ├── survey-results.entity.ts
+│   │       │   │   └── vote.entity.ts
+│   │       │   ├── enums
+│   │       │   │   └── survey.enums.ts
+│   │       │   └── interfaces
+│   │       │       ├── survey-option-repository.interface.ts
+│   │       │       ├── survey-repository.interface.ts
+│   │       │       ├── survey-results-repository.interface.ts
+│   │       │       └── vote-repository.interface.ts
+│   │       ├── infrastructure
+│   │       │   ├── controllers
+│   │       │   │   ├── survey.controller.ts
+│   │       │   │   └── vote.controller.ts
+│   │       │   └── repositories
+│   │       │       ├── prisma-survey-option.repository.ts
+│   │       │       ├── prisma-survey.repository.ts
+│   │       │       ├── prisma-survey-results.repository.ts
+│   │       │       └── prisma-vote.repository.ts
+│   │       └── survey.module.ts
+│   ├── rag
+│   │   ├── data
+│   │   │   └── tasks.ts
+│   │   ├── embedding
+│   │   │   └── embedding.service.ts
+│   │   ├── rag.controller.ts
+│   │   ├── rag.module.ts
+│   │   ├── rag.service.ts
+│   │   └── utils
+│   │       └── cosine-similarity.ts
+│   └── shared
+│       └── ai
+│           ├── format-json.ts
+│           └── openai.service.ts
+├── test
+│   ├── app.e2e-spec.ts
+│   ├── e2e
+│   │   └── project-auth.e2e-spec.ts
+│   └── jest-e2e.json
+├── tsconfig.build.json
+├── tsconfig.json
+└── uploads
+    ├── logo_zylos.jpeg
+    └── pdf
+        ├── 1750975646736-213393664.pdf
+        ├── 1750977047732-666397144.pdf
+        ├── 1750977264211-616597058.pdf
+        ├── 1750977796460-184127638.pdf
+        └── 1750978167465-611568393.pdf
+
+137 directories, 492 files

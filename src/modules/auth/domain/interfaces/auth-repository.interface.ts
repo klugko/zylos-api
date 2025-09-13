@@ -45,4 +45,6 @@ export interface AuthRepository {
     userId: string,
     newSkills: string[]
   ): Promise<{ mergedSkills: string[]; newSkillsCount: number }>;
+
+  findByGoogleId(googleId: string): Promise<User | null>;
 }

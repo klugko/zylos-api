@@ -72,6 +72,8 @@ import {
   ManualDescriptionErrorResponseDto,
 } from "@modules/auth/application/dto/manual-description-response.dto";
 import { Response } from "express";
+import { LoginWithGoogleIdTokenUseCase } from "@modules/auth/application/use-cases/login-with-google-idtoken.use-case";
+import { GoogleLoginDto } from "@modules/auth/application/dto/google-login.dto";
 
 @ApiTags("Auth")
 @Controller("api/v1/auth")
@@ -93,7 +95,8 @@ export class AuthController {
     private readonly getSkillSummaryUC: GetSkillSummaryUseCase,
     private readonly manualDescriptionUC: ManualDescriptionUseCase,
     @Inject("AuthRepository") private readonly authRepo: any,
-    private readonly avatarStorage: AvatarStorageService
+    private readonly avatarStorage: AvatarStorageService,
+    private readonly loginWithGoogleIdTokenUC: LoginWithGoogleIdTokenUseCase,
   ) {}
 
   @Get("users")
@@ -242,6 +245,17 @@ export class AuthController {
   @UseGuards(AuthGuard("google"))
   @ApiOperation({ summary: "Connexion Google OAuth" })
   googleLogin() {}
+
+  @Post('google/verify')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Connexion via Google (ID Token) sans redirection' })
+  @ApiBody({ type: GoogleLoginDto })
+  @ApiResponse({ status: 200, description: 'Authentification Google réussie' })
+  async googleVerify(@Body() dto: GoogleLoginDto, @Req() req: any) {
+    const ipAddress = req.ip || req.connection?.remoteAddress;
+    const userAgent = req.headers['user-agent'];
+    return this.loginWithGoogleIdTokenUC.execute(dto.credential, dto.nonce, ipAddress, userAgent);
+  }
 
   @Get("google/callback")
   @UseGuards(AuthGuard("google"))
